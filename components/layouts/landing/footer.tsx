@@ -12,7 +12,7 @@ export const Footer = () => {
 
     if (shouldHideHeaderFooter) return null
     return (
-        <footer id="footer" className="container py-12 sm:py-20 mx-auto">
+        <footer id="footer" className="container py-12 sm:py-20 mx-auto p-2">
             <div className="p-0 rounded-2xl">
                 <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-x-12 gap-y-8">
                     <div className="col-span-full xl:col-span-2">

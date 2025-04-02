@@ -10,22 +10,30 @@ import {
   Flame,
   File,
 } from "lucide-react";
-import { Button, ButtonProps } from "../ui/button";
+import { Button } from "../ui/button";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import React from "react";
+
+// Define a custom ButtonProps type
+interface CustomButtonProps {
+  variant?: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link";
+  value?: string;
+  className?: string;
+}
 
 interface FeaturesProps {
-  icon?: JSX.Element;
+  icon?: React.ReactNode;
   title: string;
   description: string;
-  cta?: ButtonProps;
+  cta?: CustomButtonProps;
   image?: string;
   video?: string;
   badgeText?: string;
   placeHolderImage?: {
-    icon: JSX.Element;
+    icon: React.ReactNode;
     bgColor: string;
     iconColor: string;
   };
@@ -118,13 +126,6 @@ export const Features = () => {
                   <Badge className="absolute -top-4 -right-4 rotate-12 bg-white text-black border-2 border-black text-xs font-semibold px-2 py-1 rounded-none hover:bg-white">
                     {badgeText}
                   </Badge>
-                  {/* <Image
-                  src={"/images/placeholder.png"}
-                  alt={title}
-                  width={750}
-                  height={750}
-                  className="border-2 border-border dark:border-darkBorder shadow-light dark:shadow-dark rounded-l-2xl aspect-square object-cover"
-                /> */}
 
                   <div
                     className={cn(
@@ -140,15 +141,13 @@ export const Features = () => {
                 {/* Content */}
                 <div className="flex flex-col justify-start items-start gap-4 lg:pt-12">
                   <h5 className="text-2xl lg:text-4xl font-extrabold">
-                    {" "}
                     {title}
                   </h5>
                   <p className="font-medium lg:text-lg text-muted-foreground">
                     {description}
                   </p>
-                  <Button {...cta}>
-                    {" "}
-                    <Link href="/signup">{cta?.value}</Link>{" "}
+                  <Button variant={cta?.variant || "default"}>
+                    <Link href="/signup">{cta?.value}</Link>
                   </Button>
                 </div>
               </div>

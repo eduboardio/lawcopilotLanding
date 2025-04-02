@@ -3,10 +3,14 @@ import { cn } from "@/lib/utils";
 import { Shield, Wallet, Zap } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import React from "react";
+
+// Define the JSX.Element type if not recognized
+type JSXElement = React.ReactElement<any, any>;
 
 interface BenefitsProps {
   badge: {
-    icon: JSX.Element;
+    icon: JSXElement;
     bgColor: string;
   };
   title: string;
@@ -45,12 +49,12 @@ const benefitList: BenefitsProps[] = [
 
 export const Benefits = () => {
   return (
-    <section id="benefits" className="container py-24 sm:py-32 mx-auto">
+    <section id="benefits" className="container py-24 sm:py-32 mx-auto p-4">
       <div className="grid lg:grid-cols-1 gap-10 lg:gap-16">
         <h2 className="text-3xl md:text-4xl text-center font-bold mb-8">
           Why Should I use Law Copilot?
         </h2>
-
+        
         <div className="grid lg:grid-cols-3 gap-8 w-full">
           {benefitList.map(({ badge, title, description }) => (
             <Card
@@ -74,22 +78,20 @@ export const Benefits = () => {
             </Card>
           ))}
         </div>
-
+        
         <p className="text-center md:text-lg font-medium text-muted-foreground">
           Built by legal tech experts in collaboration with practicing
           attorneys, Law Copilot combines cutting-edge AI technology with deep
           legal industry expertise. Be among the first to revolutionize your
           legal practice
         </p>
-
+        
         <div className="flex flex-col justify-center items-center gap-4 md:flex-row">
           <Button className="w-full md:w-max">
-            {" "}
-            <Link href="/signup"> Schedule A Demo </Link>{" "}
+            <Link href="/signup"> Schedule A Demo </Link>
           </Button>
           <Button className="w-full md:w-max" variant={"secondary"}>
-            {" "}
-            <Link href="/#faq"> Read FAQs </Link>{" "}
+            <Link href="/#faq"> Read FAQs </Link>
           </Button>
         </div>
       </div>

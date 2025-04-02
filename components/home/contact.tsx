@@ -58,13 +58,13 @@ export const Contact = () => {
   }
 
   return (
-    <section id="contact" className="container py-24 sm:py-32">
+    <section id="contact" className="container py-24 sm:py-32 p-4">
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <div className="mb-4">
-            <h2 className="text-lg text-primary mb-2 tracking-wider">
+            {/* <h2 className="text-lg text-primary mb-2 tracking-wider">
               Contact
-            </h2>
+            </h2> */}
 
             <h2 className="text-3xl md:text-4xl font-bold">Get In Touch</h2>
           </div>

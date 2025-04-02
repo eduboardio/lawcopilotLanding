@@ -25,6 +25,8 @@ import { Logo } from "@/components/logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ROUTES_WITHOUT_NAVBAR } from "@/constants";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { useTheme } from "next-themes";
 
 interface RouteProps {
     href: string;
@@ -54,7 +56,7 @@ const routeList: RouteProps[] = [
         label: "FAQs",
     },
     {
-        href: "/contact",
+        href: "/#contact",
         label: "Contact",
     },
 ];
@@ -80,6 +82,7 @@ export const Navbar = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [scrolled, setScrolled] = useState<boolean>(false);
     const pathname = usePathname();
+    const { theme } = useTheme();
     const shouldHideHeaderNavbar = ROUTES_WITHOUT_NAVBAR.includes(pathname);
 
     useEffect(() => {
@@ -100,14 +103,15 @@ export const Navbar = () => {
     return (
         <header
             className={cn(
-                "z-40 h-20 flex justify-center items-center mb-1.5 sticky top-0 !text-black",
+                "z-40 h-20 flex justify-centers items-center sticky top-0 transition-colors duration-300",
                 {
-                    "bg-[#DFE5F2]": pathname === "/" || !scrolled,
-                    "bg-background dark:!text-white": scrolled,
+                    "bg-[#DFE5F2] !text-black": pathname === "/" && !scrolled && theme === "light",
+                    "bg-gray-900 !text-white": pathname === "/" && !scrolled && theme === "dark",
+                    "bg-background !text-black dark:!text-white": scrolled || pathname !== "/",
                 }
             )}
         >
-            <div className="container mx-auto flex justify-between items-center">
+            <div className="container mx-auto flex justify-between items-center p-2">
                 {/* Logo and Navigation */}
                 <div className="flex justify-between lg:w-max lg:justify-center items-center gap-10 w-full">
                     <Logo />
@@ -149,6 +153,11 @@ export const Navbar = () => {
 
                                 <SheetFooter className="flex-col sm:flex-col justify-start items-start w-full">
                                     <Separator className="mb-2" />
+
+                                    <div className="flex items-center justify-between w-full mb-4">
+                                        <span>Switch Theme</span>
+                                        <ThemeToggle />
+                                    </div>
 
                                     <CallToActions
                                         classes={{
@@ -211,12 +220,12 @@ export const Navbar = () => {
                 </div>
 
                 <div className="hidden lg:flex justify-center items-center gap-4">
+                    <ThemeToggle />
                     <CallToActions
                         classes={{
                             container: "flex gap-4",
                         }}
                     />
-                    {/* <ThemeToggle /> */}
                 </div>
             </div>
         </header>

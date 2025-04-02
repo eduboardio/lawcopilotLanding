@@ -4,6 +4,7 @@ import { CTA } from "@/components/home/cta";
 import { FAQ } from "@/components/home/faq";
 import { Features } from "@/components/home/features";
 import { Hero } from "@/components/home/hero";
+import { Contact } from "@/components/home/contact";
 import BlurFade from "@/components/ui/blur-fade";
 
 const BLUR_FADE_DELAY = 0.25;
@@ -14,6 +15,7 @@ const sections = [
   { component: <Features /> },
   { component: <Benefits /> },
   { component: <FAQ /> },
+  { component: <Contact /> }, 
   { component: <Banner /> },
   { component: <CTA /> },
 ];
