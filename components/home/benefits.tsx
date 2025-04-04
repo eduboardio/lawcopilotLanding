@@ -5,12 +5,11 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import React from "react";
 
-// Define the JSX.Element type if not recognized
-type JSXElement = React.ReactElement<any, any>;
+type IconElement = React.ReactNode;
 
 interface BenefitsProps {
   badge: {
-    icon: JSXElement;
+    icon: IconElement;
     bgColor: string;
   };
   title: string;

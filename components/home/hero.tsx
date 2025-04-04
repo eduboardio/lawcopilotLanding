@@ -4,10 +4,8 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import HeroVideoDialog from "../ui/hero-video-dialog";
 import Image from "next/image";
-import { useTheme } from "next-themes";
 
 export const Hero = () => {
-  const { theme } = useTheme();
   
   return (
     <section

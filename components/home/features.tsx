@@ -1,23 +1,15 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  FileSearch,
-  FileText,
   Globe,
-  ShieldAlert,
-  Antenna,
-  User,
   SearchCheck,
   Flame,
   File,
 } from "lucide-react";
 import { Button } from "../ui/button";
-import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 
-// Define a custom ButtonProps type
 interface CustomButtonProps {
   variant?: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link";
   value?: string;
