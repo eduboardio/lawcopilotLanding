@@ -178,7 +178,7 @@ export default function SignUp() {
                 </Button>
               )}
               {step === 1 ? (
-                <Button onClick={nextStep} className="ml-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white">
+                <Button onClick={nextStep} className=" ml-auto bg-foreground hover:bg-foreground/80 text-background">
                   Continue
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
