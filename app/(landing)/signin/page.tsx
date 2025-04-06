@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,10 +9,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowRight, Mail, Lock } from "lucide-react";
 import Link from "next/link";
 import BlurFade from "@/components/ui/blur-fade";
-import { useTheme } from "next-themes";
 
 export default function SignIn() {
-  const { theme } = useTheme();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -116,7 +114,7 @@ export default function SignIn() {
           </Card>
 
           <div className="text-center text-sm">
-            <span className="text-gray-600 dark:text-gray-400">Don't have an account?</span>{" "}
+            <span className="text-gray-600 dark:text-gray-400">Don&apos;t have an account?</span>{" "}
             <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
               Sign up
             </Link>
