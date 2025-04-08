@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronRight, Play } from "lucide-react";
 import Link from "next/link";
 import HeroVideoDialog from "../ui/hero-video-dialog";
-import Image from "next/image";
+// import Image from "next/image";
 import { useState } from "react";
 
 export const Hero = () => {

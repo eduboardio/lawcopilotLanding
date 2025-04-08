@@ -12,15 +12,15 @@ import {
 import { Separator } from "@/components/ui/separator";
 import {
     NavigationMenu,
-    NavigationMenuContent,
+    // NavigationMenuContent,
     NavigationMenuItem,
-    NavigationMenuLink,
+    // NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger,
+    // NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import { Logo } from "@/components/logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -61,28 +61,28 @@ const routeList: RouteProps[] = [
     },
 ];
 
-const featureList: FeatureProps[] = [
-    {
-        title: "Showcase Your Value ",
-        description: "Highlight how your product solves user problems.",
-    },
-    {
-        title: "Build Trust",
-        description:
-            "Leverages social proof elements to establish trust and credibility.",
-    },
-    {
-        title: "Capture Leads",
-        description:
-            "Make your lead capture form visually appealing and strategically.",
-    },
-];
+// const featureList: FeatureProps[] = [
+//     {
+//         title: "Showcase Your Value ",
+//         description: "Highlight how your product solves user problems.",
+//     },
+//     {
+//         title: "Build Trust",
+//         description:
+//             "Leverages social proof elements to establish trust and credibility.",
+//     },
+//     {
+//         title: "Capture Leads",
+//         description:
+//             "Make your lead capture form visually appealing and strategically.",
+//     },
+// ];
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [scrolled, setScrolled] = useState<boolean>(false);
     const pathname = usePathname();
-    const { theme } = useTheme();
+    // const { theme } = useTheme();s
     const shouldHideHeaderNavbar = ROUTES_WITHOUT_NAVBAR.includes(pathname);
 
     useEffect(() => {
