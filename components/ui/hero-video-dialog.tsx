@@ -22,6 +22,8 @@ interface HeroVideoProps {
   thumbnailSrc: string;
   thumbnailAlt?: string;
   className?: string;
+  isOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 const animationVariants = {
@@ -73,15 +75,27 @@ export default function HeroVideoDialog({
   thumbnailSrc,
   thumbnailAlt = "Video thumbnail",
   className,
+  isOpen = false,
+  onOpenChange,
 }: HeroVideoProps) {
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isVideoOpenInternal, setIsVideoOpenInternal] = useState(false);
   const selectedAnimation = animationVariants[animationStyle];
+  
+  // Use either controlled or uncontrolled state
+  const videoOpen = onOpenChange ? isOpen : isVideoOpenInternal;
+  const setVideoOpen = (open: boolean) => {
+    if (onOpenChange) {
+      onOpenChange(open);
+    } else {
+      setIsVideoOpenInternal(open);
+    }
+  };
 
   return (
     <div className={cn("relative", className)}>
       <div
         className="relative cursor-pointer group"
-        onClick={() => setIsVideoOpen(true)}
+        onClick={() => setVideoOpen(true)}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -89,18 +103,17 @@ export default function HeroVideoDialog({
           alt={thumbnailAlt}
           width={1920}
           height={1080}
-          className="w-full transition-all duration-200 group-hover:brightness-[0.8] ease-out shadow-lg border"
+          className="w-full transition-all duration-300 group-hover:brightness-[0.85] ease-out shadow-lg rounded-xl border border-white/10"
         />
-        <div className="absolute inset-0 flex items-center justify-center group-hover:scale-100 scale-[0.9] transition-all duration-200 ease-out rounded-2xl">
-          <div className="bg-primary/10 flex items-center justify-center rounded-full backdrop-blur-md size-28">
+        <div className="absolute inset-0 flex items-center justify-center group-hover:scale-105 scale-100 transition-all duration-300 ease-out">
+          <div className="bg-primary/20 flex items-center justify-center rounded-full backdrop-blur-md size-28 border border-white/20 shadow-lg">
             <div
-              className={`flex items-center justify-center bg-gradient-to-b from-primary/30 to-primary shadow-md rounded-full size-20 transition-all ease-out duration-200 relative group-hover:scale-[1.2] scale-100`}
+              className="flex items-center justify-center bg-gradient-to-b from-primary/70 to-primary shadow-lg rounded-full size-20 transition-all ease-out duration-300 relative group-hover:scale-110 scale-100"
             >
               <Play
-                className="size-8 text-white fill-white group-hover:scale-105 scale-100 transition-transform duration-200 ease-out"
+                className="size-8 text-white fill-white group-hover:scale-105 scale-100 transition-transform duration-300 ease-out"
                 style={{
-                  filter:
-                    "drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06))",
+                  filter: "drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06))",
                 }}
               />
             </div>
@@ -108,23 +121,27 @@ export default function HeroVideoDialog({
         </div>
       </div>
       <AnimatePresence>
-        {isVideoOpen && (
+        {videoOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            onClick={() => setIsVideoOpen(false)}
+            onClick={() => setVideoOpen(false)}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md"
           >
             <motion.div
               {...selectedAnimation}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
               className="relative w-full max-w-4xl aspect-video mx-4 md:mx-0"
+              onClick={(e) => e.stopPropagation()}
             >
-              <motion.button className="absolute -top-16 right-0 text-white text-xl bg-neutral-900/50 ring-1 backdrop-blur-md rounded-full p-2 dark:bg-neutral-100/50 dark:text-black">
+              <motion.button 
+                className="absolute -top-16 right-0 text-white text-xl bg-black/30 border border-white/20 ring-1 ring-white/10 backdrop-blur-md rounded-full p-2 hover:bg-black/50 transition-all duration-300"
+                onClick={() => setVideoOpen(false)}
+              >
                 <XIcon className="size-5" />
               </motion.button>
-              <div className="size-full border-2 border-white rounded-2xl overflow-hidden isolate z-[1] relative">
+              <div className="size-full border-2 border-white/20 rounded-2xl overflow-hidden isolate z-[1] relative shadow-2xl">
                 <iframe
                   src={videoSrc}
                   className="size-full rounded-2xl"

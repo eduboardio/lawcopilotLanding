@@ -2,141 +2,182 @@
 import { Logo } from "@/components/logo";
 import { Separator } from "@/components/ui/separator";
 import { ROUTES_WITHOUT_FOOTER } from "@/constants";
-import { Linkedin } from "lucide-react";
+import { Linkedin, Twitter, Facebook, Instagram, Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export const Footer = () => {
     const pathname = usePathname();
     const shouldHideHeaderFooter = ROUTES_WITHOUT_FOOTER.includes(pathname);
 
-    if (shouldHideHeaderFooter) return null
+    if (shouldHideHeaderFooter) return null;
+    
     return (
-        <footer id="footer" className="container py-12 sm:py-20 mx-auto p-2">
-            <div className="p-0 rounded-2xl">
-                <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-x-12 gap-y-8">
+        <footer id="footer" className="w-full bg-slate-50 dark:bg-slate-900/50 border-t border-border">
+            <div className="container py-10 mx-auto px-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-x-12 gap-y-10">
                     <div className="col-span-full xl:col-span-2">
-                        <div className="flex flex-col justify-start items-start gap-4">
+                        <div className="flex flex-col justify-start items-start gap-6">
                             <Logo type="LOGO_ONLY" />
-                            <p className="font-semibold"> AI-Powered Legal Excellence </p>
+                            <div className="space-y-4">
+                                <p className="text-lg font-semibold text-primary"> AI-Powered Legal Excellence </p>
+                                <p className="text-muted-foreground pr-8">Transforming legal practice with cutting-edge AI technology for research, document drafting, and case analysis.</p>
+                            </div>
+                            
+                            {/* Newsletter Signup */}
+                            <div className="w-full mt-2">
+                                <p className="font-medium mb-2">Subscribe to our newsletter</p>
+                                <div className="flex gap-2">
+                                    <Input 
+                                        type="email" 
+                                        placeholder="Enter your email" 
+                                        className="max-w-xs" 
+                                    />
+                                    <Button size="sm" variant="default">Subscribe</Button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-4">
                         <h3 className="font-bold text-lg">Company</h3>
-                        <div>
-                            <Link href="#about" className="opacity-60 hover:opacity-100">
+                        <div className="flex flex-col gap-2.5">
+                            <Link href="#about" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 About Us
                             </Link>
-                        </div>
-
-                        <div>
-                            <Link href="#contact" className="opacity-60 hover:opacity-100">
+                            <Link href="#contact" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 Contact Us
                             </Link>
-                        </div>
-
-                        <div>
-                            <Link href="#careers" className="opacity-60 hover:opacity-100">
+                            <Link href="#careers" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 Careers
+                            </Link>
+                            <Link href="#press" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                Press
                             </Link>
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-4">
                         <h3 className="font-bold text-lg">Features</h3>
-                        <div>
-                            <Link
-                                href="#risk-analysis"
-                                className="opacity-60 hover:opacity-100"
-                            >
+                        <div className="flex flex-col gap-2.5">
+                            <Link href="#risk-analysis" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 Risk Analysis
                             </Link>
-                        </div>
-
-                        <div>
-                            <Link
-                                href="#document-drafting"
-                                className="opacity-60 hover:opacity-100"
-                            >
+                            <Link href="#document-drafting" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 Document Drafting
                             </Link>
-                        </div>
-
-                        <div>
-                            <Link
-                                href="#legal-research"
-                                className="opacity-60 hover:opacity-100"
-                            >
+                            <Link href="#legal-research" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 Legal Research
                             </Link>
-                        </div>
-
-                        <div>
-                            <Link
-                                href="#translation"
-                                className="opacity-60 hover:opacity-100"
-                            >
+                            <Link href="#translation" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 Translation
                             </Link>
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-4">
                         <h3 className="font-bold text-lg">Support</h3>
-                        <div>
-                            <Link href="#faq" className="opacity-60 hover:opacity-100">
+                        <div className="flex flex-col gap-2.5">
+                            <Link href="#faq" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 FAQ
                             </Link>
-                        </div>
-
-                        <div>
-                            <Link href="#guides" className="opacity-60 hover:opacity-100">
+                            <Link href="#guides" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 User Guides
                             </Link>
-                        </div>
-
-                        <div>
-                            <Link href="#feedback" className="opacity-60 hover:opacity-100">
+                            <Link href="#feedback" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 Feedback
+                            </Link>
+                            <Link href="#contact-support" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                Contact Support
                             </Link>
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-4">
                         <h3 className="font-bold text-lg">Legal</h3>
-                        <div>
-                            <Link href="#terms" className="opacity-60 hover:opacity-100">
+                        <div className="flex flex-col gap-2.5">
+                            <Link href="#terms" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 Terms of Service
                             </Link>
-                        </div>
-
-                        <div>
-                            <Link href="#privacy" className="opacity-60 hover:opacity-100">
+                            <Link href="#privacy" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 Privacy Policy
                             </Link>
-                        </div>
-
-                        <div>
-                            <Link href="#security" className="opacity-60 hover:opacity-100">
+                            <Link href="#security" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 Security
+                            </Link>
+                            <Link href="#compliance" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                Compliance
                             </Link>
                         </div>
                     </div>
                 </div>
 
-                <Separator className="my-6" />
-                <section className="flex flex-col justify-start md:flex-row md:justify-between items-start md:items-center w-full gap-4">
-                    <h4 className="">&copy; 2024 Law Copilot. All rights reserved.</h4>
-                    <div className="flex justify-center items-center gap-2">
+                <div className="mt-12 pb-4">
+                    <div className="flex flex-col md:flex-row gap-6 items-start">
+                        <div className="flex items-center gap-2 opacity-70">
+                            <MapPin size={16} />
+                            <span className="text-sm">123 Legal Tech Avenue, San Francisco, CA 94107</span>
+                        </div>
+                        <div className="flex items-center gap-2 opacity-70">
+                            <Mail size={16} />
+                            <span className="text-sm">contact@lawcopilot.ai</span>
+                        </div>
+                        <div className="flex items-center gap-2 opacity-70">
+                            <Phone size={16} />
+                            <span className="text-sm">+1 (555) 123-4567</span>
+                        </div>
+                    </div>
+                </div>
+
+                <Separator className="my-4" />
+                
+                <section className="flex flex-col md:flex-row md:justify-between center items-center md:items-center w-full gap-6">
+                    <h4 className="text-sm text-muted-foreground">&copy; 2024 Law Copilot. All rights reserved.</h4>
+                    <div className="flex justify-center items-center gap-4">
                         <Link
-                            href={"https://www.linkedin.com/company/eduboard-io/"}
+                            href={"https://www.linkedin.com/company/lawcopilot/"}
                             target="_blank"
                             className="hover:cursor-pointer"
+                            aria-label="LinkedIn"
                         >
                             <Linkedin
-                                size={30}
-                                className="text-blue-500 hover:text-blue-600  "
+                                size={20}
+                                className="text-muted-foreground hover:text-primary transition-colors"
+                            />
+                        </Link>
+                        <Link
+                            href={"https://twitter.com/lawcopilot"}
+                            target="_blank"
+                            className="hover:cursor-pointer"
+                            aria-label="Twitter"
+                        >
+                            <Twitter
+                                size={20}
+                                className="text-muted-foreground hover:text-primary transition-colors"
+                            />
+                        </Link>
+                        <Link
+                            href={"https://facebook.com/lawcopilot"}
+                            target="_blank"
+                            className="hover:cursor-pointer"
+                            aria-label="Facebook"
+                        >
+                            <Facebook
+                                size={20}
+                                className="text-muted-foreground hover:text-primary transition-colors"
+                            />
+                        </Link>
+                        <Link
+                            href={"https://instagram.com/lawcopilot"}
+                            target="_blank"
+                            className="hover:cursor-pointer"
+                            aria-label="Instagram"
+                        >
+                            <Instagram
+                                size={20}
+                                className="text-muted-foreground hover:text-primary transition-colors"
                             />
                         </Link>
                     </div>

@@ -87,9 +87,7 @@ export const Navbar = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            const heroSection = document.getElementById("hero");
-            const heroHeight = heroSection?.offsetHeight ?? 0;
-            const isScrolled = window.scrollY > heroHeight;
+            const isScrolled = window.scrollY > 20;
             if (isScrolled !== scrolled) {
                 setScrolled(isScrolled);
             }
@@ -100,50 +98,50 @@ export const Navbar = () => {
     }, [scrolled]);
 
     if (shouldHideHeaderNavbar) return null;
+    
     return (
         <header
             className={cn(
-                "z-40 h-20 flex justify-centers items-center sticky top-0 transition-colors duration-300",
+                "z-40 h-20 flex justify-center items-center sticky top-0 transition-all duration-300 backdrop-blur-md",
                 {
-                    "bg-[#DFE5F2] !text-black": pathname === "/" && !scrolled && theme === "light",
-                    "bg-gray-900 !text-white": pathname === "/" && !scrolled && theme === "dark",
-                    "bg-background !text-black dark:!text-white": scrolled || pathname !== "/",
+                    "bg-transparent": pathname === "/" && !scrolled,
+                    "bg-background/80 shadow-sm border-b border-border/20": scrolled,
                 }
             )}
         >
             <div className="container mx-auto flex justify-between items-center p-2">
-                {/* Logo and Navigation */}
-                <div className="flex justify-between lg:w-max lg:justify-center items-center gap-10 w-full">
+                {/* Logo */}
+                <div className="flex justify-between lg:justify-start items-center gap-10 w-full">
                     <Logo />
-                    {/* <!-- Mobile --> */}
+                    
+                    {/* Mobile Menu */}
                     <div className="flex items-center lg:hidden">
                         <Sheet open={isOpen} onOpenChange={setIsOpen}>
                             <SheetTrigger asChild>
-                                <Menu
-                                    onClick={() => setIsOpen(!isOpen)}
-                                    className="cursor-pointer lg:hidden"
-                                />
+                                <Button variant="ghost" size="icon" className="lg:hidden">
+                                    <Menu className="h-6 w-6" />
+                                </Button>
                             </SheetTrigger>
 
                             <SheetContent
-                                side="left"
-                                className="flex flex-col justify-between rounded-tr-2xl rounded-br-2xl bg-card border-secondary"
+                                side="right"
+                                className="flex flex-col justify-between rounded-l-2xl bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border-l border-border/20"
                             >
                                 <div>
-                                    <SheetHeader className="mb-4 ml-4">
-                                        <SheetTitle className="flex items-center">
+                                    <SheetHeader className="mb-6">
+                                        <SheetTitle className="flex items-center justify-center">
                                             <Logo type="FULL" />
                                         </SheetTitle>
                                     </SheetHeader>
 
-                                    <div className="flex flex-col gap-2">
+                                    <div className="flex flex-col gap-1">
                                         {routeList.map(({ href, label }) => (
                                             <Button
                                                 key={href}
                                                 onClick={() => setIsOpen(false)}
                                                 asChild
                                                 variant="ghost"
-                                                className="justify-start text-base"
+                                                className="justify-start text-lg font-medium"
                                             >
                                                 <Link href={href}>{label}</Link>
                                             </Button>
@@ -151,79 +149,56 @@ export const Navbar = () => {
                                     </div>
                                 </div>
 
-                                <SheetFooter className="flex-col sm:flex-col justify-start items-start w-full">
-                                    <Separator className="mb-2" />
+                                <SheetFooter className="flex-col sm:flex-col justify-start items-start w-full mt-auto">
+                                    <Separator className="my-4" />
 
                                     <div className="flex items-center justify-between w-full mb-4">
-                                        <span>Switch Theme</span>
+                                        <span className="font-medium">Theme</span>
                                         <ThemeToggle />
                                     </div>
 
                                     <CallToActions
                                         classes={{
-                                            container: "w-full flex flex-col gap-4",
-                                            button: "w-full",
+                                            container: "w-full grid grid-cols-2 gap-4",
+                                            buttonSignIn: "w-full bg-secondary/80 hover:bg-secondary",
+                                            buttonGetStarted: "w-full bg-primary hover:bg-primary/90"
                                         }}
                                     />
                                 </SheetFooter>
                             </SheetContent>
                         </Sheet>
                     </div>
-                    {/* <!-- Desktop --> */}
-                    <NavigationMenu className="hidden lg:block mx-auto">
-                        <NavigationMenuList>
-                            {false && (
-                                <NavigationMenuItem>
-                                    <NavigationMenuTrigger className="bg-card text-base">
-                                        Features
-                                    </NavigationMenuTrigger>
-                                    <NavigationMenuContent>
-                                        <div className="grid w-[600px] grid-cols-2 gap-5 p-4">
-                                            <Image
-                                                src="/images/placeholder.png"
-                                                alt="RadixLogo"
-                                                className="h-full w-full rounded-md object-cover"
-                                                width={600}
-                                                height={600}
-                                            />
-                                            <ul className="flex flex-col gap-2">
-                                                {featureList.map(({ title, description }) => (
-                                                    <li
-                                                        key={title}
-                                                        className="rounded-md p-3 text-sm hover:bg-muted"
-                                                    >
-                                                        <p className="mb-1 font-semibold leading-none text-foreground">
-                                                            {title}
-                                                        </p>
-                                                        <p className="line-clamp-2 text-muted-foreground">
-                                                            {description}
-                                                        </p>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </NavigationMenuContent>
+                    
+                    {/* Desktop Navigation */}
+                    <NavigationMenu className="hidden lg:flex mx-auto">
+                        <NavigationMenuList className="gap-1">
+                            {routeList.map(({ href, label }) => (
+                                <NavigationMenuItem key={href}>
+                                    <Link 
+                                        href={href} 
+                                        className={cn(
+                                            "px-4 py-2 text-base font-medium rounded-md transition-colors",
+                                            pathname === href || (href === "/#hero" && pathname === "/") 
+                                                ? "text-primary" 
+                                                : "hover:text-primary"
+                                        )}
+                                    >
+                                        {label}
+                                    </Link>
                                 </NavigationMenuItem>
-                            )}
-
-                            <NavigationMenuItem>
-                                {routeList.map(({ href, label }) => (
-                                    <NavigationMenuLink key={href} asChild>
-                                        <Link href={href} className="text-base px-2">
-                                            {label}
-                                        </Link>
-                                    </NavigationMenuLink>
-                                ))}
-                            </NavigationMenuItem>
+                            ))}
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
 
+                {/* Desktop Call to Actions */}
                 <div className="hidden lg:flex justify-center items-center gap-4">
                     <ThemeToggle />
                     <CallToActions
                         classes={{
                             container: "flex gap-4",
+                            buttonSignIn: "bg-secondary/80 hover:bg-secondary text-secondary-foreground",
+                            buttonGetStarted: "bg-primary hover:bg-primary/90 text-primary-foreground"
                         }}
                     />
                 </div>
@@ -235,20 +210,25 @@ export const Navbar = () => {
 interface CallToActionsProps {
     classes?: {
         container?: string;
-        button?: string;
+        buttonSignIn?: string;
+        buttonGetStarted?: string;
     };
 }
+
 const CallToActions = ({ classes }: CallToActionsProps) => {
     return (
         <div className={classes?.container}>
-            <Button variant={"secondary"} className={classes?.button}>
-                <Link href={`/signin`}> Sign in </Link>
+            <Button 
+                variant="secondary" 
+                className={cn("font-medium", classes?.buttonSignIn)}
+            >
+                <Link href={`/signin`}>Sign in</Link>
             </Button>
             <Button
-                className={`bg-foreground hover:bg-foreground/80 text-background ${classes?.button}`}
+                className={cn("font-medium", classes?.buttonGetStarted)}
                 asChild
             >
-                <Link href={`/signup`}> Get Started</Link>
+                <Link href={`/signup`}>Get Started</Link>
             </Button>
         </div>
     );

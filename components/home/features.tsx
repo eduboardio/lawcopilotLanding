@@ -3,12 +3,14 @@ import {
   SearchCheck,
   Flame,
   File,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
+import { motion } from "framer-motion";
 
 interface CustomButtonProps {
   variant?: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link";
@@ -96,8 +98,20 @@ const featureList: FeaturesProps[] = [
 
 export const Features = () => {
   return (
-    <section id="features" className="w-full flex justify-center items-center">
+    <section id="features" className="w-full bg-gradient-to-b from-background to-secondary/5">
       <div className="container py-24 sm:py-32 w-full">
+        <div className="text-center mb-16">
+          <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20 border-none">
+            POWERFUL FEATURES
+          </Badge>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            AI-Powered Legal Solutions
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            Revolutionize your legal practice with cutting-edge AI technology designed specifically for legal professionals.
+          </p>
+        </div>
+
         <div className="flex flex-col justify-center items-center gap-24 w-full mx-auto max-w-6xl">
           {featureList.map(
             (
@@ -107,44 +121,70 @@ export const Features = () => {
               <div
                 key={title}
                 className={cn(
-                  "w-full flex flex-col lg:flex-row justify-start items-start gap-8",
+                  "w-full flex flex-col lg:flex-row justify-start items-start gap-12 relative",
                   {
                     "lg:flex-row-reverse": index % 2 !== 0,
                   }
                 )}
               >
                 {/* Image */}
-                <div className="relative w-full lg:max-w-md">
-                  <Badge className="absolute -top-4 -right-4 rotate-12 bg-white text-black border-2 border-black text-xs font-semibold px-2 py-1 rounded-none hover:bg-white">
+                <div className="relative w-full lg:max-w-md group">
+                  <Badge className="absolute -top-4 -right-4 rotate-12 bg-black dark:bg-white text-white dark:text-black font-bold px-3 py-1.5 rounded-sm z-10 shadow-lg">
                     {badgeText}
                   </Badge>
 
                   <div
                     className={cn(
-                      "border-2 border-border dark:border-darkBorder shadow-light dark:shadow-dark rounded-l-2xl aspect-square object-cover flex justify-center items-center",
+                      "border-2 border-border dark:border-darkBorder shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl aspect-square object-cover flex justify-center items-center group-hover:scale-105",
                       placeHolderImage?.bgColor,
                       placeHolderImage?.iconColor
                     )}
                   >
                     {placeHolderImage?.icon}
                   </div>
+                  
+                  {/* Decorative elements */}
+                  <div className="absolute -z-10 -bottom-6 -right-6 h-24 w-24 bg-primary/10 rounded-full blur-xl"></div>
+                  <div className="absolute -z-10 -top-6 -left-6 h-16 w-16 bg-secondary/20 rounded-full blur-lg"></div>
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-col justify-start items-start gap-4 lg:pt-12">
-                  <h5 className="text-2xl lg:text-4xl font-extrabold">
+                <div className="flex flex-col justify-start items-start gap-6 lg:pt-8">
+                  <h3 className="text-2xl lg:text-4xl font-bold tracking-tight">
                     {title}
-                  </h5>
-                  <p className="font-medium lg:text-lg text-muted-foreground">
+                  </h3>
+                  <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
                     {description}
                   </p>
-                  <Button variant={cta?.variant || "default"}>
-                    <Link href="/signup">{cta?.value}</Link>
+                  <Button 
+                    variant={cta?.variant || "default"} 
+                    className="group transition-all duration-300 hover:pr-8"
+                  >
+                    <Link href="/signup" className="flex items-center gap-2">
+                      {cta?.value} 
+                      <ArrowRight className="size-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-2 transition-all duration-300" />
+                    </Link>
                   </Button>
                 </div>
+                
+                {/* Background elements for depth */}
+                <div className={cn(
+                  "absolute -z-10 w-full h-full blur-3xl opacity-20",
+                  index % 2 === 0 ? "left-0" : "right-0",
+                  placeHolderImage?.bgColor
+                )}></div>
               </div>
             )
           )}
+        </div>
+        
+        <div className="mt-24 text-center">
+          <Button 
+            size="lg" 
+            className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium text-base px-8"
+          >
+            <Link href="/signup">Explore All Features</Link>
+          </Button>
         </div>
       </div>
     </section>
