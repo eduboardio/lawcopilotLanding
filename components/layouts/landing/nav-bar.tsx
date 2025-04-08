@@ -26,17 +26,17 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ROUTES_WITHOUT_NAVBAR } from "@/constants";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { useTheme } from "next-themes";
+// import { useTheme } from "next-themes";
 
 interface RouteProps {
     href: string;
     label: string;
 }
 
-interface FeatureProps {
-    title: string;
-    description: string;
-}
+// interface FeatureProps {
+//     title: string;
+//     description: string;
+// }
 
 const routeList: RouteProps[] = [
     {
