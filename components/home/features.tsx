@@ -111,7 +111,7 @@ const featureList: FeaturesProps[] = [
 
 export const Features = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [animations, setAnimations] = useState<(LottieAnimationData | null)[]>([]);
+  // const [animations, setAnimations] = useState<(LottieAnimationData | null)[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(false);
   
@@ -171,37 +171,37 @@ export const Features = () => {
   //   loadAnimations();
   // }, [isMounted]);
   
-  useEffect(() => {
-    if (!isMounted) return;
+  // useEffect(() => {
+  //   if (!isMounted) return;
     
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         if (entry.isIntersecting) {
+  //           entry.target.classList.add("show");
+  //         }
+  //       });
+  //     },
+  //     { threshold: 0.1 }
+  //   );
 
-    const section = sectionRef.current;
-    const features = section?.querySelectorAll(".feature-item");
+  //   const section = sectionRef.current;
+  //   const features = section?.querySelectorAll(".feature-item");
     
-    if (features) {
-      features.forEach((feature) => {
-        observer.observe(feature);
-      });
-    }
+  //   if (features) {
+  //     features.forEach((feature) => {
+  //       observer.observe(feature);
+  //     });
+  //   }
 
-    return () => {
-      if (features) {
-        features.forEach((feature) => {
-          observer.unobserve(feature);
-        });
-      }
-    };
-  }, [animations, isMounted]);
+  //   return () => {
+  //     if (features) {
+  //       features.forEach((feature) => {
+  //         observer.unobserve(feature);
+  //       });
+  //     }
+  //   };
+  // }, [animations, isMounted]);
 
   return (
     <section 
@@ -282,7 +282,7 @@ export const Features = () => {
                     "lottie-container border-2 border-border rounded-xl backdrop-blur-sm shadow-xl aspect-square overflow-hidden flex justify-center items-center",
                     "bg-background/50 dark:bg-white/10"
                   )}>
-                    {isMounted && animations[index] ? (
+                    {/* {isMounted && animations[index] ? (
                       <div className={cn(
                         "w-full h-full p-4",
                         isDarkMode ? "bg-white/5" : "bg-transparent" 
@@ -307,7 +307,7 @@ export const Features = () => {
                          index === 2 ? <Globe className="w-1/3 h-1/3" /> :
                          <File className="w-1/3 h-1/3" />}
                       </div>
-                    )}
+                    )} */}
                   </div>
                   
                   {/* Decorative elements */}
