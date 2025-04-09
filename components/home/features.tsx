@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Globe,
   SearchCheck,
@@ -9,8 +11,8 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import React from "react";
-// import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import Lottie from "lottie-react";
 
 interface CustomButtonProps {
   variant?: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link";
@@ -23,14 +25,9 @@ interface FeaturesProps {
   title: string;
   description: string;
   cta?: CustomButtonProps;
-  image?: string;
-  video?: string;
+  lottiePath: string;
   badgeText?: string;
-  placeHolderImage?: {
-    icon: React.ReactNode;
-    bgColor: string;
-    iconColor: string;
-  };
+  accentColor: string;
 }
 
 const featureList: FeaturesProps[] = [
@@ -43,11 +40,8 @@ const featureList: FeaturesProps[] = [
       variant: "secondary",
       value: "Try Research Engine",
     },
-    placeHolderImage: {
-      icon: <SearchCheck className="size-1/3" />,
-      bgColor: "bg-[#DEF7E5]",
-      iconColor: "text-[#50C972]",
-    },
+    lottiePath: "/search.json",
+    accentColor: "from-[#50C972]/20 to-transparent",
   },
   {
     badgeText: "SMART",
@@ -58,11 +52,8 @@ const featureList: FeaturesProps[] = [
       variant: "secondary",
       value: "Analyze Your Case",
     },
-    placeHolderImage: {
-      icon: <Flame className="size-1/3" />,
-      bgColor: "bg-[#FFD2B2]",
-      iconColor: "text-[#FE9B54]",
-    },
+    lottiePath: "/analyze.json",
+    accentColor: "from-[#FE9B54]/20 to-transparent",
   },
   {
     badgeText: "GLOBAL",
@@ -73,11 +64,8 @@ const featureList: FeaturesProps[] = [
       value: "See Languages",
       variant: "secondary",
     },
-    placeHolderImage: {
-      icon: <Globe className="size-1/3" />,
-      bgColor: "bg-[#E9DFFF]",
-      iconColor: "text-[#8F5BFF]",
-    },
+    lottiePath: "/global.json",
+    accentColor: "from-[#8F5BFF]/20 to-transparent",
   },
   {
     badgeText: "PRECISE",
@@ -88,24 +76,145 @@ const featureList: FeaturesProps[] = [
       variant: "secondary",
       value: "Start Drafting",
     },
-    placeHolderImage: {
-      icon: <File className="size-1/3" />,
-      bgColor: "bg-[#CCF9FF]",
-      iconColor: "text-[#44A7FF]",
-    },
+    lottiePath: "/document.json",
+    accentColor: "from-[#44A7FF]/20 to-transparent",
   },
 ];
 
 export const Features = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [animations, setAnimations] = useState<any[]>([]);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  
+  useEffect(() => {
+    // Check if dark mode is active
+    const checkDarkMode = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    };
+    
+    // Check initial state
+    checkDarkMode();
+    
+    // Set up mutation observer to detect theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          checkDarkMode();
+        }
+      });
+    });
+    
+    // Start observing document for class changes
+    observer.observe(document.documentElement, { attributes: true });
+    
+    // Cleanup
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    // Load Lottie animations dynamically
+    const loadAnimations = async () => {
+      try {
+        const loadedAnimations = await Promise.all(
+          featureList.map(async (feature) => {
+            try {
+              const response = await fetch(feature.lottiePath);
+              if (!response.ok) throw new Error(`Failed to load: ${feature.lottiePath}`);
+              return await response.json();
+            } catch (error) {
+              console.error(`Error loading animation: ${feature.lottiePath}`, error);
+              return null; // Return null for failed loads
+            }
+          })
+        );
+        
+        setAnimations(loadedAnimations);
+      } catch (error) {
+        console.error("Error loading animations:", error);
+      }
+    };
+    
+    loadAnimations();
+  }, []);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const section = sectionRef.current;
+    const features = section?.querySelectorAll(".feature-item");
+    
+    if (features) {
+      features.forEach((feature) => {
+        observer.observe(feature);
+      });
+    }
+
+    return () => {
+      if (features) {
+        features.forEach((feature) => {
+          observer.unobserve(feature);
+        });
+      }
+    };
+  }, [animations]); // Re-run when animations are loaded
+
   return (
-    <section id="features" className="w-full bg-gradient-to-b from-background to-secondary/5">
-      <div className="container py-24 sm:py-32 w-full">
+    <section 
+      id="features" 
+      ref={sectionRef}
+      className="w-full bg-gradient-to-b from-background to-secondary/5 py-24 sm:py-32"
+    >
+      <style jsx global>{`
+        .feature-item {
+          opacity: 0;
+          transform: translateY(40px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .feature-item.show {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        .feature-item:nth-child(even).show {
+          transition-delay: 0.2s;
+        }
+        
+        .lottie-container {
+          transition: all 0.5s ease-out;
+        }
+        
+        .feature-item:hover .lottie-container {
+          transform: scale(1.05);
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .feature-badge {
+          transition: all 0.3s ease-out;
+        }
+        
+        .feature-item:hover .feature-badge {
+          transform: rotate(0deg) !important;
+        }
+      `}</style>
+
+      <div className="container w-full mx-auto px-4">
         <div className="text-center mb-16">
           <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20 border-none">
             POWERFUL FEATURES
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 relative ">
             AI-Powered Legal Solutions
+            <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Revolutionize your legal practice with cutting-edge AI technology designed specifically for legal professionals.
@@ -115,32 +224,54 @@ export const Features = () => {
         <div className="flex flex-col justify-center items-center gap-24 w-full mx-auto max-w-6xl">
           {featureList.map(
             (
-              { title, description, badgeText, cta, placeHolderImage },
+              { title, description, badgeText, cta, lottiePath, accentColor, icon },
               index
             ) => (
               <div
                 key={title}
                 className={cn(
-                  "w-full flex flex-col lg:flex-row justify-start items-start gap-12 relative",
+                  "w-full flex flex-col lg:flex-row justify-start items-start gap-12 relative feature-item",
                   {
                     "lg:flex-row-reverse": index % 2 !== 0,
                   }
                 )}
               >
-                {/* Image */}
+                {/* Lottie Animation or Fallback */}
                 <div className="relative w-full lg:max-w-md group">
-                  <Badge className="absolute -top-4 -right-4 rotate-12 bg-black dark:bg-white text-white dark:text-black font-bold px-3 py-1.5 rounded-sm z-10 shadow-lg">
+                  <Badge className="absolute -top-4 -right-4 rotate-12 bg-black dark:bg-white text-white dark:text-black font-bold px-3 py-1.5 rounded-sm z-10 shadow-lg feature-badge">
                     {badgeText}
                   </Badge>
 
-                  <div
-                    className={cn(
-                      "border-2 border-border dark:border-darkBorder shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl aspect-square object-cover flex justify-center items-center group-hover:scale-105",
-                      placeHolderImage?.bgColor,
-                      placeHolderImage?.iconColor
+                  <div className={cn(
+                    "lottie-container border-2 border-border rounded-xl backdrop-blur-sm shadow-xl aspect-square overflow-hidden flex justify-center items-center",
+                    "bg-background/50 dark:bg-white" // Changed to white background in dark mode
+                  )}>
+                    {animations[index] ? (
+                      <div className={cn(
+                        "w-full h-full p-4",
+                        isDarkMode ? "bg-white" : "bg-transparent" // White background for lottie in dark mode
+                      )}>
+                        <Lottie 
+                          animationData={animations[index]} 
+                          loop={true} 
+                          className="w-full h-full"
+                        />
+                      </div>
+                    ) : (
+                      // Fallback to the icon if animation fails to load
+                      <div className={cn(
+                        "w-full h-full flex items-center justify-center text-5xl",
+                        index === 0 ? "text-[#50C972]" : 
+                        index === 1 ? "text-[#FE9B54]" : 
+                        index === 2 ? "text-[#8F5BFF]" : 
+                        "text-[#44A7FF]"
+                      )}>
+                        {index === 0 ? <SearchCheck className="w-1/3 h-1/3" /> :
+                         index === 1 ? <Flame className="w-1/3 h-1/3" /> :
+                         index === 2 ? <Globe className="w-1/3 h-1/3" /> :
+                         <File className="w-1/3 h-1/3" />}
+                      </div>
                     )}
-                  >
-                    {placeHolderImage?.icon}
                   </div>
                   
                   {/* Decorative elements */}
@@ -167,23 +298,27 @@ export const Features = () => {
                   </Button>
                 </div>
                 
-                {/* Background elements for depth */}
+                {/* Background gradient based on feature accent color */}
                 <div className={cn(
                   "absolute -z-10 w-full h-full blur-3xl opacity-20",
                   index % 2 === 0 ? "left-0" : "right-0",
-                  placeHolderImage?.bgColor
+                  `bg-gradient-to-r ${accentColor}`
                 )}></div>
               </div>
             )
           )}
         </div>
         
-        <div className="mt-24 text-center">
+        <div className="mt-24 text-center relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10 rounded-full blur-2xl opacity-50"></div>
           <Button 
             size="lg" 
-            className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium text-base px-8"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium text-base px-8 py-6 rounded-full relative"
           >
-            <Link href="/signup">Explore All Features</Link>
+            <Link href="/signup" className="flex items-center gap-2">
+              Explore All Features
+              <ArrowRight className="size-4 ml-2" />
+            </Link>
           </Button>
         </div>
       </div>
