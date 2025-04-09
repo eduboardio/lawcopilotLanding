@@ -184,12 +184,12 @@ export const Benefits = () => {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8 w-full">
-            {benefitList.map(({ icon, title, description, points, gradient }, index) => (
+            {benefitList.map(({ icon, title, description, points, gradient }) => (
               <Card
                 key={title}
                 className={cn(
                   "benefit-card border border-border/40 dark:border-border/40 shadow-xl hover:shadow-2xl transition-all duration-500",
-                  "overflow-hidden group backdrop-blur-sm bg-background/80 dark:bg-background/80", // Consistent opacity for both modes
+                  "overflow-hidden group backdrop-blur-sm bg-background/80 dark:bg-background/80",
                   "relative z-10"
                 )}
               >
@@ -197,7 +197,7 @@ export const Benefits = () => {
                 <div className={cn(
                   "absolute inset-0 bg-gradient-to-br", 
                   gradient, 
-                  "opacity-40 dark:opacity-40 transition-opacity duration-300 group-hover:opacity-60" // Consistent opacity in both modes
+                  "opacity-40 dark:opacity-40 transition-opacity duration-300 group-hover:opacity-60"
                 )}></div>
                 
                 {/* Shine effect border */}

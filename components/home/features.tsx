@@ -30,6 +30,20 @@ interface FeaturesProps {
   accentColor: string;
 }
 
+interface LottieAnimationData {
+  v: string;
+  fr: number;
+  ip: number;
+  op: number;
+  w: number;
+  h: number;
+  nm: string;
+  ddd: number;
+  assets: any[];
+  layers: any[];
+  [key: string]: any;
+}
+
 const featureList: FeaturesProps[] = [
   {
     badgeText: "FAST",
@@ -83,19 +97,16 @@ const featureList: FeaturesProps[] = [
 
 export const Features = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [animations, setAnimations] = useState<any[]>([]);
+  const [animations, setAnimations] = useState<(LottieAnimationData | null)[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   
   useEffect(() => {
-    // Check if dark mode is active
     const checkDarkMode = () => {
       setIsDarkMode(document.documentElement.classList.contains('dark'));
     };
     
-    // Check initial state
     checkDarkMode();
     
-    // Set up mutation observer to detect theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'class') {
@@ -104,15 +115,12 @@ export const Features = () => {
       });
     });
     
-    // Start observing document for class changes
     observer.observe(document.documentElement, { attributes: true });
-    
-    // Cleanup
+
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    // Load Lottie animations dynamically
     const loadAnimations = async () => {
       try {
         const loadedAnimations = await Promise.all(
@@ -123,7 +131,7 @@ export const Features = () => {
               return await response.json();
             } catch (error) {
               console.error(`Error loading animation: ${feature.lottiePath}`, error);
-              return null; // Return null for failed loads
+              return null;
             }
           })
         );
@@ -165,7 +173,7 @@ export const Features = () => {
         });
       }
     };
-  }, [animations]); // Re-run when animations are loaded
+  }, [animations]);
 
   return (
     <section 
@@ -224,7 +232,7 @@ export const Features = () => {
         <div className="flex flex-col justify-center items-center gap-24 w-full mx-auto max-w-6xl">
           {featureList.map(
             (
-              { title, description, badgeText, cta, lottiePath, accentColor, icon },
+              { title, description, badgeText, cta, accentColor },
               index
             ) => (
               <div
@@ -244,12 +252,12 @@ export const Features = () => {
 
                   <div className={cn(
                     "lottie-container border-2 border-border rounded-xl backdrop-blur-sm shadow-xl aspect-square overflow-hidden flex justify-center items-center",
-                    "bg-background/50 dark:bg-white" // Changed to white background in dark mode
+                    "bg-background/50 dark:bg-white"
                   )}>
                     {animations[index] ? (
                       <div className={cn(
                         "w-full h-full p-4",
-                        isDarkMode ? "bg-white" : "bg-transparent" // White background for lottie in dark mode
+                        isDarkMode ? "bg-white" : "bg-transparent" 
                       )}>
                         <Lottie 
                           animationData={animations[index]} 
