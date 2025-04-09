@@ -113,8 +113,17 @@ export const Features = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [animations, setAnimations] = useState<(LottieAnimationData | null)[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
   
+  // Set isMounted to true when component mounts (client-side only)
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  
+  // Only run dark mode detection after component is mounted (client-side)
+  useEffect(() => {
+    if (!isMounted) return;
+    
     const checkDarkMode = () => {
       setIsDarkMode(document.documentElement.classList.contains('dark'));
     };
@@ -132,9 +141,12 @@ export const Features = () => {
     observer.observe(document.documentElement, { attributes: true });
 
     return () => observer.disconnect();
-  }, []);
+  }, [isMounted]);
 
+  // Load animations only after component is mounted
   useEffect(() => {
+    if (!isMounted) return;
+    
     const loadAnimations = async () => {
       try {
         const loadedAnimations = await Promise.all(
@@ -157,9 +169,11 @@ export const Features = () => {
     };
     
     loadAnimations();
-  }, []);
+  }, [isMounted]);
   
   useEffect(() => {
+    if (!isMounted) return;
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -187,7 +201,7 @@ export const Features = () => {
         });
       }
     };
-  }, [animations]);
+  }, [animations, isMounted]);
 
   return (
     <section 
@@ -266,12 +280,12 @@ export const Features = () => {
 
                   <div className={cn(
                     "lottie-container border-2 border-border rounded-xl backdrop-blur-sm shadow-xl aspect-square overflow-hidden flex justify-center items-center",
-                    "bg-background/50 dark:bg-white"
+                    "bg-background/50 dark:bg-white/10"
                   )}>
-                    {animations[index] ? (
+                    {isMounted && animations[index] ? (
                       <div className={cn(
                         "w-full h-full p-4",
-                        isDarkMode ? "bg-white" : "bg-transparent" 
+                        isDarkMode ? "bg-white/5" : "bg-transparent" 
                       )}>
                         <Lottie 
                           animationData={animations[index]} 
@@ -280,7 +294,7 @@ export const Features = () => {
                         />
                       </div>
                     ) : (
-                      // Fallback to the icon if animation fails to load
+                      // Fallback to the icon if animation fails to load or during SSR
                       <div className={cn(
                         "w-full h-full flex items-center justify-center text-5xl",
                         index === 0 ? "text-[#50C972]" : 
