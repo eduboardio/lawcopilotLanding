@@ -121,27 +121,27 @@ export const Features = () => {
   }, []);
   
   // Only run dark mode detection after component is mounted (client-side)
-  useEffect(() => {
-    if (!isMounted) return;
+  // useEffect(() => {
+  //   if (!isMounted) return;
     
-    const checkDarkMode = () => {
-      setIsDarkMode(document.documentElement.classList.contains('dark'));
-    };
+  //   const checkDarkMode = () => {
+  //     setIsDarkMode(document.documentElement.classList.contains('dark'));
+  //   };
     
-    checkDarkMode();
+  //   checkDarkMode();
     
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class') {
-          checkDarkMode();
-        }
-      });
-    });
+  //   const observer = new MutationObserver((mutations) => {
+  //     mutations.forEach((mutation) => {
+  //       if (mutation.attributeName === 'class') {
+  //         checkDarkMode();
+  //       }
+  //     });
+  //   });
     
-    observer.observe(document.documentElement, { attributes: true });
+  //   observer.observe(document.documentElement, { attributes: true });
 
-    return () => observer.disconnect();
-  }, [isMounted]);
+  //   return () => observer.disconnect();
+  // }, [isMounted]);
 
   // Load animations only after component is mounted
   useEffect(() => {
