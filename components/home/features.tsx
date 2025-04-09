@@ -114,46 +114,28 @@ export const Features = () => {
   const [animations, setAnimations] = useState<(LottieAnimationData | null)[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(false);
-  
-  // Set isMounted to true when component mounts (client-side only)
+
+  // Use useEffect for client-side only code
   useEffect(() => {
+    // Set isMounted to true when component mounts (client-side only)
     setIsMounted(true);
-    
-    // Only check dark mode after component is mounted
-    if (typeof window !== 'undefined') {
-      setIsDarkMode(document.documentElement.classList.contains('dark'));
-    }
-  }, []);
-  
-  // Only run dark mode detection after component is mounted
-  useEffect(() => {
-    if (!isMounted) return;
-    
-    const checkDarkMode = () => {
-      setIsDarkMode(document.documentElement.classList.contains('dark'));
-    };
-    
-    // Initial check
-    checkDarkMode();
-    
+
+    // Check for dark mode
+    const isDark = document.documentElement.classList.contains('dark');
+    setIsDarkMode(isDark);
+
     // Set up observer for theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'class') {
-          checkDarkMode();
+          setIsDarkMode(document.documentElement.classList.contains('dark'));
         }
       });
     });
-    
+
     observer.observe(document.documentElement, { attributes: true });
 
-    return () => observer.disconnect();
-  }, [isMounted]);
-
-  // Load animations only after component is mounted
-  useEffect(() => {
-    if (!isMounted) return;
-    
+    // Load animations
     const loadAnimations = async () => {
       try {
         const loadedAnimations = await Promise.all(
@@ -168,21 +150,17 @@ export const Features = () => {
             }
           })
         );
-        
+
         setAnimations(loadedAnimations);
       } catch (error) {
         console.error("Error loading animations:", error);
       }
     };
-    
+
     loadAnimations();
-  }, [isMounted]);
-  
-  // Intersection Observer for animations - only run client-side
-  useEffect(() => {
-    if (!isMounted) return;
-    
-    const observer = new IntersectionObserver(
+
+    // Setup intersection observer for animations
+    const animationObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -195,25 +173,53 @@ export const Features = () => {
 
     const section = sectionRef.current;
     const features = section?.querySelectorAll(".feature-item");
-    
+
     if (features) {
       features.forEach((feature) => {
-        observer.observe(feature);
+        animationObserver.observe(feature);
       });
     }
 
+    // Cleanup
     return () => {
+      observer.disconnect();
+
       if (features) {
         features.forEach((feature) => {
-          observer.unobserve(feature);
+          animationObserver.unobserve(feature);
         });
       }
     };
-  }, [animations, isMounted]);
+  }, []); // Empty dependency array means this runs once on mount
+
+  // If not mounted (server-side), render a minimal version that doesn't depend on browser APIs
+  if (!isMounted) {
+    return (
+      <section id="features" className="w-full py-24 sm:py-32">
+        <div className="container w-full mx-auto px-4">
+          <div className="text-center mb-16">
+            <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20 border-none">
+              POWERFUL FEATURES
+            </Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 relative">
+              AI-Powered Legal Solutions
+              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+              Revolutionize your legal practice with cutting-edge AI technology designed specifically for legal professionals.
+            </p>
+          </div>
+
+          {/* Simple loading state */}
+          <div className="text-center">Loading features...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <section 
-      id="features" 
+    <section
+      id="features"
       ref={sectionRef}
       className="w-full bg-gradient-to-b from-background to-secondary/5 py-24 sm:py-32"
     >
@@ -290,34 +296,34 @@ export const Features = () => {
                     "lottie-container border-2 border-border rounded-xl backdrop-blur-sm shadow-xl aspect-square overflow-hidden flex justify-center items-center",
                     "bg-background/50 dark:bg-white/10"
                   )}>
-                    {isMounted && animations[index] ? (
+                    {animations[index] ? (
                       <div className={cn(
                         "w-full h-full p-4",
-                        isDarkMode ? "bg-white/5" : "bg-transparent" 
+                        isDarkMode ? "bg-white/5" : "bg-transparent"
                       )}>
-                        <Lottie 
-                          animationData={animations[index]} 
-                          loop={true} 
+                        <Lottie
+                          animationData={animations[index]}
+                          loop={true}
                           className="w-full h-full"
                         />
                       </div>
                     ) : (
-                      // Fallback to the icon if animation fails to load or during SSR
+                      // Fallback to the icon if animation fails to load
                       <div className={cn(
                         "w-full h-full flex items-center justify-center text-5xl",
-                        index === 0 ? "text-[#50C972]" : 
-                        index === 1 ? "text-[#FE9B54]" : 
-                        index === 2 ? "text-[#8F5BFF]" : 
-                        "text-[#44A7FF]"
+                        index === 0 ? "text-[#50C972]" :
+                          index === 1 ? "text-[#FE9B54]" :
+                            index === 2 ? "text-[#8F5BFF]" :
+                              "text-[#44A7FF]"
                       )}>
                         {index === 0 ? <SearchCheck className="w-1/3 h-1/3" /> :
-                         index === 1 ? <Flame className="w-1/3 h-1/3" /> :
-                         index === 2 ? <Globe className="w-1/3 h-1/3" /> :
-                         <File className="w-1/3 h-1/3" />}
+                          index === 1 ? <Flame className="w-1/3 h-1/3" /> :
+                            index === 2 ? <Globe className="w-1/3 h-1/3" /> :
+                              <File className="w-1/3 h-1/3" />}
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Decorative elements */}
                   <div className="absolute -z-10 -bottom-6 -right-6 h-24 w-24 bg-primary/10 rounded-full blur-xl"></div>
                   <div className="absolute -z-10 -top-6 -left-6 h-16 w-16 bg-secondary/20 rounded-full blur-lg"></div>
@@ -331,17 +337,17 @@ export const Features = () => {
                   <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
                     {description}
                   </p>
-                  <Button 
-                    variant={cta?.variant || "default"} 
+                  <Button
+                    variant={cta?.variant || "default"}
                     className="group transition-all duration-300 hover:pr-8"
                   >
                     <Link href="/signup" className="flex items-center gap-2">
-                      {cta?.value} 
+                      {cta?.value}
                       <ArrowRight className="size-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-2 transition-all duration-300" />
                     </Link>
                   </Button>
                 </div>
-                
+
                 {/* Background gradient based on feature accent color */}
                 <div className={cn(
                   "absolute -z-10 w-full h-full blur-3xl opacity-20",
@@ -352,11 +358,11 @@ export const Features = () => {
             )
           )}
         </div>
-        
+
         <div className="mt-24 text-center relative">
           <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10 rounded-full blur-2xl opacity-50"></div>
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
             className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium text-base px-8 py-6 rounded-full relative"
           >
             <Link href="/signup" className="flex items-center gap-2">
