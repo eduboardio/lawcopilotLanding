@@ -11,7 +11,7 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Lottie from "lottie-react";
 
 interface CustomButtonProps {
@@ -111,105 +111,105 @@ const featureList: FeaturesProps[] = [
 
 export const Features = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [animations] = useState<(LottieAnimationData | null)[]>([]);
-  const [isDarkMode] = useState<boolean>(false);
-  const [isMounted] = useState<boolean>(false);
+  const [animations, setAnimations] = useState<(LottieAnimationData | null)[]>([]);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
   
   // Set isMounted to true when component mounts (client-side only)
-  // useEffect(() => {
-  //   setIsMounted(true);
+  useEffect(() => {
+    setIsMounted(true);
     
-  //   // Only check dark mode after component is mounted
-  //   if (typeof window !== 'undefined') {
-  //     setIsDarkMode(document.documentElement.classList.contains('dark'));
-  //   }
-  // }, []);
+    // Only check dark mode after component is mounted
+    if (typeof window !== 'undefined') {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    }
+  }, []);
   
-  // // Only run dark mode detection after component is mounted
-  // useEffect(() => {
-  //   if (!isMounted) return;
+  // Only run dark mode detection after component is mounted
+  useEffect(() => {
+    if (!isMounted) return;
     
-  //   const checkDarkMode = () => {
-  //     setIsDarkMode(document.documentElement.classList.contains('dark'));
-  //   };
+    const checkDarkMode = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    };
     
-  //   // Initial check
-  //   checkDarkMode();
+    // Initial check
+    checkDarkMode();
     
-  //   // Set up observer for theme changes
-  //   const observer = new MutationObserver((mutations) => {
-  //     mutations.forEach((mutation) => {
-  //       if (mutation.attributeName === 'class') {
-  //         checkDarkMode();
-  //       }
-  //     });
-  //   });
+    // Set up observer for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          checkDarkMode();
+        }
+      });
+    });
     
-  //   observer.observe(document.documentElement, { attributes: true });
+    observer.observe(document.documentElement, { attributes: true });
 
-  //   return () => observer.disconnect();
-  // }, [isMounted]);
+    return () => observer.disconnect();
+  }, [isMounted]);
 
-  // // Load animations only after component is mounted
-  // useEffect(() => {
-  //   if (!isMounted) return;
+  // Load animations only after component is mounted
+  useEffect(() => {
+    if (!isMounted) return;
     
-  //   const loadAnimations = async () => {
-  //     try {
-  //       const loadedAnimations = await Promise.all(
-  //         featureList.map(async (feature) => {
-  //           try {
-  //             const response = await fetch(feature.lottiePath);
-  //             if (!response.ok) throw new Error(`Failed to load: ${feature.lottiePath}`);
-  //             return await response.json() as LottieAnimationData;
-  //           } catch (error) {
-  //             console.error(`Error loading animation: ${feature.lottiePath}`, error);
-  //             return null;
-  //           }
-  //         })
-  //       );
+    const loadAnimations = async () => {
+      try {
+        const loadedAnimations = await Promise.all(
+          featureList.map(async (feature) => {
+            try {
+              const response = await fetch(feature.lottiePath);
+              if (!response.ok) throw new Error(`Failed to load: ${feature.lottiePath}`);
+              return await response.json() as LottieAnimationData;
+            } catch (error) {
+              console.error(`Error loading animation: ${feature.lottiePath}`, error);
+              return null;
+            }
+          })
+        );
         
-  //       setAnimations(loadedAnimations);
-  //     } catch (error) {
-  //       console.error("Error loading animations:", error);
-  //     }
-  //   };
+        setAnimations(loadedAnimations);
+      } catch (error) {
+        console.error("Error loading animations:", error);
+      }
+    };
     
-  //   loadAnimations();
-  // }, [isMounted]);
+    loadAnimations();
+  }, [isMounted]);
   
-  // // Intersection Observer for animations - only run client-side
-  // useEffect(() => {
-  //   if (!isMounted) return;
+  // Intersection Observer for animations - only run client-side
+  useEffect(() => {
+    if (!isMounted) return;
     
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       entries.forEach((entry) => {
-  //         if (entry.isIntersecting) {
-  //           entry.target.classList.add("show");
-  //         }
-  //       });
-  //     },
-  //     { threshold: 0.1 }
-  //   );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-  //   const section = sectionRef.current;
-  //   const features = section?.querySelectorAll(".feature-item");
+    const section = sectionRef.current;
+    const features = section?.querySelectorAll(".feature-item");
     
-  //   if (features) {
-  //     features.forEach((feature) => {
-  //       observer.observe(feature);
-  //     });
-  //   }
+    if (features) {
+      features.forEach((feature) => {
+        observer.observe(feature);
+      });
+    }
 
-  //   return () => {
-  //     if (features) {
-  //       features.forEach((feature) => {
-  //         observer.unobserve(feature);
-  //       });
-  //     }
-  //   };
-  // }, [animations, isMounted]);
+    return () => {
+      if (features) {
+        features.forEach((feature) => {
+          observer.unobserve(feature);
+        });
+      }
+    };
+  }, [animations, isMounted]);
 
   return (
     <section 
