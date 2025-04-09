@@ -111,16 +111,21 @@ const featureList: FeaturesProps[] = [
 
 export const Features = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  // const [animations, setAnimations] = useState<(LottieAnimationData | null)[]>([]);
+  const [animations, setAnimations] = useState<(LottieAnimationData | null)[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(false);
   
   // Set isMounted to true when component mounts (client-side only)
   useEffect(() => {
     setIsMounted(true);
+    
+    // Only check dark mode after component is mounted
+    if (typeof window !== 'undefined') {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    }
   }, []);
   
-  // Only run dark mode detection after component is mounted (client-side)
+  // Only run dark mode detection after component is mounted
   useEffect(() => {
     if (!isMounted) return;
     
@@ -128,8 +133,10 @@ export const Features = () => {
       setIsDarkMode(document.documentElement.classList.contains('dark'));
     };
     
+    // Initial check
     checkDarkMode();
     
+    // Set up observer for theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'class') {
@@ -144,64 +151,65 @@ export const Features = () => {
   }, [isMounted]);
 
   // Load animations only after component is mounted
-  // useEffect(() => {
-  //   if (!isMounted) return;
+  useEffect(() => {
+    if (!isMounted) return;
     
-  //   const loadAnimations = async () => {
-  //     try {
-  //       const loadedAnimations = await Promise.all(
-  //         featureList.map(async (feature) => {
-  //           try {
-  //             const response = await fetch(feature.lottiePath);
-  //             if (!response.ok) throw new Error(`Failed to load: ${feature.lottiePath}`);
-  //             return await response.json() as LottieAnimationData;
-  //           } catch (error) {
-  //             console.error(`Error loading animation: ${feature.lottiePath}`, error);
-  //             return null;
-  //           }
-  //         })
-  //       );
+    const loadAnimations = async () => {
+      try {
+        const loadedAnimations = await Promise.all(
+          featureList.map(async (feature) => {
+            try {
+              const response = await fetch(feature.lottiePath);
+              if (!response.ok) throw new Error(`Failed to load: ${feature.lottiePath}`);
+              return await response.json() as LottieAnimationData;
+            } catch (error) {
+              console.error(`Error loading animation: ${feature.lottiePath}`, error);
+              return null;
+            }
+          })
+        );
         
-  //       setAnimations(loadedAnimations);
-  //     } catch (error) {
-  //       console.error("Error loading animations:", error);
-  //     }
-  //   };
+        setAnimations(loadedAnimations);
+      } catch (error) {
+        console.error("Error loading animations:", error);
+      }
+    };
     
-  //   loadAnimations();
-  // }, [isMounted]);
+    loadAnimations();
+  }, [isMounted]);
   
-  // useEffect(() => {
-  //   if (!isMounted) return;
+  // Intersection Observer for animations - only run client-side
+  useEffect(() => {
+    if (!isMounted) return;
     
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       entries.forEach((entry) => {
-  //         if (entry.isIntersecting) {
-  //           entry.target.classList.add("show");
-  //         }
-  //       });
-  //     },
-  //     { threshold: 0.1 }
-  //   );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-  //   const section = sectionRef.current;
-  //   const features = section?.querySelectorAll(".feature-item");
+    const section = sectionRef.current;
+    const features = section?.querySelectorAll(".feature-item");
     
-  //   if (features) {
-  //     features.forEach((feature) => {
-  //       observer.observe(feature);
-  //     });
-  //   }
+    if (features) {
+      features.forEach((feature) => {
+        observer.observe(feature);
+      });
+    }
 
-  //   return () => {
-  //     if (features) {
-  //       features.forEach((feature) => {
-  //         observer.unobserve(feature);
-  //       });
-  //     }
-  //   };
-  // }, [animations, isMounted]);
+    return () => {
+      if (features) {
+        features.forEach((feature) => {
+          observer.unobserve(feature);
+        });
+      }
+    };
+  }, [animations, isMounted]);
 
   return (
     <section 
@@ -282,7 +290,7 @@ export const Features = () => {
                     "lottie-container border-2 border-border rounded-xl backdrop-blur-sm shadow-xl aspect-square overflow-hidden flex justify-center items-center",
                     "bg-background/50 dark:bg-white/10"
                   )}>
-                    {/* {isMounted && animations[index] ? (
+                    {isMounted && animations[index] ? (
                       <div className={cn(
                         "w-full h-full p-4",
                         isDarkMode ? "bg-white/5" : "bg-transparent" 
@@ -307,7 +315,7 @@ export const Features = () => {
                          index === 2 ? <Globe className="w-1/3 h-1/3" /> :
                          <File className="w-1/3 h-1/3" />}
                       </div>
-                    )} */}
+                    )}
                   </div>
                   
                   {/* Decorative elements */}
