@@ -1,3 +1,4 @@
+"use client"
 import { Footer } from "@/components/layouts/landing/footer";
 import { Navbar } from "@/components/layouts/landing/nav-bar";
 import dynamic from "next/dynamic";
