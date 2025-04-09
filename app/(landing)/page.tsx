@@ -1,3 +1,4 @@
+"use client"
 import { Banner } from "@/components/home/banner";
 import { Benefits } from "@/components/home/benefits";
 import { CTA } from "@/components/home/cta";
@@ -15,7 +16,7 @@ const sections = [
   { component: <Features /> },
   { component: <Benefits /> },
   { component: <FAQ /> },
-  { component: <Contact /> }, 
+  { component: <Contact /> },
   { component: <Banner /> },
   { component: <CTA /> },
 ];
