@@ -111,72 +111,72 @@ const featureList: FeaturesProps[] = [
 
 export const Features = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [animations, setAnimations] = useState<(LottieAnimationData | null)[]>([]);
-  const [isDarkMode] = useState<boolean>(false);
-  const [isMounted] = useState<boolean>(false);
+  const [animations] = useState<(LottieAnimationData | null)[]>([]);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
   
   // Set isMounted to true when component mounts (client-side only)
-  // useEffect(() => {
-  //   setIsMounted(true);
+  useEffect(() => {
+    setIsMounted(true);
     
-  //   // Only check dark mode after component is mounted
-  //   if (typeof window !== 'undefined') {
-  //     setIsDarkMode(document.documentElement.classList.contains('dark'));
-  //   }
-  // }, []);
+    // Only check dark mode after component is mounted
+    if (typeof window !== 'undefined') {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    }
+  }, []);
   
-  // // Only run dark mode detection after component is mounted
-  // useEffect(() => {
-  //   if (!isMounted) return;
-    
-  //   const checkDarkMode = () => {
-  //     setIsDarkMode(document.documentElement.classList.contains('dark'));
-  //   };
-    
-  //   // Initial check
-  //   checkDarkMode();
-    
-  //   // Set up observer for theme changes
-  //   const observer = new MutationObserver((mutations) => {
-  //     mutations.forEach((mutation) => {
-  //       if (mutation.attributeName === 'class') {
-  //         checkDarkMode();
-  //       }
-  //     });
-  //   });
-    
-  //   observer.observe(document.documentElement, { attributes: true });
-
-  //   return () => observer.disconnect();
-  // }, [isMounted]);
-
-  // Load animations only after component is mounted
+  // Only run dark mode detection after component is mounted
   useEffect(() => {
     if (!isMounted) return;
     
-    const loadAnimations = async () => {
-      try {
-        const loadedAnimations = await Promise.all(
-          featureList.map(async (feature) => {
-            try {
-              const response = await fetch(feature.lottiePath);
-              if (!response.ok) throw new Error(`Failed to load: ${feature.lottiePath}`);
-              return await response.json() as LottieAnimationData;
-            } catch (error) {
-              console.error(`Error loading animation: ${feature.lottiePath}`, error);
-              return null;
-            }
-          })
-        );
-        
-        setAnimations(loadedAnimations);
-      } catch (error) {
-        console.error("Error loading animations:", error);
-      }
+    const checkDarkMode = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
     };
     
-    loadAnimations();
+    // Initial check
+    checkDarkMode();
+    
+    // Set up observer for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          checkDarkMode();
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, { attributes: true });
+
+    return () => observer.disconnect();
   }, [isMounted]);
+
+  // Load animations only after component is mounted
+  // useEffect(() => {
+  //   if (!isMounted) return;
+    
+  //   const loadAnimations = async () => {
+  //     try {
+  //       const loadedAnimations = await Promise.all(
+  //         featureList.map(async (feature) => {
+  //           try {
+  //             const response = await fetch(feature.lottiePath);
+  //             if (!response.ok) throw new Error(`Failed to load: ${feature.lottiePath}`);
+  //             return await response.json() as LottieAnimationData;
+  //           } catch (error) {
+  //             console.error(`Error loading animation: ${feature.lottiePath}`, error);
+  //             return null;
+  //           }
+  //         })
+  //       );
+        
+  //       setAnimations(loadedAnimations);
+  //     } catch (error) {
+  //       console.error("Error loading animations:", error);
+  //     }
+  //   };
+    
+  //   loadAnimations();
+  // }, [isMounted]);
   
   // Intersection Observer for animations - only run client-side
   useEffect(() => {
