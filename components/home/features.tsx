@@ -112,7 +112,7 @@ const featureList: FeaturesProps[] = [
 export const Features = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [animations, setAnimations] = useState<(LottieAnimationData | null)[]>([]);
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  // const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(false);
   
   // Set isMounted to true when component mounts (client-side only)
@@ -285,7 +285,7 @@ export const Features = () => {
                     {isMounted && animations[index] ? (
                       <div className={cn(
                         "w-full h-full p-4",
-                        isDarkMode ? "bg-white/5" : "bg-transparent" 
+                        // isDarkMode ? "bg-white/5" : "bg-transparent" 
                       )}>
                         <Lottie 
                           animationData={animations[index]} 
