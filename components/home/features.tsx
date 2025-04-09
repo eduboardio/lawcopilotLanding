@@ -12,7 +12,9 @@ import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import Lottie from "lottie-react";
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 interface CustomButtonProps {
   variant?: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link";
