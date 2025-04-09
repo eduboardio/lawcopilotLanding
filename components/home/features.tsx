@@ -30,6 +30,20 @@ interface FeaturesProps {
   accentColor: string;
 }
 
+// Define more specific types for Lottie animation data
+interface LottieAsset {
+  id: string;
+  [key: string]: unknown;
+}
+
+interface LottieLayer {
+  ddd: number;
+  ind: number;
+  ty: number;
+  nm: string;
+  [key: string]: unknown;
+}
+
 interface LottieAnimationData {
   v: string;
   fr: number;
@@ -39,9 +53,9 @@ interface LottieAnimationData {
   h: number;
   nm: string;
   ddd: number;
-  assets: any[];
-  layers: any[];
-  [key: string]: any;
+  assets: LottieAsset[];
+  layers: LottieLayer[];
+  [key: string]: unknown;
 }
 
 const featureList: FeaturesProps[] = [
@@ -128,7 +142,7 @@ export const Features = () => {
             try {
               const response = await fetch(feature.lottiePath);
               if (!response.ok) throw new Error(`Failed to load: ${feature.lottiePath}`);
-              return await response.json();
+              return await response.json() as LottieAnimationData;
             } catch (error) {
               console.error(`Error loading animation: ${feature.lottiePath}`, error);
               return null;
