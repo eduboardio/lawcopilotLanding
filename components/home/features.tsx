@@ -116,39 +116,39 @@ export const Features = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
   
   // Set isMounted to true when component mounts (client-side only)
-  useEffect(() => {
-    setIsMounted(true);
+  // useEffect(() => {
+  //   setIsMounted(true);
     
-    // Only check dark mode after component is mounted
-    if (typeof window !== 'undefined') {
-      setIsDarkMode(document.documentElement.classList.contains('dark'));
-    }
-  }, []);
+  //   // Only check dark mode after component is mounted
+  //   if (typeof window !== 'undefined') {
+  //     setIsDarkMode(document.documentElement.classList.contains('dark'));
+  //   }
+  // }, []);
   
-  // Only run dark mode detection after component is mounted
-  useEffect(() => {
-    if (!isMounted) return;
+  // // Only run dark mode detection after component is mounted
+  // useEffect(() => {
+  //   if (!isMounted) return;
     
-    const checkDarkMode = () => {
-      setIsDarkMode(document.documentElement.classList.contains('dark'));
-    };
+  //   const checkDarkMode = () => {
+  //     setIsDarkMode(document.documentElement.classList.contains('dark'));
+  //   };
     
-    // Initial check
-    checkDarkMode();
+  //   // Initial check
+  //   checkDarkMode();
     
-    // Set up observer for theme changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class') {
-          checkDarkMode();
-        }
-      });
-    });
+  //   // Set up observer for theme changes
+  //   const observer = new MutationObserver((mutations) => {
+  //     mutations.forEach((mutation) => {
+  //       if (mutation.attributeName === 'class') {
+  //         checkDarkMode();
+  //       }
+  //     });
+  //   });
     
-    observer.observe(document.documentElement, { attributes: true });
+  //   observer.observe(document.documentElement, { attributes: true });
 
-    return () => observer.disconnect();
-  }, [isMounted]);
+  //   return () => observer.disconnect();
+  // }, [isMounted]);
 
   // Load animations only after component is mounted
   useEffect(() => {
