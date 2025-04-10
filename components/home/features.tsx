@@ -14,8 +14,11 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 
-// Dynamically import Lottie to prevent server-side rendering issues
-const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+// Dynamically import Lottie with no SSR
+const Lottie = dynamic(() => import("lottie-react"), { 
+  ssr: false,
+  loading: () => <div className="w-full h-full flex items-center justify-center">Loading...</div>
+});
 
 interface CustomButtonProps {
   variant?: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link";
@@ -124,21 +127,31 @@ export const Features = () => {
     setIsMounted(true);
     
     // Check for dark mode
-    const isDark = document.documentElement.classList.contains('dark');
-    setIsDarkMode(isDark);
-    
-    // Set up observer for theme changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class') {
-          setIsDarkMode(document.documentElement.classList.contains('dark'));
-        }
+    if (typeof document !== 'undefined') {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+      
+      // Set up observer for theme changes
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.attributeName === 'class') {
+            setIsDarkMode(document.documentElement.classList.contains('dark'));
+          }
+        });
       });
-    });
+      
+      observer.observe(document.documentElement, { attributes: true });
+      
+      // Cleanup
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, []);
+  
+  // Load animations in a separate effect
+  useEffect(() => {
+    if (!isMounted) return;
     
-    observer.observe(document.documentElement, { attributes: true });
-
-    // Load animations
     const loadAnimations = async () => {
       try {
         const loadedAnimations = await Promise.all(
@@ -161,8 +174,12 @@ export const Features = () => {
     };
     
     loadAnimations();
-
-    // Setup intersection observer for animations
+  }, [isMounted]);
+  
+  // Setup intersection observer in a separate effect
+  useEffect(() => {
+    if (!isMounted || typeof window === 'undefined') return;
+    
     const animationObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -183,42 +200,14 @@ export const Features = () => {
       });
     }
 
-    // Cleanup
     return () => {
-      observer.disconnect();
-      
       if (features) {
         features.forEach((feature) => {
           animationObserver.unobserve(feature);
         });
       }
     };
-  }, []); // Empty dependency array means this runs once on mount
-
-  // If not mounted (server-side), render a minimal version that doesn't depend on browser APIs
-  if (!isMounted) {
-    return (
-      <section id="features" className="w-full py-24 sm:py-32">
-        <div className="container w-full mx-auto px-4">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20 border-none">
-              POWERFUL FEATURES
-            </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 relative">
-              AI-Powered Legal Solutions
-              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-              Revolutionize your legal practice with cutting-edge AI technology designed specifically for legal professionals.
-            </p>
-          </div>
-          
-          {/* Simple loading state */}
-          <div className="text-center">Loading features...</div>
-        </div>
-      </section>
-    );
-  }
+  }, [isMounted]);
 
   return (
     <section 
@@ -283,7 +272,7 @@ export const Features = () => {
               <div
                 key={title}
                 className={cn(
-                  "w-full flex flex-col lg:flex-row justify-start items-start gap-12 relative feature-item",
+                  "w-full flex flex-col lg:flex-row justify-start items-start gap-12 relative feature-item show",
                   {
                     "lg:flex-row-reverse": index % 2 !== 0,
                   }
@@ -304,16 +293,14 @@ export const Features = () => {
                         "w-full h-full p-4",
                         isDarkMode ? "bg-white/5" : "bg-transparent" 
                       )}>
-                        {Lottie && (
-                          <Lottie 
-                            animationData={animations[index]} 
-                            loop={true} 
-                            className="w-full h-full"
-                          />
-                        )}
+                        <Lottie 
+                          animationData={animations[index]} 
+                          loop={true} 
+                          className="w-full h-full"
+                        />
                       </div>
                     ) : (
-                      // Fallback to the icon if animation fails to load
+                      // Fallback to the icon if animation fails to load or during loading
                       <div className={cn(
                         "w-full h-full flex items-center justify-center text-5xl",
                         index === 0 ? "text-[#50C972]" : 
