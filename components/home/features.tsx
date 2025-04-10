@@ -291,7 +291,7 @@ export const Features = () => {
                     {isMounted && animations[index] ? (
                       <div className={cn(
                         "w-full h-full p-4",
-                        isDarkMode ? "bg-white/5" : "bg-transparent" 
+                        isDarkMode ? "bg-white" : "bg-transparent" 
                       )}>
                         <Lottie 
                           animationData={animations[index]} 
