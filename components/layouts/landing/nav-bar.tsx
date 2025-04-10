@@ -1,6 +1,6 @@
 "use client";
 import { Menu } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState, memo } from "react";
 import {
     Sheet,
     SheetContent,
@@ -12,31 +12,21 @@ import {
 import { Separator } from "@/components/ui/separator";
 import {
     NavigationMenu,
-    // NavigationMenuContent,
     NavigationMenuItem,
-    // NavigationMenuLink,
     NavigationMenuList,
-    // NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-// import Image from "next/image";
 import { Logo } from "@/components/logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ROUTES_WITHOUT_NAVBAR } from "@/constants";
 import { ThemeToggle } from "@/components/theme-toggle";
-// import { useTheme } from "next-themes";
 
 interface RouteProps {
     href: string;
     label: string;
 }
-
-// interface FeatureProps {
-//     title: string;
-//     description: string;
-// }
 
 const routeList: RouteProps[] = [
     {
@@ -61,42 +51,86 @@ const routeList: RouteProps[] = [
     },
 ];
 
-// const featureList: FeatureProps[] = [
-//     {
-//         title: "Showcase Your Value ",
-//         description: "Highlight how your product solves user problems.",
-//     },
-//     {
-//         title: "Build Trust",
-//         description:
-//             "Leverages social proof elements to establish trust and credibility.",
-//     },
-//     {
-//         title: "Capture Leads",
-//         description:
-//             "Make your lead capture form visually appealing and strategically.",
-//     },
-// ];
+const CallToActions = memo(({ classes }: {
+    classes?: {
+        container?: string;
+        buttonSignIn?: string;
+        buttonGetStarted?: string;
+    };
+}) => {
+    return (
+        <div className={classes?.container}>
+            <Button 
+                variant="secondary" 
+                className={cn("font-medium", classes?.buttonSignIn)}
+            >
+                <Link href={`/signin`}>Sign in</Link>
+            </Button>
+            <Button
+                className={cn("font-medium", classes?.buttonGetStarted)}
+                asChild
+            >
+                <Link href={`/signup`}>Get Started</Link>
+            </Button>
+        </div>
+    );
+});
+
+CallToActions.displayName = 'CallToActions';
+
+const DesktopNavigation = memo(({ pathname }: { pathname: string }) => (
+    <NavigationMenu className="hidden lg:flex mx-auto">
+        <NavigationMenuList className="gap-1">
+            {routeList.map(({ href, label }) => (
+                <NavigationMenuItem key={href}>
+                    <Link 
+                        href={href} 
+                        className={cn(
+                            "px-4 py-2 text-base font-medium rounded-md transition-colors",
+                            pathname === href || (href === "/#hero" && pathname === "/") 
+                                ? "text-primary" 
+                                : "hover:text-primary"
+                        )}
+                    >
+                        {label}
+                    </Link>
+                </NavigationMenuItem>
+            ))}
+        </NavigationMenuList>
+    </NavigationMenu>
+));
+
+DesktopNavigation.displayName = 'DesktopNavigation';
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [scrolled, setScrolled] = useState<boolean>(false);
     const pathname = usePathname();
-    // const { theme } = useTheme();s
     const shouldHideHeaderNavbar = ROUTES_WITHOUT_NAVBAR.includes(pathname);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const isScrolled = window.scrollY > 20;
-            if (isScrolled !== scrolled) {
-                setScrolled(isScrolled);
-            }
-        };
-        window.addEventListener("scroll", handleScroll);
-        handleScroll();
-        return () => window.removeEventListener("scroll", handleScroll);
+    const handleScroll = useCallback(() => {
+        const isScrolled = window.scrollY > 20;
+        if (isScrolled !== scrolled) {
+            setScrolled(isScrolled);
+        }
     }, [scrolled]);
 
+    useEffect(() => {
+        let ticking = false;
+        const scrollListener = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener("scroll", scrollListener, { passive: true });
+        handleScroll();
+        
+        return () => window.removeEventListener("scroll", scrollListener);
+    }, [handleScroll]);
     if (shouldHideHeaderNavbar) return null;
     
     return (
@@ -169,26 +203,8 @@ export const Navbar = () => {
                         </Sheet>
                     </div>
                     
-                    {/* Desktop Navigation */}
-                    <NavigationMenu className="hidden lg:flex mx-auto">
-                        <NavigationMenuList className="gap-1">
-                            {routeList.map(({ href, label }) => (
-                                <NavigationMenuItem key={href}>
-                                    <Link 
-                                        href={href} 
-                                        className={cn(
-                                            "px-4 py-2 text-base font-medium rounded-md transition-colors",
-                                            pathname === href || (href === "/#hero" && pathname === "/") 
-                                                ? "text-primary" 
-                                                : "hover:text-primary"
-                                        )}
-                                    >
-                                        {label}
-                                    </Link>
-                                </NavigationMenuItem>
-                            ))}
-                        </NavigationMenuList>
-                    </NavigationMenu>
+                    {/* Desktop Navigation - Memoized */}
+                    <DesktopNavigation pathname={pathname} />
                 </div>
 
                 {/* Desktop Call to Actions */}
@@ -204,32 +220,5 @@ export const Navbar = () => {
                 </div>
             </div>
         </header>
-    );
-};
-
-interface CallToActionsProps {
-    classes?: {
-        container?: string;
-        buttonSignIn?: string;
-        buttonGetStarted?: string;
-    };
-}
-
-const CallToActions = ({ classes }: CallToActionsProps) => {
-    return (
-        <div className={classes?.container}>
-            <Button 
-                variant="secondary" 
-                className={cn("font-medium", classes?.buttonSignIn)}
-            >
-                <Link href={`/signin`}>Sign in</Link>
-            </Button>
-            <Button
-                className={cn("font-medium", classes?.buttonGetStarted)}
-                asChild
-            >
-                <Link href={`/signup`}>Get Started</Link>
-            </Button>
-        </div>
     );
 };
