@@ -234,7 +234,7 @@ ContactForm.displayName = 'ContactForm';
 
 export const Contact = () => {
   return (
-    <section id="contact" className="container mb-20 sm:mb-20 relative overflow-hidden">
+    <section id="contact" className="container mb-20 sm:mb-20 relative overflow-hidden py-12">
       <div className="absolute -top-16 -right-32 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
       <div className="absolute -bottom-24 -left-32 w-72 h-72 bg-secondary/10 rounded-full blur-3xl"></div>
       

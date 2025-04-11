@@ -26,16 +26,29 @@ export const Footer = () => {
                                 <p className="text-muted-foreground pr-8">Transforming legal practice with cutting-edge AI technology for research, document drafting, and case analysis.</p>
                             </div>
                             
-                            {/* Newsletter Signup */}
+                            {/* Contact Our Team Section */}
                             <div className="w-full mt-2">
-                                <p className="font-medium mb-2">Subscribe to our newsletter</p>
-                                <div className="flex gap-2">
-                                    <Input 
-                                        type="email" 
-                                        placeholder="Enter your email" 
-                                        className="max-w-xs" 
-                                    />
-                                    <Button size="sm" variant="default">Subscribe</Button>
+                                <p className="font-medium text-lg mb-3">Contact Our Team</p>
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex items-center gap-2">
+                                        <Mail size={16} className="text-primary" />
+                                        <a href="mailto:contact@lawcopilot.ai" className="hover:text-primary transition-colors">
+                                            contact@lawcopilot.ai
+                                        </a>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Phone size={16} className="text-primary" />
+                                        <a href="tel:+15551234567" className="hover:text-primary transition-colors">
+                                            +1 (555) 123-4567
+                                        </a>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <MapPin size={16} className="text-primary" />
+                                        <span>123 Legal Tech Avenue, San Francisco, CA 94107</span>
+                                    </div>
+                                    <Button variant="outline" size="sm" className="mt-2 w-fit">
+                                        <Link href="/contact">Schedule a Consultation</Link>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -114,27 +127,21 @@ export const Footer = () => {
                     </div>
                 </div>
 
-                <div className="mt-12 pb-4">
-                    <div className="flex flex-col md:flex-row gap-6 items-start">
-                        <div className="flex items-center gap-2 opacity-70">
-                            <MapPin size={16} />
-                            <span className="text-sm">123 Legal Tech Avenue, San Francisco, CA 94107</span>
-                        </div>
-                        <div className="flex items-center gap-2 opacity-70">
-                            <Mail size={16} />
-                            <span className="text-sm">contact@lawcopilot.ai</span>
-                        </div>
-                        <div className="flex items-center gap-2 opacity-70">
-                            <Phone size={16} />
-                            <span className="text-sm">+1 (555) 123-4567</span>
+                <Separator className="my-6" />
+                
+                {/* Newsletter Signup moved to bottom section */}
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
+                    <div className="md:max-w-md">
+                        <p className="font-medium mb-2">Subscribe to our newsletter</p>
+                        <div className="flex gap-2">
+                            <Input 
+                                type="email" 
+                                placeholder="Enter your email" 
+                                className="max-w-xs" 
+                            />
+                            <Button size="sm" variant="default">Subscribe</Button>
                         </div>
                     </div>
-                </div>
-
-                <Separator className="my-4" />
-                
-                <section className="flex flex-col md:flex-row md:justify-between center items-center md:items-center w-full gap-6">
-                    <h4 className="text-sm text-muted-foreground">&copy; 2024 Law Copilot. All rights reserved.</h4>
                     <div className="flex justify-center items-center gap-4">
                         <Link
                             href={"https://www.linkedin.com/company/lawcopilot/"}
@@ -181,6 +188,12 @@ export const Footer = () => {
                             />
                         </Link>
                     </div>
+                </div>
+
+                <Separator className="my-4" />
+                
+                <section className="flex flex-col md:flex-row md:justify-between center items-center md:items-center w-full gap-6">
+                    <h4 className="text-sm text-muted-foreground">&copy; 2024 Law Copilot. All rights reserved.</h4>
                 </section>
             </div>
         </footer>

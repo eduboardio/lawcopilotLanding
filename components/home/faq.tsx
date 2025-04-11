@@ -72,7 +72,7 @@ export const FAQ = () => {
   console.log(mounted)
   
   return (
-    <section id="faq" className="container mx-auto py-24 sm:py-32 p-4">
+    <section id="faq" className="container mx-auto py-12 sm:py-16 p-4">
       <h2 className="text-3xl md:text-4xl text-center font-bold mb-8">
         Frequently Asked Questions
       </h2>

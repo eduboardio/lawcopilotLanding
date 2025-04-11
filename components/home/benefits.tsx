@@ -266,7 +266,7 @@ export const Benefits = () => {
     <section 
       id="benefits" 
       ref={sectionRef}
-      className="w-full bg-gradient-to-b from-background via-primary/5 to-background py-24 relative overflow-hidden"
+      className="w-full bg-gradient-to-b from-background via-primary/5 to-background relative overflow-hidden"
     >
       <BackgroundElements />
       <BenefitStyles />
