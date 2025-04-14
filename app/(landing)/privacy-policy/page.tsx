@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold mb-4">Personal Identification Information</h2>
             <ul>
               <li>We collect personal information such as name, email address, and legal document details. Users give consent to send some of this information to AI models for processing by using our platform.</li>
-              <li>Information sent to AI models is used to enhance user experience and provide personalized services. Users consent to this data processing as part of utilizing the platform's features.</li>
+              <li>Information sent to AI models is used to enhance user experience and provide personalized services. Users consent to this data processing as part of utilizing the platform&apos;s features.</li>
             </ul>
 
             <h2 className="text-2xl font-semibold mb-4 mt-8">Non-personal Identification Information</h2>
@@ -30,7 +30,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold mb-4 mt-8">Use and Sharing of Information</h2>
             <ul>
               <li>Law Copilot uses collected information to improve customer service, personalize user experience, and improve our Platform.</li>
-              <li>We do not sell, trade, or rent Users's personal identification information to others.</li>
+              <li>We do not sell, trade, or rent Users&apos;s personal identification information to others.</li>
               <li>Information processed by AI models is used in accordance with this policy to provide platform functionalities.</li>
             </ul>
 

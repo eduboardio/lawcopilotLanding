@@ -180,7 +180,7 @@ export default function CaseAnalytics() {
               <Card>
                 <CardContent className="pt-6">
                   <blockquote className="italic border-l-4 pl-4 border-primary">
-                    "Case Analytics helped us identify a critical precedent we had overlooked. The risk assessment was spot-on and helped us prepare for opposing arguments. We won the case with a 45% increase in efficiency."
+                  &quot;Case Analytics helped us identify a critical precedent we had overlooked. The risk assessment was spot-on and helped us prepare for opposing arguments. We won the case with a 45% increase in efficiency.&quot;
                   </blockquote>
                   <div className="mt-4">
                     <p className="font-medium">Sarah J. Williams</p>
@@ -191,7 +191,7 @@ export default function CaseAnalytics() {
               <Card>
                 <CardContent className="pt-6">
                   <blockquote className="italic border-l-4 pl-4 border-primary">
-                    "Our firm has seen a 70% reduction in research time and a 30% increase in case success rate since implementing Law Copilot's Case Analytics. The predictive insights have been remarkably accurate."
+                  &quot;Our firm has seen a 70% reduction in research time and a 30% increase in case success rate since implementing Law Copilot&apos;s Case Analytics. The predictive insights have been remarkably accurate.&quot;
                   </blockquote>
                   <div className="mt-4">
                     <p className="font-medium">Mark R. Thompson</p>

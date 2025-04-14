@@ -4,9 +4,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Search, BookOpen, FileText, Clock, ArrowRight, Filter, SlidersHorizontal, BookMarked } from "lucide-react";
 
 interface SearchResult {
@@ -173,7 +172,7 @@ export default function ResearchEngine() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
-                  Our AI understands legal terminology and context, finding relevant cases even when keywords don't match exactly.
+                  Our AI understands legal terminology and context, finding relevant cases even when keywords don&apos;t match exactly.
                 </p>
               </CardContent>
             </Card>
@@ -241,7 +240,7 @@ export default function ResearchEngine() {
             <div>
               <h2 className="text-2xl font-bold mb-4">Customer Success</h2>
               <blockquote className="italic border-l-4 pl-4 border-primary mb-4">
-                "Law Copilot's research engine found a precedent that completely changed our approach to a difficult case. What would have taken days of research was done in minutes."
+              &quot;Law Copilot&apos;s research engine found a precedent that completely changed our approach to a difficult case. What would have taken days of research was done in minutes.&quot;
               </blockquote>
               <div className="mt-2">
                 <p className="font-medium">Michael Chen</p>

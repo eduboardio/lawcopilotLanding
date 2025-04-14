@@ -39,7 +39,7 @@ export default function CareersPage() {
               At Law Copilot, we value innovation, collaboration, and impact. We believe in creating technology that makes a meaningful difference in how legal professionals work.
             </p>
             <p className="text-muted-foreground">
-              We're a diverse team passionate about combining legal expertise with technological innovation. We foster an environment where everyone's voice is heard and valued.
+              We&apos;re a diverse team passionate about combining legal expertise with technological innovation. We foster an environment where everyone&apos;s voice is heard and valued.
             </p>
           </CardContent>
         </Card>
@@ -98,7 +98,7 @@ export default function CareersPage() {
       </div>
 
       <div className="text-center">
-        <p className="text-lg mb-6">Don't see the right role? We're always looking for talented individuals.</p>
+        <p className="text-lg mb-6">Don&apos;t see the right role? We&apos;re always looking for talented individuals.</p>
         <Button size="lg" className="bg-primary hover:bg-primary/90">
           <Link href="/contact">Contact Us</Link>
         </Button>

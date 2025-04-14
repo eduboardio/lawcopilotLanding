@@ -34,7 +34,7 @@ export default function TermsPage() {
             <h2 className="text-2xl font-semibold mb-4 mt-8">User Conduct</h2>
             <ul>
               <li>Users agree not to use the Platform for any unlawful purpose.</li>
-              <li>Users consent to the transmission of personal identification information to AI models as part of the platform's functionality.</li>
+              <li>Users consent to the transmission of personal identification information to AI models as part of the platform&apos;s functionality.</li>
               <li>Users acknowledge that their interactions with Law Copilot may be stored and analyzed for improving service quality and user experience.</li>
             </ul>
 

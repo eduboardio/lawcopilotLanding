@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
@@ -357,7 +356,7 @@ NOW, THEREFORE, in consideration of the mutual covenants and promises contained 
             <div>
               <h2 className="text-2xl font-bold mb-4">Customer Success</h2>
               <blockquote className="italic border-l-4 pl-4 border-primary mb-4">
-                "Law Copilot helped our firm draft complex contracts in minutes instead of hours. The quality is on par with what our senior associates produce, and the jurisdiction-specific compliance is spot on."
+              &quot;Law Copilot helped our firm draft complex contracts in minutes instead of hours. The quality is on par with what our senior associates produce, and the jurisdiction-specific compliance is spot on.&quot;
               </blockquote>
               <div className="mt-2">
                 <p className="font-medium">Sarah Williams</p>

@@ -21,7 +21,7 @@ export default function AboutPage() {
           <CardContent className="pt-6">
             <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
             <p className="text-muted-foreground">
-              At Law Copilot, we're on a mission to democratize access to advanced legal technology. We believe that AI-powered tools should enhance legal professionals' capabilities, allowing them to focus on what truly matters: applying their expertise to help clients navigate complex legal challenges.
+              At Law Copilot, we&apos;re on a mission to democratize access to advanced legal technology. We believe that AI-powered tools should enhance legal professionals capabilities, allowing them to focus on what truly matters: applying their expertise to help clients navigate complex legal challenges.
             </p>
           </CardContent>
         </Card>
@@ -79,10 +79,10 @@ export default function AboutPage() {
             Law Copilot brings together experts from both the legal and technology sectors. Our leadership team includes former practicing attorneys, legal technologists, and AI researchers who share a passion for transforming legal practice.
           </p>
           <p className="text-muted-foreground mb-4">
-            With decades of combined experience in both legal practice and cutting-edge AI development, our team understands the unique challenges faced by legal professionals in today's fast-paced environment.
+            With decades of combined experience in both legal practice and cutting-edge AI development, our team understands the unique challenges faced by legal professionals in today&apos;s fast-paced environment.
           </p>
           <p className="text-muted-foreground">
-            We're committed to building tools that not only harness the power of AI but do so in ways that respect legal traditions, professional ethics, and client confidentiality.
+            We&apos;re committed to building tools that not only harness the power of AI but do so in ways that respect legal traditions, professional ethics, and client confidentiality.
           </p>
         </CardContent>
       </Card>

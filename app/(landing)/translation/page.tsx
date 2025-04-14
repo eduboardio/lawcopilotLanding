@@ -291,7 +291,7 @@ export default function LegalTranslation() {
                         <div>
                             <h2 className="text-2xl font-bold mb-4">Customer Success</h2>
                             <blockquote className="italic border-l-4 pl-4 border-primary mb-4">
-                                "The translation was not only accurate but preserved all the legal nuances we needed for our international contract. Saved us thousands in specialized translation costs."
+                            &quot;The translation was not only accurate but preserved all the legal nuances we needed for our international contract. Saved us thousands in specialized translation costs.&quot;
                             </blockquote>
                             <div className="mt-2">
                                 <p className="font-medium">Elena Rodriguez</p>
