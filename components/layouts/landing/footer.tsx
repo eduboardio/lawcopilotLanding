@@ -46,7 +46,7 @@ export const Footer = () => {
                             <Link href="/about" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 About Us
                             </Link>
-                            <Link href="/#contact" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                            <Link href="/contact" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                 Contact Us
                             </Link>
                             <Link href="/careers" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
