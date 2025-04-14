@@ -1,31 +1,27 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Globe, FileText, Check, ArrowRightLeft, Upload, Languages } from "lucide-react";
+import { Globe, FileText, Check, Languages } from "lucide-react";
 
 export default function LegalTranslation() {
-    const [sourceText, setSourceText] = useState("");
-    const [sourceLanguage, setSourceLanguage] = useState("english");
-    const [targetLanguage, setTargetLanguage] = useState("spanish");
-    const [isTranslating, setIsTranslating] = useState(false);
-    const [showResult, setShowResult] = useState(false);
+    // const [sourceText, setSourceText] = useState("");
+    // const [sourceLanguage, setSourceLanguage] = useState("english");
+    // const [targetLanguage, setTargetLanguage] = useState("spanish");
+    // const [isTranslating, setIsTranslating] = useState(false);
+    // const [showResult, setShowResult] = useState(false);
 
-    const handleTranslate = () => {
-        if (!sourceText.trim()) return;
+    // const handleTranslate = () => {
+    //     if (!sourceText.trim()) return;
 
-        setIsTranslating(true);
-        // Simulate translation delay
-        setTimeout(() => {
-            setIsTranslating(false);
-            setShowResult(true);
-        }, 1500);
-    };
+    //     setIsTranslating(true);
+    //     // Simulate translation delay
+    //     setTimeout(() => {
+    //         setIsTranslating(false);
+    //         setShowResult(true);
+    //     }, 1500);
+    // };
 
     const languageOptions = [
         { value: "english", label: "English" },
@@ -40,10 +36,10 @@ export default function LegalTranslation() {
         { value: "italian", label: "Italian" }
     ];
 
-    const translationResult: Record<string, string> = {
-        english: "The parties hereby agree that this contract shall be governed by the laws of the State of New York. Any disputes arising under this agreement shall be resolved through binding arbitration in accordance with the rules of the American Arbitration Association.",
-        spanish: "Las partes acuerdan por la presente que este contrato se regirá por las leyes del Estado de Nueva York. Cualquier disputa que surja en virtud de este acuerdo se resolverá mediante arbitraje vinculante de acuerdo con las reglas de la Asociación Americana de Arbitraje."
-    };
+    // const translationResult: Record<string, string> = {
+    //     english: "The parties hereby agree that this contract shall be governed by the laws of the State of New York. Any disputes arising under this agreement shall be resolved through binding arbitration in accordance with the rules of the American Arbitration Association.",
+    //     spanish: "Las partes acuerdan por la presente que este contrato se regirá por las leyes del Estado de Nueva York. Cualquier disputa que surja en virtud de este acuerdo se resolverá mediante arbitraje vinculante de acuerdo con las reglas de la Asociación Americana de Arbitraje."
+    // };
 
     return (
         <div className="container mx-auto px-4 py-10">
@@ -70,7 +66,7 @@ export default function LegalTranslation() {
                     </Badge>
                 </div>
 
-                <Tabs defaultValue="text" className="mb-12">
+                {/* <Tabs defaultValue="text" className="mb-12">
                     <TabsList className="grid grid-cols-2 mb-8">
                         <TabsTrigger value="text">Text Translation</TabsTrigger>
                         <TabsTrigger value="document">Document Translation</TabsTrigger>
@@ -218,7 +214,7 @@ export default function LegalTranslation() {
                             </CardFooter>
                         </Card>
                     </TabsContent>
-                </Tabs>
+                </Tabs> */}
 
                 <div className="mb-16">
                     <h2 className="text-2xl font-bold mb-6">Translation Features</h2>

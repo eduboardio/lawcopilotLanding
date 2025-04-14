@@ -1,20 +1,20 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Textarea } from "@/components/ui/textarea";
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, CheckCircle, Shield, Clock, Download, Copy, LayoutTemplate, Edit3, Cpu } from "lucide-react";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CheckCircle, Shield, Clock,LayoutTemplate, Edit3} from "lucide-react";
 
 export default function DocumentDrafting() {
-  const [documentType, setDocumentType] = useState("");
-  const [jurisdiction, setJurisdiction] = useState("");
-  const [documentDetails, setDocumentDetails] = useState("");
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedDocument, setGeneratedDocument] = useState("");
+  // const [documentType] = useState("");
+  // const [jurisdiction] = useState("");
+  // const [documentDetails] = useState("");
+  // const [isGenerating, setIsGenerating] = useState(false);
+  // const [generatedDocument, setGeneratedDocument] = useState("");
 
   const documentTypes = [
     { value: "contract", label: "Contract" },
@@ -29,46 +29,46 @@ export default function DocumentDrafting() {
     { value: "power-attorney", label: "Power of Attorney" }
   ];
 
-  const jurisdictions = [
-    { value: "us-federal", label: "US Federal" },
-    { value: "california", label: "California" },
-    { value: "new-york", label: "New York" },
-    { value: "texas", label: "Texas" },
-    { value: "florida", label: "Florida" },
-    { value: "illinois", label: "Illinois" },
-    { value: "pennsylvania", label: "Pennsylvania" },
-    { value: "ohio", label: "Ohio" },
-    { value: "uk", label: "United Kingdom" },
-    { value: "canada", label: "Canada" }
-  ];
+  // const jurisdictions = [
+  //   { value: "us-federal", label: "US Federal" },
+  //   { value: "california", label: "California" },
+  //   { value: "new-york", label: "New York" },
+  //   { value: "texas", label: "Texas" },
+  //   { value: "florida", label: "Florida" },
+  //   { value: "illinois", label: "Illinois" },
+  //   { value: "pennsylvania", label: "Pennsylvania" },
+  //   { value: "ohio", label: "Ohio" },
+  //   { value: "uk", label: "United Kingdom" },
+  //   { value: "canada", label: "Canada" }
+  // ];
 
-  const handleGenerateDocument = () => {
-    if (!documentType || !jurisdiction || !documentDetails.trim()) return;
+//   const handleGenerateDocument = () => {
+//     if (!documentType || !jurisdiction || !documentDetails.trim()) return;
     
-    setIsGenerating(true);
-    // Simulate document generation delay
-    setTimeout(() => {
-      setIsGenerating(false);
-      // Sample generated document
-      setGeneratedDocument(`SETTLEMENT AGREEMENT AND RELEASE
+//     setIsGenerating(true);
+//     // Simulate document generation delay
+//     setTimeout(() => {
+//       setIsGenerating(false);
+//       // Sample generated document
+//       setGeneratedDocument(`SETTLEMENT AGREEMENT AND RELEASE
 
-THIS SETTLEMENT AGREEMENT AND RELEASE (the "Agreement") is made and entered into as of the Effective Date, by and between the undersigned parties.
+// THIS SETTLEMENT AGREEMENT AND RELEASE (the "Agreement") is made and entered into as of the Effective Date, by and between the undersigned parties.
 
-WHEREAS, a dispute has arisen between the Parties regarding [dispute subject matter]; and
+// WHEREAS, a dispute has arisen between the Parties regarding [dispute subject matter]; and
 
-WHEREAS, the Parties wish to resolve all claims and controversies between them;
+// WHEREAS, the Parties wish to resolve all claims and controversies between them;
 
-NOW, THEREFORE, in consideration of the mutual covenants and promises contained herein, and other good and valuable consideration, the receipt and sufficiency of which is hereby acknowledged, the Parties agree as follows:
+// NOW, THEREFORE, in consideration of the mutual covenants and promises contained herein, and other good and valuable consideration, the receipt and sufficiency of which is hereby acknowledged, the Parties agree as follows:
 
-1. SETTLEMENT PAYMENT
-   1.1 [Payment details based on user input]
+// 1. SETTLEMENT PAYMENT
+//    1.1 [Payment details based on user input]
 
-2. RELEASE OF CLAIMS
-   2.1 Upon execution of this Agreement and receipt of the Settlement Payment, each Party hereby releases and forever discharges the other Party from any and all claims...
+// 2. RELEASE OF CLAIMS
+//    2.1 Upon execution of this Agreement and receipt of the Settlement Payment, each Party hereby releases and forever discharges the other Party from any and all claims...
    
-[Document continues with jurisdiction-specific language and terms...]`);
-    }, 2000);
-  };
+// [Document continues with jurisdiction-specific language and terms...]`);
+//     }, 2000);
+//   };
 
   return (
     <div className="container mx-auto px-4 py-10">
@@ -94,7 +94,7 @@ NOW, THEREFORE, in consideration of the mutual covenants and promises contained 
             Court-Ready
           </Badge>
         </div>
-
+{/* 
         <Tabs defaultValue="generate" className="mb-12">
           <TabsList className="grid grid-cols-3 mb-8">
             <TabsTrigger value="generate">Generate Document</TabsTrigger>
@@ -291,7 +291,7 @@ NOW, THEREFORE, in consideration of the mutual covenants and promises contained 
               </CardFooter>
             </Card>
           </TabsContent>
-        </Tabs>
+        </Tabs> */}
 
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-6">Document Drafting Features</h2>
