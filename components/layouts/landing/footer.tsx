@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { ROUTES_WITHOUT_FOOTER } from "@/constants";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Mail, Instagram, Facebook, Twitter } from "lucide-react";
+// import { Mail, Instagram, Facebook, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
