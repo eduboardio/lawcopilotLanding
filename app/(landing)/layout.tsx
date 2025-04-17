@@ -5,7 +5,7 @@ import { Navbar } from "@/components/layouts/landing/nav-bar";
 import { lazy, Suspense, ReactNode, useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const SmoothScroll = lazy(() => 
+const SmoothScroll = lazy(() =>
   import("@/components/smooth-scroll").then(mod => ({ default: mod.SmoothScroll }))
 );
 

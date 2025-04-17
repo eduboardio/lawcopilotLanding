@@ -15,7 +15,7 @@ interface BenefitsProps {
   title: string;
   description: string;
   points?: string[];
-  gradient: string;
+  // gradient: string;
 }
 
 const benefitList: BenefitsProps[] = [
@@ -29,7 +29,7 @@ const benefitList: BenefitsProps[] = [
       "Instant access to relevant precedents",
       "Smart keyword and context recognition"
     ],
-    gradient: "from-primary/20 via-primary/10 to-transparent"
+    // gradient: "from-primary/20 via-primary/10 to-transparent"
   },
   {
     icon: <Wallet size={24} />,
@@ -41,19 +41,19 @@ const benefitList: BenefitsProps[] = [
       "Minimize billable hours spent on research",
       "Optimize paralegal and associate time"
     ],
-    gradient: "from-secondary/20 via-secondary/10 to-transparent"
+    // gradient: "from-secondary/20 via-secondary/10 to-transparent"
   },
   {
     icon: <Shield size={24} />,
     title: "Accelerate Legal Research",
     description:
-      "Uncover critical insights and connections in legal data with Law Copilot's AI-enhanced research tools, simplifying complex research tasks.",
+      "Uncover critical insights and connections in legal data with Law Copilot's AI-enhanced research tools, simplifying complex tasks.",
     points: [
       "Identify overlooked legal precedents",
       "Generate comprehensive case summaries",
       "Detect jurisdiction-specific nuances"
     ],
-    gradient: "from-primary/20 via-secondary/10 to-transparent"
+    // gradient: "from-primary/20 via-secondary/10 to-transparent"
   },
 ];
 
@@ -67,7 +67,7 @@ const BenefitPoint = memo(({ point }: { point: string }) => (
 BenefitPoint.displayName = 'BenefitPoint';
 
 const BenefitCard = memo(({ benefit }: { benefit: BenefitsProps }) => {
-  const { icon, title, description, points, gradient } = benefit;
+  const { icon, title, description, points } = benefit;
   
   return (
     <Card
@@ -79,16 +79,17 @@ const BenefitCard = memo(({ benefit }: { benefit: BenefitsProps }) => {
     >
       <div className={cn(
         "absolute inset-0 bg-gradient-to-br", 
-        gradient, 
+        // gradient, 
         "opacity-40 dark:opacity-40 transition-opacity duration-300 group-hover:opacity-60"
       )}></div>
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
       
       <CardHeader className="pt-8 relative z-10">
-        <div className="icon-container size-16 flex justify-center items-center rounded-lg mb-6 transition-transform duration-300 group-hover:scale-110 bg-primary/10 text-primary relative overflow-hidden">
-          {icon}
-        </div>
-        <CardTitle className="text-2xl font-bold tracking-tight">{title}</CardTitle>
+        {/* <div className="icon-container size-16 flex justify-center items-center rounded-lg mb-6 transition-transform duration-300 group-hover:scale-110 bg-primary/10 text-primary relative overflow-hidden"> */}
+          
+        {/* </div> */}
+        <CardTitle className="text-2xl font-bold tracking-tight flex gap-2"> 
+          <div className=" mt-1">{icon}  </div>{title}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4 relative z-10">
         <p className="text-muted-foreground">
@@ -183,7 +184,7 @@ const BenefitStyles = memo(() => (
 BenefitStyles.displayName = 'BenefitStyles';
 
 const BenefitsCTA = memo(() => (
-  <div className="mt-16 relative overflow-hidden">
+  <div className=" relative overflow-hidden">
     <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 via-secondary/30 to-primary/30 rounded-xl blur-md animate-pulse"></div>
     <div className="relative bg-background/80 dark:bg-background/80 backdrop-blur-sm border border-white/20 dark:border-white/20 rounded-xl p-8 lg:p-12 shadow-xl z-10">
       <p className="text-center md:text-lg font-medium mb-8">
@@ -281,7 +282,7 @@ export const Benefits = () => {
               Why Choose Law Copilot?
               <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg mb-12">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
               Experience the competitive advantages that thousands of legal professionals are gaining with our AI-powered platform.
             </p>
           </div>

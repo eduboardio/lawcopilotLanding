@@ -26,8 +26,8 @@ export function SmoothScroll() {
             const navbarHeight = navbar ? navbar.offsetHeight : 80;
             
             // Add additional offset to ensure content is clearly visible below navbar
-            const additionalOffset = 20; 
-            
+            const additionalOffset = 20;
+             
             window.scrollTo({
               top: targetElement.offsetTop - navbarHeight - additionalOffset,
               behavior: 'smooth'
@@ -42,23 +42,24 @@ export function SmoothScroll() {
       document.addEventListener('click', handleAnchorClick);
       
       // Handle initial page load with hash in URL
-      setTimeout(() => {
-        if (window.location.hash) {
-          const targetId = window.location.hash.substring(1);
-          const targetElement = document.getElementById(targetId);
+      if (window.location.hash) {
+        const targetId = window.location.hash.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          const navbar = document.querySelector('header');
+          const navbarHeight = navbar ? navbar.offsetHeight : 80;
+          const additionalOffset = 20;
           
-          if (targetElement) {
-            const navbar = document.querySelector('header');
-            const navbarHeight = navbar ? navbar.offsetHeight : 80;
-            const additionalOffset = 20;
-            
+          // Use a minimal timeout to ensure proper scrolling
+          setTimeout(() => {
             window.scrollTo({
               top: targetElement.offsetTop - navbarHeight - additionalOffset,
-              behavior: 'smooth'
+              behavior: 'auto' // Using 'auto' instead of 'smooth' for initial load
             });
-          }
+          }, 100);
         }
-      }, 500);
+      }
       
       return () => {
         document.removeEventListener('click', handleAnchorClick);

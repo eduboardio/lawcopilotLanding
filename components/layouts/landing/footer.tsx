@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { ROUTES_WITHOUT_FOOTER } from "@/constants";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-// import { Mail, Instagram, Facebook, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -22,18 +22,22 @@ export const Footer = () => {
         console.log("Form submitted:", { email, message });
         setEmail("");
         setMessage("");
+        // Here you would typically send the message to your backend
     };
 
     if (shouldHideHeaderFooter) return null;
 
     return (
         <footer id="footer" className="w-full bg-slate-50 dark:bg-slate-900/50 border-t border-border">
-            <div className="container py-6 mx-auto px-4">
+            <div className="container py-8 mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
                     <div className="md:col-span-4">
-                        <Logo type="LOGO_ONLY" />
+                        <div className="flex items-center mb-4">
+                            <Logo type="LOGO_ONLY" />
+                            <span className="ml-2 font-bold text-xl">Law Copilot</span>
+                        </div>
                         <p className="text-sm text-muted-foreground mb-6">
-                            Have questions about Law Copilot? Our experts are ready to assist you.
+                            Your AI-powered legal assistant. Get instant answers to legal questions, document drafting assistance, and case law research in seconds.
                         </p>
 
                         <form onSubmit={handleSubmit} className="space-y-4">
@@ -52,7 +56,7 @@ export const Footer = () => {
                                 <label htmlFor="message" className="text-xs font-medium uppercase">MESSAGE*</label>
                                 <Textarea
                                     id="message"
-                                    placeholder="How can we help you?"
+                                    placeholder="How can we help you with your legal needs?"
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
                                     className="min-h-24"
@@ -69,7 +73,7 @@ export const Footer = () => {
                     </div>
 
                     <div className="md:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4">
                             <h3 className="font-bold text-lg">Explore</h3>
                             <div className="flex flex-col gap-2.5">
                                 <Link href="/research-engine" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
@@ -103,14 +107,20 @@ export const Footer = () => {
                         </div>
 
                         <div className="flex flex-col gap-4">
-                            <h3 className="font-bold text-lg">Legal</h3>
-                            <div className="flex flex-col gap-2.5">
-                                <Link href="/privacy-policy" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
-                                    Privacy Policy
-                                </Link>
-                                <Link href="/terms" className="opacity-70 hover:opacity-100 hover:text-primary transition-colors">
-                                    Terms of Service
-                                </Link>
+                            <h3 className="font-bold text-lg">Contact Us</h3>
+                            <div className="flex flex-col gap-3">
+                                <div className="flex items-start gap-2">
+                                    <Mail className="h-5 w-5 text-primary mt-0.5" />
+                                    <span className="opacity-70">support@lawcopilot.ai</span>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                    <Phone className="h-5 w-5 text-primary mt-0.5" />
+                                    <span className="opacity-70">(800) 123-4567</span>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                    <MapPin className="h-5 w-5 text-primary mt-0.5" />
+                                    <span className="opacity-70">123 Legal Street, Suite 400<br />San Francisco, CA 94103</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -119,8 +129,20 @@ export const Footer = () => {
 
             <Separator className="" />
 
-            <div className="text-center my-4">
-                <p className="text-sm text-muted-foreground">© Law Copilot. All rights reserved.</p>
+            <div className="container mx-auto px-4">
+                <div className="py-5 flex flex-col md:flex-row justify-between items-center">
+                    <p className="text-sm text-muted-foreground mb-4 md:mb-0">
+                        © {new Date().getFullYear()} Law Copilot. All rights reserved.
+                    </p>
+                    <div className="flex gap-6">
+                        <Link href="/privacy-policy" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                            Privacy Policy
+                        </Link>
+                        <Link href="/terms" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                            Terms of Service
+                        </Link>
+                    </div>
+                </div>
             </div>
         </footer>
     );
