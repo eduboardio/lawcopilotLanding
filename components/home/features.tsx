@@ -161,7 +161,7 @@ const FeatureItem = memo(({
   return (
     <div
       className={cn(
-        "w-full flex flex-col lg:flex-row justify-start items-start gap-12 relative feature-item",
+        "w-full flex flex-col lg:flex-row justify-start items-start gap-12 relative",
         {
           "lg:flex-row-reverse": index % 2 !== 0,
         }
@@ -169,7 +169,7 @@ const FeatureItem = memo(({
     >
       {/* Lottie Animation or Fallback */}
       <div className="relative w-full lg:max-w-md group">
-        <Badge className="absolute -top-4 -right-4 rotate-12 bg-black dark:bg-white text-white dark:text-black font-bold px-3 py-1.5 rounded-sm z-10 shadow-lg feature-badge">
+        <Badge className="absolute -top-4 -right-4 rotate-12 bg-black dark:bg-white text-white dark:text-black font-bold px-3 py-1.5 rounded-sm z-10 shadow-lg">
           {badgeText}
         </Badge>
 
@@ -236,24 +236,9 @@ const FeatureItem = memo(({
 
 FeatureItem.displayName = 'FeatureItem';
 
-// CSS styles as a component for better organization
+// CSS styles modified to remove fade-in animations
 const FeatureStyles = () => (
   <style jsx global>{`
-    .feature-item {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-    
-    .feature-item.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .feature-item:nth-child(even).show {
-      transition-delay: 0.2s;
-    }
-    
     .lottie-container {
       transition: all 0.5s ease-out;
     }
@@ -366,54 +351,6 @@ export const Features = () => {
     
     loadAnimations();
   }, [isMounted]);
-  
-  // Setup intersection observer with optimized performance
-  useEffect(() => {
-    if (!isMounted || typeof window === 'undefined') return;
-    
-    // Use requestIdleCallback or setTimeout for non-critical initialization
-    const initializeObserver = () => {
-      const animationObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              // Add class and unobserve to save resources
-              entry.target.classList.add("show");
-              animationObserver.unobserve(entry.target);
-            }
-          });
-        },
-        { 
-          threshold: 0.1,
-          // Add rootMargin to start animation slightly before elements enter viewport
-          rootMargin: "0px 0px 50px 0px"
-        }
-      );
-
-      const section = sectionRef.current;
-      if (!section) return;
-      
-      // Use more efficient selector
-      const features = section.querySelectorAll(".feature-item");
-      
-      features.forEach((feature) => {
-        animationObserver.observe(feature);
-      });
-
-      return () => {
-        animationObserver.disconnect();
-      };
-    };
-    
-    // Use requestIdleCallback if available, or setTimeout as fallback
-    if (typeof window.requestIdleCallback === 'function') {
-      const idleCallbackId = window.requestIdleCallback(initializeObserver);
-      return () => window.cancelIdleCallback(idleCallbackId);
-    } else {
-      const timeoutId = setTimeout(initializeObserver, 200);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [isMounted, animations]);
 
   if (!isMounted) {
     // Return a minimal placeholder to reduce initial render cost
