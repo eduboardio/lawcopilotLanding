@@ -3,10 +3,12 @@
 import { cn } from "@/lib/utils"
 import type { ReactNode } from "react"
 
+type BlurFadeVariant = "left" | "right" | "up" | "down" | "none"
+
 interface BlurFadeProps {
   children: ReactNode
   className?: string
-  variant?: any
+  variant?: BlurFadeVariant
   duration?: number
   delay?: number
   yOffset?: number
@@ -15,7 +17,6 @@ interface BlurFadeProps {
   blur?: string
 }
 
-// Simplified component that just renders children without animations
 export default function BlurFade({ children, className }: BlurFadeProps) {
   return <div className={cn(className)}>{children}</div>
 }

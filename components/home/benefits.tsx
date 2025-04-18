@@ -122,7 +122,7 @@ const QuoteCard = memo(() => (
   <Card className="h-full group hover:shadow-xl transition-all duration-300 overflow-hidden relative">
     <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-40 dark:opacity-40 transition-opacity duration-300 group-hover:opacity-60"></div>
     <CardContent className="p-6 flex flex-col justify-center h-full relative z-10">
-      <div className="text-4xl text-primary/20 font-serif">"</div>
+      <div className="text-4xl text-primary/20 font-serif">&quot;</div>
       <blockquote className="text-lg mt-2">
         Law Copilot has transformed our practice, cutting research time by 70% and improving our case outcomes
         significantly.
