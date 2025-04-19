@@ -373,7 +373,7 @@ export const Features = () => {
 
       <div className="container w-full mx-auto px-4">
         <div className="text-center mb-16">
-          <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20 border-none">
+          <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20 border-none px-4 py-1.5 text-sm font-medium">
             POWERFUL FEATURES
           </Badge>
           <h2 className="text-3xl md:text-5xl font-bold mb-6 relative ">
