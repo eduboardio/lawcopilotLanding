@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
-import { Shield, Wallet, Zap, CheckCircle, ArrowRight, BarChart3, Users, Globe, Star, Scale, Clock } from "lucide-react"
+import { Shield, Wallet, Zap, CheckCircle, ArrowRight, Users, Globe, Star, Scale, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
@@ -105,7 +105,7 @@ const BenefitCard = memo(({ benefit, className }: { benefit: BenefitsProps; clas
 BenefitCard.displayName = "BenefitCard"
 
 const StatCard = memo(
-  ({ title, value, icon, className, color = "text-primary" }: { 
+  ({ title, value, icon, className = "text-primary" }: { 
     title: string; 
     value: string; 
     icon: React.ReactNode; 
