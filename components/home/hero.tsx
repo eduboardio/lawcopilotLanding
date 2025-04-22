@@ -1,9 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronRight, Play } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import HeroVideoDialog from "../ui/hero-video-dialog";
-import { useState, memo } from "react";
+// import HeroVideoDialog from "../ui/hero-video-dialog";
+import { memo } from "react";
 
 const BackgroundElements = memo(() => (
   <div className="absolute inset-0 w-full h-full pointer-events-none">
@@ -50,7 +50,7 @@ const ScrollIndicator = memo(() => (
 ScrollIndicator.displayName = 'ScrollIndicator';
 
 export const Hero = () => {
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  // const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   return (
     <section
@@ -65,15 +65,13 @@ export const Hero = () => {
         </div>
         <div className="text-center max-w-5xl mx-auto space-y-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-            AI-Powered{" "}
-            <span className="relative">
-              <span className="relative z-10 text-primary">Legal Excellence</span>
-            </span>
-            {" "}at Your Fingertips
+            The Future of Law Is Here. Work Smarter with AI.
           </h1>
-          
+
           <p className="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground">
-            Transform your legal practice with intelligent case research, document drafting, and risk analysis. Join thousands of legal professionals elevating their work.
+            Meet Law Copilot—your AI-powered legal assistant built to help lawyers, businesses, and individuals draft faster, research deeper, and navigate legal challenges with confidence.
+            Real Legal intelligence at your fingertips.
+
           </p>
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
@@ -83,18 +81,18 @@ export const Hero = () => {
               <ArrowRight className="ml-2 w-5 h-5 transition-transform" />
             </Link>
           </Button>
-          
-          <Button 
-            variant="outline" 
-            size="lg" 
+
+          {/* <Button
+            variant="outline"
+            size="lg"
             className="rounded-full text-lg px-8 py-6 border-2 bg-background/50 backdrop-blur-sm hover:bg-background/80"
             onClick={() => setIsVideoOpen(true)}
           >
             <Play className="mr-2 h-5 w-5" /> Watch Demo
-          </Button>
+          </Button> */}
         </div>
         <Stats />
-        <div className="relative w-full max-w-5xl mx-auto mt-16">
+        {/* <div className="relative w-full max-w-5xl mx-auto mt-16">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-xl blur-sm"></div>
           <div className="relative bg-background/40 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl overflow-hidden">
             <HeroVideoDialog
@@ -120,9 +118,9 @@ export const Hero = () => {
               <span className="text-sm font-medium">AI-Powered Document Analysis</span>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
-      <ScrollIndicator />
+      {/* <ScrollIndicator /> */}
     </section>
   );
 };

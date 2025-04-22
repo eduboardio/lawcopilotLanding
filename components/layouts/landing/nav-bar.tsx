@@ -13,7 +13,10 @@ import { Separator } from "@/components/ui/separator";
 import {
     NavigationMenu,
     NavigationMenuItem,
+    NavigationMenuLink,
     NavigationMenuList,
+    NavigationMenuContent,
+    NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -26,6 +29,10 @@ import { ThemeToggle } from "@/components/theme-toggle";
 interface RouteProps {
     href: string;
     label: string;
+    subMenu?: {
+        title: string;
+        items: { href: string; label: string }[];
+    };
 }
 
 const routeList: RouteProps[] = [
@@ -34,16 +41,32 @@ const routeList: RouteProps[] = [
         label: "Home",
     },
     {
+        href: "/#benefits",
+        label: "Why Us?",
+    },
+    {
+        href: "#",
+        label: "Products",
+        subMenu: {
+            title: "Our Products",
+            items: [
+                { href: "/products/lawfirms", label: "For Lawfirms" },
+                { href: "/products/lawyers", label: "For Lawyers" },
+                { href: "/products/everyone", label: "For Everyone" },
+            ],
+        },
+    },
+    {
         href: "/#features",
         label: "Features",
     },
     {
-        href: "/#benefits",
-        label: "Benefits",
+        href: "/blog",
+        label: "Blog",
     },
     {
         href: "/#faq",
-        label: "FAQs",
+        label: "FAQ",
     },
     {
         href: "/#footer",
@@ -63,8 +86,9 @@ const CallToActions = memo(({ classes }: {
             <Button 
                 variant="secondary" 
                 className={cn("font-medium", classes?.buttonSignIn)}
+                asChild
             >
-                <Link href={`/signin`}>Sign in</Link>
+                <Link href={`/signup`}>Sign up</Link>
             </Button>
             <Button
                 className={cn("font-medium", classes?.buttonGetStarted)}
@@ -81,21 +105,60 @@ CallToActions.displayName = 'CallToActions';
 const DesktopNavigation = memo(({ pathname }: { pathname: string }) => (
     <NavigationMenu className="hidden lg:flex mx-auto">
         <NavigationMenuList className="gap-1">
-            {routeList.map(({ href, label }) => (
-                <NavigationMenuItem key={href}>
-                    <Link 
-                        href={href} 
-                        className={cn(
-                            "px-4 py-2 text-base font-medium rounded-md transition-colors",
-                            pathname === href || (href === "/#hero" && pathname === "/") 
-                                ? "text-primary" 
-                                : "hover:text-primary"
-                        )}
-                    >
-                        {label}
-                    </Link>
-                </NavigationMenuItem>
-            ))}
+            {routeList.map((route) => {
+                // Handle routes with submenus
+                if (route.subMenu) {
+                    return (
+                        <NavigationMenuItem key={route.label}>
+                            <NavigationMenuTrigger 
+                                className={cn(
+                                    "px-4 py-2 text-base bg-transparent hover:bg-transparent focus:bg-transparent font-medium rounded-md transition-colors",
+                                    pathname === route.href ? "text-primary" : "hover:text-primary"
+                                )}
+                            >
+                                {route.label}
+                            </NavigationMenuTrigger>
+                            <NavigationMenuContent className="bg-popover rounded-md shadow-md border border-border/40">
+                                <div className="p-4 w-[220px]">
+                                    <p className="font-medium mb-2">{route.subMenu.title}</p>
+                                    <ul className="space-y-2">
+                                        {route.subMenu.items.map((item) => (
+                                            <li key={item.href}>
+                                                <NavigationMenuLink asChild>
+                                                    <Link 
+                                                        href={item.href}
+                                                        className="block p-2 hover:bg-accent rounded text-sm transition-colors"
+                                                    >
+                                                        {item.label}
+                                                    </Link>
+                                                </NavigationMenuLink>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </NavigationMenuContent>
+                        </NavigationMenuItem>
+                    );
+                }
+                
+                // Regular routes without submenus
+                return (
+                    <NavigationMenuItem key={route.href}>
+                        <Link 
+                            href={route.href} 
+                            className={cn(
+                                "px-4 py-2 text-base font-medium rounded-md transition-colors",
+                                pathname === route.href || (route.href === "/#hero" && pathname === "/") || 
+                                (route.href === "/blog" && pathname.startsWith("/blog"))
+                                    ? "text-primary" 
+                                    : "hover:text-primary"
+                            )}
+                        >
+                            {route.label}
+                        </Link>
+                    </NavigationMenuItem>
+                );
+            })}
         </NavigationMenuList>
     </NavigationMenu>
 ));
@@ -169,17 +232,47 @@ export const Navbar = () => {
                                     </SheetHeader>
 
                                     <div className="flex flex-col gap-1">
-                                        {routeList.map(({ href, label }) => (
-                                            <Button
-                                                key={href}
-                                                onClick={() => setIsOpen(false)}
-                                                asChild
-                                                variant="ghost"
-                                                className="justify-start text-lg font-medium"
-                                            >
-                                                <Link href={href}>{label}</Link>
-                                            </Button>
-                                        ))}
+                                        {routeList.map((route) => {
+                                            // If it has a submenu, render the submenu items
+                                            if (route.subMenu) {
+                                                return (
+                                                    <div key={route.label} className="flex flex-col">
+                                                        <Button
+                                                            variant="ghost"
+                                                            className="justify-start text-lg font-medium"
+                                                        >
+                                                            {route.label}
+                                                        </Button>
+                                                        <div className="pl-4 flex flex-col gap-1">
+                                                            {route.subMenu.items.map((item) => (
+                                                                <Button
+                                                                    key={item.href}
+                                                                    onClick={() => setIsOpen(false)}
+                                                                    asChild
+                                                                    variant="ghost"
+                                                                    className="justify-start text-base"
+                                                                >
+                                                                    <Link href={item.href}>{item.label}</Link>
+                                                                </Button>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            }
+                                            
+                                            // Regular menu item
+                                            return (
+                                                <Button
+                                                    key={route.href}
+                                                    onClick={() => setIsOpen(false)}
+                                                    asChild
+                                                    variant="ghost"
+                                                    className="justify-start text-lg font-medium"
+                                                >
+                                                    <Link href={route.href}>{route.label}</Link>
+                                                </Button>
+                                            );
+                                        })}
                                     </div>
                                 </div>
 

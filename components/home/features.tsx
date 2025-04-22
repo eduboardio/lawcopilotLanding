@@ -1,415 +1,184 @@
 "use client";
 
-import {
-  Globe,
-  SearchCheck,
-  Flame,
-  File,
-  ArrowRight,
-} from "lucide-react";
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
+import React from "react";
 import { cn } from "@/lib/utils";
+import { Globe, SearchCheck, Flame, File, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useRef, useState, memo } from "react";
-import dynamic from "next/dynamic";
 
-const Lottie = dynamic(() => import("lottie-react"), { 
-  ssr: false,
-  loading: () => <div className="w-full h-full flex items-center justify-center">Loading...</div>
-});
-
-interface CustomButtonProps {
-  variant?: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link";
-  value?: string;
-  className?: string;
-}
-
-interface FeaturesProps {
-  icon?: React.ReactNode;
+// Define the bento item structure
+interface BentoItemProps {
   title: string;
   description: string;
-  cta?: CustomButtonProps;
-  lottiePath: string;
-  badgeText?: string;
+  icon?: React.ReactNode;
   accentColor: string;
+  className?: string;
+  size?: "sm" | "md" | "lg";
+  badgeText?: string;
+  href?: string;
 }
 
-interface LottieAnimationData {
-  v: string;
-  fr: number;
-  ip: number;
-  op: number;
-  w: number;
-  h: number;
-  nm: string;
-  ddd: number;
-  assets: Array<{
-    id?: string;
-    w?: number;
-    h?: number;
-    u?: string;
-    p?: string;
-    e?: number;
-    layers?: unknown[];
-    [key: string]: unknown;
-  }>;
-  layers: Array<{
-    ddd?: number;
-    ind?: number;
-    ty?: number;
-    nm?: string;
-    sr?: number;
-    ks?: Record<string, unknown>;
-    ao?: number;
-    ip?: number;
-    op?: number;
-    st?: number;
-    bm?: number;
-    [key: string]: unknown;
-  }>;
-  [key: string]: unknown;
-}
-
-const featureList: FeaturesProps[] = [
-  {
-    badgeText: "FAST",
-    title: "Research Cases in Seconds, Not Hours",
-    description:
-      "Instantly analyze thousands of legal documents, precedents, and cases with AI-powered search that understands legal context and jurisdiction",
-    cta: {
-      variant: "secondary",
-      value: "Try Research Engine",
-    },
-    lottiePath: "/search.json",
-    accentColor: "from-[#50C972]/20 to-transparent",
-  },
-  {
-    badgeText: "SMART",
-    title: "Predict Case Outcomes with AI Precision",
-    description:
-      "Get data-driven insights on case risks, success probability, and potential challenges using advanced predictive analytics",
-    cta: {
-      variant: "secondary",
-      value: "Analyze Your Case",
-    },
-    lottiePath: "/analyze.json",
-    accentColor: "from-[#FE9B54]/20 to-transparent",
-  },
-  {
-    badgeText: "GLOBAL",
-    title: "Break Language Barriers in Legal Work",
-    description:
-      "Automatically translate legal documents and cases between 50+ languages while preserving legal terminology and context.",
-    cta: {
-      value: "See Languages",
-      variant: "secondary",
-    },
-    lottiePath: "/global.json",
-    accentColor: "from-[#8F5BFF]/20 to-transparent",
-  },
-  {
-    badgeText: "PRECISE",
-    title: "Draft Perfect Legal Documents Instantly",
-    description:
-      "Create court-ready documents, contracts, and legal correspondence using AI templates that adapt to your jurisdiction and style.",
-    cta: {
-      variant: "secondary",
-      value: "Start Drafting",
-    },
-    lottiePath: "/document.json",
-    accentColor: "from-[#44A7FF]/20 to-transparent",
-  },
-];
-
-// Memoized fallback icon component to prevent re-renders
-const FallbackIcon = memo(({ index }: { index: number }) => {
-  const iconClass = cn(
-    "w-1/3 h-1/3",
-    index === 0 ? "text-[#50C972]" : 
-    index === 1 ? "text-[#FE9B54]" : 
-    index === 2 ? "text-[#8F5BFF]" : 
-    "text-[#44A7FF]"
-  );
-  
-  return (
-    <>
-      {index === 0 ? <SearchCheck className={iconClass} /> :
-       index === 1 ? <Flame className={iconClass} /> :
-       index === 2 ? <Globe className={iconClass} /> :
-       <File className={iconClass} />}
-    </>
-  );
-});
-
-FallbackIcon.displayName = 'FallbackIcon';
-
-// Memoized Feature Item component
-const FeatureItem = memo(({ 
-  feature, 
-  index, 
-  animation, 
-  isDarkMode
-}: { 
-  feature: FeaturesProps; 
-  index: number; 
-  animation: LottieAnimationData | null;
-  isDarkMode: boolean;
-}) => {
-  const { title, description, badgeText, cta, accentColor } = feature;
-  
+// Bento item component with hover effects
+const BentoItem = ({
+  title,
+  description,
+  icon,
+  accentColor,
+  className,
+  size = "md",
+  badgeText,
+  href
+}: BentoItemProps) => {
   return (
     <div
       className={cn(
-        "w-full flex flex-col lg:flex-row justify-start items-start gap-12 relative",
+        "group relative flex flex-col overflow-hidden rounded-2xl border border-border/40 bg-background/80 p-6 transition-all duration-300 hover:shadow-xl backdrop-blur-sm h-full",
         {
-          "lg:flex-row-reverse": index % 2 !== 0,
-        }
+          "col-span-1": size === "sm",
+          "col-span-2": size === "md",
+          "col-span-3 lg:col-span-4": size === "lg",
+        },
+        className
       )}
     >
-      {/* Lottie Animation or Fallback */}
-      <div className="relative w-full lg:max-w-md group">
-        <Badge className="absolute -top-4 -right-4 rotate-12 bg-black dark:bg-white text-white dark:text-black font-bold px-3 py-1.5 rounded-sm z-10 shadow-lg">
-          {badgeText}
-        </Badge>
+      {/* Subtle gradient background */}
+      <div
+        className={cn(
+          "absolute inset-0 opacity-5 transition-opacity duration-300 group-hover:opacity-10",
+          `bg-gradient-to-br ${accentColor}`
+        )}
+      ></div>
+      
+      {/* Shine effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
 
-        <div className={cn(
-          "lottie-container border-2 border-border rounded-xl backdrop-blur-sm shadow-xl aspect-square overflow-hidden flex justify-center items-center",
-          "bg-background/50 dark:bg-white/10"
-        )}>
-          {animation ? (
-            <div className={cn(
-              "w-full h-full p-4",
-              isDarkMode ? "bg-white" : "bg-transparent" 
-            )}>
-              <Lottie 
-                animationData={animation} 
-                loop={true} 
-                className="w-full h-full"
-                rendererSettings={{
-                  preserveAspectRatio: "xMidYMid slice",
-                  progressiveLoad: true
-                }}
-              />
-            </div>
-          ) : (
-            // Fallback to the icon if animation fails to load or during loading
-            <div className="w-full h-full flex items-center justify-center text-5xl">
-              <FallbackIcon index={index} />
-            </div>
-          )}
+      {/* Badge if provided */}
+      {badgeText && (
+        <div className="absolute top-4 right-4 text-xs font-medium bg-black/80 text-white px-2.5 py-1 rounded-full z-10">
+          {badgeText}
         </div>
-        
-        {/* Decorative elements */}
-        <div className="absolute -z-10 -bottom-6 -right-6 h-24 w-24 bg-primary/10 rounded-full blur-xl"></div>
-        <div className="absolute -z-10 -top-6 -left-6 h-16 w-16 bg-secondary/20 rounded-full blur-lg"></div>
-      </div>
+      )}
 
       {/* Content */}
-      <div className="flex flex-col justify-start items-start gap-6 lg:pt-8">
-        <h3 className="text-2xl lg:text-4xl font-bold tracking-tight">
+      <div className="relative z-10 flex h-full flex-col">
+        {icon && (
+          <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            {icon}
+          </div>
+        )}
+        
+        <h3 className="text-xl font-semibold mb-3 tracking-tight">
           {title}
         </h3>
-        <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
+        
+        <p className="text-sm text-muted-foreground mb-5 flex-grow leading-relaxed">
           {description}
         </p>
-        <Button 
-          variant={cta?.variant || "default"} 
-          className="group transition-all duration-300 hover:pr-8"
-        >
-          <Link href="/signup" className="flex items-center gap-2">
-            {cta?.value} 
-            <ArrowRight className="size-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-2 transition-all duration-300" />
+        
+        {href && (
+          <Link 
+            href={href}
+            className="mt-auto group inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+          >
+            Explore
+            <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
-        </Button>
+        )}
       </div>
-      
-      {/* Background gradient based on feature accent color */}
-      <div className={cn(
-        "absolute -z-10 w-full h-full blur-3xl opacity-20",
-        index % 2 === 0 ? "left-0" : "right-0",
-        `bg-gradient-to-r ${accentColor}`
-      )}></div>
     </div>
   );
-});
+};
 
-FeatureItem.displayName = 'FeatureItem';
-
-// CSS styles modified to remove fade-in animations
-const FeatureStyles = () => (
-  <style jsx global>{`
-    .lottie-container {
-      transition: all 0.5s ease-out;
-    }
-    
-    .feature-item:hover .lottie-container {
-      transform: scale(1.05);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    }
-    
-    .feature-badge {
-      transition: all 0.3s ease-out;
-    }
-    
-    .feature-item:hover .feature-badge {
-      transform: rotate(0deg) !important;
-    }
-  `}</style>
-);
-
-export const Features = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [animations, setAnimations] = useState<(LottieAnimationData | null)[]>([]);
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-  const [isMounted, setIsMounted] = useState<boolean>(false);
-  
-  // Use useEffect for client-side only code
-  useEffect(() => {
-    // Set isMounted to true when component mounts
-    setIsMounted(true);
-    
-    // Check for dark mode
-    if (typeof window !== 'undefined') {
-      setIsDarkMode(document.documentElement.classList.contains('dark'));
-      
-      // Use more efficient event listener instead of MutationObserver
-      const handleThemeChange = () => {
-        setIsDarkMode(document.documentElement.classList.contains('dark'));
-      };
-      
-      window.addEventListener('theme-change', handleThemeChange);
-      
-      // Fallback to MutationObserver if custom event isn't implemented
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (
-            mutation.attributeName === 'class' && 
-            mutation.target === document.documentElement
-          ) {
-            setIsDarkMode(document.documentElement.classList.contains('dark'));
-          }
-        });
-      });
-      
-      observer.observe(document.documentElement, { 
-        attributes: true,
-        attributeFilter: ['class']
-      });
-      
-      // Cleanup
-      return () => {
-        window.removeEventListener('theme-change', handleThemeChange);
-        observer.disconnect();
-      };
-    }
-  }, []);
-  
-  // Optimized animation loading with cache
-  useEffect(() => {
-    if (!isMounted) return;
-    
-    const animationCache: Record<string, LottieAnimationData> = {};
-    
-    const loadAnimations = async () => {
-      try {
-        // Load animations in sequence to prevent network congestion
-        const loadedAnimations: (LottieAnimationData | null)[] = [];
-        
-        for (const feature of featureList) {
-          try {
-            // Check cache first
-            if (animationCache[feature.lottiePath]) {
-              loadedAnimations.push(animationCache[feature.lottiePath]);
-              continue;
-            }
-            
-            const response = await fetch(feature.lottiePath, {
-              // Use cache-first strategy
-              cache: 'force-cache'
-            });
-            
-            if (!response.ok) throw new Error();
-            
-            const data = await response.json() as LottieAnimationData;
-            
-            // Store in cache
-            animationCache[feature.lottiePath] = data;
-            loadedAnimations.push(data);
-          } catch (error) {
-            console.log(error)
-            loadedAnimations.push(null);
-          }
-        }
-        
-        setAnimations(loadedAnimations);
-      } catch (error) {
-        console.log(error)
-        console.error("Error loading animations");
-      }
-    };
-    
-    loadAnimations();
-  }, [isMounted]);
-
-  if (!isMounted) {
-    // Return a minimal placeholder to reduce initial render cost
-    return (
-      <section id="features" className="w-full py-24 sm:py-32">
-        <div className="container mx-auto px-4">
-          <div className="text-center">Loading features...</div>
-        </div>
-      </section>
-    );
-  }
+export function Features() {
+  // Feature data
+  const features = [
+    {
+      badgeText: "FAST",
+      title: "Research Cases in Seconds",
+      description: "Instantly analyze thousands of legal documents, precedents, and cases with AI-powered search.",
+      icon: <SearchCheck size={24} />,
+      accentColor: "from-emerald-600 to-emerald-900",
+      href: "/signup",
+      size: "lg" as const,
+    },
+    {
+      badgeText: "SMART",
+      title: "Predict Case Outcomes",
+      description: "Get data-driven insights on case risks and success probability using advanced analytics.",
+      icon: <Flame size={24} />,
+      accentColor: "from-amber-600 to-red-700",
+      href: "/signup",
+      size: "md" as const,
+    },
+    {
+      badgeText: "GLOBAL",
+      title: "Break Language Barriers",
+      description: "Translate legal documents between 50+ languages while preserving legal terminology.",
+      icon: <Globe size={24} />,  
+      accentColor: "from-blue-600 to-violet-700",
+      href: "/signup",
+      size: "sm" as const,
+    },
+    {
+      badgeText: "PRECISE",
+      title: "Draft Perfect Documents",
+      description: "Create court-ready documents using AI templates that adapt to your jurisdiction.",
+      icon: <File size={24} />,
+      accentColor: "from-blue-600 to-cyan-700",
+      href: "/signup",
+      size: "md" as const,
+    },
+    {
+      badgeText: "NEW",
+      title: "Legal Document Analysis",
+      description: "Extract key information from contracts and legal documents in seconds.",
+      icon: <SearchCheck size={24} />,
+      accentColor: "from-violet-600 to-purple-800",
+      href: "/signup",
+      size: "sm" as const,
+    },
+    {
+      badgeText: "BETA",
+      title: "AI Legal Assistant",
+      description: "Get real-time assistance with legal research, drafting, and case preparation.",
+      icon: <Flame size={24} />,
+      accentColor: "from-indigo-600 to-blue-800",
+      href: "/signup",
+      size: "md" as const,
+    },
+  ];
 
   return (
-    <section 
-      id="features" 
-      ref={sectionRef}
-      className="w-full bg-gradient-to-b from-background to-secondary/5 py-24 sm:py-32"
-    >
-      <FeatureStyles />
-
-      <div className="container w-full mx-auto px-4">
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20 border-none px-4 py-1.5 text-sm font-medium">
-            POWERFUL FEATURES
-          </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 relative ">
-            AI-Powered Legal Solutions
-            <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Revolutionize your legal practice with cutting-edge AI technology designed specifically for legal professionals.
+    <section className="w-full py-16 md:py-24 bg-background">
+      <div className="container px-4 md:px-6 mx-auto max-w-6xl">
+        {/* OpenAI-style section header */}
+        <div className="mb-12 md:mb-16 max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Legal AI Features</h2>
+          <p className="text-lg text-muted-foreground">
+            Cutting-edge AI-powered tools designed specifically for legal professionals.
           </p>
         </div>
-
-        <div className="flex flex-col justify-center items-center gap-24 w-full mx-auto max-w-6xl">
-          {featureList.map((feature, index) => (
-            <FeatureItem 
-              key={feature.title}
-              feature={feature}
-              index={index}
-              animation={animations[index]}
-              isDarkMode={isDarkMode}
+        
+        {/* Asymmetric bento grid layout */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 auto-rows-min">
+          {features.map((feature, index) => (
+            <BentoItem
+              key={index}
+              {...feature}
             />
           ))}
         </div>
         
-        <div className="mt-24 text-center relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10 rounded-full blur-2xl opacity-50"></div>
-          <Button 
-            size="lg" 
-            className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium text-base px-8 py-6 rounded-full relative"
+        {/* CTA button */}
+        <div className="mt-10 md:mt-16 flex justify-center">
+          <Link 
+            href="/signup" 
+            className="group inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
           >
-            <Link href="/signup" className="flex items-center gap-2">
-              Explore All Features
-              <ArrowRight className="size-4 ml-2" />
-            </Link>
-          </Button>
+            View all features
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </section>
   );
-};
+}

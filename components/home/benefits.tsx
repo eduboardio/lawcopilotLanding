@@ -1,315 +1,260 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
-import { Shield, Wallet, Zap, CheckCircle, ArrowRight, Users, Globe, Star, Scale, Clock } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
-import type React from "react"
-import { memo } from "react"
+import React from "react";
+import { cn } from "@/lib/utils";
+import { Shield, Wallet, Zap, CheckCircle, ArrowRight, Users, Globe, Star, Clock } from "lucide-react";
+import Link from "next/link";
 
-type IconElement = React.ReactNode
-
-interface BenefitsProps {
-  icon: IconElement
-  title: string
-  description: string
-  points?: string[]
-  accentColor?: string
+// BentoItem component - updated with required fields
+interface BentoItemProps {
+  title: string;
+  description: string;
+  icon?: React.ReactNode;
+  accentColor: string;
+  className?: string;
+  size?: "sm" | "md" | "lg";
+  points?: string[];
+  type?: "benefit" | "stat" | "quote" | "cta";
+  value?: string;
+  href?: string;
 }
 
-const benefitList: BenefitsProps[] = [
-  {
-    icon: <Zap size={24} />,
-    title: "Faster Case Research",
-    description:
-      "Our users report cutting research time from days to hours, handling more cases with greater confidence.",
-    points: [
-      "70% average time savings on research tasks",
-      "Instant access to relevant precedents",
-      "Smart keyword and context recognition",
-    ],
-    accentColor: "from-blue-500/20 to-indigo-500/20",
-  },
-  {
-    icon: <Wallet size={24} />,
-    title: "Cost Reduction",
-    description: "Reduce operational costs through automation of routine legal tasks and improved resource allocation.",
-    points: [
-      "30% average reduction in operational costs",
-      "Minimize billable hours spent on research",
-      "Optimize paralegal and associate time",
-    ],
-    accentColor: "from-emerald-500/20 to-green-500/20",
-  },
-  {
-    icon: <Shield size={24} />,
-    title: "Accelerate Legal Research",
-    description:
-      "Uncover critical insights and connections in legal data with Law Copilot's AI-enhanced research tools, simplifying complex tasks.",
-    points: [
-      "Identify overlooked legal precedents",
-      "Generate comprehensive case summaries",
-      "Detect jurisdiction-specific nuances",
-    ],
-    accentColor: "from-purple-500/20 to-violet-500/20",
-  },
-]
-
-const BenefitPoint = memo(({ point }: { point: string }) => (
-  <li className="flex items-start gap-2 animate-fadeIn">
-    <CheckCircle className="size-4 text-primary flex-shrink-0 mt-0.5" />
-    <span className="text-sm">{point}</span>
-  </li>
-))
-
-BenefitPoint.displayName = "BenefitPoint"
-
-const BenefitCard = memo(({ benefit, className }: { benefit: BenefitsProps; className?: string }) => {
-  const { icon, title, description, points, accentColor = "from-primary/5 to-secondary/5" } = benefit
-
+const BentoItem = ({
+  title,
+  description,
+  icon,
+  accentColor,
+  className,
+  size = "md",
+  points,
+  type = "benefit",
+  value,
+  href
+}: BentoItemProps) => {
   return (
-    <Card
+    <div
       className={cn(
-        "border border-border/40 dark:border-border/40 shadow-md hover:shadow-xl transition-all duration-300",
-        "overflow-hidden group backdrop-blur-sm bg-background/80 dark:bg-background/80",
-        "relative h-full",
-        className,
+        "group relative flex flex-col overflow-hidden rounded-2xl border border-border/40 bg-background/80 p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-xl h-full",
+        {
+          "col-span-1": size === "sm",
+          "col-span-2": size === "md",
+          "col-span-3 lg:col-span-4": size === "lg",
+        },
+        className
       )}
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${accentColor} opacity-40 dark:opacity-40 transition-opacity duration-300 group-hover:opacity-60`}></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-
-      <CardHeader className="pt-6 relative z-10">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-2.5 rounded-lg bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">{icon}</div>
-          <CardTitle className="text-xl font-bold tracking-tight group-hover:text-primary transition-colors duration-300">{title}</CardTitle>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4 relative z-10">
-        <p className="text-muted-foreground">{description}</p>
-
-        {points && (
-          <ul className="space-y-2.5 pt-2">
-            {points.map((point, idx) => (
-              <BenefitPoint key={idx} point={point} />
-            ))}
-          </ul>
+      {/* Subtle gradient background */}
+      <div
+        className={cn(
+          "absolute inset-0 opacity-5 transition-opacity duration-300 group-hover:opacity-10",
+          `bg-gradient-to-br ${accentColor}`
         )}
-      </CardContent>
-    </Card>
-  )
-})
+      ></div>
+      
+      {/* Shine effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
 
-BenefitCard.displayName = "BenefitCard"
+      {/* Content based on type */}
+      <div className="relative z-10 flex h-full flex-col">
+        {type === "benefit" && (
+          <>
+            {icon && (
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                {icon}
+              </div>
+            )}
+            <h3 className="text-xl font-semibold mb-3 tracking-tight">
+              {title}
+            </h3>
+            <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{description}</p>
+            {points && (
+              <ul className="space-y-3 pt-2 mt-auto">
+                {points.map((point, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5 text-sm">
+                    <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
+        )}
 
-const StatCard = memo(
-  ({ title, value, icon, className = "text-primary" }: { 
-    title: string; 
-    value: string; 
-    icon: React.ReactNode; 
-    className?: string;
-    color?: string;
-  }) => (
-    <Card className={cn("h-full group hover:shadow-xl transition-all duration-300 overflow-hidden relative", className)}>
-      <div className="absolute inset-0 bg-gradient-to-br from-background to-primary/5 opacity-40 transition-opacity duration-300 group-hover:opacity-80"></div>
-      <CardContent className="p-6 flex flex-col justify-center h-full relative z-10">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-2.5 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-all duration-300">{icon}</div>
-        </div>
-        <p className={cn("text-3xl font-bold mt-2 group-hover:scale-105 transition-transform duration-300")}>
-          {value}
-        </p>
-        <p className="text-sm text-muted-foreground mt-1 group-hover:text-foreground transition-colors duration-300">{title}</p>
-      </CardContent>
-    </Card>
-  ),
-)
+        {type === "stat" && (
+          <>
+            {icon && (
+              <div className="p-3 rounded-xl bg-primary/10 text-primary mb-4">
+                {icon}
+              </div>
+            )}
+            <p className="text-3xl font-bold mb-2">{value}</p>
+            <h3 className="text-base font-medium mb-1">{title}</h3>
+            <p className="text-sm text-muted-foreground">{description}</p>
+          </>
+        )}
 
-StatCard.displayName = "StatCard"
+        {type === "quote" && (
+          <>
+            <div className="text-5xl text-primary/20 font-serif mb-2">&quot;</div>
+            <p className="text-base italic mb-6 leading-relaxed">{description}</p>
+            <div className="mt-auto flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
+                {value?.charAt(0)}
+              </div>
+              <div>
+                <p className="text-sm font-medium">{title}</p>
+                <p className="text-xs text-muted-foreground">{value}</p>
+              </div>
+            </div>
+          </>
+        )}
 
-const QuoteCard = memo(() => (
-  <Card className="h-full group hover:shadow-xl transition-all duration-300 overflow-hidden relative">
-    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-40 dark:opacity-40 transition-opacity duration-300 group-hover:opacity-70"></div>
-    <CardContent className="p-6 flex flex-col justify-center h-full relative z-10">
-      <div className="text-5xl text-primary/20 font-serif">&quot;</div>
-      <blockquote className="text-lg mt-2 italic">
-        Law Copilot has transformed our practice, cutting research time by 70% and improving our case outcomes
-        significantly.
-      </blockquote>
-      <div className="mt-6 flex items-center gap-4">
-        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium">SJ</div>
-        <div>
-          <p className="font-medium">Sarah Johnson</p>
-          <p className="text-sm text-muted-foreground flex items-center gap-1">
-            <Star size={14} className="text-yellow-500 fill-yellow-500" />
-            Partner at Johnson & Associates
-          </p>
-        </div>
+        {type === "cta" && (
+          <>
+            <div className="flex-1">
+              <h3 className="text-xl font-semibold mb-3 tracking-tight">{title}</h3>
+              <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{description}</p>
+            </div>
+            {href && (
+              <Link 
+                href={href}
+                className="mt-auto inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+              >
+                Learn more
+                <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            )}
+          </>
+        )}
       </div>
-    </CardContent>
-  </Card>
-))
+    </div>
+  );
+};
 
-QuoteCard.displayName = "QuoteCard"
+export function Benefits() {
+  // Benefit data
+  const benefitsData = [
+    {
+      icon: <Zap size={24} />,
+      title: "Faster Case Research",
+      description: "Cut research time from days to hours with AI-powered insights and analysis.",
+      points: [
+        "70% average time savings on research tasks",
+        "Instant access to relevant precedents"
+      ],
+      accentColor: "from-blue-600 to-indigo-800",
+      size: "lg" as const,
+      type: "benefit" as const,
+      href: "/research"
+    },
+    {
+      icon: <Wallet size={24} />,
+      title: "Cost Reduction",
+      description: "Reduce operational costs through automation of routine legal tasks.",
+      points: [
+        "30% average reduction in costs",
+        "Optimize paralegal time"
+      ],
+      accentColor: "from-emerald-600 to-green-800",
+      size: "md" as const,
+      type: "benefit" as const,
+      href: "/costs"
+    },
+    {
+      title: "Client Satisfaction",
+      description: "Our users report high satisfaction rates with our platform.",
+      value: "98%",
+      icon: <Users size={24} />,
+      accentColor: "from-blue-600 to-cyan-800",
+      size: "sm" as const,
+      type: "stat" as const
+    },
+    {
+      title: "Sarah Johnson",
+      description: "Law Copilot has transformed our practice, cutting research time by 70% and allowing us to take on more clients while delivering better results.",
+      value: "Partner at Johnson & Associates",
+      accentColor: "from-violet-600 to-purple-800",
+      size: "md" as const,
+      type: "quote" as const
+    },
+    {
+      title: "Time Saved",
+      description: "Average time savings reported by our users.",
+      value: "70%",
+      icon: <Clock size={24} />,
+      accentColor: "from-purple-600 to-indigo-800",
+      size: "sm" as const,
+      type: "stat" as const
+    },
+    {
+      icon: <Shield size={24} />,
+      title: "Accelerate Legal Research",
+      description: "Uncover critical insights and connections in legal data with enhanced research tools.",
+      accentColor: "from-purple-600 to-violet-800",
+      size: "md" as const,
+      type: "cta" as const,
+      href: "/research"
+    },
+    {
+      title: "Active Users",
+      description: "Lawyers using our platform worldwide.",
+      value: "10k+",
+      icon: <Globe size={24} />,
+      accentColor: "from-green-600 to-emerald-800",
+      size: "sm" as const,
+      type: "stat" as const
+    },
+    {
+      title: "Documents Processed",
+      description: "Legal documents analyzed by our AI.",
+      value: "50M+",
+      icon: <Star size={24} />,
+      accentColor: "from-indigo-600 to-blue-800",
+      size: "sm" as const,
+      type: "stat" as const
+    },
+    {
+      title: "Transform Your Practice",
+      description: "Join thousands of legal professionals elevating their work with AI.",
+      accentColor: "from-amber-600 to-red-700",
+      size: "md" as const,
+      type: "cta" as const,
+      href: "/signup"
+    }
+  ];
 
-const CtaCard = memo(() => (
-  <Card className="h-full group hover:shadow-xl transition-all duration-300 overflow-hidden relative">
-    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 opacity-50 dark:opacity-50 transition-opacity duration-300 group-hover:opacity-70"></div>
-    <CardContent className="p-6 flex flex-col justify-center items-center text-center h-full relative z-10">
-      <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">Ready to transform your legal practice?</h3>
-      <Button className="rounded-full group-hover:scale-105 transition-transform duration-300 bg-primary hover:bg-primary/90">
-        <Link href="/signup" className="flex items-center">
-          Get Started <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
-        </Link>
-      </Button>
-    </CardContent>
-  </Card>
-))
-
-CtaCard.displayName = "CtaCard"
-
-const BenefitsCTA = memo(() => (
-  <Card className="relative overflow-hidden col-span-full border-none shadow-xl">
-    {/* <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 blur-md"></div> */}
-    <CardContent className="relative bg-background/90 dark:bg-background/90 backdrop-blur-sm border border-white/20 dark:border-white/20 rounded-xl p-3 lg:p-4 z-10">
-      <p className="text-center md:text-lg font-medium mb-8">
-        Built by legal tech experts in collaboration with practicing attorneys, Law Copilot combines cutting-edge AI
-        technology with deep legal industry expertise. Be among the first to revolutionize your legal practice.
-      </p>
-
-      <div className="flex flex-col justify-center items-center gap-4 md:flex-row">
-        <Button
-          size="lg"
-          className="w-full md:w-max font-medium px-8 py-6 rounded-full bg-foreground hover:bg-foreground/90 text-background relative overflow-hidden group"
-        >
-          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary/40 to-secondary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-          <span className="relative z-10 flex items-center">
-            <Link href="/signup" className="flex items-center gap-2"> 
-              Schedule A Demo <Scale size={18} />
-            </Link>
-          </span>
-        </Button>
-        <Button 
-          size="lg" 
-          className="w-full md:w-max rounded-full relative overflow-hidden group py-6" 
-          variant="outline"
-        >
-          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-          <span className="relative z-10 flex items-center">
-            <Link href="/#faq" className="flex items-center gap-2"> 
-              Read FAQs <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
-            </Link>
-          </span>
-        </Button>
-      </div>
-    </CardContent>
-  </Card>
-))
-
-BenefitsCTA.displayName = "BenefitsCTA"
-
-const BackgroundElements = memo(() => (
-  <div className="absolute inset-0 w-full h-full overflow-hidden">
-    <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-    <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-grid-small-white/5 dark:bg-grid-small-white/10"></div>
-    <div className="absolute top-20 left-1/3 w-64 h-64 border border-primary/20 rounded-full opacity-20"></div>
-    <div className="absolute bottom-20 right-1/3 w-80 h-80 border border-secondary/20 rounded-full opacity-20"></div>
-  </div>
-))
-
-BackgroundElements.displayName = "BackgroundElements"
-
-// Feature highlights mini-cards
-const FeatureHighlight = memo(({ icon, title }: { icon: React.ReactNode; title: string }) => (
-  <div className="flex items-center gap-2 bg-primary/5 hover:bg-primary/10 transition-colors duration-300 px-4 py-2 rounded-full">
-    {icon}
-    <span className="text-sm font-medium">{title}</span>
-  </div>
-))
-
-FeatureHighlight.displayName = "FeatureHighlight"
-
-export const Benefits = () => {
   return (
-    <section
-      id="benefits"
-      className="w-full bg-gradient-to-b from-background via-primary/5 to-background relative overflow-hidden py-20 md:py-28"
-    >
-      <BackgroundElements />
-
-      <div className="container mx-auto p-4 relative z-10">
-        <div className="text-center mb-12">
-          <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20 border-none px-4 py-1.5 text-sm font-medium">KEY ADVANTAGES</Badge>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 relative">
-            Why Choose Law Copilot?
-            <div className="absolute -bottom-3 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg mt-6">
-            Experience the competitive advantages that thousands of legal professionals are gaining with our AI-powered
-            platform.
+    <section className="w-full py-16 md:py-24 bg-background">
+      <div className="container px-4 md:px-6 mx-auto max-w-6xl">
+        {/* OpenAI-style section header */}
+        <div className="mb-12 md:mb-16 max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Why Choose Law Copilot</h2>
+          <p className="text-lg text-muted-foreground">
+            Discover how our platform transforms legal practice with AI technology.
           </p>
-          
-          {/* Feature highlights */}
-          <div className="flex flex-wrap justify-center gap-3 mt-8">
-            <FeatureHighlight icon={<Clock size={16} />} title="Time-saving" />
-            <FeatureHighlight icon={<Shield size={16} />} title="Secure" />
-            <FeatureHighlight icon={<Scale size={16} />} title="Legal-focused" />
-            <FeatureHighlight icon={<Users size={16} />} title="Client-oriented" />
-          </div>
         </div>
-
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-5 md:gap-6 w-full max-w-6xl mx-auto">
-          {/* Main benefit card - spans 8 columns on large screens */}
-          <div className="md:col-span-6 lg:col-span-8">
-            <BenefitCard benefit={benefitList[0]} />
-          </div>
-
-          {/* Stats - each spans 2 columns on large screens */}
-          <div className="md:col-span-3 lg:col-span-2">
-            <StatCard title="Client Satisfaction" value="98%" icon={<Users size={20} />} color="text-blue-500" />
-          </div>
-          <div className="md:col-span-3 lg:col-span-2">
-            <StatCard title="Time Saved" value="70%" icon={<Clock size={20} />} color="text-purple-500" />
-          </div>
-
-          {/* Quote card - spans 4 columns on large screens */}
-          <div className="md:col-span-3 lg:col-span-4">
-            <QuoteCard />
-          </div>
-
-          {/* Second benefit card - spans 4 columns on large screens */}
-          <div className="md:col-span-3 lg:col-span-4">
-            <BenefitCard benefit={benefitList[1]} />
-          </div>
-
-          {/* CTA card - spans 4 columns on large screens */}
-          <div className="md:col-span-6 lg:col-span-4">
-            <CtaCard />
-          </div>
-
-          {/* Third benefit card - spans 6 columns on large screens */}
-          <div className="md:col-span-3 lg:col-span-6">
-            <BenefitCard benefit={benefitList[2]} />
-          </div>
-
-          {/* Stats - each spans 3 columns on large screens */}
-          <div className="md:col-span-3 lg:col-span-3">
-            <StatCard title="Active Users" value="10k+" icon={<Users size={20} />} color="text-green-500" />
-          </div>
-          <div className="md:col-span-3 lg:col-span-3">
-            <StatCard title="Documents Processed" value="50M+" icon={<Globe size={20} />} color="text-indigo-500" />
-          </div>
-
-          {/* CTA Section - spans full width */}
-          <div className="md:col-span-6 lg:col-span-12">
-            <BenefitsCTA />
-          </div>
+        
+        {/* Asymmetric bento grid layout */}
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-6 auto-rows-min">
+          {benefitsData.map((item, index) => (
+            <BentoItem
+              key={index}
+              {...item}
+            />
+          ))}
+        </div>
+        
+        {/* CTA button */}
+        <div className="mt-10 md:mt-16 flex justify-center">
+          <Link 
+            href="/signup" 
+            className="group inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            Schedule a demo
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </section>
-  )
+  );
 }

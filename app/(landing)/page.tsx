@@ -16,9 +16,9 @@ const Hero = lazy(() =>
   import("@/components/home/hero").then(module => ({ default: module.Hero }))
 );
 
-const Banner = lazy(() => 
-  import("@/components/home/banner").then(module => ({ default: module.Banner }))
-);
+// const Banner = lazy(() => 
+//   import("@/components/home/banner").then(module => ({ default: module.Banner }))
+// );
 
 const Features = lazy(() => 
   import("@/components/home/features").then(module => ({ default: module.Features }))
@@ -38,11 +38,11 @@ const CTA = lazy(() =>
 
 const sections: SectionConfig[] = [
   { component: Hero, priority: true },
-  { component: Banner },
+  // { component: Banner },
   { component: Features },
   { component: Benefits },
   { component: FAQ },
-  { component: Banner },
+  // { component: Banner },
   { component: CTA },
 ];
 
