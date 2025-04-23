@@ -64,12 +64,12 @@ const routeList: RouteProps[] = [
         href: "/blog",
         label: "Blog",
     },
+    // {
+    //     href: "/#faq",
+    //     label: "FAQ",
+    // },
     {
-        href: "/#faq",
-        label: "FAQ",
-    },
-    {
-        href: "/#footer",
+        href: "/contact",
         label: "Contact",
     },
 ];
@@ -112,13 +112,16 @@ const DesktopNavigation = memo(({ pathname }: { pathname: string }) => (
                         <NavigationMenuItem key={route.label}>
                             <NavigationMenuTrigger 
                                 className={cn(
-                                    "px-4 py-2 text-base bg-transparent hover:bg-transparent focus:bg-transparent font-medium rounded-md transition-colors",
+                                    "px-4 py-2 text-base bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent font-medium rounded-md transition-colors",
                                     pathname === route.href ? "text-primary" : "hover:text-primary"
                                 )}
                             >
                                 {route.label}
                             </NavigationMenuTrigger>
-                            <NavigationMenuContent className="bg-popover rounded-md shadow-md border border-border/40">
+                            <NavigationMenuContent 
+                                className="bg-popover rounded-md shadow-md border border-border/40"
+                                // Remove forceMount to restore proper dropdown behavior
+                            >
                                 <div className="p-4 w-[220px]">
                                     <p className="font-medium mb-2">{route.subMenu.title}</p>
                                     <ul className="space-y-2">

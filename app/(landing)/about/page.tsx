@@ -5,20 +5,20 @@ import { Briefcase, Users, Target, Heart } from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <section className="container py-16 md:py-24">
+    <section className="container px-4 py-12 md:py-24">
       <div className="text-center mb-12">
         <span className="px-4 py-1 text-sm font-medium rounded-full bg-primary/10 text-primary inline-block mb-4">
           About Us
         </span>
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Story</h1>
+        <h1 className="text-3xl md:text-5xl font-bold mb-6">Our Story</h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
           Law Copilot was founded by legal and AI experts to transform how legal professionals work in the digital age.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-12 mb-16">
-        <Card className="backdrop-blur-sm bg-background/80 border shadow-md">
-          <CardContent className="pt-6">
+      <div className="grid md:grid-cols-2 gap-6 md:gap-12 mb-16">
+        <Card className="backdrop-blur-sm bg-background/80 border shadow-md h-full">
+          <CardContent className="pt-6 h-full flex flex-col">
             <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
             <p className="text-muted-foreground">
               At Law Copilot, we&apos;re on a mission to democratize access to advanced legal technology. We believe that AI-powered tools should enhance legal professionals capabilities, allowing them to focus on what truly matters: applying their expertise to help clients navigate complex legal challenges.
@@ -26,8 +26,8 @@ export default function AboutPage() {
           </CardContent>
         </Card>
 
-        <Card className="backdrop-blur-sm bg-background/80 border shadow-md">
-          <CardContent className="pt-6">
+        <Card className="backdrop-blur-sm bg-background/80 border shadow-md h-full">
+          <CardContent className="pt-6 h-full flex flex-col">
             <h2 className="text-2xl font-bold mb-4">Our Vision</h2>
             <p className="text-muted-foreground">
               We envision a future where legal professionals of all backgrounds and practice areas can harness the power of AI to deliver better outcomes for their clients. Law Copilot aims to be the leading platform that bridges the gap between legal expertise and cutting-edge technology.
@@ -36,39 +36,39 @@ export default function AboutPage() {
         </Card>
       </div>
 
-      <h2 className="text-3xl font-bold text-center mb-12">What Sets Us Apart</h2>
+      <h2 className="text-3xl font-bold text-center mb-8 md:mb-12">What Sets Us Apart</h2>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-        <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background/50 border hover:shadow-md transition-shadow">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="flex flex-col items-center text-center p-4 md:p-6 rounded-lg bg-background/50 border hover:shadow-md transition-shadow h-full">
           <div className="bg-primary/10 p-4 rounded-full mb-4">
-            <Briefcase className="h-8 w-8 text-primary" />
+            <Briefcase className="h-6 w-6 md:h-8 md:w-8 text-primary" />
           </div>
-          <h3 className="text-xl font-semibold mb-2">Legal Expertise</h3>
-          <p className="text-muted-foreground">Built by legal professionals who understand the unique challenges of legal practice</p>
+          <h3 className="text-lg md:text-xl font-semibold mb-2">Legal Expertise</h3>
+          <p className="text-muted-foreground text-sm md:text-base">Built by legal professionals who understand the unique challenges of legal practice</p>
         </div>
 
-        <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background/50 border hover:shadow-md transition-shadow">
+        <div className="flex flex-col items-center text-center p-4 md:p-6 rounded-lg bg-background/50 border hover:shadow-md transition-shadow h-full">
           <div className="bg-primary/10 p-4 rounded-full mb-4">
-            <Users className="h-8 w-8 text-primary" />
+            <Users className="h-6 w-6 md:h-8 md:w-8 text-primary" />
           </div>
-          <h3 className="text-xl font-semibold mb-2">User-Centric</h3>
-          <p className="text-muted-foreground">Designed with extensive input from attorneys, paralegals, and legal researchers</p>
+          <h3 className="text-lg md:text-xl font-semibold mb-2">User-Centric</h3>
+          <p className="text-muted-foreground text-sm md:text-base">Designed with extensive input from attorneys, paralegals, and legal researchers</p>
         </div>
 
-        <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background/50 border hover:shadow-md transition-shadow">
+        <div className="flex flex-col items-center text-center p-4 md:p-6 rounded-lg bg-background/50 border hover:shadow-md transition-shadow h-full">
           <div className="bg-primary/10 p-4 rounded-full mb-4">
-            <Target className="h-8 w-8 text-primary" />
+            <Target className="h-6 w-6 md:h-8 md:w-8 text-primary" />
           </div>
-          <h3 className="text-xl font-semibold mb-2">Precision</h3>
-          <p className="text-muted-foreground">Advanced AI models trained specifically on legal language and concepts</p>
+          <h3 className="text-lg md:text-xl font-semibold mb-2">Precision</h3>
+          <p className="text-muted-foreground text-sm md:text-base">Advanced AI models trained specifically on legal language and concepts</p>
         </div>
 
-        <div className="flex flex-col items-center text-center p-6 rounded-lg bg-background/50 border hover:shadow-md transition-shadow">
+        <div className="flex flex-col items-center text-center p-4 md:p-6 rounded-lg bg-background/50 border hover:shadow-md transition-shadow h-full">
           <div className="bg-primary/10 p-4 rounded-full mb-4">
-            <Heart className="h-8 w-8 text-primary" />
+            <Heart className="h-6 w-6 md:h-8 md:w-8 text-primary" />
           </div>
-          <h3 className="text-xl font-semibold mb-2">Commitment</h3>
-          <p className="text-muted-foreground">Dedicated to continuous improvement through user feedback and technological advancement</p>
+          <h3 className="text-lg md:text-xl font-semibold mb-2">Commitment</h3>
+          <p className="text-muted-foreground text-sm md:text-base">Dedicated to continuous improvement through user feedback and technological advancement</p>
         </div>
       </div>
 

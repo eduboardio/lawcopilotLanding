@@ -28,9 +28,9 @@ const Benefits = lazy(() =>
   import("@/components/home/benefits").then(module => ({ default: module.Benefits }))
 );
 
-const FAQ = lazy(() => 
-  import("@/components/home/faq").then(module => ({ default: module.FAQ }))
-);
+// const FAQ = lazy(() => 
+//   import("@/components/home/faq").then(module => ({ default: module.FAQ }))
+// );
 
 const CTA = lazy(() => 
   import("@/components/home/cta").then(module => ({ default: module.CTA }))
@@ -41,7 +41,7 @@ const sections: SectionConfig[] = [
   // { component: Banner },
   { component: Features },
   { component: Benefits },
-  { component: FAQ },
+  // { component: FAQ },
   // { component: Banner },
   { component: CTA },
 ];
