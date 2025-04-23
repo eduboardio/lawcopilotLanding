@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { useState } from "react";
+import { ChangeEvent, FormEvent } from 'react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -28,19 +29,19 @@ export default function ContactPage() {
     hearAbout: ""
   });
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-
-  const handleSelectChange = (name:string, value:any) => {
+  
+  // For select, specify what types of values you expect
+  const handleSelectChange = (name: string, value: string | number | boolean) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-
-  const handleSubmit = (e:any) => {
+  
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    // Here you would handle the form submission
   };
 
   return (

@@ -5,8 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { ROUTES_WITHOUT_FOOTER } from "@/constants";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
-import { useState } from "react";
+import { Mail, Linkedin } from "lucide-react";
 
 export const Footer = () => {
     const pathname = usePathname();

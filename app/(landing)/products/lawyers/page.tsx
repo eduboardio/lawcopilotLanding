@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { FileText, BookOpen, BarChart3, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function LawyersPage() {
@@ -50,11 +48,11 @@ export default function LawyersPage() {
                 </li>
               </ul>
             </div>
-            <div className="md:col-span-3 bg-muted/50 rounded-xl p-6 border border-border/40">
+            {/* <div className="md:col-span-3 bg-muted/50 rounded-xl p-6 border border-border/40">
               <div className="aspect-video bg-card rounded-lg flex items-center justify-center">
                 <img src="/api/placeholder/600/360" alt="Document drafting interface" className="rounded-lg" />
               </div>
-            </div>
+            </div> */}
           </div>
         </TabsContent>
         
@@ -84,11 +82,11 @@ export default function LawyersPage() {
                 </li>
               </ul>
             </div>
-            <div className="md:col-span-3 bg-muted/50 rounded-xl p-6 border border-border/40">
+            {/* <div className="md:col-span-3 bg-muted/50 rounded-xl p-6 border border-border/40">
               <div className="aspect-video bg-card rounded-lg flex items-center justify-center">
                 <img src="/api/placeholder/600/360" alt="Legal research interface" className="rounded-lg" />
               </div>
-            </div>
+            </div> */}
           </div>
         </TabsContent>
         
@@ -118,11 +116,11 @@ export default function LawyersPage() {
                 </li>
               </ul>
             </div>
-            <div className="md:col-span-3 bg-muted/50 rounded-xl p-6 border border-border/40">
+            {/* <div className="md:col-span-3 bg-muted/50 rounded-xl p-6 border border-border/40">
               <div className="aspect-video bg-card rounded-lg flex items-center justify-center">
                 <img src="/api/placeholder/600/360" alt="Legal analytics dashboard" className="rounded-lg" />
               </div>
-            </div>
+            </div> */}
           </div>
         </TabsContent>
       </Tabs>
@@ -130,7 +128,7 @@ export default function LawyersPage() {
       {/* Testimonial Section */}
       <div className="mt-20 max-w-4xl mx-auto bg-muted/30 rounded-xl p-8 border border-border/30">
         <blockquote className="text-lg italic text-center">
-          "This platform has completely transformed my practice. I'm drafting documents in half the time and my research is more thorough than ever before."
+          This platform has completely transformed my practice. I&apos;m drafting documents in half the time and my research is more thorough than ever before.
         </blockquote>
         <div className="mt-4 text-center">
           <p className="font-medium">Sarah Johnson</p>

@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { HelpCircle, FolderArchive, ArrowRight, PanelRight, Search, Scale, BookOpen, FileText, BarChart, Server, Shield, MessageSquare, Clock } from "lucide-react";
+import { HelpCircle, FolderArchive, ArrowRight, PanelRight, Search, Scale, BookOpen, FileText, Server, Shield, MessageSquare, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -48,11 +47,11 @@ export default function LitigantsPage() {
                 Explore Assistant <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
-            <div className="bg-card/50 flex items-center justify-center p-6">
+            {/* <div className="bg-card/50 flex items-center justify-center p-6">
               <div className="rounded-lg overflow-hidden aspect-square w-full max-w-xs">
                 <img src="/api/placeholder/400/400" alt="Knowledge Assistant interface" className="w-full h-full object-cover" />
               </div>
-            </div>
+            </div> */}
           </div>
         </Card>
 
