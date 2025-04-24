@@ -30,7 +30,7 @@ const LoadingScreen = ({ onAnimationComplete }: LoadingScreenProps) => (
     onAnimationComplete={onAnimationComplete}
     className="fixed inset-0 z-50 flex items-center justify-center bg-background"
   >
-    <div className="relative">
+    <div className="relative px-4">
       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-xl animate-pulse"></div>
       <motion.div
         animate={{
@@ -45,7 +45,7 @@ const LoadingScreen = ({ onAnimationComplete }: LoadingScreenProps) => (
         }}
         className="relative z-10"
       >
-        <div className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+        <div className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
           Law Copilot
         </div>
       </motion.div>
@@ -75,9 +75,11 @@ const LandingLayout = ({ children }: { children: ReactNode }) => {
     return (
       <>
         <Navbar />
-        <main className="main-content-wrapper relative overflow-hidden">
+        <main className="main-content-wrapper relative overflow-hidden w-full">
           <BackgroundGradients />
-          {children}
+          <div className="min-h-screen">
+            {children}
+          </div>
         </main>
         <Footer />
       </>
@@ -100,11 +102,14 @@ const LandingLayout = ({ children }: { children: ReactNode }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoading ? 0 : 1 }}
         transition={{ duration: 0.5 }}
+        className="w-full"
       >
         <Navbar />
-        <main className="main-content-wrapper relative overflow-hidden">
+        <main className="main-content-wrapper relative overflow-hidden w-full">
           <BackgroundGradients />
-          {children}
+          <div className="min-h-screen">
+            {children}
+          </div>
         </main>
         <Footer />
       </motion.div>

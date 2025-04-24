@@ -2,7 +2,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Shield, Wallet, Zap, CheckCircle, ArrowRight, Users, Globe, Star, Clock } from "lucide-react";
+import { Wallet, Zap, CheckCircle, ArrowRight, Users, Clock, Search, FileText, Code, MapPin, Lock } from "lucide-react";
 import Link from "next/link";
 
 // BentoItem component with improved spacing and layout
@@ -34,7 +34,7 @@ const BentoItem = ({
   return (
     <div
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-2xl border border-border/40 bg-background/80 p-8 backdrop-blur-sm transition-all duration-300 hover:shadow-xl h-full",
+        "group relative flex flex-col overflow-hidden rounded-2xl border border-border/40 bg-background/80 p-4 sm:p-5 backdrop-blur-sm transition-all duration-300 hover:shadow-xl h-full",
         {
           "col-span-1": size === "sm",
           "col-span-2": size === "md",
@@ -59,19 +59,19 @@ const BentoItem = ({
         {type === "benefit" && (
           <>
             {icon && (
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 {icon}
               </div>
             )}
-            <h3 className="text-xl font-semibold mb-4 tracking-tight">
+            <h3 className="text-lg font-semibold mb-3 tracking-tight">
               {title}
             </h3>
-            <p className="text-sm text-muted-foreground mb-6 leading-relaxed">{description}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground mb-4 leading-relaxed">{description}</p>
             {points && (
-              <ul className="space-y-4 pt-2 mt-auto">
+              <ul className="space-y-2 pt-1 mt-auto">
                 {points.map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-sm">
-                    <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                  <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm">
+                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-primary flex-shrink-0 mt-0.5" />
                     <span>{point}</span>
                   </li>
                 ))}
@@ -84,27 +84,27 @@ const BentoItem = ({
           <>
             <div className="flex-1 flex flex-col items-start justify-center">
               {icon && (
-                <div className="p-3 rounded-xl bg-primary/10 text-primary mb-5">
+                <div className="p-2 rounded-xl bg-primary/10 text-primary mb-3">
                   {icon}
                 </div>
               )}
-              <p className="text-4xl font-bold tracking-tight mb-3">{value}</p>
-              <h3 className="text-base font-medium mb-2">{title}</h3>
-              <p className="text-sm text-muted-foreground">{description}</p>
+              <p className="text-3xl font-bold tracking-tight mb-2">{value}</p>
+              <h3 className="text-sm font-medium mb-1">{title}</h3>
+              <p className="text-xs text-muted-foreground">{description}</p>
             </div>
           </>
         )}
 
         {type === "quote" && (
           <>
-            <div className="text-6xl text-primary/20 font-serif mb-3">&quot;</div>
-            <p className="text-base italic mb-8 leading-relaxed">{description}</p>
-            <div className="mt-auto flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
+            <div className="text-4xl text-primary/20 font-serif mb-2">&quot;</div>
+            <p className="text-sm italic mb-4 leading-relaxed">{description}</p>
+            <div className="mt-auto flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
                 {value?.charAt(0)}
               </div>
               <div>
-                <p className="text-sm font-medium">{title}</p>
+                <p className="text-xs font-medium">{title}</p>
                 <p className="text-xs text-muted-foreground">{value}</p>
               </div>
             </div>
@@ -114,16 +114,16 @@ const BentoItem = ({
         {type === "cta" && (
           <>
             <div className="flex-1">
-              <h3 className="text-xl font-semibold mb-4 tracking-tight">{title}</h3>
-              <p className="text-sm text-muted-foreground mb-6 leading-relaxed">{description}</p>
+              <h3 className="text-lg font-semibold mb-3 tracking-tight">{title}</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground mb-4 leading-relaxed">{description}</p>
             </div>
             {href && (
               <Link 
                 href={href}
-                className="mt-auto inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                className="mt-auto inline-flex items-center text-xs sm:text-sm font-medium text-primary hover:text-primary/80 transition-colors"
               >
                 Learn more
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="ml-1.5 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             )}
           </>
@@ -138,25 +138,26 @@ export function Benefits() {
   return (
     <section className="w-full py-16 md:py-24 bg-background">
       <div className="container px-4 md:px-6 mx-auto max-w-7xl">
-        {/* OpenAI-style section header with improved spacing */}
-        <div className="mb-16 md:mb-20 max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-5">Why Choose Law Copilot</h2>
-          <p className="text-lg text-muted-foreground">
-            Discover how our platform transforms legal practice with AI technology.
+        {/* Centered section header with improved spacing */}
+        <div className="mb-12 md:mb-16 text-center mx-auto max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Why Choose Law Copilot</h2>
+          <p className="text-base md:text-lg text-muted-foreground">
+            Discover how our platform transforms legal practice with AI technology designed specifically for Indian legal professionals.
           </p>
         </div>
         
         {/* Asymmetric bento grid layout with better spacing and organization */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-6 md:gap-8 auto-rows-fr">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 auto-rows-fr">
           {/* First row - large item */}
-          <div className="col-span-full md:col-span-6">
+          <div className="col-span-full lg:col-span-6">
             <BentoItem
-              icon={<Zap size={28} />}
-              title="Faster Case Research"
-              description="Cut research time from days to hours with AI-powered insights and analysis that connects relevant precedents and builds stronger arguments."
+              icon={<Zap size={24} />}
+              title="Accelerate Research"
+              description="Cut time spent on legal research by over 70% with AI-powered insights and analysis."
               points={[
-                "70% average time savings on research tasks",
-                "Instant access to relevant precedents and case law"
+                "Faster access to case law",
+                "Context-aware search",
+                "Build stronger arguments, faster"
               ]}
               accentColor="from-blue-600 to-indigo-800"
               size="lg"
@@ -165,15 +166,16 @@ export function Benefits() {
             />
           </div>
           
-          {/* Second row - medium + small items */}
-          <div className="col-span-full md:col-span-4">
+          {/* Second row - medium items */}
+          <div className="col-span-full sm:col-span-1 lg:col-span-3">
             <BentoItem
-              icon={<Wallet size={24} />}
-              title="Cost Reduction"
-              description="Reduce operational costs through intelligent automation of routine legal tasks and document processing."
+              icon={<Wallet size={20} />}
+              title="Reduce Costs"
+              description="Automate repetitive tasks and reduce operational overhead."
               points={[
-                "30% average reduction in operational costs",
-                "Optimize paralegal and associate time allocation"
+                "Save billable hours",
+                "Improve team efficiency",
+                "Lower support costs"
               ]}
               accentColor="from-emerald-600 to-green-800"
               size="md"
@@ -181,99 +183,133 @@ export function Benefits() {
               href="/costs"
             />
           </div>
-          <div className="col-span-full md:col-span-2">
+          <div className="col-span-full sm:col-span-1 lg:col-span-3">
             <BentoItem
-              title="Client Satisfaction"
-              description="Our users report exceptionally high satisfaction rates."
-              value="98%"
-              icon={<Users size={24} />}
-              accentColor="from-blue-600 to-cyan-800"
-              size="sm"
-              type="stat"
-            />
-          </div>
-          
-          {/* Third row - quote + stat */}
-          <div className="col-span-full md:col-span-3">
-            <BentoItem
-              title="Sarah Johnson"
-              description="Law Copilot has transformed our practice, cutting research time by 70% and allowing us to take on more clients while delivering better results."
-              value="Partner at Johnson & Associates"
+              icon={<Search size={20} />}
+              title="Uncover Legal Insights"
+              description="Go beyond search—identify risks and patterns with ease."
+              points={[
+                "Spot hidden clauses",
+                "Generate smart summaries",
+                "Understand jurisdictional nuances"
+              ]}
               accentColor="from-violet-600 to-purple-800"
               size="md"
-              type="quote"
-            />
-          </div>
-          <div className="col-span-full md:col-span-3">
-            <BentoItem
-              icon={<Shield size={24} />}
-              title="Accelerate Legal Research"
-              description="Uncover critical insights and connections in legal data with our enhanced research tools and AI-powered analysis."
-              accentColor="from-purple-600 to-violet-800"
-              size="md"
-              type="cta"
-              href="/research"
+              type="benefit"
+              href="/insights"
             />
           </div>
           
-          {/* Fourth row - stats */}
-          <div className="col-span-full md:col-span-2">
+          {/* Third row - stats */}
+          <div className="col-span-1 sm:col-span-1 lg:col-span-2">
             <BentoItem
               title="Time Saved"
-              description="Average time savings reported by our users."
+              description="Average research time reduction reported by users."
               value="70%"
-              icon={<Clock size={24} />}
+              icon={<Clock size={20} />}
               accentColor="from-purple-600 to-indigo-800"
               size="sm"
               type="stat"
             />
           </div>
-          <div className="col-span-full md:col-span-2">
+          <div className="col-span-1 sm:col-span-1 lg:col-span-2">
             <BentoItem
               title="Active Users"
-              description="Lawyers using our platform worldwide."
-              value="10k+"
-              icon={<Globe size={24} />}
+              description="Legal professionals using our platform in India."
+              value="5k+"
+              icon={<Users size={20} />}
               accentColor="from-green-600 to-emerald-800"
               size="sm"
               type="stat"
             />
           </div>
-          <div className="col-span-full md:col-span-2">
+          <div className="col-span-full sm:col-span-2 lg:col-span-2">
             <BentoItem
               title="Documents Processed"
-              description="Legal documents analyzed by our AI."
-              value="50M+"
-              icon={<Star size={24} />}
+              description="Indian legal documents analyzed by our AI."
+              value="25M+"
+              icon={<FileText size={20} />}
               accentColor="from-indigo-600 to-blue-800"
               size="sm"
               type="stat"
             />
           </div>
           
-          {/* Final row - CTA */}
-          <div className="col-span-full md:col-span-6">
+          {/* Fourth row - smaller benefits */}
+          <div className="col-span-full sm:col-span-1 lg:col-span-3">
             <BentoItem
-              title="Transform Your Practice"
-              description="Join thousands of legal professionals elevating their work with AI-powered tools designed specifically for the legal industry."
+              icon={<Code size={20} />}
+              title="Proprietary Algorithm"
+              description="Built on a custom-trained model, fine-tuned for Indian legal data."
+              points={[
+                "Optimized for contract and litigation documents",
+                "Designed by lawyers and engineers",
+                "Continuously improving with feedback"
+              ]}
               accentColor="from-amber-600 to-red-700"
+              size="md"
+              type="benefit"
+              href="/technology"
+            />
+          </div>
+          <div className="col-span-full sm:col-span-1 lg:col-span-3">
+            <BentoItem
+              icon={<MapPin size={20} />}
+              title="Jurisdiction Awareness"
+              description="AI that understands legal variations across Indian states and forums."
+              points={[
+                "Contextual reasoning by forum",
+                "Tailored language for courts and tribunals",
+                "Cross-jurisdictional citation intelligence"
+              ]}
+              accentColor="from-blue-600 to-cyan-800"
+              size="md"
+              type="benefit"
+              href="/jurisdictions"
+            />
+          </div>
+          
+          {/* Fifth row - reliable results */}
+          <div className="col-span-full sm:col-span-1 lg:col-span-4">
+            <BentoItem
+              icon={<Lock size={20} />}
+              title="Reliable, Safe Results"
+              description="No hallucinations. Just dependable, legally-grounded answers."
+              points={[
+                "Fact-checked responses",
+                "Built-in citation engine",
+                "Transparent model outputs"
+              ]}
+              accentColor="from-purple-600 to-violet-800"
+              size="md"
+              type="benefit"
+              href="/reliability"
+            />
+          </div>
+          <div className="col-span-full sm:col-span-1 lg:col-span-2">
+            <BentoItem
+              title="Sarah Johnson"
+              description="Law Copilot has transformed our practice, cutting research time significantly while helping us deliver better results to clients."
+              value="Partner at Johnson & Associates"
+              accentColor="from-violet-600 to-purple-800"
+              size="sm"
+              type="quote"
+            />
+          </div>
+          
+          {/* Bottom Banner */}
+          <div className="col-span-full lg:col-span-6">
+            <BentoItem
+              title="Built for Indian Legal Professionals"
+              description="From trial courts to Supreme Court formats, Law Copilot is trained on the real content you use—judgments, statutes, notices, pleadings, and contracts."
+              accentColor="from-indigo-600 to-blue-800"
               size="md"
               type="cta"
               href="/signup"
             />
           </div>
         </div>
-        
-        {/* Enhanced CTA button */}
-        {/* <div className="mt-16 md:mt-20 flex justify-center">
-          <Link 
-            href="/signup" 
-            className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
-          >
-            Schedule a demo
-            <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
-        </div> */}
+      
       </div>
     </section>
   );

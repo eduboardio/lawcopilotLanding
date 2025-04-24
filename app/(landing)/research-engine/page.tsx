@@ -9,13 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { Search, BookOpen, FileText, Clock, ArrowRight, Filter, SlidersHorizontal, BookMarked } from "lucide-react";
 
 interface SearchResult {
-    id: number;
-    title: string;
-    excerpt: string;
-    jurisdiction: string;
-    relevance: number;
-    date: string;
-  }
+  id: number;
+  title: string;
+  excerpt: string;
+  jurisdiction: string;
+  relevance: number;
+  date: string;
+}
 
 export default function ResearchEngine() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -59,37 +59,37 @@ export default function ResearchEngine() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-10">
+    <div className="container mx-auto px-4 py-6 md:py-10">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold mb-4">Legal Research Engine</h1>
-          <p className="text-xl text-muted-foreground">
+        <div className="text-center mb-6 md:mb-10">
+          <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4">Legal Research Engine</h1>
+          <p className="text-lg md:text-xl text-muted-foreground px-2">
             Research cases in seconds, not hours with AI-powered legal search
           </p>
         </div>
 
-        <div className="flex items-center justify-center gap-3 mb-10">
-          <Badge variant="outline" className="px-3 py-1 text-base border-primary">
-            <Clock className="h-4 w-4 mr-2" />
+        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-8 md:mb-10">
+          <Badge variant="outline" className="px-2 md:px-3 py-1 text-sm md:text-base border-primary">
+            <Clock className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
             70% Time Savings
           </Badge>
-          <Badge variant="outline" className="px-3 py-1 text-base border-primary">
-            <BookMarked className="h-4 w-4 mr-2" />
+          <Badge variant="outline" className="px-2 md:px-3 py-1 text-sm md:text-base border-primary">
+            <BookMarked className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
             Millions of Cases
           </Badge>
-          <Badge variant="outline" className="px-3 py-1 text-base border-primary">
-            <BookOpen className="h-4 w-4 mr-2" />
+          <Badge variant="outline" className="px-2 md:px-3 py-1 text-sm md:text-base border-primary">
+            <BookOpen className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
             Jurisdiction-Aware
           </Badge>
         </div>
 
-        <Card className="mb-12">
+        <Card className="mb-8 md:mb-12">
           <CardHeader>
             <CardTitle>Find Relevant Legal Precedents</CardTitle>
             <CardDescription>Enter your search query and our AI will find the most relevant cases</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Input 
                 placeholder="Describe your legal question or enter case details..." 
                 value={searchQuery}
@@ -99,32 +99,35 @@ export default function ResearchEngine() {
               <Button 
                 onClick={handleSearch}
                 disabled={isSearching || !searchQuery.trim()}
+                className="w-full sm:w-auto"
               >
                 {isSearching ? "Searching..." : "Search"}
                 {!isSearching && <Search className="ml-2 h-4 w-4" />}
               </Button>
             </div>
             
-            <Tabs defaultValue="all" className="mt-6">
-              <TabsList className="grid grid-cols-4">
-                <TabsTrigger value="all">All Sources</TabsTrigger>
-                <TabsTrigger value="cases">Cases</TabsTrigger>
-                <TabsTrigger value="statutes">Statutes</TabsTrigger>
-                <TabsTrigger value="articles">Articles</TabsTrigger>
-              </TabsList>
-            </Tabs>
+            <div className="mt-6 overflow-x-auto">
+              <Tabs defaultValue="all">
+                <TabsList className="w-full grid grid-cols-4 min-w-[400px]">
+                  <TabsTrigger value="all" className="text-xs md:text-sm">All Sources</TabsTrigger>
+                  <TabsTrigger value="cases" className="text-xs md:text-sm">Cases</TabsTrigger>
+                  <TabsTrigger value="statutes" className="text-xs md:text-sm">Statutes</TabsTrigger>
+                  <TabsTrigger value="articles" className="text-xs md:text-sm">Articles</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
             
-            <div className="flex items-center justify-between mt-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4 gap-3">
               <p className="text-sm text-muted-foreground">Advanced filters:</p>
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm">
-                  Jurisdiction <Filter className="ml-2 h-3 w-3" />
+              <div className="flex flex-wrap gap-2">
+                <Button variant="outline" size="sm" className="text-xs md:text-sm">
+                  Jurisdiction <Filter className="ml-1 md:ml-2 h-3 w-3" />
                 </Button>
-                <Button variant="outline" size="sm">
-                  Date Range <Clock className="ml-2 h-3 w-3" />
+                <Button variant="outline" size="sm" className="text-xs md:text-sm">
+                  Date Range <Clock className="ml-1 md:ml-2 h-3 w-3" />
                 </Button>
-                <Button variant="outline" size="sm">
-                  More Filters <SlidersHorizontal className="ml-2 h-3 w-3" />
+                <Button variant="outline" size="sm" className="text-xs md:text-sm">
+                  More Filters <SlidersHorizontal className="ml-1 md:ml-2 h-3 w-3" />
                 </Button>
               </div>
             </div>
@@ -137,20 +140,20 @@ export default function ResearchEngine() {
                   <span className="text-sm text-muted-foreground">{searchResults.length} results found</span>
                 </div>
                 
-                <div className="space-y-6">
+                <div className="space-y-4 md:space-y-6">
                   {searchResults.map((result) => (
-                    <div key={result.id} className="border rounded-lg p-4 hover:border-primary transition-colors">
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-bold text-lg">{result.title}</h3>
-                        <Badge>{result.relevance}% Match</Badge>
+                    <div key={result.id} className="border rounded-lg p-3 md:p-4 hover:border-primary transition-colors">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
+                        <h3 className="font-bold text-base md:text-lg">{result.title}</h3>
+                        <Badge className="w-fit">{result.relevance}% Match</Badge>
                       </div>
                       <p className="text-sm mb-3">{result.excerpt}</p>
-                      <div className="flex justify-between items-center">
-                        <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+                        <div className="flex flex-wrap gap-2">
                           <Badge variant="outline">{result.jurisdiction}</Badge>
                           <Badge variant="outline">{result.date}</Badge>
                         </div>
-                        <Button variant="link" className="p-0">
+                        <Button variant="link" className="p-0 justify-start sm:justify-center">
                           View Full Case <ArrowRight className="ml-1 h-3 w-3" />
                         </Button>
                       </div>
@@ -162,13 +165,13 @@ export default function ResearchEngine() {
           </CardFooter>
         </Card>
 
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">Research Features</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card>
+        <div className="mb-8 md:mb-16">
+          <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Research Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <Card className="h-full">
               <CardHeader className="pb-2">
-                <Search className="h-6 w-6 text-primary mb-2" />
-                <CardTitle>Smart Legal Search</CardTitle>
+                <Search className="h-5 w-5 md:h-6 md:w-6 text-primary mb-2" />
+                <CardTitle className="text-lg md:text-xl">Smart Legal Search</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
@@ -177,10 +180,10 @@ export default function ResearchEngine() {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="h-full">
               <CardHeader className="pb-2">
-                <BookOpen className="h-6 w-6 text-primary mb-2" />
-                <CardTitle>Jurisdiction Awareness</CardTitle>
+                <BookOpen className="h-5 w-5 md:h-6 md:w-6 text-primary mb-2" />
+                <CardTitle className="text-lg md:text-xl">Jurisdiction Awareness</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
@@ -189,10 +192,10 @@ export default function ResearchEngine() {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="h-full">
               <CardHeader className="pb-2">
-                <FileText className="h-6 w-6 text-primary mb-2" />
-                <CardTitle>Case Summaries</CardTitle>
+                <FileText className="h-5 w-5 md:h-6 md:w-6 text-primary mb-2" />
+                <CardTitle className="text-lg md:text-xl">Case Summaries</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-sm">
@@ -203,14 +206,14 @@ export default function ResearchEngine() {
           </div>
         </div>
 
-        <div className="bg-primary/5 p-8 rounded-lg mb-16">
-          <div className="grid md:grid-cols-2 gap-8">
+        <div className="bg-primary/5 p-4 md:p-8 rounded-lg mb-8 md:mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <div>
-              <h2 className="text-2xl font-bold mb-4">Supported Research Materials</h2>
-              <p className="text-muted-foreground mb-6">
+              <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Supported Research Materials</h2>
+              <p className="text-muted-foreground mb-4 md:mb-6">
                 Our research engine covers a comprehensive range of legal sources:
               </p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div className="flex items-center gap-2">
                   <Badge className="h-4 w-4 text-primary">✓</Badge>
                   <span>Federal Cases</span>
@@ -237,8 +240,8 @@ export default function ResearchEngine() {
                 </div>
               </div>
             </div>
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Customer Success</h2>
+            <div className="mt-4 md:mt-0">
+              <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Customer Success</h2>
               <blockquote className="italic border-l-4 pl-4 border-primary mb-4">
               &quot;Law Copilot&apos;s research engine found a precedent that completely changed our approach to a difficult case. What would have taken days of research was done in minutes.&quot;
               </blockquote>
@@ -250,16 +253,16 @@ export default function ResearchEngine() {
           </div>
         </div>
 
-        <div className="mt-16 text-center">
-          <h2 className="text-3xl font-bold mb-2">Ready to Transform Your Legal Research?</h2>
-          <p className="text-xl text-muted-foreground mb-6">
+        <div className="mt-8 md:mt-16 text-center px-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-2">Ready to Transform Your Legal Research?</h2>
+          <p className="text-lg md:text-xl text-muted-foreground mb-4 md:mb-6">
             Join thousands of legal professionals saving 70% of their research time.
           </p>
-          <div className="flex justify-center gap-4">
-            <Button size="lg">
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Button size="lg" className="w-full sm:w-auto">
               Start Free Trial
             </Button>
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" className="w-full sm:w-auto">
               Schedule Demo
             </Button>
           </div>
