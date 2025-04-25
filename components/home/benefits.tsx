@@ -1,16 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Wallet, Zap, CheckCircle, ArrowRight, Users, Clock, Search, FileText, Code, MapPin, Lock } from "lucide-react";
+import { Wallet, Zap, CheckCircle, ArrowRight, Users, Clock, Search, FileText, Code, MapPin, Lock, ChevronDown, Shield, Scale, Star } from "lucide-react";
 import Link from "next/link";
 
-// BentoItem component with improved spacing and layout
+type BentoItemSize = 'sm' | 'md' | 'lg';
+type BentoItemType = 'benefit' | 'stat' | 'quote' | 'cta';
+
 interface BentoItemProps {
   title: string;
   description: string;
   icon?: React.ReactNode;
   accentColor: string;
+  darkAccentColor?: string;
   className?: string;
   size?: "sm" | "md" | "lg";
   points?: string[];
@@ -24,6 +27,7 @@ const BentoItem = ({
   description,
   icon,
   accentColor,
+  darkAccentColor,
   className,
   size = "md",
   points,
@@ -31,10 +35,36 @@ const BentoItem = ({
   value,
   href
 }: BentoItemProps) => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  
+  // Check if dark mode is enabled
+  useEffect(() => {
+    const checkDarkMode = () => {
+      const isDark = document.documentElement.classList.contains('dark') || 
+                    window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(isDark);
+    };
+    
+    checkDarkMode();
+    
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          checkDarkMode();
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, { attributes: true });
+    
+    return () => observer.disconnect();
+  }, []);
+  
   return (
     <div
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-2xl border border-border/40 bg-background/80 p-4 sm:p-5 backdrop-blur-sm transition-all duration-300 hover:shadow-xl h-full",
+        "group relative flex flex-col overflow-hidden rounded-2xl border backdrop-blur-sm p-4 sm:p-5 transition-all duration-300 hover:shadow-xl h-full",
+        isDarkMode ? "border-white/10 hover:border-white/20 bg-background/30" : "border-border/40 hover:border-border/60 bg-background/80",
         {
           "col-span-1": size === "sm",
           "col-span-2": size === "md",
@@ -43,36 +73,80 @@ const BentoItem = ({
         className
       )}
     >
-      {/* Refined subtle gradient background */}
-      <div
-        className={cn(
-          "absolute inset-0 opacity-3 transition-opacity duration-300 group-hover:opacity-8",
-          `bg-gradient-to-br ${accentColor}`
+      {/* OpenAI-style background implementation */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Base gradient layer */}
+        <div
+          className={cn(
+            "absolute inset-0 transition-opacity duration-300",
+            isDarkMode ? "opacity-40 group-hover:opacity-50" : "opacity-[0.03] group-hover:opacity-[0.08]",
+            `bg-gradient-to-br ${isDarkMode ? (darkAccentColor || accentColor) : accentColor}`
+          )}
+        ></div>
+        
+        {/* Multi-layer gradient effect for dark mode */}
+        {isDarkMode && (
+          <>
+            {/* Radial gradient for focal point */}
+            <div 
+              className="absolute inset-0 opacity-30 bg-radial-gradient"
+              style={{
+                background: `radial-gradient(circle at 50% 50%, ${darkAccentColor?.split('to-')[1].split(' ')[0] || 'rgba(79, 70, 229, 0.4)'}, transparent 70%)`
+              }}
+            ></div>
+            
+            {/* Corner gradient accent */}
+            <div 
+              className="absolute top-0 right-0 w-1/2 h-1/2 opacity-20"
+              style={{
+                background: `radial-gradient(circle at 100% 0%, ${darkAccentColor?.split('from-')[1].split(' ')[0] || 'rgba(59, 130, 246, 0.5)'}, transparent 70%)`
+              }}
+            ></div>
+            
+            {/* Subtle texture overlay */}
+            <div className="absolute inset-0 opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjEiPjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiIGZpbGwtb3BhY2l0eT0iMCIvPjxwYXRoIGQ9Ik0wIDBoMXYxSDB6TTAgMWgxdjFIMHpNMSAwaDF2MUgxek0xIDJoMXYxSDF6TTIgMWgxdjFIMnpNMiAzaDF2MUgyek0zIDJoMXYxSDN6TTMgNGgxdjFIM3pNNCAzaDF2MUg0ek00IDVoMXYxSDR6TTUgNGgxdjFINXpNNSA2aDF2MUg1ek02IDVoMXYxSDZ6TTYgN2gxdjFINnpNNyA2aDF2MUg3ek03IDhoMXYxSDd6TTggN2gxdjFIOHpNOCA5aDF2MUg4ek05IDhoMXYxSDl6TTkgMTBoMXYxSDl6TTEwIDloMXYxSDEwek0xMCAxMWgxdjFIMTB6TTExIDEwaDF2MUgxMXpNMTEgMTJoMXYxSDExek0xMiAxMWgxdjFIMTJ6TTEyIDEzaDF2MUgxMnpNMTMgMTJoMXYxSDEzek0xMyAxNGgxdjFIMTN6TTE0IDEzaDF2MUgxNHpNMTQgMTVoMXYxSDE0ek0xNSAxNGgxdjFIMTV6TTE1IDE2aDF2MUgxNXpNMTYgMTVoMXYxSDE2ek0xNiAxN2gxdjFIMTZ6TTE3IDE2aDF2MUgxN3pNMTcgMThoMXYxSDE3ek0xOCAxN2gxdjFIMTh6TTE4IDE5aDF2MUgxOHpNMTkgMThoMXYxSDE5ek0xOSAyMGgxdjFIMTl6TTIwIDE5aDF2MUgyMHpNMjAgMjFoMXYxSDIwek0yMSAyMGgxdjFIMjF6TTIxIDIyaDF2MUgyMXpNMjIgMjFoMXYxSDIyek0yMiAyM2gxdjFIMjJ6TTIzIDIyaDF2MUgyM3pNMjMgMjRoMXYxSDIzek0yNCAyM2gxdjFIMjR6TTI0IDI1aDF2MUgyNHpNMjUgMjRoMXYxSDI1ek0yNSAyNmgxdjFIMjV6TTI2IDI1aDF2MUgyNnpNMjYgMjdoMXYxSDI2ek0yNyAyNmgxdjFIMjd6TTI3IDI4aDF2MUgyN3pNMjggMjdoMXYxSDI4ek0yOCAyOWgxdjFIMjh6TTI5IDI4aDF2MUgyOXpNMjkgMzBoMXYxSDI5ek0zMCAyOWgxdjFIMzB6TTMwIDMxaDF2MUgzMHpNMzEgMzBoMXYxSDMxek0zMSAzMmgxdjFIMzF6TTMyIDMxaDF2MUgzMnpNMzIgMzNoMXYxSDMyok0zMyAzMmgxdjFIMzN6TTMzIDM0aDF2MUgzM3pNMzQgMzNoMXYxSDM0ek0zNCAzNWgxdjFIMzR6TTM1IDM0aDF2MUgzNXpNMzUgMzZoMXYxSDM1ek0zNiAzNWgxdjFIMzZ6TTM2IDM3aDF2MUgzNnpNMzcgMzZoMXYxSDM3ek0zNyAzOGgxdjFIMzd6TTM4IDM3aDEwdjFIMzh6TTM4IDM5aDEwdjFIMzh6TTM5IDM4aDEwdjFIMzl6Ii8+PC9nPjwvc3ZnPg==')]"></div>
+          </>
         )}
-      ></div>
-      
-      {/* Enhanced shine effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+        
+        {/* Enhanced shine effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+      </div>
 
       {/* Content based on type with improved spacing */}
       <div className="relative z-10 flex h-full flex-col">
         {type === "benefit" && (
           <>
             {icon && (
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <div className={cn(
+                "mb-4 flex h-10 w-10 items-center justify-center rounded-xl shadow-sm",
+                isDarkMode 
+                  ? "bg-white/20 text-white" 
+                  : "bg-primary/10 text-primary"
+              )}>
                 {icon}
               </div>
             )}
-            <h3 className="text-lg font-semibold mb-3 tracking-tight">
+            <h3 className={cn(
+              "text-lg font-semibold mb-3 tracking-tight",
+              isDarkMode ? "text-white" : ""
+            )}>
               {title}
             </h3>
-            <p className="text-xs sm:text-sm text-muted-foreground mb-4 leading-relaxed">{description}</p>
+            <p className={cn(
+              "text-xs sm:text-sm mb-4 leading-relaxed",
+              isDarkMode ? "text-white/85" : "text-muted-foreground"
+            )}>
+              {description}
+            </p>
             {points && (
               <ul className="space-y-2 pt-1 mt-auto">
                 {points.map((point, idx) => (
                   <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm">
-                    <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-primary flex-shrink-0 mt-0.5" />
-                    <span>{point}</span>
+                    <CheckCircle className={cn(
+                      "h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0 mt-0.5",
+                      isDarkMode ? "text-white/90" : "text-primary"
+                    )} />
+                    <span className={isDarkMode ? "text-white/90" : ""}>{point}</span>
                   </li>
                 ))}
               </ul>
@@ -84,28 +158,73 @@ const BentoItem = ({
           <>
             <div className="flex-1 flex flex-col items-start justify-center">
               {icon && (
-                <div className="p-2 rounded-xl bg-primary/10 text-primary mb-3">
+                <div className={cn(
+                  "p-2 rounded-xl mb-3 shadow-sm",
+                  isDarkMode 
+                    ? "bg-white/20 text-white" 
+                    : "bg-primary/10 text-primary"
+                )}>
                   {icon}
                 </div>
               )}
-              <p className="text-3xl font-bold tracking-tight mb-2">{value}</p>
-              <h3 className="text-sm font-medium mb-1">{title}</h3>
-              <p className="text-xs text-muted-foreground">{description}</p>
+              <p className={cn(
+                "text-3xl font-bold tracking-tight mb-2",
+                isDarkMode ? "text-white" : ""
+              )}>
+                {value}
+              </p>
+              <h3 className={cn(
+                "text-sm font-medium mb-1",
+                isDarkMode ? "text-white" : ""
+              )}>
+                {title}
+              </h3>
+              <p className={cn(
+                "text-xs",
+                isDarkMode ? "text-white/80" : "text-muted-foreground"
+              )}>
+                {description}
+              </p>
             </div>
           </>
         )}
 
         {type === "quote" && (
           <>
-            <div className="text-4xl text-primary/20 font-serif mb-2">&quot;</div>
-            <p className="text-sm italic mb-4 leading-relaxed">{description}</p>
+            <div className={cn(
+              "text-4xl font-serif mb-2",
+              isDarkMode ? "text-white/40" : "text-primary/20"
+            )}>
+              &quot;
+            </div>
+            <p className={cn(
+              "text-sm italic mb-4 leading-relaxed",
+              isDarkMode ? "text-white/90" : ""
+            )}>
+              {description}
+            </p>
             <div className="mt-auto flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
+              <div className={cn(
+                "w-10 h-10 rounded-full flex items-center justify-center font-medium shadow-sm",
+                isDarkMode 
+                  ? "bg-white/20 text-white" 
+                  : "bg-primary/10 text-primary"
+              )}>
                 {value?.charAt(0)}
               </div>
               <div>
-                <p className="text-xs font-medium">{title}</p>
-                <p className="text-xs text-muted-foreground">{value}</p>
+                <p className={cn(
+                  "text-xs font-medium",
+                  isDarkMode ? "text-white" : ""
+                )}>
+                  {title}
+                </p>
+                <p className={cn(
+                  "text-xs",
+                  isDarkMode ? "text-white/80" : "text-muted-foreground"
+                )}>
+                  {value}
+                </p>
               </div>
             </div>
           </>
@@ -114,13 +233,26 @@ const BentoItem = ({
         {type === "cta" && (
           <>
             <div className="flex-1">
-              <h3 className="text-lg font-semibold mb-3 tracking-tight">{title}</h3>
-              <p className="text-xs sm:text-sm text-muted-foreground mb-4 leading-relaxed">{description}</p>
+              <h3 className={cn(
+                "text-lg font-semibold mb-3 tracking-tight",
+                isDarkMode ? "text-white" : ""
+              )}>
+                {title}
+              </h3>
+              <p className={cn(
+                "text-xs sm:text-sm mb-4 leading-relaxed",
+                isDarkMode ? "text-white/85" : "text-muted-foreground"
+              )}>
+                {description}
+              </p>
             </div>
             {href && (
               <Link 
                 href={href}
-                className="mt-auto inline-flex items-center text-xs sm:text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                className={cn(
+                  "mt-auto inline-flex items-center text-xs sm:text-sm font-medium transition-colors",
+                  isDarkMode ? "text-white hover:text-white/90" : "text-primary hover:text-primary/80"
+                )}
               >
                 Learn more
                 <ArrowRight className="ml-1.5 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -134,182 +266,334 @@ const BentoItem = ({
 };
 
 export function Benefits() {
+  const [showAllBenefits, setShowAllBenefits] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  
+  // Check if dark mode is enabled
+  useEffect(() => {
+    const checkDarkMode = () => {
+      const isDark = document.documentElement.classList.contains('dark') || 
+                    window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(isDark);
+    };
+    
+    checkDarkMode();
+    
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          checkDarkMode();
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, { attributes: true });
+    
+    return () => observer.disconnect();
+  }, []);
+
+  // Initial benefits to show with more vibrant dark mode colors
+  const initialBenefits = [
+    // First row - large item
+    {
+      icon: <Zap size={24} />,
+      title: "Accelerate Research",
+      description: "Cut time spent on legal research by over 70% with AI-powered insights and analysis.",
+      points: [
+        "Faster access to case law",
+        "Context-aware search",
+        "Build stronger arguments, faster"
+      ],
+      accentColor: "from-blue-600 to-indigo-800",
+      darkAccentColor: "from-blue-300 to-indigo-500", // Brighter for dark mode
+      size: "lg",
+      type: "benefit",
+      href: "/research",
+      gridPos: "col-span-full lg:col-span-6"
+    },
+    
+    // Second row - medium items
+    {
+      icon: <Wallet size={20} />,
+      title: "Reduce Costs",
+      description: "Automate repetitive tasks and reduce operational overhead.",
+      points: [
+        "Save billable hours",
+        "Improve team efficiency",
+        "Lower support costs"
+      ],
+      accentColor: "from-emerald-600 to-green-800",
+      darkAccentColor: "from-emerald-300 to-green-500", // Brighter for dark mode
+      size: "md",
+      type: "benefit",
+      href: "/costs",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+    },
+    {
+      icon: <Search size={20} />,
+      title: "Uncover Legal Insights",
+      description: "Go beyond search—identify risks and patterns with ease.",
+      points: [
+        "Spot hidden clauses",
+        "Generate smart summaries",
+        "Understand jurisdictional nuances"
+      ],
+      accentColor: "from-violet-600 to-purple-800",
+      darkAccentColor: "from-violet-300 to-purple-500", // Brighter for dark mode
+      size: "md",
+      type: "benefit",
+      href: "/insights",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+    },
+    
+    // Third row - stats
+    {
+      title: "Time Saved",
+      description: "Average research time reduction reported by users.",
+      value: "70%",
+      icon: <Clock size={20} />,
+      accentColor: "from-purple-600 to-indigo-800",
+      darkAccentColor: "from-purple-300 to-indigo-500", // Brighter for dark mode
+      size: "sm",
+      type: "stat",
+      gridPos: "col-span-1 sm:col-span-1 lg:col-span-2"
+    },
+    {
+      title: "Active Users",
+      description: "Legal professionals using our platform in India.",
+      value: "5k+",
+      icon: <Users size={20} />,
+      accentColor: "from-green-600 to-emerald-800",
+      darkAccentColor: "from-green-300 to-emerald-500", // Brighter for dark mode
+      size: "sm",
+      type: "stat",
+      gridPos: "col-span-1 sm:col-span-1 lg:col-span-2"
+    },
+    {
+      title: "Documents Processed",
+      description: "Indian legal documents analyzed by our AI.",
+      value: "25M+",
+      icon: <FileText size={20} />,
+      accentColor: "from-indigo-600 to-blue-800",
+      darkAccentColor: "from-indigo-300 to-blue-500", // Brighter for dark mode
+      size: "sm",
+      type: "stat",
+      gridPos: "col-span-full sm:col-span-2 lg:col-span-2"
+    }
+  ];
+
+  // Extra benefits to show when "View All" is clicked with brighter dark mode colors
+  const extraBenefits = [
+    // Fourth row - additional benefits
+    {
+      icon: <Code size={20} />,
+      title: "Proprietary Algorithm",
+      description: "Built on a custom-trained model, fine-tuned for Indian legal data.",
+      points: [
+        "Optimized for contract and litigation documents",
+        "Designed by lawyers and engineers",
+        "Continuously improving with feedback"
+      ],
+      accentColor: "from-amber-600 to-red-700",
+      darkAccentColor: "from-amber-300 to-red-500", // Brighter for dark mode
+      size: "md",
+      type: "benefit",
+      href: "/technology",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+    },
+    {
+      icon: <MapPin size={20} />,
+      title: "Jurisdiction Awareness",
+      description: "AI that understands legal variations across Indian states and forums.",
+      points: [
+        "Contextual reasoning by forum",
+        "Tailored language for courts and tribunals",
+        "Cross-jurisdictional citation intelligence"
+      ],
+      accentColor: "from-blue-600 to-cyan-800",
+      darkAccentColor: "from-blue-300 to-cyan-500", // Brighter for dark mode
+      size: "md",
+      type: "benefit",
+      href: "/jurisdictions",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+    },
+    
+    // Fifth row - reliable results
+    {
+      icon: <Lock size={20} />,
+      title: "Reliable, Safe Results",
+      description: "No hallucinations. Just dependable, legally-grounded answers.",
+      points: [
+        "Fact-checked responses",
+        "Built-in citation engine",
+        "Transparent model outputs"
+      ],
+      accentColor: "from-purple-600 to-violet-800",
+      darkAccentColor: "from-purple-300 to-violet-500", // Brighter for dark mode
+      size: "md",
+      type: "benefit",
+      href: "/reliability",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-4"
+    },
+    {
+      title: "Sarah Johnson",
+      description: "Law Copilot has transformed our practice, cutting research time significantly while helping us deliver better results to clients.",
+      value: "Partner at Johnson & Associates",
+      accentColor: "from-violet-600 to-purple-800",
+      darkAccentColor: "from-violet-300 to-purple-500", // Brighter for dark mode
+      size: "sm",
+      type: "quote",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-2"
+    },
+    
+    // Additional benefits only shown in "View All"
+    {
+      icon: <Shield size={20} />,
+      title: "Enhanced Security",
+      description: "Bank-level encryption and privacy controls for sensitive legal documents.",
+      points: [
+        "Data stored in Indian servers",
+        "SOC 2 compliant infrastructure",
+        "Regular security audits"
+      ],
+      accentColor: "from-red-600 to-orange-700",
+      darkAccentColor: "from-red-300 to-orange-500", // Brighter for dark mode
+      size: "md",
+      type: "benefit",
+      href: "/security",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+    },
+    {
+      icon: <Scale size={20} />,
+      title: "Regulatory Compliance",
+      description: "Stay updated with regulatory changes affecting your practice areas.",
+      points: [
+        "Real-time compliance monitoring",
+        "Automated updates",
+        "Contextual legal risk analysis"
+      ],
+      accentColor: "from-teal-600 to-emerald-700",
+      darkAccentColor: "from-teal-300 to-emerald-500", // Brighter for dark mode
+      size: "md",
+      type: "benefit",
+      href: "/compliance",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+    },
+    {
+      title: "Rajesh Sharma",
+      description: "The jurisdiction-specific insights have been invaluable for our practice across multiple state courts.",
+      value: "Senior Advocate, Delhi High Court",
+      accentColor: "from-amber-600 to-yellow-700",
+      darkAccentColor: "from-amber-300 to-yellow-500", // Brighter for dark mode
+      size: "sm",
+      type: "quote",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-2"
+    },
+    {
+      icon: <Star size={20} />,
+      title: "Premium Support",
+      description: "Dedicated legal tech specialists to assist with platform integration.",
+      points: [
+        "24/7 technical support",
+        "Personalized onboarding",
+        "Custom training sessions"
+      ],
+      accentColor: "from-cyan-600 to-blue-700",
+      darkAccentColor: "from-cyan-300 to-blue-500", // Brighter for dark mode
+      size: "md",
+      type: "benefit",
+      href: "/support",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-4"
+    },
+    
+    // Bottom Banner - always shown at the end
+    {
+      title: "Built for Indian Legal Professionals",
+      description: "From trial courts to Supreme Court formats, Law Copilot is trained on the real content you use—judgments, statutes, notices, pleadings, and contracts.",
+      accentColor: "from-indigo-600 to-blue-800",
+      darkAccentColor: "from-indigo-300 to-blue-500", // Brighter for dark mode
+      size: "md",
+      type: "cta",
+      href: "/signup",
+      gridPos: "col-span-full lg:col-span-6"
+    }
+  ];
+
   // Refined grid layout with better spacing
   return (
     <section className="w-full py-16 md:py-24 bg-background">
       <div className="container px-4 md:px-6 mx-auto max-w-7xl">
         {/* Centered section header with improved spacing */}
         <div className="mb-12 md:mb-16 text-center mx-auto max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Why Choose Law Copilot</h2>
-          <p className="text-base md:text-lg text-muted-foreground">
+          <h2 className={cn(
+            "text-3xl md:text-4xl font-bold tracking-tight mb-4",
+            isDarkMode ? "text-white" : ""
+          )}>
+            Why Choose Law Copilot
+          </h2>
+          <p className={cn(
+            "text-base md:text-lg",
+            isDarkMode ? "text-white/85" : "text-muted-foreground"
+          )}>
             Discover how our platform transforms legal practice with AI technology designed specifically for Indian legal professionals.
           </p>
         </div>
         
         {/* Asymmetric bento grid layout with better spacing and organization */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 auto-rows-fr">
-          {/* First row - large item */}
-          <div className="col-span-full lg:col-span-6">
-            <BentoItem
-              icon={<Zap size={24} />}
-              title="Accelerate Research"
-              description="Cut time spent on legal research by over 70% with AI-powered insights and analysis."
-              points={[
-                "Faster access to case law",
-                "Context-aware search",
-                "Build stronger arguments, faster"
-              ]}
-              accentColor="from-blue-600 to-indigo-800"
-              size="lg"
-              type="benefit"
-              href="/research"
-            />
-          </div>
+          {/* Initial benefits */}
+          {initialBenefits.map((benefit, index) => (
+            <div key={`initial-${index}`} className={benefit.gridPos}>
+              <BentoItem
+                icon={benefit.icon}
+                title={benefit.title}
+                description={benefit.description}
+                points={benefit.points}
+                accentColor={benefit.accentColor}
+                darkAccentColor={benefit.darkAccentColor}
+                size={benefit.size as BentoItemSize}
+                type={benefit.type as BentoItemType}
+                value={benefit.value}
+                href={benefit.href}
+              />
+            </div>
+          ))}
           
-          {/* Second row - medium items */}
-          <div className="col-span-full sm:col-span-1 lg:col-span-3">
-            <BentoItem
-              icon={<Wallet size={20} />}
-              title="Reduce Costs"
-              description="Automate repetitive tasks and reduce operational overhead."
-              points={[
-                "Save billable hours",
-                "Improve team efficiency",
-                "Lower support costs"
-              ]}
-              accentColor="from-emerald-600 to-green-800"
-              size="md"
-              type="benefit"
-              href="/costs"
-            />
-          </div>
-          <div className="col-span-full sm:col-span-1 lg:col-span-3">
-            <BentoItem
-              icon={<Search size={20} />}
-              title="Uncover Legal Insights"
-              description="Go beyond search—identify risks and patterns with ease."
-              points={[
-                "Spot hidden clauses",
-                "Generate smart summaries",
-                "Understand jurisdictional nuances"
-              ]}
-              accentColor="from-violet-600 to-purple-800"
-              size="md"
-              type="benefit"
-              href="/insights"
-            />
-          </div>
+          {/* View All Benefits button */}
+          {!showAllBenefits && (
+            <div className="col-span-full mt-4 text-center">
+              <button 
+                onClick={() => setShowAllBenefits(true)}
+                className={cn(
+                  "inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-200",
+                  isDarkMode 
+                    ? "bg-white/10 hover:bg-white/15 text-white" 
+                    : "bg-primary/10 hover:bg-primary/20 text-primary"
+                )}
+              >
+                View All Benefits <ChevronDown size={18} />
+              </button>
+            </div>
+          )}
           
-          {/* Third row - stats */}
-          <div className="col-span-1 sm:col-span-1 lg:col-span-2">
-            <BentoItem
-              title="Time Saved"
-              description="Average research time reduction reported by users."
-              value="70%"
-              icon={<Clock size={20} />}
-              accentColor="from-purple-600 to-indigo-800"
-              size="sm"
-              type="stat"
-            />
-          </div>
-          <div className="col-span-1 sm:col-span-1 lg:col-span-2">
-            <BentoItem
-              title="Active Users"
-              description="Legal professionals using our platform in India."
-              value="5k+"
-              icon={<Users size={20} />}
-              accentColor="from-green-600 to-emerald-800"
-              size="sm"
-              type="stat"
-            />
-          </div>
-          <div className="col-span-full sm:col-span-2 lg:col-span-2">
-            <BentoItem
-              title="Documents Processed"
-              description="Indian legal documents analyzed by our AI."
-              value="25M+"
-              icon={<FileText size={20} />}
-              accentColor="from-indigo-600 to-blue-800"
-              size="sm"
-              type="stat"
-            />
-          </div>
-          
-          {/* Fourth row - smaller benefits */}
-          <div className="col-span-full sm:col-span-1 lg:col-span-3">
-            <BentoItem
-              icon={<Code size={20} />}
-              title="Proprietary Algorithm"
-              description="Built on a custom-trained model, fine-tuned for Indian legal data."
-              points={[
-                "Optimized for contract and litigation documents",
-                "Designed by lawyers and engineers",
-                "Continuously improving with feedback"
-              ]}
-              accentColor="from-amber-600 to-red-700"
-              size="md"
-              type="benefit"
-              href="/technology"
-            />
-          </div>
-          <div className="col-span-full sm:col-span-1 lg:col-span-3">
-            <BentoItem
-              icon={<MapPin size={20} />}
-              title="Jurisdiction Awareness"
-              description="AI that understands legal variations across Indian states and forums."
-              points={[
-                "Contextual reasoning by forum",
-                "Tailored language for courts and tribunals",
-                "Cross-jurisdictional citation intelligence"
-              ]}
-              accentColor="from-blue-600 to-cyan-800"
-              size="md"
-              type="benefit"
-              href="/jurisdictions"
-            />
-          </div>
-          
-          {/* Fifth row - reliable results */}
-          <div className="col-span-full sm:col-span-1 lg:col-span-4">
-            <BentoItem
-              icon={<Lock size={20} />}
-              title="Reliable, Safe Results"
-              description="No hallucinations. Just dependable, legally-grounded answers."
-              points={[
-                "Fact-checked responses",
-                "Built-in citation engine",
-                "Transparent model outputs"
-              ]}
-              accentColor="from-purple-600 to-violet-800"
-              size="md"
-              type="benefit"
-              href="/reliability"
-            />
-          </div>
-          <div className="col-span-full sm:col-span-1 lg:col-span-2">
-            <BentoItem
-              title="Sarah Johnson"
-              description="Law Copilot has transformed our practice, cutting research time significantly while helping us deliver better results to clients."
-              value="Partner at Johnson & Associates"
-              accentColor="from-violet-600 to-purple-800"
-              size="sm"
-              type="quote"
-            />
-          </div>
-          
-          {/* Bottom Banner */}
-          <div className="col-span-full lg:col-span-6">
-            <BentoItem
-              title="Built for Indian Legal Professionals"
-              description="From trial courts to Supreme Court formats, Law Copilot is trained on the real content you use—judgments, statutes, notices, pleadings, and contracts."
-              accentColor="from-indigo-600 to-blue-800"
-              size="md"
-              type="cta"
-              href="/signup"
-            />
-          </div>
+          {/* Extra benefits shown when "View All" is clicked */}
+          {showAllBenefits && extraBenefits.map((benefit, index) => (
+            <div key={`extra-${index}`} className={benefit.gridPos}>
+              <BentoItem
+                icon={benefit.icon}
+                title={benefit.title}
+                description={benefit.description}
+                points={benefit.points}
+                accentColor={benefit.accentColor}
+                darkAccentColor={benefit.darkAccentColor}
+                size={benefit.size as BentoItemSize}
+                type={benefit.type as BentoItemType}
+                value={benefit.value}
+                href={benefit.href}
+              />
+            </div>
+          ))}
         </div>
-      
       </div>
     </section>
   );

@@ -28,16 +28,16 @@ const Explainer = lazy(() =>
   import("@/components/home/ExplainerProcess").then(module => ({ default: module.ExplainerProcess }))
 );
 
-const CTA = lazy(() => 
-  import("@/components/home/cta").then(module => ({ default: module.CTA }))
-);
+// const CTA = lazy(() => 
+//   import("@/components/home/cta").then(module => ({ default: module.CTA }))
+// );
 
 const sections: SectionConfig[] = [
   { component: Hero, priority: true },
   { component: Features },
   { component: Benefits },
   { component: Explainer },
-  { component: CTA },
+  // { component: CTA },
 ];
 
 export default function Home() {
