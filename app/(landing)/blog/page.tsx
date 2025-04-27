@@ -141,7 +141,7 @@ const BentoCard = ({ card }: { card: BlogCard }) => {
   };
   
   const isFeature = card.type === "feature";
-  const linkPath = isFeature ? `/products/${card.id}` : `/blog/${card.id}`;
+  const linkPath = isFeature ? `/${card.id}` : `/blog/${card.id}`;
   
   return (
     <Link 
@@ -292,27 +292,18 @@ export default function BlogPage() {
         </BlurFade>
         
         {/* Latest Articles Section */}
-        <BlurFade>
+        {/* <BlurFade>
           <div className="mb-10 sm:mb-16">
             <div className="flex items-center justify-between mb-4 sm:mb-6">
               <h2 className="text-xl sm:text-2xl font-bold">Latest Articles</h2>
-              <Link 
-                href="/blog/articles" 
-                className="flex items-center text-primary hover:text-primary/80 transition-colors font-medium text-sm sm:text-base"
-              >
-                View all articles
-                <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-              </Link>
             </div>
-            
-            {/* Grid Layout for Articles - Improved responsive grid */}
             <div className="grid grid-cols-12 gap-3 sm:gap-4 md:gap-5">
               {articleContent.map((card) => (
                 <BentoCard key={card.id} card={card} />
               ))}
             </div>
           </div>
-        </BlurFade>
+        </BlurFade> */}
         
         {/* Newsletter Section - Better mobile padding */}
         <BlurFade>

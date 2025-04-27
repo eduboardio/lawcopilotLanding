@@ -24,9 +24,9 @@ const Benefits = lazy(() =>
   import("@/components/home/benefits").then(module => ({ default: module.Benefits }))
 );
 
-const Explainer = lazy(() => 
-  import("@/components/home/ExplainerProcess").then(module => ({ default: module.ExplainerProcess }))
-);
+// const Explainer = lazy(() => 
+//   import("@/components/home/ExplainerProcess").then(module => ({ default: module.ExplainerProcess }))
+// );
 
 // const CTA = lazy(() => 
 //   import("@/components/home/cta").then(module => ({ default: module.CTA }))
@@ -36,7 +36,7 @@ const sections: SectionConfig[] = [
   { component: Hero, priority: true },
   { component: Features },
   { component: Benefits },
-  { component: Explainer },
+  // { component: Explainer },
   // { component: CTA },
 ];
 
