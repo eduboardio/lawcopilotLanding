@@ -47,6 +47,9 @@ const BentoItem = ({
 }: BentoItemProps) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  console.log(accentColor);
+  console.log(darkAccentColor);
+
   // Check if dark mode is enabled
   useEffect(() => {
     const checkDarkMode = () => {

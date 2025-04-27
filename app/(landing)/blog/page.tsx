@@ -225,7 +225,7 @@ export default function BlogPage() {
   
   // Separate featured products from articles
   const featuredContent = filteredContent.filter(card => card.type === "feature");
-  const articleContent = filteredContent.filter(card => card.type === "article");
+  // const articleContent = filteredContent.filter(card => card.type === "article");
 
   useEffect(() => {
     const handleScroll = () => {
