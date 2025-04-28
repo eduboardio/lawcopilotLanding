@@ -227,7 +227,7 @@ export default function ContactPage() {
               <Card className="bg-gradient-to-br from-background/80 to-background border shadow-md backdrop-blur-sm overflow-hidden relative h-full flex flex-col justify-center items-center p-8 text-center">
                 <CheckCircle className="h-16 w-16 text-green-500 mb-4" />
                 <h2 className="text-2xl font-bold mb-2">Thank You!</h2>
-                <p className="text-muted-foreground mb-6">Your message has been received. We'll get back to you shortly.</p>
+                <p className="text-muted-foreground mb-6">Your message has been received. We&apos;ll get back to you shortly.</p>
                 <Button 
                   onClick={() => setIsSubmitted(false)}
                   className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium"

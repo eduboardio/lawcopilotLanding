@@ -4,7 +4,6 @@ import { useState, useEffect, memo } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
 
 interface FAQProps {
   question: string;
@@ -97,7 +96,6 @@ const CategoryFilter = memo(({
   selectedCategory: string | null, 
   setSelectedCategory: (category: string | null) => void 
 }) => {
-  const pathname = usePathname();
   
   return (
     <div className="flex flex-wrap justify-center gap-2 mb-8">
@@ -136,7 +134,7 @@ CategoryFilter.displayName = 'CategoryFilter';
 const ContactSection = memo(() => {
   return (
     <div className="mt-12 text-center">
-      <h3 className="text-xl font-semibold mb-2">Can't find what you're looking for?</h3>
+      <h3 className="text-xl font-semibold mb-2">Can&apos;t find what you&apos;re looking for?</h3>
       <p className="text-muted-foreground mb-4">
         Our support team is here to help with any other questions you might have.
       </p>
@@ -163,6 +161,7 @@ export default function FAQPage() {
   
   useEffect(() => {
     setMounted(true);
+    console.log(mounted)
     
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20;
