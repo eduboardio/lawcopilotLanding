@@ -15,14 +15,13 @@ export const Footer = () => {
 
     return (
         <footer id="footer" className="w-full bg-slate-50 dark:bg-slate-900/50 border-t border-border">
-            <div className="container py-12 mx-auto px-4">
-                <h2 className="text-xl md:text-2xl font-semibold text-primary mb-4">
+            <div className="container py-12 mx-auto px-4 md:px-6">
+                <h2 className="text-xl md:text-2xl font-semibold text-primary mb-6">
                     The Future of Law Is Here
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-                    <div className="md:col-span-5">
-
-                        <div className="flex items-center mb-4 mt-6">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                    <div className="md:col-span-4">
+                        <div className="flex items-center mb-4">
                             <Logo type="LOGO_ONLY" />
                             <span className="ml-2 font-bold text-xl">Law Copilot</span>
                         </div>
@@ -32,10 +31,10 @@ export const Footer = () => {
                         </p>
                     </div>
 
-                    <div className="md:col-span-7 mt-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
                         <div className="flex flex-col gap-4">
                             <h3 className="font-bold text-lg">Explore</h3>
-                            <div className="flex flex-col gap-2.5">
+                            <div className="flex flex-col gap-3">
                                 <Link href="/research-engine" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                     Research Engine
                                 </Link>
@@ -53,7 +52,7 @@ export const Footer = () => {
 
                         <div className="flex flex-col gap-4">
                             <h3 className="font-bold text-lg">Company</h3>
-                            <div className="flex flex-col gap-2.5">
+                            <div className="flex flex-col gap-3">
                                 <Link href="/about" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                     About Us
                                 </Link>
@@ -68,7 +67,7 @@ export const Footer = () => {
 
                         <div className="flex flex-col gap-4">
                             <h3 className="font-bold text-lg">Resources</h3>
-                            <div className="flex flex-col gap-2.5">
+                            <div className="flex flex-col gap-3">
                                 <Link href="/privacy-policy" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                     Privacy Policy
                                 </Link>
@@ -103,7 +102,7 @@ export const Footer = () => {
 
             <Separator className="mt-6" />
 
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 md:px-6">
                 <div className="py-6 flex justify-center items-center">
                     <p className="text-sm text-muted-foreground">
                         © 2025 Law Copilot. All rights reserved.

@@ -67,18 +67,22 @@ const BentoItem = ({
 
   const Content = () => (
     <>
-      {/* Gradient background that changes based on dark/light mode - ENHANCED for dark mode */}
+      {/* Gradient background that changes based on dark/light mode - ENHANCED for both modes */}
       <div
         className={cn(
           "absolute inset-0 transition-opacity duration-300",
-          isDarkMode ? "opacity-[0.35] group-hover:opacity-[0.45]" : "opacity-[0.07] group-hover:opacity-[0.12]",
+          isDarkMode ? "opacity-[0.35] group-hover:opacity-[0.45]" : "opacity-[0.20] group-hover:opacity-[0.30]",
           `bg-gradient-to-br ${isDarkMode ? darkGradient : lightGradient}`
         )}
       />
       
-      {/* Badge if provided - Updated for better dark mode visibility */}
+      {/* Badge if provided - Updated for better visibility in both modes */}
       {badgeText && (
-        <div className="absolute top-4 right-4 text-xs font-bold bg-background/90 backdrop-blur-sm text-foreground/90 px-2.5 py-1 rounded-full z-10 border border-border/40 shadow-sm">
+        <div className={cn(
+          "absolute top-4 right-4 text-xs font-bold px-2.5 py-1 rounded-full z-10 border shadow-sm",
+          isDarkMode ? "bg-background/90 backdrop-blur-sm text-foreground/90 border-border/40" : 
+                      "bg-white/90 backdrop-blur-sm text-foreground border-border/50"
+        )}>
           {badgeText}
         </div>
       )}
@@ -106,7 +110,7 @@ const BentoItem = ({
         <p className={cn(
           "flex-grow leading-relaxed",
           span === "both" ? "text-base" : "text-sm",
-          isDarkMode ? "text-white/85" : "text-muted-foreground"
+          isDarkMode ? "text-white/85" : "text-foreground/90"
         )}>
           {description}
         </p>
@@ -128,7 +132,7 @@ const BentoItem = ({
 
   const cardClasses = cn(
     "group relative flex flex-col overflow-hidden rounded-2xl border backdrop-blur-sm p-6 transition-all duration-300 hover:shadow-xl",
-    isDarkMode ? "border-white/10 hover:border-white/20 bg-background/50" : "border-border/40 hover:border-border/60 bg-background/70",
+    isDarkMode ? "border-white/10 hover:border-white/20 bg-background/50" : "border-border/50 hover:border-border/70 bg-background/80",
     {
       "col-span-1 row-span-1": !span || span === "none",
       "col-span-2 row-span-1": span === "col",
@@ -152,16 +156,16 @@ const BentoItem = ({
 export function Features() {
   const [showAllFeatures, setShowAllFeatures] = useState(false);
 
-  // Initial features to show - ENHANCED colors for dark mode
+  // Initial features to show - ENHANCED colors for both light and dark mode
   const initialFeatures = [
     {
       badgeText: "FLAGSHIP",
       title: "AI-Powered Legal Research",
       description: "Find case law, statutes, and citations instantly using natural language queries. Our advanced AI understands legal context and delivers precise results from thousands of sources in seconds.",
       icon: <Search size={24} />,
-      lightGradient: "from-emerald-600 to-emerald-900",
+      lightGradient: "from-emerald-500 to-emerald-700", // Enhanced light mode colors
       darkGradient: "from-emerald-400 to-teal-600",
-      lightIconBg: "bg-emerald-100",
+      lightIconBg: "bg-emerald-50", // Lighter background for better contrast
       darkIconBg: "bg-emerald-800/60",
       iconColor: "text-emerald-600 dark:text-emerald-200",
       href: "/signup",
@@ -173,9 +177,9 @@ export function Features() {
       title: "Automated Legal Drafting",
       description: "Generate legally sound contracts, petitions, and notices in seconds.",
       icon: <FileText size={24} />,
-      lightGradient: "from-amber-500 to-red-600",
+      lightGradient: "from-amber-400 to-red-500", // Enhanced light mode colors
       darkGradient: "from-amber-400 to-red-500",
-      lightIconBg: "bg-amber-100",
+      lightIconBg: "bg-amber-50", // Lighter background for better contrast
       darkIconBg: "bg-amber-800/60",
       iconColor: "text-amber-600 dark:text-amber-200",
       href: "/signup",
@@ -187,9 +191,9 @@ export function Features() {
       title: "Clause & Risk Analyzer",
       description: "Detect red flags, missing clauses, and compliance issues automatically.",
       icon: <File size={24} />,
-      lightGradient: "from-blue-500 to-cyan-600",
+      lightGradient: "from-blue-400 to-cyan-500", // Enhanced light mode colors
       darkGradient: "from-blue-400 to-cyan-500",
-      lightIconBg: "bg-blue-100",
+      lightIconBg: "bg-blue-50", // Lighter background for better contrast
       darkIconBg: "bg-blue-800/60",
       iconColor: "text-blue-600 dark:text-blue-200",
       href: "/signup",
@@ -200,9 +204,9 @@ export function Features() {
       title: "Legal Translator",
       description: "Translate legal documents across Indian languages with contextual accuracy.",
       icon: <Globe size={24} />,
-      lightGradient: "from-blue-500 to-violet-600",
+      lightGradient: "from-blue-400 to-violet-500", // Enhanced light mode colors
       darkGradient: "from-blue-400 to-violet-500",
-      lightIconBg: "bg-violet-100",
+      lightIconBg: "bg-violet-50", // Lighter background for better contrast
       darkIconBg: "bg-violet-800/60",
       iconColor: "text-violet-600 dark:text-violet-200",
       href: "/signup",
@@ -210,16 +214,16 @@ export function Features() {
     }
   ];
 
-  // Extra features that will be shown when "View All Features" is clicked - ENHANCED colors for dark mode
+  // Extra features that will be shown when "View All Features" is clicked - ENHANCED colors for both modes
   const extraFeatures = [
     {
       badgeText: "NEW",
       title: "Smart Citator",
       description: "Auto-link statutes, judgments, and rules for court-ready formatting with proper legal citations.",
       icon: <LinkIcon size={24} />,
-      lightGradient: "from-indigo-500 to-blue-700",
+      lightGradient: "from-indigo-400 to-blue-600", // Enhanced light mode colors
       darkGradient: "from-indigo-400 to-blue-600",
-      lightIconBg: "bg-indigo-100",
+      lightIconBg: "bg-indigo-50", // Lighter background for better contrast
       darkIconBg: "bg-indigo-800/60",
       iconColor: "text-indigo-600 dark:text-indigo-200",
       href: "/signup",
@@ -231,9 +235,9 @@ export function Features() {
       title: "Version Comparison",
       description: "Identify changes across contract versions and spot critical alterations.",
       icon: <GitCompare size={24} />,
-      lightGradient: "from-violet-500 to-purple-700",
+      lightGradient: "from-violet-400 to-purple-600", // Enhanced light mode colors
       darkGradient: "from-violet-400 to-purple-600",
-      lightIconBg: "bg-violet-100",
+      lightIconBg: "bg-violet-50", // Lighter background for better contrast
       darkIconBg: "bg-violet-800/60",
       iconColor: "text-violet-600 dark:text-violet-200",
       href: "/signup",
@@ -244,9 +248,9 @@ export function Features() {
       title: "Voice-to-Legal Draft",
       description: "Dictate clauses or arguments with instant formatting and structure.",
       icon: <Mic size={24} />,
-      lightGradient: "from-purple-500 to-pink-700",
+      lightGradient: "from-purple-400 to-pink-600", // Enhanced light mode colors
       darkGradient: "from-purple-400 to-pink-600",
-      lightIconBg: "bg-purple-100",
+      lightIconBg: "bg-purple-50", // Lighter background for better contrast
       darkIconBg: "bg-purple-800/60",
       iconColor: "text-purple-600 dark:text-purple-200",
       href: "/signup",
@@ -257,9 +261,9 @@ export function Features() {
       title: "Template Library",
       description: "Access a curated collection of contracts, affidavits, and legal formats customized for Indian jurisdictions.",
       icon: <Tablet size={24} />,
-      lightGradient: "from-teal-500 to-green-700",
+      lightGradient: "from-teal-400 to-green-600", // Enhanced light mode colors
       darkGradient: "from-teal-400 to-green-600",
-      lightIconBg: "bg-teal-100",
+      lightIconBg: "bg-teal-50", // Lighter background for better contrast
       darkIconBg: "bg-teal-800/60",
       iconColor: "text-teal-600 dark:text-teal-200",
       href: "/signup",
@@ -271,9 +275,9 @@ export function Features() {
       title: "Legal Case Prediction",
       description: "Get data-driven insights on case risks and success probability using predictive analytics.",
       icon: <Sparkles size={24} />,
-      lightGradient: "from-cyan-500 to-blue-700",
+      lightGradient: "from-cyan-400 to-blue-600", // Enhanced light mode colors
       darkGradient: "from-cyan-400 to-blue-600",
-      lightIconBg: "bg-cyan-100",
+      lightIconBg: "bg-cyan-50", // Lighter background for better contrast
       darkIconBg: "bg-cyan-800/60",
       iconColor: "text-cyan-600 dark:text-cyan-200",
       href: "/signup",
@@ -318,12 +322,12 @@ export function Features() {
             />
           ))}
           
-          {/* View All Features button - Enhanced for dark mode */}
+          {/* View All Features button - Enhanced for both light and dark mode */}
           {!showAllFeatures && (
             <div className="md:col-span-4 mt-4 text-center">
               <button 
                 onClick={() => setShowAllFeatures(true)}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary/10 hover:bg-primary/20 text-primary font-medium transition-all duration-200 dark:bg-primary/20 dark:hover:bg-primary/30 dark:text-white"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary/15 hover:bg-primary/25 text-primary font-medium transition-all duration-200 dark:bg-primary/20 dark:hover:bg-primary/30 dark:text-white"
               >
                 View All Features <ChevronDown size={18} />
               </button>

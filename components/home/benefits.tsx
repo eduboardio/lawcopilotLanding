@@ -13,7 +13,7 @@ interface BentoItemProps {
   description: string;
   icon?: React.ReactNode;
   accentColor: string;
-  darkAccentColor: string; 
+  darkAccentColor: string;
   lightGradient: string;
   darkGradient: string;
   lightIconBg: string;
@@ -41,7 +41,7 @@ const BentoItem = ({
   className,
   size = "md",
   points,
-  type = "benefit", 
+  type = "benefit",
   value,
   href
 }: BentoItemProps) => {
@@ -80,7 +80,7 @@ const BentoItem = ({
         isDarkMode ? "border-white/10 hover:border-white/20 bg-background/30" : "border-border/40 hover:border-border/60 bg-background/80",
         {
           "col-span-1": size === "sm",
-          "col-span-2": size === "md", 
+          "col-span-2": size === "md",
           "col-span-3": size === "lg",
         },
         className
@@ -90,9 +90,9 @@ const BentoItem = ({
       <div
         className={cn(
           "absolute inset-0 transition-opacity duration-300",
-          isDarkMode 
-            ? "opacity-[0.35] group-hover:opacity-[0.45]" 
-            : "opacity-[0.07] group-hover:opacity-[0.12]",
+          isDarkMode
+            ? "opacity-[0.35] group-hover:opacity-[0.45]"
+            : "opacity-[0.15] group-hover:opacity-[0.25]",
           `bg-gradient-to-br ${isDarkMode ? darkGradient : lightGradient}`
         )}
       />
@@ -386,11 +386,11 @@ export function Benefits() {
         "Context-aware search",
         "Build stronger arguments, faster"
       ],
-      accentColor: "from-blue-600 to-indigo-800",
+      accentColor: "from-blue-500 to-indigo-700", // Brightened
       darkAccentColor: "from-blue-300 to-indigo-500",
-      lightGradient: "from-blue-600 to-indigo-900",
+      lightGradient: "from-blue-400 to-indigo-700", // Brightened
       darkGradient: "from-blue-400 to-indigo-600",
-      lightIconBg: "bg-blue-100",
+      lightIconBg: "bg-blue-50/90", // Lighter to make icon stand out
       darkIconBg: "bg-blue-800/60",
       iconColor: "text-blue-600 dark:text-blue-200",
       size: "lg",
@@ -398,7 +398,7 @@ export function Benefits() {
       href: "/research",
       gridPos: "col-span-full lg:col-span-6"
     },
-
+  
     // Second row - medium items
     {
       icon: <Wallet size={20} />,
@@ -409,11 +409,11 @@ export function Benefits() {
         "Improve team efficiency",
         "Lower support costs"
       ],
-      accentColor: "from-emerald-600 to-green-800",
+      accentColor: "from-emerald-500 to-green-700", // Brightened
       darkAccentColor: "from-emerald-300 to-green-500",
-      lightGradient: "from-emerald-600 to-green-900",
+      lightGradient: "from-emerald-400 to-green-700", // Brightened
       darkGradient: "from-emerald-400 to-green-600",
-      lightIconBg: "bg-emerald-100",
+      lightIconBg: "bg-emerald-50/90", // Lighter
       darkIconBg: "bg-emerald-800/60",
       iconColor: "text-emerald-600 dark:text-emerald-200",
       size: "md",
@@ -430,11 +430,11 @@ export function Benefits() {
         "Generate smart summaries",
         "Understand jurisdictional nuances"
       ],
-      accentColor: "from-violet-600 to-purple-800",
+      accentColor: "from-violet-500 to-purple-700", // Brightened
       darkAccentColor: "from-violet-300 to-purple-500",
-      lightGradient: "from-violet-600 to-purple-900",
+      lightGradient: "from-violet-400 to-purple-700", // Brightened
       darkGradient: "from-violet-400 to-purple-600",
-      lightIconBg: "bg-violet-100",
+      lightIconBg: "bg-violet-50/90", // Lighter
       darkIconBg: "bg-violet-800/60",
       iconColor: "text-violet-600 dark:text-violet-200",
       size: "md",
@@ -442,18 +442,18 @@ export function Benefits() {
       href: "/insights",
       gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
     },
-
+  
     // Third row - stats
     {
       title: "Time Saved",
       description: "Average research time reduction reported by users.",
       value: "70%",
       icon: <Clock size={20} />,
-      accentColor: "from-purple-600 to-indigo-800",
+      accentColor: "from-purple-500 to-indigo-700", // Brightened
       darkAccentColor: "from-purple-300 to-indigo-500",
-      lightGradient: "from-purple-600 to-indigo-900",
+      lightGradient: "from-purple-400 to-indigo-700", // Brightened
       darkGradient: "from-purple-400 to-indigo-600",
-      lightIconBg: "bg-purple-100",
+      lightIconBg: "bg-purple-50/90", // Lighter
       darkIconBg: "bg-purple-800/60",
       iconColor: "text-purple-600 dark:text-purple-200",
       size: "sm",
@@ -465,11 +465,11 @@ export function Benefits() {
       description: "Legal professionals using our platform in India.",
       value: "5k+",
       icon: <Users size={20} />,
-      accentColor: "from-green-600 to-emerald-800",
+      accentColor: "from-green-500 to-emerald-700", // Brightened
       darkAccentColor: "from-green-300 to-emerald-500",
-      lightGradient: "from-green-600 to-emerald-900",
+      lightGradient: "from-green-400 to-emerald-700", // Brightened
       darkGradient: "from-green-400 to-emerald-600",
-      lightIconBg: "bg-green-100",
+      lightIconBg: "bg-green-50/90", // Lighter
       darkIconBg: "bg-green-800/60",
       iconColor: "text-green-600 dark:text-green-200",
       size: "sm",
@@ -481,11 +481,11 @@ export function Benefits() {
       description: "Indian legal documents analyzed by our AI.",
       value: "25M+",
       icon: <FileText size={20} />,
-      accentColor: "from-indigo-600 to-blue-800",
+      accentColor: "from-indigo-500 to-blue-700", // Brightened
       darkAccentColor: "from-indigo-300 to-blue-500",
-      lightGradient: "from-indigo-600 to-blue-900",
+      lightGradient: "from-indigo-400 to-blue-700", // Brightened
       darkGradient: "from-indigo-400 to-blue-600",
-      lightIconBg: "bg-indigo-100",
+      lightIconBg: "bg-indigo-50/90", // Lighter
       darkIconBg: "bg-indigo-800/60",
       iconColor: "text-indigo-600 dark:text-indigo-200",
       size: "sm",
@@ -494,187 +494,186 @@ export function Benefits() {
     }
   ];
 
-  // Extra benefits to show when "View All" is clicked with enhanced styling matching Features component
-  const extraBenefits = [
-    // Fourth row - additional benefits
-    {
-      icon: <Code size={20} />,
-      title: "Proprietary Algorithm",
-      description: "Built on a custom-trained model, fine-tuned for Indian legal data.",
-      points: [
-        "Optimized for contract and litigation documents",
-        "Designed by lawyers and engineers",
-        "Continuously improving with feedback"
-      ],
-      accentColor: "from-amber-600 to-red-700",
-      darkAccentColor: "from-amber-300 to-red-500",
-      lightGradient: "from-amber-500 to-red-600",
-      darkGradient: "from-amber-400 to-red-500",
-      lightIconBg: "bg-amber-100",
-      darkIconBg: "bg-amber-800/60",
-      iconColor: "text-amber-600 dark:text-amber-200",
-      size: "md",
-      type: "benefit",
-      href: "/technology",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
-    },
-    {
-      icon: <MapPin size={20} />,
-      title: "Jurisdiction Awareness",
-      description: "AI that understands legal variations across Indian states and forums.",
-      points: [
-        "Contextual reasoning by forum",
-        "Tailored language for courts and tribunals",
-        "Cross-jurisdictional citation intelligence"
-      ],
-      accentColor: "from-blue-600 to-cyan-800",
-      darkAccentColor: "from-blue-300 to-cyan-500",
-      lightGradient: "from-blue-500 to-cyan-600",
-      darkGradient: "from-blue-400 to-cyan-500",
-      lightIconBg: "bg-blue-100",
-      darkIconBg: "bg-blue-800/60",
-      iconColor: "text-blue-600 dark:text-blue-200",
-      size: "md",
-      type: "benefit",
-      href: "/jurisdictions",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
-    },
+const extraBenefits = [
+  // Fourth row - additional benefits
+  {
+    icon: <Code size={20} />,
+    title: "Proprietary Algorithm",
+    description: "Built on a custom-trained model, fine-tuned for Indian legal data.",
+    points: [
+      "Optimized for contract and litigation documents",
+      "Designed by lawyers and engineers",
+      "Continuously improving with feedback"
+    ],
+    accentColor: "from-amber-500 to-red-600", // Brightened
+    darkAccentColor: "from-amber-300 to-red-500",
+    lightGradient: "from-amber-400 to-red-500", // Brightened
+    darkGradient: "from-amber-400 to-red-500",
+    lightIconBg: "bg-amber-50/90", // Lighter
+    darkIconBg: "bg-amber-800/60",
+    iconColor: "text-amber-600 dark:text-amber-200",
+    size: "md",
+    type: "benefit",
+    href: "/technology",
+    gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+  },
+  {
+    icon: <MapPin size={20} />,
+    title: "Jurisdiction Awareness",
+    description: "AI that understands legal variations across Indian states and forums.",
+    points: [
+      "Contextual reasoning by forum",
+      "Tailored language for courts and tribunals",
+      "Cross-jurisdictional citation intelligence"
+    ],
+    accentColor: "from-blue-500 to-cyan-700", // Brightened
+    darkAccentColor: "from-blue-300 to-cyan-500",
+    lightGradient: "from-blue-400 to-cyan-500", // Brightened
+    darkGradient: "from-blue-400 to-cyan-500",
+    lightIconBg: "bg-blue-50/90", // Lighter
+    darkIconBg: "bg-blue-800/60",
+    iconColor: "text-blue-600 dark:text-blue-200",
+    size: "md",
+    type: "benefit",
+    href: "/jurisdictions",
+    gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+  },
 
-    // Fifth row - reliable results
-    {
-      icon: <Lock size={20} />,
-      title: "Reliable, Safe Results",
-      description: "No hallucinations. Just dependable, legally-grounded answers.",
-      points: [
-        "Fact-checked responses",
-        "Built-in citation engine",
-        "Transparent model outputs"
-      ],
-      accentColor: "from-purple-600 to-violet-800",
-      darkAccentColor: "from-purple-300 to-violet-500",
-      lightGradient: "from-purple-500 to-violet-600",
-      darkGradient: "from-purple-400 to-violet-500",
-      lightIconBg: "bg-purple-100",
-      darkIconBg: "bg-purple-800/60",
-      iconColor: "text-purple-600 dark:text-purple-200",
-      size: "md",
-      type: "benefit",
-      href: "/reliability",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-4"
-    },
-    {
-      title: "Sarah Johnson",
-      description: "Law Copilot has transformed our practice, cutting research time significantly while helping us deliver better results to clients.",
-      value: "Partner at Johnson & Associates",
-      accentColor: "from-violet-600 to-purple-800",
-      darkAccentColor: "from-violet-300 to-purple-500",
-      lightGradient: "from-violet-500 to-purple-700",
-      darkGradient: "from-violet-400 to-purple-600",
-      lightIconBg: "bg-violet-100",
-      darkIconBg: "bg-violet-800/60",
-      iconColor: "text-violet-600 dark:text-violet-200",
-      size: "sm",
-      type: "quote",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-2"
-    },
+  // Fifth row - reliable results
+  {
+    icon: <Lock size={20} />,
+    title: "Reliable, Safe Results",
+    description: "No hallucinations. Just dependable, legally-grounded answers.",
+    points: [
+      "Fact-checked responses",
+      "Built-in citation engine",
+      "Transparent model outputs"
+    ],
+    accentColor: "from-purple-500 to-violet-700", // Brightened
+    darkAccentColor: "from-purple-300 to-violet-500",
+    lightGradient: "from-purple-400 to-violet-500", // Brightened
+    darkGradient: "from-purple-400 to-violet-500",
+    lightIconBg: "bg-purple-50/90", // Lighter
+    darkIconBg: "bg-purple-800/60",
+    iconColor: "text-purple-600 dark:text-purple-200",
+    size: "md",
+    type: "benefit",
+    href: "/reliability",
+    gridPos: "col-span-full sm:col-span-1 lg:col-span-4"
+  },
+  {
+    title: "Sarah Johnson",
+    description: "Law Copilot has transformed our practice, cutting research time significantly while helping us deliver better results to clients.",
+    value: "Partner at Johnson & Associates",
+    accentColor: "from-violet-500 to-purple-700", // Brightened
+    darkAccentColor: "from-violet-300 to-purple-500",
+    lightGradient: "from-violet-400 to-purple-600", // Brightened
+    darkGradient: "from-violet-400 to-purple-600",
+    lightIconBg: "bg-violet-50/90", // Lighter
+    darkIconBg: "bg-violet-800/60",
+    iconColor: "text-violet-600 dark:text-violet-200",
+    size: "sm",
+    type: "quote",
+    gridPos: "col-span-full sm:col-span-1 lg:col-span-2"
+  },
 
-    // Additional benefits only shown in "View All"
-    {
-      icon: <Shield size={20} />,
-      title: "Enhanced Security",
-      description: "Bank-level encryption and privacy controls for sensitive legal documents.",
-      points: [
-        "Data stored in Indian servers",
-        "SOC 2 compliant infrastructure",
-        "Regular security audits"
-      ],
-      accentColor: "from-red-600 to-orange-700",
-      darkAccentColor: "from-red-300 to-orange-500",
-      lightGradient: "from-red-500 to-orange-600",
-      darkGradient: "from-red-400 to-orange-500",
-      lightIconBg: "bg-red-100",
-      darkIconBg: "bg-red-800/60",
-      iconColor: "text-red-600 dark:text-red-200",
-      size: "md",
-      type: "benefit",
-      href: "/security",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
-    },
-    {
-      icon: <Scale size={20} />,
-      title: "Regulatory Compliance",
-      description: "Stay updated with regulatory changes affecting your practice areas.",
-      points: [
-        "Real-time compliance monitoring",
-        "Automated updates",
-        "Contextual legal risk analysis"
-      ],
-      accentColor: "from-teal-600 to-emerald-700",
-      darkAccentColor: "from-teal-300 to-emerald-500",
-      lightGradient: "from-teal-500 to-green-700",
-      darkGradient: "from-teal-400 to-green-600",
-      lightIconBg: "bg-teal-100",
-      darkIconBg: "bg-teal-800/60",
-      iconColor: "text-teal-600 dark:text-teal-200",
-      size: "md",
-      type: "benefit",
-      href: "/compliance",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
-    },
-    {
-      title: "Rajesh Sharma",
-      description: "The jurisdiction-specific insights have been invaluable for our practice across multiple state courts.",
-      value: "Senior Advocate, Delhi High Court",
-      accentColor: "from-amber-600 to-yellow-700",
-      darkAccentColor: "from-amber-300 to-yellow-500",
-      lightGradient: "from-amber-500 to-yellow-600",
-      darkGradient: "from-amber-400 to-yellow-500",
-      lightIconBg: "bg-amber-100",
-      darkIconBg: "bg-amber-800/60",
-      iconColor: "text-amber-600 dark:text-amber-200",
-      size: "sm",
-      type: "quote",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-2"
-    },
-    {
-      icon: <Star size={20} />,
-      title: "Premium Support",
-      description: "Dedicated legal tech specialists to assist with platform integration.",
-      points: [
-        "24/7 technical support",
-        "Personalized onboarding",
-        "Custom training sessions"
-      ],
-      accentColor: "from-cyan-600 to-blue-700",
-      darkAccentColor: "from-cyan-300 to-blue-500",
-      lightGradient: "from-cyan-500 to-blue-700",
-      darkGradient: "from-cyan-400 to-blue-600",
-      lightIconBg: "bg-cyan-100",
-      darkIconBg: "bg-cyan-800/60",
-      iconColor: "text-cyan-600 dark:text-cyan-200",
-      size: "md",
-      type: "benefit",
-      href: "/support",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-4"
-    },
+  // Additional benefits only shown in "View All"
+  {
+    icon: <Shield size={20} />,
+    title: "Enhanced Security",
+    description: "Bank-level encryption and privacy controls for sensitive legal documents.",
+    points: [
+      "Data stored in Indian servers",
+      "SOC 2 compliant infrastructure",
+      "Regular security audits"
+    ],
+    accentColor: "from-red-500 to-orange-600", // Brightened
+    darkAccentColor: "from-red-300 to-orange-500",
+    lightGradient: "from-red-400 to-orange-500", // Brightened
+    darkGradient: "from-red-400 to-orange-500",
+    lightIconBg: "bg-red-50/90", // Lighter
+    darkIconBg: "bg-red-800/60",
+    iconColor: "text-red-600 dark:text-red-200",
+    size: "md",
+    type: "benefit",
+    href: "/security",
+    gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+  },
+  {
+    icon: <Scale size={20} />,
+    title: "Regulatory Compliance",
+    description: "Stay updated with regulatory changes affecting your practice areas.",
+    points: [
+      "Real-time compliance monitoring",
+      "Automated updates",
+      "Contextual legal risk analysis"
+    ],
+    accentColor: "from-teal-500 to-emerald-600", // Brightened
+    darkAccentColor: "from-teal-300 to-emerald-500",
+    lightGradient: "from-teal-400 to-green-600", // Brightened
+    darkGradient: "from-teal-400 to-green-600",
+    lightIconBg: "bg-teal-50/90", // Lighter
+    darkIconBg: "bg-teal-800/60",
+    iconColor: "text-teal-600 dark:text-teal-200",
+    size: "md",
+    type: "benefit",
+    href: "/compliance",
+    gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+  },
+  {
+    title: "Rajesh Sharma",
+    description: "The jurisdiction-specific insights have been invaluable for our practice across multiple state courts.",
+    value: "Senior Advocate, Delhi High Court",
+    accentColor: "from-amber-500 to-yellow-600", // Brightened
+    darkAccentColor: "from-amber-300 to-yellow-500",
+    lightGradient: "from-amber-400 to-yellow-500", // Brightened
+    darkGradient: "from-amber-400 to-yellow-500",
+    lightIconBg: "bg-amber-50/90", // Lighter
+    darkIconBg: "bg-amber-800/60",
+    iconColor: "text-amber-600 dark:text-amber-200",
+    size: "sm",
+    type: "quote",
+    gridPos: "col-span-full sm:col-span-1 lg:col-span-2"
+  },
+  {
+    icon: <Star size={20} />,
+    title: "Premium Support",
+    description: "Dedicated legal tech specialists to assist with platform integration.",
+    points: [
+      "24/7 technical support",
+      "Personalized onboarding",
+      "Custom training sessions"
+    ],
+    accentColor: "from-cyan-500 to-blue-600", // Brightened
+    darkAccentColor: "from-cyan-300 to-blue-500",
+    lightGradient: "from-cyan-400 to-blue-600", // Brightened
+    darkGradient: "from-cyan-400 to-blue-600",
+    lightIconBg: "bg-cyan-50/90", // Lighter
+    darkIconBg: "bg-cyan-800/60",
+    iconColor: "text-cyan-600 dark:text-cyan-200",
+    size: "md",
+    type: "benefit",
+    href: "/support",
+    gridPos: "col-span-full sm:col-span-1 lg:col-span-4"
+  },
 
-    // Bottom Banner - always shown at the end
-    {
-      title: "Built for Indian Legal Professionals",
-      description: "From trial courts to Supreme Court formats, Law Copilot is trained on the real content you use—judgments, statutes, notices, pleadings, and contracts.",
-      accentColor: "from-indigo-600 to-blue-800",
-      darkAccentColor: "from-indigo-300 to-blue-500",
-      lightGradient: "from-indigo-600 to-blue-900",
-      darkGradient: "from-indigo-400 to-blue-600",
-      lightIconBg: "bg-indigo-100",
-      darkIconBg: "bg-indigo-800/60",
-      iconColor: "text-indigo-600 dark:text-indigo-200",
-      size: "md",
-      type: "cta",
-      href: "/signup",
-      gridPos: "col-span-full lg:col-span-6"
-    }
-  ];
+  // Bottom Banner - always shown at the end
+  {
+    title: "Built for Indian Legal Professionals",
+    description: "From trial courts to Supreme Court formats, Law Copilot is trained on the real content you use—judgments, statutes, notices, pleadings, and contracts.",
+    accentColor: "from-indigo-500 to-blue-700", // Brightened
+    darkAccentColor: "from-indigo-300 to-blue-500",
+    lightGradient: "from-indigo-400 to-blue-700", // Brightened
+    darkGradient: "from-indigo-400 to-blue-600",
+    lightIconBg: "bg-indigo-50/90", // Lighter
+    darkIconBg: "bg-indigo-800/60",
+    iconColor: "text-indigo-600 dark:text-indigo-200",
+    size: "md",
+    type: "cta",
+    href: "/signup",
+    gridPos: "col-span-full lg:col-span-6"
+  }
+];
 
   return (
     <section className="w-full py-8 md:py-12 bg-background">
