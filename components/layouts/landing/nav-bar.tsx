@@ -60,18 +60,10 @@ const routeList: RouteProps[] = [
         href: "/#features",
         label: "Features",
     },
-    {
-        href: "/blog",
-        label: "Blog",
-    },
     // {
     //     href: "/#faq",
     //     label: "FAQ",
     // },
-    {
-        href: "/contact",
-        label: "Contact",
-    },
 ];
 
 const CallToActions = memo(({ classes }: {

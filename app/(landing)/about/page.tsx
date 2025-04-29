@@ -21,7 +21,10 @@ export default function AboutPage() {
           <CardContent className="p-6 h-full flex flex-col">
             <h2 className="text-xl sm:text-2xl font-bold mb-3 md:mb-4">Our Mission</h2>
             <p className="text-muted-foreground">
-              At Law Copilot, we&apos;re on a mission to democratize access to advanced legal technology. We believe that AI-powered tools should enhance legal professionals capabilities, allowing them to focus on what truly matters: applying their expertise to help clients navigate complex legal challenges.
+              At Law Copilot, we&apos;re on a mission to make legal intelligence effortless and accessible—for everyone.
+              We&apos;re building AI tools that work like your smartest legal teammate—speeding up research, simplifying drafting, spotting risks, and unlocking insights—so legal professionals can focus on strategy and impact, not paperwork. Whether you&apos;re a solo lawyer, a fast-growing startup, or an individual with a legal question, Law Copilot helps you work smarter, not harder.
+              We&apos;re here to level the legal playing field with tech that&apos;s powerful, intuitive, and human-centered.
+
             </p>
           </CardContent>
         </Card>
@@ -30,7 +33,11 @@ export default function AboutPage() {
           <CardContent className="p-6 h-full flex flex-col">
             <h2 className="text-xl sm:text-2xl font-bold mb-3 md:mb-4">Our Vision</h2>
             <p className="text-muted-foreground">
-              We envision a future where legal professionals of all backgrounds and practice areas can harness the power of AI to deliver better outcomes for their clients. Law Copilot aims to be the leading platform that bridges the gap between legal expertise and cutting-edge technology.
+              This is the future of law—AI-powered, people-first, and built for everyone.
+              At Law Copilot, we believe that the future of legal work isn&apos;t coming. It&apos;s already here. AI is reshaping how people understand, access, and practice law—and we&apos;re at the forefront of that transformation.
+              Our vision is bold but simple: legal expertise, powered by AI, made available to all. Lawyers, businesses, and everyday people deserve tools that help them navigate complexity with confidence. We&apos;re creating a future where AI makes legal help faster, fairer, and always within reach.
+              This is how the law will work tomorrow. And with Law Copilot, it starts today.
+
             </p>
           </CardContent>
         </Card>
@@ -76,13 +83,21 @@ export default function AboutPage() {
         <CardContent className="p-6">
           <h2 className="text-xl sm:text-2xl font-bold mb-3 md:mb-4">Our Team</h2>
           <p className="text-muted-foreground mb-4">
-            Law Copilot brings together experts from both the legal and technology sectors. Our leadership team includes former practicing attorneys, legal technologists, and AI researchers who share a passion for transforming legal practice.
+            Law Copilot was founded on a simple belief:
+            Legal professionals deserve technology that truly simplifies their world.
           </p>
           <p className="text-muted-foreground mb-4">
-            With decades of combined experience in both legal practice and cutting-edge AI development, our team understands the unique challenges faced by legal professionals in today&apos;s fast-paced environment.
+            Our team brings together a lawyer with firsthand experience facing real-world legal challenges, and three engineers with deep expertise in advanced software architecture, data science, artificial intelligence, and scalable system design—focused on building solutions that legal professionals can rely on.
+          </p>
+          <p className="text-muted-foreground mb-4">
+            We don&apos;t just build technology—we build it around the way lawyers think, work, and win.
           </p>
           <p className="text-muted-foreground">
-            We&apos;re committed to building tools that not only harness the power of AI but do so in ways that respect legal traditions, professional ethics, and client confidentiality.
+            With firsthand experience in litigation, deep expertise in AI, and a commitment to ethical practice, we&apos;ve created solutions that are:
+            Designed for real legal challenges — not tech fantasies
+            Built for scale — from solo advocates to large firms
+            Rooted in trust — with confidentiality, compliance, and professionalism at our core
+            At Law Copilot, we&apos;re not here to replace the lawyer. We&apos;re here to supercharge their potential.
           </p>
         </CardContent>
       </Card>

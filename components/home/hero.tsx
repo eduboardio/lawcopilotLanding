@@ -18,20 +18,24 @@ BackgroundElements.displayName = 'BackgroundElements';
 const Stats = memo(() => (
   <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 mt-16 pt-8 border-t border-border/20 w-full max-w-4xl mx-auto">
     <div className="text-center">
-      <p className="text-4xl font-bold text-primary">98%</p>
-      <p className="text-sm text-muted-foreground mt-1">Client Satisfaction</p>
+      <p className="text-4xl font-bold text-primary">✅</p>
+      <p className="text-xl font-semibold text-primary">10k+ Legal Documents Trained</p>
+      <p className="text-sm text-muted-foreground mt-1">Built on real-world cases, contracts, and statutes.</p>
     </div>
     <div className="text-center">
-      <p className="text-4xl font-bold text-primary">70%</p>
-      <p className="text-sm text-muted-foreground mt-1">Time Saved</p>
+      <p className="text-4xl font-bold text-primary">✅</p>
+      <p className="text-xl font-semibold text-primary">100+ Lawyers Pre-Registered</p>
+      <p className="text-sm text-muted-foreground mt-1">Join India&apos;s fastest-growing legal AI movement.</p>
     </div>
     <div className="text-center">
-      <p className="text-4xl font-bold text-primary">10k+</p>
-      <p className="text-sm text-muted-foreground mt-1">Users</p>
+      <p className="text-4xl font-bold text-primary">✅</p>
+      <p className="text-xl font-semibold text-primary">500+ Prebuilt Legal Templates</p>
+      <p className="text-sm text-muted-foreground mt-1">Draft faster with ready-to-use contracts, notices, and pleadings.</p>
     </div>
     <div className="text-center">
-      <p className="text-4xl font-bold text-primary">50M+</p>
-      <p className="text-sm text-muted-foreground mt-1">Documents Processed</p>
+      <p className="text-4xl font-bold text-primary">✅</p>
+      <p className="text-xl font-semibold text-primary">100% India-Specific Legal Content</p>
+      <p className="text-sm text-muted-foreground mt-1">From trial courts to the Supreme Court, tailored for India.</p>
     </div>
   </div>
 ));
@@ -50,7 +54,6 @@ const ScrollIndicator = memo(() => (
 ScrollIndicator.displayName = 'ScrollIndicator';
 
 export const Hero = () => {
-  // const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   return (
     <section
@@ -81,46 +84,9 @@ export const Hero = () => {
               <ArrowRight className="ml-2 w-5 h-5 transition-transform" />
             </Link>
           </Button>
-
-          {/* <Button
-            variant="outline"
-            size="lg"
-            className="rounded-full text-lg px-8 py-6 border-2 bg-background/50 backdrop-blur-sm hover:bg-background/80"
-            onClick={() => setIsVideoOpen(true)}
-          >
-            <Play className="mr-2 h-5 w-5" /> Watch Demo
-          </Button> */}
         </div>
         <Stats />
-        {/* <div className="relative w-full max-w-5xl mx-auto mt-16">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-xl blur-sm"></div>
-          <div className="relative bg-background/40 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl overflow-hidden">
-            <HeroVideoDialog
-              className="w-full aspect-[16/9]"
-              animationStyle="from-center" 
-              videoSrc="https://www.youtube.com/watch?v=fJ2AII__o10"
-              thumbnailSrc="/images/placeholder.png"
-              thumbnailAlt="Law Copilot Dashboard"
-              isOpen={isVideoOpen}
-              onOpenChange={setIsVideoOpen}
-            />
-          </div>
-          <div className="absolute top-0 right-0 transform translate-y-[-24px] translate-x-[-24px] rotate-3 bg-background/80 backdrop-blur-md p-4 rounded-lg shadow-lg border border-white/10 hidden md:block">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
-              <span className="text-sm font-medium">Case Success Rate +45%</span>
-            </div>
-          </div>
-          
-          <div className="absolute bottom-0 left-0 transform translate-y-[24px] translate-x-[-24px] -rotate-2 bg-background/80 backdrop-blur-md p-4 rounded-lg shadow-lg border border-white/10 hidden md:block">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-              <span className="text-sm font-medium">AI-Powered Document Analysis</span>
-            </div>
-          </div>
-        </div> */}
       </div>
-      {/* <ScrollIndicator /> */}
     </section>
   );
 };

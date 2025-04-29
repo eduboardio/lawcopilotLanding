@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Globe, Search, File, ArrowRight, Sparkles, Tablet, GitCompare, Link as LinkIcon, Mic, FileText, ChevronDown } from "lucide-react";
+import { Globe, Search, File, ArrowRight, Tablet, FileText, ChevronDown } from "lucide-react";
 import NextLink from "next/link";
 
 type BentoItemSpan = 'col' | 'row' | 'both' | 'none';
@@ -216,46 +216,46 @@ export function Features() {
 
   // Extra features that will be shown when "View All Features" is clicked - ENHANCED colors for both modes
   const extraFeatures = [
-    {
-      badgeText: "NEW",
-      title: "Smart Citator",
-      description: "Auto-link statutes, judgments, and rules for court-ready formatting with proper legal citations.",
-      icon: <LinkIcon size={24} />,
-      lightGradient: "from-indigo-400 to-blue-600", // Enhanced light mode colors
-      darkGradient: "from-indigo-400 to-blue-600",
-      lightIconBg: "bg-indigo-50", // Lighter background for better contrast
-      darkIconBg: "bg-indigo-800/60",
-      iconColor: "text-indigo-600 dark:text-indigo-200",
-      href: "/signup",
-      span: "col",
-      className: "md:col-span-2"
-    },
-    {
-      badgeText: "COMPARE",
-      title: "Version Comparison",
-      description: "Identify changes across contract versions and spot critical alterations.",
-      icon: <GitCompare size={24} />,
-      lightGradient: "from-violet-400 to-purple-600", // Enhanced light mode colors
-      darkGradient: "from-violet-400 to-purple-600",
-      lightIconBg: "bg-violet-50", // Lighter background for better contrast
-      darkIconBg: "bg-violet-800/60",
-      iconColor: "text-violet-600 dark:text-violet-200",
-      href: "/signup",
-      className: "md:col-span-1"
-    },
-    {
-      badgeText: "BETA",
-      title: "Voice-to-Legal Draft",
-      description: "Dictate clauses or arguments with instant formatting and structure.",
-      icon: <Mic size={24} />,
-      lightGradient: "from-purple-400 to-pink-600", // Enhanced light mode colors
-      darkGradient: "from-purple-400 to-pink-600",
-      lightIconBg: "bg-purple-50", // Lighter background for better contrast
-      darkIconBg: "bg-purple-800/60",
-      iconColor: "text-purple-600 dark:text-purple-200",
-      href: "/signup",
-      className: "md:col-span-1"
-    },
+    // {
+    //   badgeText: "NEW",
+    //   title: "Smart Citator",
+    //   description: "Auto-link statutes, judgments, and rules for court-ready formatting with proper legal citations.",
+    //   icon: <LinkIcon size={24} />,
+    //   lightGradient: "from-indigo-400 to-blue-600", // Enhanced light mode colors
+    //   darkGradient: "from-indigo-400 to-blue-600",
+    //   lightIconBg: "bg-indigo-50", // Lighter background for better contrast
+    //   darkIconBg: "bg-indigo-800/60",
+    //   iconColor: "text-indigo-600 dark:text-indigo-200",
+    //   href: "/signup",
+    //   span: "col",
+    //   className: "md:col-span-2"
+    // },
+    // {
+    //   badgeText: "COMPARE",
+    //   title: "Version Comparison",
+    //   description: "Identify changes across contract versions and spot critical alterations.",
+    //   icon: <GitCompare size={24} />,
+    //   lightGradient: "from-violet-400 to-purple-600", // Enhanced light mode colors
+    //   darkGradient: "from-violet-400 to-purple-600",
+    //   lightIconBg: "bg-violet-50", // Lighter background for better contrast
+    //   darkIconBg: "bg-violet-800/60",
+    //   iconColor: "text-violet-600 dark:text-violet-200",
+    //   href: "/signup",
+    //   className: "md:col-span-1"
+    // },
+    // {
+    //   badgeText: "BETA",
+    //   title: "Voice-to-Legal Draft",
+    //   description: "Dictate clauses or arguments with instant formatting and structure.",
+    //   icon: <Mic size={24} />,
+    //   lightGradient: "from-purple-400 to-pink-600", // Enhanced light mode colors
+    //   darkGradient: "from-purple-400 to-pink-600",
+    //   lightIconBg: "bg-purple-50", // Lighter background for better contrast
+    //   darkIconBg: "bg-purple-800/60",
+    //   iconColor: "text-purple-600 dark:text-purple-200",
+    //   href: "/signup",
+    //   className: "md:col-span-1"
+    // },
     {
       badgeText: "LIBRARY",
       title: "Template Library",
@@ -270,20 +270,20 @@ export function Features() {
       span: "row",
       className: "md:col-span-1 md:row-span-2"
     },
-    {
-      badgeText: "PREMIUM",
-      title: "Legal Case Prediction",
-      description: "Get data-driven insights on case risks and success probability using predictive analytics.",
-      icon: <Sparkles size={24} />,
-      lightGradient: "from-cyan-400 to-blue-600", // Enhanced light mode colors
-      darkGradient: "from-cyan-400 to-blue-600",
-      lightIconBg: "bg-cyan-50", // Lighter background for better contrast
-      darkIconBg: "bg-cyan-800/60",
-      iconColor: "text-cyan-600 dark:text-cyan-200",
-      href: "/signup",
-      span: "col",
-      className: "md:col-span-3"
-    }
+    // {
+    //   badgeText: "PREMIUM",
+    //   title: "Legal Case Prediction",
+    //   description: "Get data-driven insights on case risks and success probability using predictive analytics.",
+    //   icon: <Sparkles size={24} />,
+    //   lightGradient: "from-cyan-400 to-blue-600", // Enhanced light mode colors
+    //   darkGradient: "from-cyan-400 to-blue-600",
+    //   lightIconBg: "bg-cyan-50", // Lighter background for better contrast
+    //   darkIconBg: "bg-cyan-800/60",
+    //   iconColor: "text-cyan-600 dark:text-cyan-200",
+    //   href: "/signup",
+    //   span: "col",
+    //   className: "md:col-span-3"
+    // }
   ];
 
   return (
