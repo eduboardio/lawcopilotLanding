@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Search, BookOpen, FileText, Clock, ArrowRight, Filter, SlidersHorizontal, BookMarked } from "lucide-react";
+import { Search, BookOpen, FileText, Clock, ArrowRight, Filter, SlidersHorizontal, BookMarked, SortAsc } from "lucide-react";
 
 interface SearchResult {
   id: number;
@@ -127,9 +127,16 @@ export default function ResearchEngine() {
                   Date Range <Clock className="ml-1 md:ml-2 h-3 w-3" />
                 </Button>
                 <Button variant="outline" size="sm" className="text-xs md:text-sm">
+                  Sort <SortAsc className="ml-1 md:ml-2 h-3 w-3" />
+                </Button>
+                <Button variant="outline" size="sm" className="text-xs md:text-sm">
                   More Filters <SlidersHorizontal className="ml-1 md:ml-2 h-3 w-3" />
                 </Button>
               </div>
+            </div>
+            
+            <div className="w-full mt-4 flex justify-center">
+              <Badge variant="secondary" className="text-xs">Coming Soon: Citation Analysis</Badge>
             </div>
           </CardContent>
           <CardFooter className="flex-col items-start">

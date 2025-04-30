@@ -165,7 +165,7 @@ export function Features() {
       icon: <Search size={24} />,
       lightGradient: "from-emerald-500 to-emerald-700", // Enhanced light mode colors
       darkGradient: "from-emerald-400 to-teal-600",
-      lightIconBg: "bg-emerald-50", // Lighter background for better contrast
+      lightIconBg: "bg-emerald-100/80", // Lighter background for better contrast
       darkIconBg: "bg-emerald-800/60",
       iconColor: "text-emerald-600 dark:text-emerald-200",
       href: "/signup",
@@ -179,7 +179,7 @@ export function Features() {
       icon: <FileText size={24} />,
       lightGradient: "from-amber-400 to-red-500", // Enhanced light mode colors
       darkGradient: "from-amber-400 to-red-500",
-      lightIconBg: "bg-amber-50", // Lighter background for better contrast
+      lightIconBg: "bg-amber-100/80", // Lighter background for better contrast
       darkIconBg: "bg-amber-800/60",
       iconColor: "text-amber-600 dark:text-amber-200",
       href: "/signup",
@@ -193,7 +193,7 @@ export function Features() {
       icon: <File size={24} />,
       lightGradient: "from-blue-400 to-cyan-500", // Enhanced light mode colors
       darkGradient: "from-blue-400 to-cyan-500",
-      lightIconBg: "bg-blue-50", // Lighter background for better contrast
+      lightIconBg: "bg-blue-100/80", // Lighter background for better contrast
       darkIconBg: "bg-blue-800/60",
       iconColor: "text-blue-600 dark:text-blue-200",
       href: "/signup",
@@ -206,7 +206,7 @@ export function Features() {
       icon: <Globe size={24} />,
       lightGradient: "from-blue-400 to-violet-500", // Enhanced light mode colors
       darkGradient: "from-blue-400 to-violet-500",
-      lightIconBg: "bg-violet-50", // Lighter background for better contrast
+      lightIconBg: "bg-violet-100/80", // Lighter background for better contrast
       darkIconBg: "bg-violet-800/60",
       iconColor: "text-violet-600 dark:text-violet-200",
       href: "/signup",
@@ -263,7 +263,7 @@ export function Features() {
       icon: <Tablet size={24} />,
       lightGradient: "from-teal-400 to-green-600", // Enhanced light mode colors
       darkGradient: "from-teal-400 to-green-600",
-      lightIconBg: "bg-teal-50", // Lighter background for better contrast
+      lightIconBg: "bg-teal-100/80", // Lighter background for better contrast
       darkIconBg: "bg-teal-800/60",
       iconColor: "text-teal-600 dark:text-teal-200",
       href: "/signup",

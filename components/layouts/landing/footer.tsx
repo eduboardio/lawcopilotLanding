@@ -59,9 +59,9 @@ export const Footer = () => {
                                 <Link href="/contact" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                     Contact Us
                                 </Link>
-                                <Link href="/careers" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                {/* <Link href="/careers" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                     Careers
-                                </Link>
+                                </Link> */}
                             </div>
                         </div>
 
@@ -74,9 +74,9 @@ export const Footer = () => {
                                 <Link href="/terms" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                     Terms of Service
                                 </Link>
-                                <Link href="/blog" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                {/* <Link href="/blog" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                     Blog
-                                </Link>
+                                </Link> */}
                                 <Link href="/faq" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                     FAQ
                                 </Link>

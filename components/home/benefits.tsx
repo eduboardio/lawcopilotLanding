@@ -104,10 +104,9 @@ const BentoItem = ({
             {icon && (
               <div className={cn(
                 "mb-4 flex h-10 w-10 items-center justify-center rounded-xl shadow-sm",
-                isDarkMode ? darkIconBg : lightIconBg,
-                iconColor
+                isDarkMode ? darkIconBg : lightIconBg
               )}>
-                {icon}
+                <span className={iconColor}>{icon}</span>
               </div>
             )}
             <h3 className={cn(
@@ -374,121 +373,121 @@ export function Benefits() {
     return () => observer.disconnect();
   }, []);
 
-// Initial benefits to show with enhanced styling matching Features component
-const initialBenefits = [
-  // First row - large item
-  {
-    icon: <MapPin size={24} />,
-    title: "Built for Indian Legal Professionals",
-    description: "AI solutions designed specifically for India's unique legal landscape and requirements.",
-    points: [
-      "Contextual analysis for Indian law",
-      "Support for multiple regional languages",
-      "Custom-built for Indian legal practice"
-    ],
-    accentColor: "from-blue-500 to-indigo-700", // Brightened
-    darkAccentColor: "from-blue-300 to-indigo-500",
-    lightGradient: "from-blue-400 to-indigo-700", // Brightened
-    darkGradient: "from-blue-400 to-indigo-600",
-    lightIconBg: "bg-blue-50/90", // Lighter to make icon stand out
-    darkIconBg: "bg-blue-800/60",
-    iconColor: "text-blue-600 dark:text-blue-200",
-    size: "lg",
-    type: "benefit",
-    href: "/indian-legal",
-    gridPos: "col-span-full lg:col-span-6"
-  },
+  // Initial benefits to show with enhanced styling matching Features component
+  const initialBenefits = [
+    // First row - large item
+    {
+      icon: <MapPin size={24} />,
+      title: "Built for Indian Legal Professionals",
+      description: "AI solutions designed specifically for India's unique legal landscape and requirements.",
+      points: [
+        "Contextual analysis for Indian law",
+        "Support for multiple regional languages",
+        "Custom-built for Indian legal practice"
+      ],
+      accentColor: "from-blue-500 to-indigo-700", // Brightened
+      darkAccentColor: "from-blue-300 to-indigo-500",
+      lightGradient: "from-blue-400 to-indigo-700", // Brightened
+      darkGradient: "from-blue-400 to-indigo-600",
+      lightIconBg: "bg-blue-100/80", // Lighter to make icon stand out
+      darkIconBg: "bg-blue-800/60",
+      iconColor: "text-blue-600 dark:text-blue-200",
+      size: "lg",
+      type: "benefit",
+      href: "/indian-legal",
+      gridPos: "col-span-full lg:col-span-6"
+    },
 
-  // Second row - medium items
-  {
-    icon: <Code size={20} />,
-    title: "Proprietary Algorithm",
-    description: "Built on a custom-trained model, fine-tuned for Indian legal data.",
-    points: [
-      "Optimized for contract and litigation documents",
-      "Designed by lawyers and engineers",
-      "Continuously improving with feedback"
-    ],
-    accentColor: "from-amber-500 to-red-600", // Brightened
-    darkAccentColor: "from-amber-300 to-red-500",
-    lightGradient: "from-amber-400 to-red-500", // Brightened
-    darkGradient: "from-amber-400 to-red-500",
-    lightIconBg: "bg-amber-50/90", // Lighter
-    darkIconBg: "bg-amber-800/60",
-    iconColor: "text-amber-600 dark:text-amber-200",
-    size: "md",
-    type: "benefit",
-    href: "/technology",
-    gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
-  },
-  {
-    icon: <MapPin size={20} />,
-    title: "Jurisdictional Awareness",
-    description: "AI that understands legal variations across Indian states and forums.",
-    points: [
-      "Contextual reasoning by forum",
-      "Tailored language for courts and tribunals",
-      "Cross-jurisdictional citation intelligence"
-    ],
-    accentColor: "from-blue-500 to-cyan-700", // Brightened
-    darkAccentColor: "from-blue-300 to-cyan-500",
-    lightGradient: "from-blue-400 to-cyan-500", // Brightened
-    darkGradient: "from-blue-400 to-cyan-500",
-    lightIconBg: "bg-blue-50/90", // Lighter
-    darkIconBg: "bg-blue-800/60",
-    iconColor: "text-blue-600 dark:text-blue-200",
-    size: "md",
-    type: "benefit",
-    href: "/jurisdictions",
-    gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
-  }
-];
+    // Second row - medium items
+    {
+      icon: <Code size={20} />,
+      title: "Proprietary Algorithm",
+      description: "Built on a custom-trained model, fine-tuned for Indian legal data.",
+      points: [
+        "Optimized for contract and litigation documents",
+        "Designed by lawyers and engineers",
+        "Continuously improving with feedback"
+      ],
+      accentColor: "from-amber-500 to-red-600", // Brightened
+      darkAccentColor: "from-amber-300 to-red-500",
+      lightGradient: "from-amber-400 to-red-500", // Brightened
+      darkGradient: "from-amber-400 to-red-500",
+      lightIconBg: "bg-amber-100/80", // Lighter
+      darkIconBg: "bg-amber-800/60",
+      iconColor: "text-amber-600 dark:text-amber-200",
+      size: "md",
+      type: "benefit",
+      href: "/technology",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+    },
+    {
+      icon: <MapPin size={20} />,
+      title: "Jurisdictional Awareness",
+      description: "AI that understands legal variations across Indian states and forums.",
+      points: [
+        "Contextual reasoning by forum",
+        "Tailored language for courts and tribunals",
+        "Cross-jurisdictional citation intelligence"
+      ],
+      accentColor: "from-blue-500 to-cyan-700", // Brightened
+      darkAccentColor: "from-blue-300 to-cyan-500",
+      lightGradient: "from-blue-400 to-cyan-500", // Brightened
+      darkGradient: "from-blue-400 to-cyan-500",
+      lightIconBg: "bg-blue-100/80", // Lighter
+      darkIconBg: "bg-blue-800/60",
+      iconColor: "text-blue-600 dark:text-blue-200",
+      size: "md",
+      type: "benefit",
+      href: "/jurisdictions",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
+    }
+  ];
 
-const extraBenefits = [
-  // Additional benefits shown in "View All"
-  {
-    icon: <Lock size={20} />,
-    title: "Reliable, Safe Results",
-    description: "No hallucinations. Just dependable, legally-grounded answers.",
-    points: [
-      "Fact-checked responses",
-      "Built-in citation engine",
-      "Transparent model outputs"
-    ],
-    accentColor: "from-purple-500 to-violet-700", // Brightened
-    darkAccentColor: "from-purple-300 to-violet-500",
-    lightGradient: "from-purple-400 to-violet-500", // Brightened
-    darkGradient: "from-purple-400 to-violet-500",
-    lightIconBg: "bg-purple-50/90", // Lighter
-    darkIconBg: "bg-purple-800/60",
-    iconColor: "text-purple-600 dark:text-purple-200",
-    size: "md",
-    type: "benefit",
-    href: "/reliability",
-    gridPos: "col-span-full sm:col-span-1 lg:col-span-6"
-  },
-  {
-    icon: <Shield size={20} />,
-    title: "Enhanced Security",
-    description: "Bank-level encryption and privacy controls for sensitive legal documents.",
-    points: [
-      "Data stored in Indian servers",
-      "SOC 2 compliant infrastructure",
-      "Regular security audits"
-    ],
-    accentColor: "from-red-500 to-orange-600", // Brightened
-    darkAccentColor: "from-red-300 to-orange-500",
-    lightGradient: "from-red-400 to-orange-500", // Brightened
-    darkGradient: "from-red-400 to-orange-500",
-    lightIconBg: "bg-red-50/90", // Lighter
-    darkIconBg: "bg-red-800/60",
-    iconColor: "text-red-600 dark:text-red-200",
-    size: "md",
-    type: "benefit",
-    href: "/security",
-    gridPos: "col-span-full sm:col-span-1 lg:col-span-6"
-  }
-];
+  const extraBenefits = [
+    // Additional benefits shown in "View All"
+    {
+      icon: <Lock size={20} />,
+      title: "Reliable, Safe Results",
+      description: "No hallucinations. Just dependable, legally-grounded answers.",
+      points: [
+        "Fact-checked responses",
+        "Built-in citation engine",
+        "Transparent model outputs"
+      ],
+      accentColor: "from-purple-500 to-violet-700", // Brightened
+      darkAccentColor: "from-purple-300 to-violet-500",
+      lightGradient: "from-purple-400 to-violet-500", // Brightened
+      darkGradient: "from-purple-400 to-violet-500",
+      lightIconBg: "bg-purple-100/80", // Lighter
+      darkIconBg: "bg-purple-800/60",
+      iconColor: "text-purple-600 dark:text-purple-200",
+      size: "md",
+      type: "benefit",
+      href: "/reliability",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-6"
+    },
+    {
+      icon: <Shield size={20} />,
+      title: "Enhanced Security",
+      description: "Bank-level encryption and privacy controls for sensitive legal documents.",
+      points: [
+        "Data stored in Indian servers",
+        "SOC 2 compliant infrastructure",
+        "Regular security audits"
+      ],
+      accentColor: "from-red-500 to-orange-600", // Brightened
+      darkAccentColor: "from-red-300 to-orange-500",
+      lightGradient: "from-red-400 to-orange-500", // Brightened
+      darkGradient: "from-red-400 to-orange-500",
+      lightIconBg: "bg-red-100/80", // Lighter
+      darkIconBg: "bg-red-800/60",
+      iconColor: "text-red-600 dark:text-red-200",
+      size: "md",
+      type: "benefit",
+      href: "/security",
+      gridPos: "col-span-full sm:col-span-1 lg:col-span-6"
+    }
+  ];
 
   return (
     <section className="w-full py-8 md:py-12 bg-background">
@@ -536,7 +535,7 @@ const extraBenefits = [
 
           {/* View All Benefits button */}
           {!showAllBenefits && (
-            <div className="col-span-full mt-4 text-center">
+            <div className="col-span-full mt-8 mb-4 text-center">
               <button
                 onClick={() => setShowAllBenefits(true)}
                 className={cn(
@@ -585,7 +584,7 @@ const extraBenefits = [
             description="Whether you're drafting contracts, seeking legal clarity, or analyzing complex documents, Law Copilot delivers intelligent, tailored solutions for all your legal needs."
             icon={<Bot size={32} />}
             accentColor="from-primary to-primary/70"
-            className="md:col-span-12"
+            className="md:col-span-12 mt-10"
             ctaText="Try Law Copilot Now"
             ctaHref="/signup"
           />

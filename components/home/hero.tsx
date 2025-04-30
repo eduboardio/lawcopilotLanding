@@ -18,23 +18,23 @@ BackgroundElements.displayName = 'BackgroundElements';
 const Stats = memo(() => (
   <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 mt-16 pt-8 border-t border-border/20 w-full max-w-4xl mx-auto">
     <div className="text-center">
-      <p className="text-4xl font-bold text-primary">✅</p>
-      <p className="text-xl font-semibold text-primary">10k+ Legal Documents Trained</p>
+      <p className="text-4xl font-bold text-primary">10k+</p>
+      <p className="text-xl font-semibold text-primary"> Legal Documents Trained</p>
       <p className="text-sm text-muted-foreground mt-1">Built on real-world cases, contracts, and statutes.</p>
     </div>
     <div className="text-center">
-      <p className="text-4xl font-bold text-primary">✅</p>
-      <p className="text-xl font-semibold text-primary">100+ Lawyers Pre-Registered</p>
+      <p className="text-4xl font-bold text-primary">100+</p>
+      <p className="text-xl font-semibold text-primary"> Lawyers Pre-Registered</p>
       <p className="text-sm text-muted-foreground mt-1">Join India&apos;s fastest-growing legal AI movement.</p>
     </div>
     <div className="text-center">
-      <p className="text-4xl font-bold text-primary">✅</p>
-      <p className="text-xl font-semibold text-primary">500+ Prebuilt Legal Templates</p>
+      <p className="text-4xl font-bold text-primary">500+</p>
+      <p className="text-xl font-semibold text-primary"> Prebuilt Legal Templates</p>
       <p className="text-sm text-muted-foreground mt-1">Draft faster with ready-to-use contracts, notices, and pleadings.</p>
     </div>
     <div className="text-center">
-      <p className="text-4xl font-bold text-primary">✅</p>
-      <p className="text-xl font-semibold text-primary">100% India-Specific Legal Content</p>
+      <p className="text-4xl font-bold text-primary">100%</p>
+      <p className="text-xl font-semibold text-primary"> India-Specific Legal Content</p>
       <p className="text-sm text-muted-foreground mt-1">From trial courts to the Supreme Court, tailored for India.</p>
     </div>
   </div>

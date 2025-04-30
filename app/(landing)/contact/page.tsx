@@ -122,16 +122,17 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="container px-4 sm:px-6 py-12 md:py-20 lg:py-24 relative overflow-hidden">
-      <div className="absolute -top-16 -right-32 w-64 h-64 bg-primary/20 rounded-full blur-3xl hidden sm:block"></div>
-      <div className="absolute -bottom-24 -left-32 w-72 h-72 bg-secondary/20 rounded-full blur-3xl hidden sm:block"></div>
+    <section className="container mx-auto px-4 py-12 md:py-16 lg:py-20 relative overflow-hidden">
+      {/* Background decorative elements - adjusted positions for better visual balance */}
+      <div className="absolute -top-20 -right-40 w-72 h-72 bg-primary/20 rounded-full blur-3xl opacity-70 hidden sm:block"></div>
+      <div className="absolute -bottom-32 -left-40 w-80 h-80 bg-secondary/20 rounded-full blur-3xl opacity-70 hidden sm:block"></div>
       
       <div className="relative z-10">
         <div className="text-center mb-8 md:mb-12">
-          <span className="px-4 py-1 text-sm font-medium rounded-full bg-primary/15 text-primary inline-block mb-3 md:mb-4">
+          <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-primary/15 text-primary inline-block mb-3">
             Get In Touch
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4">Contact Our Team</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Contact Our Team</h1>
           <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
             Have questions about Law Copilot? Our experts are ready to assist you on your journey to AI-powered legal excellence.
           </p>
@@ -141,11 +142,11 @@ export default function ContactPage() {
           {/* Contact Information Column */}
           <div className="lg:col-span-1">
             <Card className="h-full bg-gradient-to-br from-background/80 to-background border shadow-md backdrop-blur-sm overflow-hidden">
-              <CardHeader className="px-4 sm:px-6 pt-6">
+              <CardHeader className="px-5 pt-6 pb-2">
                 <h2 className="text-xl sm:text-2xl font-bold text-primary">Contact Information</h2>
               </CardHeader>
-              <CardContent className="px-4 sm:px-6 pb-6">
-                <div className="space-y-5 sm:space-y-6">
+              <CardContent className="px-5 py-4">
+                <div className="space-y-5">
                   <div className="flex items-start space-x-3">
                     <Mail className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <div>
@@ -189,30 +190,30 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="pt-2 sm:pt-4">
+                  <div className="pt-3">
                     <h3 className="font-medium mb-3">Connect With Us</h3>
-                    <div className="flex space-x-4">
+                    <div className="flex space-x-3">
                       {/* Social media icons with improved accessibility */}
                       <a 
                         href="#" 
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-primary/15 text-primary hover:bg-primary hover:text-white transition-colors"
+                        className="h-9 w-9 flex items-center justify-center rounded-full bg-primary/15 text-primary hover:bg-primary hover:text-white transition-colors"
                         aria-label="Facebook"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                       </a>
                       <a 
                         href="#" 
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-primary/15 text-primary hover:bg-primary hover:text-white transition-colors"
+                        className="h-9 w-9 flex items-center justify-center rounded-full bg-primary/15 text-primary hover:bg-primary hover:text-white transition-colors"
                         aria-label="LinkedIn"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                       </a>
                       <a 
                         href="#" 
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-primary/15 text-primary hover:bg-primary hover:text-white transition-colors"
+                        className="h-9 w-9 flex items-center justify-center rounded-full bg-primary/15 text-primary hover:bg-primary hover:text-white transition-colors"
                         aria-label="Twitter/X"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
                       </a>
                     </div>
                   </div>
@@ -225,7 +226,7 @@ export default function ContactPage() {
           <div className="lg:col-span-2">
             {isSubmitted ? (
               <Card className="bg-gradient-to-br from-background/80 to-background border shadow-md backdrop-blur-sm overflow-hidden relative h-full flex flex-col justify-center items-center p-8 text-center">
-                <CheckCircle className="h-16 w-16 text-green-500 mb-4" />
+                <CheckCircle className="h-14 w-14 text-green-500 mb-4" />
                 <h2 className="text-2xl font-bold mb-2">Thank You!</h2>
                 <p className="text-muted-foreground mb-6">Your message has been received. We&apos;ll get back to you shortly.</p>
                 <Button 
@@ -239,14 +240,14 @@ export default function ContactPage() {
               <Card className="bg-gradient-to-br from-background/80 to-background border shadow-md backdrop-blur-sm overflow-hidden relative group">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-50 group-hover:opacity-70 transition-opacity duration-500"></div>
                 
-                <CardHeader className="px-4 sm:px-6 pt-6">
+                <CardHeader className="px-5 pt-6 pb-2 relative z-10">
                   <h2 className="text-xl sm:text-2xl font-bold text-primary">Send Us a Message</h2>
                 </CardHeader>
                 
-                <CardContent className="relative z-10 px-4 sm:px-6 pb-6">
-                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                <CardContent className="relative z-10 px-5 py-4">
+                  <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
+                      <div className="space-y-1.5">
                         <label htmlFor="firstName" className="text-sm font-medium">
                           First Name*
                         </label>
@@ -265,7 +266,7 @@ export default function ContactPage() {
                           <p id="firstName-error" className="text-sm text-red-500 mt-1">{errors.firstName}</p>
                         )}
                       </div>
-                      <div className="space-y-2">
+                      <div className="space-y-1.5">
                         <label htmlFor="lastName" className="text-sm font-medium">
                           Last Name*
                         </label>
@@ -287,7 +288,7 @@ export default function ContactPage() {
                     </div>
 
                     <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
+                      <div className="space-y-1.5">
                         <label htmlFor="email" className="text-sm font-medium">
                           Email Address*
                         </label>
@@ -307,7 +308,7 @@ export default function ContactPage() {
                           <p id="email-error" className="text-sm text-red-500 mt-1">{errors.email}</p>
                         )}
                       </div>
-                      <div className="space-y-2">
+                      <div className="space-y-1.5">
                         <label htmlFor="companyName" className="text-sm font-medium">
                           Company Name*
                         </label>
@@ -329,7 +330,7 @@ export default function ContactPage() {
                     </div>
 
                     <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
+                      <div className="space-y-1.5">
                         <label htmlFor="country" className="text-sm font-medium">
                           Country*
                         </label>
@@ -361,7 +362,7 @@ export default function ContactPage() {
                           <p id="country-error" className="text-sm text-red-500 mt-1">{errors.country}</p>
                         )}
                       </div>
-                      <div className="space-y-2">
+                      <div className="space-y-1.5">
                         <label htmlFor="jobTitle" className="text-sm font-medium">
                           Job Title*
                         </label>
@@ -383,7 +384,7 @@ export default function ContactPage() {
                     </div>
 
                     <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
+                      <div className="space-y-1.5">
                         <label htmlFor="orgType" className="text-sm font-medium">
                           Organization Type*
                         </label>
@@ -412,7 +413,7 @@ export default function ContactPage() {
                           <p id="orgType-error" className="text-sm text-red-500 mt-1">{errors.orgType}</p>
                         )}
                       </div>
-                      <div className="space-y-2">
+                      <div className="space-y-1.5">
                         <label htmlFor="teamSize" className="text-sm font-medium">
                           Legal Team Size*
                         </label>
