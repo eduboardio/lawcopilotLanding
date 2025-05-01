@@ -38,7 +38,7 @@ export default function PrivacyPolicyPage() {
                 <li><a href="#transfers" className="text-primary hover:underline">International Data Transfers</a></li>
                 <li><a href="#retention" className="text-primary hover:underline">Data Retention</a></li>
                 <li><a href="#rights" className="text-primary hover:underline">Your Data Protection Rights</a></li>
-                <li><a href="#children" className="text-primary hover:underline">Children's Privacy</a></li>
+                <li><a href="#children" className="text-primary hover:underline">Children&apos;s Privacy</a></li>
                 <li><a href="#updates" className="text-primary hover:underline">Updates to this Privacy Policy</a></li>
                 <li><a href="#contact" className="text-primary hover:underline">Contact Information</a></li>
               </ol>
@@ -47,13 +47,13 @@ export default function PrivacyPolicyPage() {
             <div id="applicability" className="mb-8">
             <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">1. Applicability of this Privacy Policy</h2>
             <p>
-              This Privacy Policy outlines how Law Co-Pilot LLP ("Law Co-Pilot", "we", "us", "our") collects, processes, and manages Personal Data obtained from or about you through our website (lawcopilot.in), our AI-powered software-as-a-service ("SaaS") platform, associated applications, and all related services ("Services"), and through any other interactions you may have with us, such as customer support communications or marketing interactions.
+              This Privacy Policy outlines how Law Co-Pilot LLP (&quot;Law Co-Pilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) collects, processes, and manages Personal Data obtained from or about you through our website (lawcopilot.in), our AI-powered software-as-a-service (&quot;SaaS&quot;) platform, associated applications, and all related services (&quot;Services&quot;), and through any other interactions you may have with us, such as customer support communications or marketing interactions.
             </p>
             <p>
-              Our Services are designed primarily for use by businesses, law firms, legal professionals, and other corporate entities (collectively, "Customers") for professional purposes. We enter into specific contractual agreements with our Customers, such as our standard terms of service, customer agreements, data processing agreements, or other applicable contracts ("Customer Agreements"). These Customer Agreements govern the use of our platform, applications, and Services provided to our Customers.
+              Our Services are designed primarily for use by businesses, law firms, legal professionals, and other corporate entities (collectively, &quot;Customers&quot;) for professional purposes. We enter into specific contractual agreements with our Customers, such as our standard terms of service, customer agreements, data processing agreements, or other applicable contracts (&quot;Customer Agreements&quot;). These Customer Agreements govern the use of our platform, applications, and Services provided to our Customers.
             </p>
             <p>
-              This Privacy Policy does not apply to data or content ("Customer Data" or "Content") uploaded by Customers or generated through their use of our platform and applications. Such Customer Data and Content are processed strictly on behalf of our Customers, and our role with respect to such processing is solely that of a Data Processor under applicable data protection laws. The processing and protection of Customer Data and Content are governed exclusively by the relevant Customer Agreements, and any inquiries or concerns regarding such data must be directed to the respective Customers acting as the Data Controllers.
+              This Privacy Policy does not apply to data or content (&quot;Customer Data&quot; or &quot;Content&quot;) uploaded by Customers or generated through their use of our platform and applications. Such Customer Data and Content are processed strictly on behalf of our Customers, and our role with respect to such processing is solely that of a Data Processor under applicable data protection laws. The processing and protection of Customer Data and Content are governed exclusively by the relevant Customer Agreements, and any inquiries or concerns regarding such data must be directed to the respective Customers acting as the Data Controllers.
             </p>
             <p>
               Law Co-Pilot acts as the Data Controller solely with respect to Personal Data collected directly by us or indirectly via your interactions with our website, platform, marketing activities, social media presence, and other communications not governed by separate Customer Agreements. This Privacy Policy governs our responsibilities and practices related to Personal Data only in these scenarios.
@@ -75,15 +75,15 @@ export default function PrivacyPolicyPage() {
             </p>
             <p className="font-medium">a) Account Information:</p>
             <p>
-              When you or your organization registers an account with us, we collect information necessary for account creation and management. This may include your full name, email address, professional qualifications, occupation, preferred language, secure login credentials (such as usernames and encrypted passwords), billing and payment information, and transaction or usage history (collectively, "Account Information").
+              When you or your organization registers an account with us, we collect information necessary for account creation and management. This may include your full name, email address, professional qualifications, occupation, preferred language, secure login credentials (such as usernames and encrypted passwords), billing and payment information, and transaction or usage history (collectively, &quot;Account Information&quot;).
             </p>
             <p className="font-medium">b) Communication Information:</p>
             <p>
-              When you interact with us—such as submitting queries to customer support, providing feedback, responding to surveys, or using our help center—we collect your name, contact information, occupation, survey responses, engagement patterns, and the content of your messages ("Communication Information").
+              When you interact with us—such as submitting queries to customer support, providing feedback, responding to surveys, or using our help center—we collect your name, contact information, occupation, survey responses, engagement patterns, and the content of your messages (&quot;Communication Information&quot;).
             </p>
             <p className="font-medium">c) Social Media Information:</p>
             <p>
-              If you engage with our official company pages on platforms like LinkedIn, X (formerly Twitter), YouTube, etc., we may collect any Personal Data you choose to share, including contact details, comments, or direct messages. We also receive aggregated analytics and engagement metrics from these platforms ("Social Media Information").
+              If you engage with our official company pages on platforms like LinkedIn, X (formerly Twitter), YouTube, etc., we may collect any Personal Data you choose to share, including contact details, comments, or direct messages. We also receive aggregated analytics and engagement metrics from these platforms (&quot;Social Media Information&quot;).
             </p>
             <p className="font-medium">d) Content You Upload or Process through the Interface:</p>
             <p>
@@ -95,11 +95,11 @@ export default function PrivacyPolicyPage() {
             </p>
             <p className="font-medium">a) Log Data:</p>
             <p>
-              This includes your IP address, browser type, access time and duration, referral URLs, and details on how you interact with specific features of the site or Services ("Log Data").
+              This includes your IP address, browser type, access time and duration, referral URLs, and details on how you interact with specific features of the site or Services (&quot;Log Data&quot;).
             </p>
             <p className="font-medium">b) Usage Data:</p>
             <p>
-              We collect metadata related to your interaction with the Services, including frequency and length of sessions, features accessed, types of queries submitted, and other behavioral analytics ("Usage Data").
+              We collect metadata related to your interaction with the Services, including frequency and length of sessions, features accessed, types of queries submitted, and other behavioral analytics (&quot;Usage Data&quot;).
             </p>
             <p className="font-medium">c) Cookies and Similar Technologies:</p>
             <p>
@@ -138,7 +138,7 @@ export default function PrivacyPolicyPage() {
               <li>Analytics Vendors: providing usage metrics and behavioral segmentation.</li>
               <li>Event Organizers: who share attendee details from legal conferences, webinars, or professional seminars.</li>
             </ul>
-            <p>(Collectively, "Third-Party Information").</p>
+            <p>(Collectively, &quot;Third-Party Information&quot;).</p>
             <h3 className="text-lg md:text-xl font-medium mt-4 mb-2">Publicly Available Information</h3>
             <p>
               We may collect data from publicly available sources, such as judgments, statutes, government databases, legal digests, or professional registries. This may be used to improve our Services, conduct AI model training, or support legal research functionalities. You can contact us at privacy@lawcopilot.in for further details about how such data is used and protected.
@@ -230,7 +230,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <h3 className="text-lg font-medium mt-4 mb-2">d) Business Reorganization or Corporate Transactions:</h3>
             <p>
-              In the event of a business reorganization, merger, acquisition, sale, consolidation, liquidation, or transfer of all or a significant portion of Law Co-Pilot LLP's assets, we may share or transfer your Personal Data as part of the due diligence or transaction process. Should this occur, we will notify you directly and take all reasonable measures to ensure the continued protection and confidentiality of your Personal Data in accordance with this Privacy Policy.
+              In the event of a business reorganization, merger, acquisition, sale, consolidation, liquidation, or transfer of all or a significant portion of Law Co-Pilot LLP&apos;s assets, we may share or transfer your Personal Data as part of the due diligence or transaction process. Should this occur, we will notify you directly and take all reasonable measures to ensure the continued protection and confidentiality of your Personal Data in accordance with this Privacy Policy.
             </p>
             <h3 className="text-lg font-medium mt-4 mb-2">e) Professional Advisors and Regulatory Authorities:</h3>
             <p>
@@ -312,7 +312,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <p className="font-medium">6.4 Use of AI APIs and Data Protection</p>
             <p>
-              OpenAI API: While we use third-party APIs such as OpenAI for natural language generation and document summarization, we do not transmit or share Personal Data to OpenAI's servers. All interactions are proxied through internal gateways that scrub or anonymize any sensitive or identifiable information prior to API calls.
+              OpenAI API: While we use third-party APIs such as OpenAI for natural language generation and document summarization, we do not transmit or share Personal Data to OpenAI&apos;s servers. All interactions are proxied through internal gateways that scrub or anonymize any sensitive or identifiable information prior to API calls.
             </p>
             <p>
               Azure Cognitive Services / OCR APIs: Where document processing involves extraction using OCR (Optical Character Recognition), we use APIs offered by providers with Indian data centers (e.g., Microsoft Azure India) and ensure encryption and non-retention of input/output data.
@@ -399,7 +399,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <h3 className="text-lg font-medium mt-4 mb-2">Right to Opt-Out of Marketing Communications:</h3>
             <p>
-              You may opt-out of receiving marketing communications at any time by clicking the "unsubscribe" or "opt-out" link in our marketing emails. To opt out of other forms of marketing (e.g., postal or phone), please contact us using the details under Section 12. Note: even if you opt out of marketing, you will continue to receive service-related communications.
+              You may opt-out of receiving marketing communications at any time by clicking the &quot;unsubscribe&quot; or &quot;opt-out&quot; link in our marketing emails. To opt out of other forms of marketing (e.g., postal or phone), please contact us using the details under Section 12. Note: even if you opt out of marketing, you will continue to receive service-related communications.
             </p>
             <h3 className="text-lg font-medium mt-4 mb-2">Right to Withdraw Consent:</h3>
             <p>
@@ -407,7 +407,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <h3 className="text-lg font-medium mt-4 mb-2">Right to Complain to a Supervisory Authority:</h3>
             <p>
-              If you believe we have infringed your privacy rights, you may have the right to lodge a complaint with your local data protection authority. Contact details for EU data protection authorities are available here, and for the UK Information Commissioner's Office here.
+              If you believe we have infringed your privacy rights, you may have the right to lodge a complaint with your local data protection authority. Contact details for EU data protection authorities are available here, and for the UK Information Commissioner&apos;s Office here.
             </p>
             <p>
               To exercise any of these rights, please contact us using the details provided under Section 12 – How to Contact Us. We respond to all such requests in accordance with applicable data protection laws and within any statutory timeframes.
@@ -416,7 +416,7 @@ export default function PrivacyPolicyPage() {
 
           {/* Section 9: Children */}
           <div id="children" className="mb-8">
-            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">9. Children's Privacy</h2>
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">9. Children&apos;s Privacy</h2>
             <p>
               Our website and Services are not intended for use by individuals under the age of 18. Law Co-Pilot LLP does not knowingly collect, solicit, or process Personal Data from individuals under the age of 18. If you are a parent or legal guardian and believe that a minor under the age of 18 has provided us with Personal Data through our Services, please contact us at privacy@lawcopilot.in. Upon verification, we will take appropriate steps to delete such information from our records in accordance with applicable data protection laws.
             </p>
@@ -432,7 +432,7 @@ export default function PrivacyPolicyPage() {
               We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your Personal Data.
             </p>
             <p>
-              You can determine when this Privacy Policy was last updated by referring to the "Last Updated" date at the top of this document.
+              You can determine when this Privacy Policy was last updated by referring to the &quot;Last Updated&quot; date at the top of this document.
             </p>
           </div>
 
