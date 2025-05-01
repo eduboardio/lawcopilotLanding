@@ -90,7 +90,7 @@ export const Footer = () => {
                                     <Linkedin className="h-4 w-4 text-primary" />
                                     <span>LinkedIn</span>
                                 </Link>
-                                <Link href="mailto:support@lawcopilot.ai" className="flex items-center gap-2 text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                <Link href="mailto:hello@lawcopilot.io" className="flex items-center gap-2 text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
                                     <Mail className="h-4 w-4 text-primary" />
                                     <span>Email Us</span>
                                 </Link>

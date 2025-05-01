@@ -5,12 +5,12 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue 
+  SelectValue
 } from "@/components/ui/select";
 import Link from "next/link";
 import { useState } from "react";
@@ -40,13 +40,13 @@ export default function ContactPage() {
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
-    
+
     // Required fields validation
     if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
     if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
     if (!formData.companyName.trim()) newErrors.companyName = "Company name is required";
     if (!formData.jobTitle.trim()) newErrors.jobTitle = "Job title is required";
-    
+
     // Email validation
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -58,7 +58,7 @@ export default function ContactPage() {
     if (!formData.country) newErrors.country = "Please select a country";
     if (!formData.orgType) newErrors.orgType = "Please select an organization type";
     if (!formData.teamSize) newErrors.teamSize = "Please select team size";
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -66,37 +66,37 @@ export default function ContactPage() {
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
+
     // Clear error when user types
     if (errors[name]) {
       setErrors(prev => {
-        const newErrors = {...prev};
+        const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
       });
     }
   };
-  
+
   const handleSelectChange = (name: string, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
-    
+
     // Clear error when user selects
     if (errors[name]) {
       setErrors(prev => {
-        const newErrors = {...prev};
+        const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
       });
     }
   };
-  
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     setIsSubmitting(true);
-    
+
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
@@ -126,7 +126,7 @@ export default function ContactPage() {
       {/* Background decorative elements - adjusted positions for better visual balance */}
       <div className="absolute -top-20 -right-40 w-72 h-72 bg-primary/20 rounded-full blur-3xl opacity-70 hidden sm:block"></div>
       <div className="absolute -bottom-32 -left-40 w-80 h-80 bg-secondary/20 rounded-full blur-3xl opacity-70 hidden sm:block"></div>
-      
+
       <div className="relative z-10">
         <div className="text-center mb-8 md:mb-12">
           <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-primary/15 text-primary inline-block mb-3">
@@ -151,34 +151,34 @@ export default function ContactPage() {
                     <Mail className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="font-medium mb-1">Email</p>
-                      <a href="mailto:support@lawcopilot.com" className="text-muted-foreground hover:text-primary transition-colors">
-                        support@lawcopilot.com
+                      <a href="mailto:support@lawcopilot.io" className="text-muted-foreground hover:text-primary transition-colors">
+                        hello@lawcopilot.io
                       </a>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start space-x-3">
                     <Phone className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="font-medium mb-1">Phone</p>
                       <a href="tel:+18001234567" className="text-muted-foreground hover:text-primary transition-colors">
-                        +1 (800) 123-4567
+                        9603354488
                       </a>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start space-x-3">
                     <Building2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="font-medium mb-1">Headquarters</p>
                       <address className="not-italic text-muted-foreground">
-                        123 Legal Avenue<br />
-                        San Francisco, CA 94105<br />
-                        United States
+                        3-104/43<br />
+                        Chavi, Manikonda, Hyderabad, 500089<br />
+                        India
                       </address>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start space-x-3">
                     <Clock className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <div>
@@ -194,22 +194,22 @@ export default function ContactPage() {
                     <h3 className="font-medium mb-3">Connect With Us</h3>
                     <div className="flex space-x-3">
                       {/* Social media icons with improved accessibility */}
-                      <a 
-                        href="#" 
+                      <a
+                        href="#"
                         className="h-9 w-9 flex items-center justify-center rounded-full bg-primary/15 text-primary hover:bg-primary hover:text-white transition-colors"
                         aria-label="Facebook"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                       </a>
-                      <a 
-                        href="#" 
+                      <a
+                        href="#"
                         className="h-9 w-9 flex items-center justify-center rounded-full bg-primary/15 text-primary hover:bg-primary hover:text-white transition-colors"
                         aria-label="LinkedIn"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                       </a>
-                      <a 
-                        href="#" 
+                      <a
+                        href="#"
                         className="h-9 w-9 flex items-center justify-center rounded-full bg-primary/15 text-primary hover:bg-primary hover:text-white transition-colors"
                         aria-label="Twitter/X"
                       >
@@ -229,7 +229,7 @@ export default function ContactPage() {
                 <CheckCircle className="h-14 w-14 text-green-500 mb-4" />
                 <h2 className="text-2xl font-bold mb-2">Thank You!</h2>
                 <p className="text-muted-foreground mb-6">Your message has been received. We&apos;ll get back to you shortly.</p>
-                <Button 
+                <Button
                   onClick={() => setIsSubmitted(false)}
                   className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
                 >
@@ -239,11 +239,11 @@ export default function ContactPage() {
             ) : (
               <Card className="bg-gradient-to-br from-background/80 to-background border shadow-md backdrop-blur-sm overflow-hidden relative group">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-50 group-hover:opacity-70 transition-opacity duration-500"></div>
-                
+
                 <CardHeader className="px-5 pt-6 pb-2 relative z-10">
                   <h2 className="text-xl sm:text-2xl font-bold text-primary">Send Us a Message</h2>
                 </CardHeader>
-                
+
                 <CardContent className="relative z-10 px-5 py-4">
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid sm:grid-cols-2 gap-4">
@@ -334,12 +334,12 @@ export default function ContactPage() {
                         <label htmlFor="country" className="text-sm font-medium">
                           Country*
                         </label>
-                        <Select 
-                          name="country" 
+                        <Select
+                          name="country"
                           onValueChange={(value) => handleSelectChange("country", value)}
                           value={formData.country}
                         >
-                          <SelectTrigger 
+                          <SelectTrigger
                             className={`border-muted-foreground/20 ${errors.country ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                             aria-invalid={errors.country ? "true" : "false"}
                             aria-describedby={errors.country ? "country-error" : undefined}
@@ -388,12 +388,12 @@ export default function ContactPage() {
                         <label htmlFor="orgType" className="text-sm font-medium">
                           Organization Type*
                         </label>
-                        <Select 
-                          name="orgType" 
+                        <Select
+                          name="orgType"
                           onValueChange={(value) => handleSelectChange("orgType", value)}
                           value={formData.orgType}
                         >
-                          <SelectTrigger 
+                          <SelectTrigger
                             className={`border-muted-foreground/20 ${errors.orgType ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                             aria-invalid={errors.orgType ? "true" : "false"}
                             aria-describedby={errors.orgType ? "orgType-error" : undefined}
@@ -417,12 +417,12 @@ export default function ContactPage() {
                         <label htmlFor="teamSize" className="text-sm font-medium">
                           Legal Team Size*
                         </label>
-                        <Select 
-                          name="teamSize" 
+                        <Select
+                          name="teamSize"
                           onValueChange={(value) => handleSelectChange("teamSize", value)}
                           value={formData.teamSize}
                         >
-                          <SelectTrigger 
+                          <SelectTrigger
                             className={`border-muted-foreground/20 ${errors.teamSize ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                             aria-invalid={errors.teamSize ? "true" : "false"}
                             aria-describedby={errors.teamSize ? "teamSize-error" : undefined}
@@ -464,8 +464,8 @@ export default function ContactPage() {
                           Privacy Policy
                         </Link>.
                       </p>
-                      
-                      <Button 
+
+                      <Button
                         type="submit"
                         className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
                         size="lg"

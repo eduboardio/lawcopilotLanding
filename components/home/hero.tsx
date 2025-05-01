@@ -28,7 +28,7 @@ const Stats = memo(() => (
       <p className="text-sm text-muted-foreground mt-1">Join India&apos;s fastest-growing legal AI movement.</p>
     </div>
     <div className="text-center">
-      <p className="text-4xl font-bold text-primary">500+</p>
+      <p className="text-4xl font-bold text-primary">2000+</p>
       <p className="text-xl font-semibold text-primary"> Prebuilt Legal Templates</p>
       <p className="text-sm text-muted-foreground mt-1">Draft faster with ready-to-use contracts, notices, and pleadings.</p>
     </div>

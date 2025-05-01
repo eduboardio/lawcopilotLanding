@@ -15,43 +15,823 @@ export default function TermsPage() {
       <Card className="mx-auto max-w-4xl shadow-md">
         <CardContent className="pt-6 px-4 sm:px-6 md:px-8">
           <div className="prose prose-slate dark:prose-invert max-w-none">
-            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">Agreement to Terms</h2>
-            <p className="text-sm md:text-base">By accessing Law Copilot, you agree to these Terms and Conditions. If you disagree with any part of the terms, please do not use our Platform.</p>
+            <div className="text-sm md:text-base mb-6">
+              <p>Please read the TERMS & CONDITIONS ("Terms", "Terms and Conditions", "Terms of Use") carefully before registering, accessing, or using the Services offered through the web application at https://lawcopilot.in or other associated subdomains as may be officially utilized by Us from time to time ("the Law Co-Pilot Platform").</p>
 
-            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4 mt-6 md:mt-8">Changes to Terms</h2>
-            <p className="text-sm md:text-base">We reserve the right to modify these terms at any time. We will notify users of any changes through the Platform or via email. Continued use after such changes constitutes acceptance of the new terms.</p>
+              <p>These Terms and Conditions constitute a legally binding agreement between the user of the Services or the entity that you represent ("You", "Your") and [Insert Full Legal Name of LLP], an Indian limited liability partnership incorporated under the Limited Liability Partnership Act, 2008, with its registered office at [Insert Full Address], Hyderabad, Telangana, India ("Law Co-Pilot", "Company", "We", "Us").</p>
 
-            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4 mt-6 md:mt-8">User Accounts</h2>
-            <ul className="space-y-2 text-sm md:text-base">
-              <li>Users must be at least 18 years old to create an account.</li>
-              <li>Users are responsible for maintaining the confidentiality of their account.</li>
-              <li>Users agree to immediately notify Law Copilot of any unauthorized use of their account.</li>
-            </ul>
+              <p>You agree and acknowledge that You have read these Terms and Conditions, as well as our Privacy Policy and any additional terms applicable to specific features or modules of the Services, which collectively form a part of this Agreement. If You do not agree to any of these Terms and Conditions, You must not use the Services and may request termination of your access or subscription.</p>
 
-            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4 mt-6 md:mt-8">Intellectual Property Rights</h2>
-            <p className="text-sm md:text-base">All content on Law Copilot, including text, graphics, logos, and software, is the property of Law Copilot or its licensors and is protected by intellectual property laws.</p>
+              <p>If You are acting on behalf of a company, organization, or other legal entity, You represent and warrant that You have the requisite authority to bind that entity to these Terms and Conditions. The expression "this Agreement" refers to the Terms and Conditions, Privacy Policy, and any supplemental policies agreed to by You collectively.</p>
 
-            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4 mt-6 md:mt-8">User Conduct</h2>
-            <ul className="space-y-2 text-sm md:text-base">
-              <li>Users agree not to use the Platform for any unlawful purpose.</li>
-              <li>Users consent to the transmission of personal identification information to AI models as part of the platform&apos;s functionality.</li>
-              <li>Users acknowledge that their interactions with Law Copilot may be stored and analyzed for improving service quality and user experience.</li>
-            </ul>
+              <p>By registering on the Law Co-Pilot Platform and accessing or using the Services, You represent and warrant that:</p>
+              <ul className="list-disc pl-6 mb-4">
+                <li>You are 18 years of age or older;</li>
+                <li>You are legally competent to enter into a binding agreement; and</li>
+                <li>You are not prohibited from using the Services under applicable law.</li>
+              </ul>
+            </div>
 
-            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4 mt-6 md:mt-8">Termination</h2>
-            <p className="text-sm md:text-base">We may terminate or suspend access to our Platform immediately, without prior notice or liability, for any breach of these Terms.</p>
+            <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">Definitions</h3>
+            <div className="text-sm md:text-base mb-6">
+              <p>For the purposes of these Terms and Conditions, the following capitalized terms shall have the meanings assigned to them below. These definitions apply whether they are used in the singular or plural form.</p>
 
-            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4 mt-6 md:mt-8">Cancellation and Refund Policy</h2>
-            <p className="text-sm md:text-base">You may cancel your subscription to Law Copilot services within 14 days of initiating a service contract for a full refund. If you choose to cancel after this period, please note that we do not provide pro-rata refunds for unused portions of your subscription.</p>
+              <p className="mb-1"><strong>"Account"</strong> means the user-specific profile created through registration on the Law Co-Pilot platform which enables access to the Services.</p>
+
+              <p className="mb-1"><strong>"Affiliate"</strong> means any entity that directly or indirectly controls, is controlled by, or is under common control with Law Co-Pilot LLP.</p>
+
+              <p className="mb-1"><strong>"AI Services"</strong> means the suite of artificial intelligence–powered functionalities provided by the platform, including legal research, document drafting, summarization, translation, analysis, and other generative tasks.</p>
+
+              <p className="mb-1"><strong>"Authorised User"</strong> means any individual who has been granted access to use the Services by a registered user or enterprise account holder, subject to these Terms.</p>
+
+              <p className="mb-1"><strong>"Business Day"</strong> means any day other than a Saturday, Sunday or a statutory public holiday in India.</p>
+
+              <p className="mb-1"><strong>"Confidential Information"</strong> means all non-public information disclosed by Law Co-Pilot LLP to the User, whether oral, written, or digital, that is designated as confidential or that reasonably should be understood to be confidential, including but not limited to trade secrets, source code, business plans, technical data, and system architecture.</p>
+
+              <p className="mb-1"><strong>"Content"</strong> means all material, data, documents, queries, files, information, or content submitted by the User to the Platform ("Input") and the results, analyses, summaries, or documents generated by the Services in response ("Output").</p>
+
+              <p className="mb-1"><strong>"Enterprise Client"</strong> means a commercial, institutional, or organizational subscriber to Law Co-Pilot LLP's Services that operates under a custom enterprise agreement.</p>
+
+              <p className="mb-1"><strong>"Intellectual Property"</strong> means all intellectual property rights of any kind, whether registered or unregistered, including but not limited to copyrights, patents, trademarks, trade names, trade secrets, service marks, logos, and all related goodwill, proprietary rights, and moral rights.</p>
+
+              <p className="mb-1"><strong>"License"</strong> means the limited, revocable, non-exclusive, non-transferable, and non-sublicensable right granted by Law Co-Pilot LLP to the User to access and use the Services, as set out in these Terms.</p>
+
+              <p className="mb-1"><strong>"Licensee"</strong> means the individual or entity that registers with Law Co-Pilot LLP and is granted a License to use the Services under these Terms.</p>
+
+              <p className="mb-1"><strong>"Law Co-Pilot LLP"</strong> refers to the legal tech company operating the platform, providing AI-powered legal services, and registered under the laws of India with its principal place of business in Hyderabad.</p>
+
+              <p className="mb-1"><strong>"Personal Data"</strong> means any information that relates to an identified or identifiable natural person, including but not limited to names, contact details, identification numbers, location data, and other digital identifiers.</p>
+
+              <p className="mb-1"><strong>"Platform"</strong> means the website, application, interface, and associated software made available by Law Co-Pilot LLP through which the Services are provided, including subdomains, backend services, and third-party integrations.</p>
+
+              <p className="mb-1"><strong>"Privacy Policy"</strong> means the data handling and privacy practices adopted by Law Co-Pilot LLP and made available on its official website, which governs the collection, use, processing, and storage of Personal Data.</p>
+
+              <p className="mb-1"><strong>"Services"</strong> means all products, tools, features, and functionalities offered by Law Co-Pilot LLP via its Platform, including but not limited to research tools, document analysis, translation, legal drafting, clause comparison, content generation, and related AI-driven utilities.</p>
+
+              <p className="mb-1"><strong>"Software"</strong> means any proprietary software components, APIs, scripts, data processing engines, user interfaces, and backend systems developed or licensed by Law Co-Pilot LLP that enable the functioning of the Platform.</p>
+
+              <p className="mb-1"><strong>"Subscription Plan"</strong> means the pricing and service plan selected by the User, which determines the level of access to the Services, duration, and related billing terms.</p>
+
+              <p className="mb-1"><strong>"Terms"</strong> or <strong>"Terms and Conditions"</strong> means this legally binding agreement governing the User's access to and use of the Services, including all annexures, policies, and referenced documents.</p>
+
+              <p className="mb-1"><strong>"Third-Party Services"</strong> means APIs, software, platforms, tools, infrastructure, payment processors, or data sources provided by independent third parties and integrated with or accessible through the Platform.</p>
+
+              <p className="mb-1"><strong>"User"</strong> or <strong>"You"</strong> means any individual or entity who registers for, accesses, or uses the Services provided by Law Co-Pilot LLP, including its representatives, employees, contractors, or agents.</p>
+
+              <p className="mb-1"><strong>"User Data"</strong> means all Input, registration data, user-uploaded documents, metadata, and interaction logs submitted or generated by the User during use of the Services.</p>
+            </div>
+
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="who-we-are">1. Who We Are</h2>
+            <div className="text-sm md:text-base mb-6">
+              <p className="mb-4">
+                Law Co-Pilot LLP is a Hyderabad-based legal technology company that offers AI-powered solutions to support legal professionals in research, drafting, translation, and document review. Our objective is to streamline complex legal workflows through intelligent automation and data-driven insights.
+              </p>
+
+              <h3 className="text-lg md:text-xl font-semibold mt-5 mb-3">1.1 Services Offered:</h3>
+              <p className="mb-3">The Law Co-Pilot Platform currently offers the following Services:</p>
+
+              <div className="mb-4">
+                <h4 className="font-semibold mb-1">(a) Legal Research Tool</h4>
+                <p className="mb-3 pl-4">
+                  An AI-assisted research engine designed to help legal professionals retrieve relevant case laws, statutes, regulations, and commentary from public sources and proprietary databases. The tool enhances legal research productivity by surfacing relevant information contextually and efficiently.
+                </p>
+
+                <h4 className="font-semibold mb-1">(b) Document Analysis Tool</h4>
+                <p className="mb-3 pl-4">
+                  Allows users to securely upload legal documents for review. The platform facilitates AI-based summarization, semantic querying, issue spotting, and insight extraction from pleadings, contracts, orders, and more.
+                </p>
+
+                <h4 className="font-semibold mb-1">(c) Legal Translation Tool</h4>
+                <p className="mb-3 pl-4">
+                  Provides AI-based legal translation services, enabling users to translate legal documents and court records between Indian languages and English while preserving legal meaning and context.
+                </p>
+
+                <h4 className="font-semibold mb-1">(d) Legal Drafting Tool</h4>
+                <p className="mb-3 pl-4">
+                  Aided by AI, this module helps generate legal documents such as petitions, affidavits, contracts, notices, and representations. Users input factual or contextual data, and the system generates legally structured output tailored to jurisdiction and document type.
+                </p>
+
+                <h4 className="font-semibold mb-1">(e) Document Comparison Tool</h4>
+                <p className="mb-3 pl-4">
+                  Allows users to compare multiple versions of legal documents, highlighting variations in clauses, definitions, and obligations. Useful in contract redlining, amendment review, or litigation pleadings.
+                </p>
+
+                <h4 className="font-semibold mb-1">(f) Other Services</h4>
+                <p className="mb-3 pl-4">
+                  We continue to expand our offerings with new features such as case timeline builders, statutory compliance checkers, or interactive query assistants. Law Co-Pilot reserves the right to alter, enhance, or withdraw any of the Services at its sole discretion. Users will be notified of material changes via in-product notifications or email.
+                </p>
+              </div>
+
+              <h3 className="text-lg md:text-xl font-semibold mt-5 mb-3">1.2 Disclaimer</h3>
+              <p className="mb-3">
+                The Law Co-Pilot Platform and its contents are provided strictly on an "as-is" and "as available" basis for informational and research purposes only. The legal data made accessible through the platform may include content sourced from public websites, including decisions, statutes, rules, notifications, and orders made available through government or public sources.
+              </p>
+
+              <div className="mb-4">
+                <h4 className="font-semibold mb-1">1.2.1 No Legal Advice or Representation</h4>
+                <p className="mb-3 pl-4">
+                  Law Co-Pilot LLP is not a law firm, does not engage in the practice of law, and does not offer legal representation or legal advice in any jurisdiction. The Services and any output generated from the platform do not constitute legal advice, legal opinion, or legal representation, nor should they be relied upon as such. No lawyer-client, fiduciary, or confidential relationship is created between you and Law Co-Pilot LLP by your use of the Services.
+                </p>
+
+                <h4 className="font-semibold mb-1">1.2.2 AI-Based Services and User Responsibility</h4>
+                <p className="mb-3 pl-4">
+                  You understand and agree that you are interacting with an AI system, not a human. All content generated via the platform, including but not limited to summaries, drafts, translations, and legal analysis, should be independently reviewed and verified by a qualified legal professional. You are solely responsible for determining the accuracy, relevance, legality, and applicability of any Output or insight produced through the Services.
+                </p>
+
+                <h4 className="font-semibold mb-1">1.2.3 Limitations of AI and Output Accuracy</h4>
+                <p className="mb-3 pl-4">
+                  The Services rely on AI models, publicly available datasets, and third-party APIs. Due to the nature of machine learning and automation, the platform may produce incomplete, inaccurate, outdated, or jurisdictionally inappropriate content. Law Co-Pilot makes no warranty that any result or recommendation is accurate, complete, or suitable for any legal, regulatory, or commercial purpose.
+                </p>
+
+                <h4 className="font-semibold mb-1">1.2.4 Use of Third-Party Content and Tools</h4>
+                <p className="mb-3 pl-4">
+                  Our platform may include integrations with external APIs or services (such as Google Translate, OpenAI, or others). Law Co-Pilot disclaims all liability arising from the use, interpretation, or availability of such third-party services or content.
+                </p>
+
+                <h4 className="font-semibold mb-1">1.2.5 Jurisdictional Variation</h4>
+                <p className="mb-3 pl-4">
+                  Laws, drafting conventions, court rules, and legal standards vary by jurisdiction. The platform provides generalized outputs that are not tailored to the unique procedural or statutory requirements of any specific court or tribunal. It is your responsibility to ensure that any legal document complies with the relevant legal requirements of the applicable forum or authority.
+                </p>
+
+                <h4 className="font-semibold mb-1">1.2.6 Confidentiality Disclaimer</h4>
+                <p className="mb-3 pl-4">
+                  The platform is not intended for handling sensitive, classified, or privileged data. While we employ industry-standard security measures, we do not guarantee the protection of attorney-client privilege or confidentiality in respect of the data you upload. You are advised not to upload sensitive or privileged content unless you have implemented appropriate encryption and safeguards.
+                </p>
+
+                <h4 className="font-semibold mb-1">1.2.7 No Reliance or Estoppel</h4>
+                <p className="mb-3 pl-4">
+                  You agree not to rely on the Platform or any Output as the sole basis for making legal, financial, or regulatory decisions. No statement or representation made by the Company or its personnel, whether in product communications, support, or otherwise, shall be construed as giving rise to legal obligations, estoppel, or reliance.
+                </p>
+
+                <h4 className="font-semibold mb-1">1.2.8 Abuse, Malicious Use, and Copyright Compliance</h4>
+                <p className="mb-3 pl-4">
+                  You are solely responsible for your conduct and the legal use of any Output. The misuse of Law Co-Pilot to generate misleading, defamatory, fraudulent, or infringing content is strictly prohibited and may expose you to legal consequences.
+                </p>
+                <p className="mb-4 pl-4">
+                  The platform may reference or link to third-party content ("Third Party Content"), but Law Co-Pilot does not endorse or control such content. Users must comply with copyright laws and fair use principles, and must not use the platform to republish, exploit, or adapt copyrighted works in ways that exceed fair use.
+                </p>
+              </div>
+
+              <h3 className="text-lg md:text-xl font-semibold mt-5 mb-3">1.3 Copyright</h3>
+              <p className="mb-3">
+                The Law Co-Pilot Platform is controlled and operated by Law Co-Pilot LLP. All content on the Platform—including but not limited to software, documentation, user interfaces, images, texts, and data—is protected by copyrights owned or controlled by Law Co-Pilot LLP or by third parties who have licensed their materials to us.
+              </p>
+              <p className="mb-3">Unless otherwise explicitly stated:</p>
+              <ul className="list-disc pl-6 mb-4">
+                <li className="mb-2">The content is made available solely for personal and non-commercial use.</li>
+                <li className="mb-2">You may not copy, modify, reproduce, distribute, transmit, display, perform, publish, license, create derivative works from, transfer, or sell any content obtained from the Platform without prior written permission from Law Co-Pilot LLP.</li>
+                <li className="mb-2">The software and tools provided on the Platform are licensed solely for end-user use in accordance with our License Agreement.</li>
+                <li className="mb-2">Any unauthorized reproduction or redistribution of the software or services, including copying to another server or location, is strictly prohibited and may result in civil and criminal liability under applicable laws.</li>
+              </ul>
+
+              <h3 className="text-lg md:text-xl font-semibold mt-5 mb-3">1.4 No Warranties</h3>
+              <p className="mb-3">Law Co-Pilot expressly disclaims all warranties, including but not limited to:</p>
+              <ul className="list-disc pl-6 mb-4">
+                <li className="mb-2">Implied warranties of merchantability, fitness for a particular purpose, accuracy, title, and non-infringement;</li>
+                <li className="mb-2">Any warranties arising out of course of dealing, usage of trade, or course of performance;</li>
+                <li className="mb-2">Any warranties that the Platform will operate without interruption, be secure or error-free, or that defects will be corrected;</li>
+                <li className="mb-2">Any warranty that the content, data, or documents generated by or through the Platform will be complete, accurate, current, or reliable.</li>
+              </ul>
+
+              <h4 className="font-semibold mb-1">1.4.1 No Warranty of Suitability</h4>
+              <p className="mb-3 pl-4">
+                Law Co-Pilot makes no warranty that the Platform or its outputs will meet your specific needs, expectations, or intended use cases. You agree that you are solely responsible for reviewing, verifying, and validating any Output from the Services before relying on it for any legal, commercial, or personal decision.
+              </p>
+              <p className="mb-3 pl-4">
+                Any use of the Services or reliance upon the Output is at your own risk, and you are advised to seek independent professional legal advice where appropriate.
+              </p>
+              <p className="mb-3 pl-4">
+                To the fullest extent permitted by law, all warranties, whether express or implied, are hereby disclaimed.
+              </p>
+            </div>
+
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="eligibility">2. Eligibility & Registration</h2>
+            <div className="text-sm md:text-base mb-6">
+              <h3 className="text-lg font-medium mb-2">2.1 Eligibility Criteria</h3>
+              <p className="mb-3">To access or use the Law Co-Pilot Platform and its Services, you must satisfy the following eligibility conditions:</p>
+              <ul className="list-disc pl-6 mb-4 space-y-1">
+                <li>You must be at least 18 years of age or the minimum legal age required in your jurisdiction to enter into a binding legal agreement;</li>
+                <li>If you are below the age of 18, your use of the Services must be under the supervision and consent of a parent or legal guardian, who shall be fully responsible for all activities conducted under your account;</li>
+                <li>You must have the legal capacity to enter into a binding contract under applicable laws;</li>
+                <li>You must not be prohibited or restricted under any applicable law or court order from accessing or using the Services.</li>
+              </ul>
+              <p className="mb-4">By accessing or using the Platform, you represent and warrant that you meet the above eligibility criteria. If you are accessing or using the Services on behalf of an organization, institution, or other legal entity, you represent that you are duly authorized to bind such entity to these Terms.</p>
+
+              <h3 className="text-lg font-medium mb-2">2.2 Account Registration</h3>
+              <p className="mb-3">In order to use certain features of the Platform, you may be required to create an account. When registering:</p>
+              <ul className="list-disc pl-6 mb-4 space-y-1">
+                <li>You must provide accurate, complete, and up-to-date information, including your name, contact information, and any other details required by the registration process;</li>
+                <li>You are solely responsible for maintaining the confidentiality of your login credentials, including username and password, and for all activities that occur under your account;</li>
+                <li>You agree not to share your credentials with any other person or entity or permit any unauthorized access or use of your account;</li>
+                <li>If you believe that your account has been compromised or accessed without authorization, you must immediately notify us at support@lawcopilot.io</li>
+              </ul>
+              <p className="mb-2">Law Co-Pilot reserves the right to suspend or terminate any account that it reasonably believes to be in violation of these Terms, contains false or misleading information, or poses a security risk.</p>
+            </div>
+
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="license">3. License Grant, Subscription, and Restrictions on Use</h2>
+            <div className="text-sm md:text-base mb-6">
+              <h3 className="text-lg font-medium mb-2">3.1 License Grant</h3>
+              <p className="mb-4">Subject to your full compliance with these Terms and, where applicable, the successful payment of all subscription fees and applicable taxes, Law Co-Pilot LLP ("Company", "we", "us") grants you a limited, non-exclusive, non-transferable, non-sublicensable, and revocable license to access and use the Services offered via the Law Co-Pilot platform. This license is solely for:</p>
+              <ul className="list-disc pl-6 mb-4 space-y-1">
+                <li>Lawful legal research,</li>
+                <li>Legal drafting and document automation,</li>
+                <li>Document analysis and comparison,</li>
+                <li>Legal translation, and</li>
+                <li>Internal business or academic purposes.</li>
+              </ul>
+              <p className="mb-4">No ownership rights are conveyed under this license. All rights not explicitly granted herein remain with Law Co-Pilot LLP.</p>
+
+              <h3 className="text-lg font-medium mb-2">3.2 Subscription and Payment Terms</h3>
+              <ul className="list-disc pl-6 mb-4 space-y-1">
+                <li><strong>Paid Plans:</strong> Access to certain features and tools of Law Co-Pilot may require a paid subscription. You agree to pay all fees as specified at the time of purchase, including applicable taxes and transaction charges.</li>
+                <li><strong>Billing Cycle:</strong> Subscription fees are billed in advance on a recurring basis (e.g., monthly or annually), as selected by you at the time of subscription.</li>
+                <li><strong>Payment Method:</strong> You must provide valid payment information, and by doing so, you authorize us to charge your selected payment method for recurring charges until you cancel your subscription.</li>
+                <li><strong>Non-Payment:</strong> Failure to complete payment may result in suspension, downgrade, or termination of your access to the Services.</li>
+                <li><strong>Free Trials:</strong> From time to time, we may offer limited-time free trials. At the end of such trials, access to paid Services will be automatically suspended unless you upgrade to a paid plan.</li>
+                <li><strong>Refunds:</strong> All payments are non-refundable, except where required by applicable law.</li>
+              </ul>
+
+              <h3 className="text-lg font-medium mb-2">3.3 Authorized Users</h3>
+              <p className="mb-4">Only the individual who creates the account ("Licensee") and those explicitly authorized under a separate agreement ("Authorized Users") may use the Services. You are responsible for all actions undertaken through your account, including those of any Authorized Users.</p>
+
+              <h3 className="text-lg font-medium mb-2">3.4 Restrictions on Use</h3>
+              <p className="mb-3">You agree not to, and shall not permit others to:</p>
+              <ul className="list-disc pl-6 mb-4 space-y-1">
+                <li>Violate any applicable local, national, or international law, regulation, or judicial order.</li>
+                <li>Share login credentials or allow unauthorized access to the Services.</li>
+                <li>Use the Services in a manner that could harm the business, reputation, or infrastructure of Law Co-Pilot.</li>
+                <li>Reverse engineer, decompile, modify, copy, adapt, frame, or mirror any part of the Services.</li>
+                <li>Create derivative works from the Platform, or use it to develop or train competing software, machine learning models, or similar AI-enabled tools.</li>
+                <li>Upload, transmit, or distribute viruses, malware, spyware, or any other harmful software.</li>
+                <li>Use bots, scrapers, spiders, or other automated tools to extract or mine data from the Platform.</li>
+                <li>Circumvent security features or usage restrictions imposed by the Company.</li>
+                <li>Transmit content that is infringing, libelous, threatening, harassing, abusive, hateful, or otherwise objectionable or illegal.</li>
+              </ul>
+
+              <h3 className="text-lg font-medium mb-2">3.5 Fair Usage</h3>
+              <p className="mb-4">To ensure platform stability and service availability for all users, we may monitor usage patterns and impose reasonable limits on excessive, abusive, or automated use of the Services, including throttling API calls or limiting access to particular features. Law Co-Pilot LLP reserves the right to suspend or terminate access to users who materially exceed typical usage or attempt to circumvent usage limitations. These limits may be imposed without prior notice in the interest of system integrity and service availability.</p>
+
+              <h3 className="text-lg font-medium mb-2">3.6 Copyright and Proprietary Rights</h3>
+              <p className="mb-4">All materials on the Law Co-Pilot platform—including but not limited to software, APIs, UI/UX design, documentation, training data, and generated content—are protected by copyright, trademark, and other applicable intellectual property laws. These materials may not be copied, reproduced, distributed, or used in any way inconsistent with the license granted hereunder.</p>
+              <p className="mb-4">Certain publicly available content (e.g., statutes, regulations, and judicial decisions) used on the platform is licensed under respective public sector licenses (e.g., Open Justice Licence v1.0), and such licenses govern only those specific datasets.</p>
+
+              <h3 className="text-lg font-medium mb-2">3.7 Beta Services and Experimental Features</h3>
+              <p className="mb-4">Certain features of the Services may be designated as beta, experimental, or pre-release ("Beta Features"). Beta Features may not be fully tested or reliable and may contain errors. These features are provided on an "as-is" and "as-available" basis, and we make no warranties as to their functionality or reliability. You acknowledge that use of Beta Features is at your sole risk, and we are not liable for any losses or damages arising from such use. We reserve the right to discontinue Beta Features at any time without notice.</p>
+            </div>
+
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="third-party">
+              4. Third-Party Services and Integrations
+            </h2>
+            <div className="text-sm md:text-base mb-6 space-y-4">
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">4.1 Use of Third-Party Services</h3>
+                <p className="mb-2">
+                  To deliver, maintain, improve, and support the features offered on the Law Co-Pilot platform,
+                  Law Co-Pilot LLP ("we", "us", "our") may integrate, license, rely upon, or interoperate with
+                  various third-party services, technologies, and data providers ("Third-Party Services").
+                  These services are essential for the operation, automation, and augmentation of our offerings
+                  and may include, but are not limited to:
+                </p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>
+                    <span className="font-medium">Artificial Intelligence APIs:</span> Such as OpenAI, Anthropic,
+                    or other large language models, used to generate legal analysis, document summaries, clause suggestions,
+                    search explanations, and structured output;
+                  </li>
+                  <li>
+                    <span className="font-medium">Machine Translation Services:</span> Including but not limited to Google Translate,
+                    used for translating documents and legal content across supported languages;
+                  </li>
+                  <li>
+                    <span className="font-medium">Optical Character Recognition (OCR) Tools:</span> Used to extract text and metadata
+                    from scanned, handwritten, or image-based documents;
+                  </li>
+                  <li>
+                    <span className="font-medium">Legal Data Aggregators:</span> Such as IndianKanoon and publicly available government
+                    databases, including e-courts, legislative websites, and regulatory portals;
+                  </li>
+                  <li>
+                    <span className="font-medium">Cloud Infrastructure and Hosting Providers:</span> Such as Amazon Web Services,
+                    Microsoft Azure, or Google Cloud Platform, for secure data storage, deployment, and high availability;
+                  </li>
+                  <li>
+                    <span className="font-medium">Payment Gateway Services:</span> Including Stripe, Razorpay, and PayPal,
+                    for managing billing, subscription, and invoicing processes;
+                  </li>
+                  <li>
+                    <span className="font-medium">Customer Support and Notification Tools:</span> Including Intercom, Freshdesk,
+                    SendGrid, or Twilio, for enabling user support, messaging, alerts, and onboarding communications;
+                  </li>
+                  <li>
+                    <span className="font-medium">Analytics, Monitoring, and Error Tracking Tools:</span> Such as Google Analytics,
+                    Sentry, and Mixpanel, used to measure performance, usage, and improve platform reliability;
+                  </li>
+                  <li>
+                    <span className="font-medium">Identity and Authentication Providers:</span> To enable secure logins,
+                    multi-factor authentication, and account protection;
+                  </li>
+                  <li>
+                    <span className="font-medium">Document Signing and Execution Tools:</span> Including integrations with electronic
+                    signature platforms (e.g., Leegality, DocuSign) where required by the user;
+                  </li>
+                  <li>
+                    <span className="font-medium">Model Testing, Prompt Engineering, and Fine-Tuning Tools:</span> Including Hugging Face,
+                    for internal training, experimentation, and optimization of legal AI models.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">4.2 Nature of Third-Party Services and Disclaimer of Liability</h3>
+                <p className="mb-2">
+                  These Third-Party Services are not owned or controlled by Law Co-Pilot LLP. By using our Services, you acknowledge and agree that:
+                </p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>
+                    Each Third-Party Service is governed by its own terms of use, privacy policy, licensing rules, and applicable laws,
+                    which you may be required to review and accept independently;
+                  </li>
+                  <li>
+                    We do not make any warranties—express or implied—regarding the performance, security, legality, or accuracy of any Third-Party Service;
+                  </li>
+                  <li>
+                    We are not responsible for any interruption, data loss, unavailability, inaccuracy, or other deficiency arising from
+                    or attributable to any such Third-Party Service;
+                  </li>
+                  <li>
+                    Outputs generated or assisted by such services may be inaccurate, incomplete, or not legally reliable,
+                    and you bear full responsibility for verifying their appropriateness before use.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">4.3 Platform Control and Reservation of Rights</h3>
+                <p className="mb-2">
+                  Law Co-Pilot LLP reserves the full and sole right to:
+                </p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>
+                    Add, remove, modify, or replace any Third-Party Service at its discretion, at any time, without notice to or consent from the user;
+                  </li>
+                  <li>
+                    Limit or suspend access to certain Services or integrations due to technical, contractual, or regulatory considerations;
+                  </li>
+                  <li>
+                    Make operational or architectural changes to the platform as necessary to improve reliability, security, or performance.
+                  </li>
+                </ul>
+                <p className="mt-2">
+                  You expressly waive any right to object to such changes or to request continuity of any specific Third-Party Service or integration.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">4.4 Assumption of Risk and Indemnity</h3>
+                <p className="mb-2">
+                  By continuing to access or use our Services, you:
+                </p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>
+                    Acknowledge that reliance on any Third-Party Service is at your sole discretion and risk;
+                  </li>
+                  <li>
+                    Agree to indemnify, defend, and hold harmless Law Co-Pilot LLP and its directors, officers, employees, and licensors from any claims,
+                    losses, liabilities, damages, penalties, or expenses arising out of or related to your use of any such Third-Party Service,
+                    including but not limited to unauthorized use, data exposure, or violation of third-party terms.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="user-content">
+              5. User Content and Conduct
+            </h2>
+            <div className="text-sm md:text-base mb-6 space-y-4">
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">5.1 Input and Output</h3>
+                <p>
+                  You may submit data, documents, questions, text, files, or other materials through our platform ("Input")
+                  and receive responses generated by the system, including summaries, analysis, structured data, or AI-generated text ("Output").
+                  Collectively, the Input and Output are referred to as "Content."
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">5.2 Ownership of Content</h3>
+                <p className="mb-2">Subject to applicable law:</p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>You retain all rights, title, and interest in and to your Input.</li>
+                  <li>
+                    To the extent permitted by law, Law Co-Pilot LLP assigns to you any right, title, or interest it may have in the Output
+                    generated specifically from your Input.
+                  </li>
+                  <li>
+                    You acknowledge that due to the nature of AI systems, Output may be similar or identical to that received by other users
+                    and is not guaranteed to be unique.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">5.3 Responsibility and Compliance</h3>
+                <p className="mb-2">You are solely responsible for:</p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>The legality, accuracy, and appropriateness of all Content submitted;</li>
+                  <li>Ensuring that you have all necessary rights, authorizations, and consents for any Input you submit;</li>
+                  <li>Complying with all applicable laws, including those related to data protection, intellectual property, and confidentiality.</li>
+                </ul>
+                <p className="mt-2 mb-2">You shall not use the Services to upload, store, or transmit any data or content that:</p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>Infringes the intellectual property or privacy rights of any third party;</li>
+                  <li>Is illegal, harmful, defamatory, obscene, or otherwise objectionable;</li>
+                  <li>
+                    Includes or promotes hate speech, racial or ethnic discrimination, religious intolerance, sexual harassment,
+                    child pornography, or sexually explicit content;
+                  </li>
+                  <li>Encourages or incites violence, terrorism, or other unlawful acts;</li>
+                  <li>Violates applicable national or international laws and regulations.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">5.4 Confidentiality Obligations Toward Law Co-Pilot LLP</h3>
+                <p className="mb-2">By accessing or using the Services, you agree that:</p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>
+                    All non-public elements of the Services—including proprietary workflows, algorithms, prompts, system designs,
+                    feature sets, and internal logic—constitute the confidential and proprietary information of Law Co-Pilot LLP
+                    ("Confidential Information").
+                  </li>
+                  <li>
+                    You shall not disclose, decompile, reproduce, reverse-engineer, or use such Confidential Information for any purpose
+                    other than as expressly permitted by this Agreement.
+                  </li>
+                  <li>
+                    You shall maintain strict confidentiality of such Confidential Information and notify us promptly upon becoming aware
+                    of any unauthorized access, use, or disclosure.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">5.5 Intellectual Property Acknowledgment</h3>
+                <p className="mb-2">You acknowledge and agree that:</p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>
+                    Law Co-Pilot LLP owns all intellectual property rights in and to the software, platform, user interface,
+                    training datasets (excluding user Inputs), model prompts, and backend infrastructure of the Services;
+                  </li>
+                  <li>
+                    These Terms do not convey to you any ownership or license rights in Law Co-Pilot LLP's IP except as explicitly
+                    granted in the License section.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">5.6 Prohibited Use and Indemnity</h3>
+                <p className="mb-2">You may not:</p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>Use the Services to train other AI models or to create datasets intended for use in competing technologies;</li>
+                  <li>Reproduce, republish, or redistribute system outputs for purposes inconsistent with the intended legal use of the platform;</li>
+                  <li>Sell or sublicense the platform or Outputs to third parties except as expressly permitted in writing;</li>
+                  <li>Use the Services to provide false, misleading, or unlawful advice.</li>
+                </ul>
+                <p className="mt-2 mb-2">
+                  You agree to indemnify, defend, and hold harmless Law Co-Pilot LLP, its officers, directors, employees, agents,
+                  and licensors from any claim, liability, damage, penalty, or loss arising from:
+                </p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>Your violation of these Terms;</li>
+                  <li>Your misuse of the Services;</li>
+                  <li>Your breach of confidentiality obligations;</li>
+                  <li>Any third-party claims based on your Input or your reliance on Output;</li>
+                  <li>
+                    Your commission of any illegal, unlawful, or prohibited act using the Services, including but not limited to
+                    uploading or transmitting data that is stolen, defamatory, hateful, discriminatory, or otherwise in violation of law.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">5.7 Platform's Legal Liability Disclaimer</h3>
+                <p>
+                  Law Co-Pilot LLP does not monitor the lawfulness of each user's Inputs. You acknowledge that we are not liable
+                  or responsible for any content submitted, stored, or processed by you through the Services. You bear full legal
+                  responsibility for your actions and Inputs. Law Co-Pilot LLP expressly disclaims any liability arising from any
+                  illegal use of the platform, including the upload or dissemination of prohibited or unlawful content.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">5.8 Monitoring and Enforcement</h3>
+                <p>
+                  Law Co-Pilot LLP reserves the right to review, audit, or suspend your access to the Services if your usage raises
+                  suspicion of misuse, fraud, or violation of these Terms. This may include analysis of usage frequency, Input patterns,
+                  or downstream use of Output. Your access may be terminated without prior notice if we reasonably believe that your
+                  activity poses legal or reputational risk.
+                </p>
+              </div>
+            </div>
+
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="termination">
+              6. Termination
+            </h2>
+            <div className="text-sm md:text-base mb-6 space-y-4">
+              <p>
+                These Terms shall remain in effect unless and until terminated as provided herein.
+                Law Co-Pilot LLP reserves the right to suspend, restrict, or terminate your access to the Services,
+                in whole or in part, with or without notice and at its sole discretion, including (but not limited to)
+                in the following situations:
+              </p>
+              <ul className="list-disc pl-8 space-y-1">
+                <li>A breach of any provision of these Terms or associated policies;</li>
+                <li>Non-payment of fees or charges;</li>
+                <li>Use of the Services in violation of applicable laws or regulations;</li>
+                <li>Uploading or disseminating prohibited, infringing, or harmful content;</li>
+                <li>Conduct that may expose Law Co-Pilot LLP or its affiliates to legal or reputational harm;</li>
+                <li>Upon a governmental or regulatory directive;</li>
+                <li>Bankruptcy, insolvency, or dissolution proceedings initiated by or against you.</li>
+              </ul>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">6.1 Consequences of Termination</h3>
+                <p className="mb-2">Upon termination:</p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>All licenses and rights granted to you shall immediately terminate.</li>
+                  <li>
+                    You shall cease all access and use of the Services and, where applicable, delete or destroy any downloaded
+                    or stored materials.
+                  </li>
+                  <li>No refunds shall be issued for termination resulting from a violation of these Terms.</li>
+                  <li>You shall remain responsible for any outstanding financial obligations incurred prior to the termination date.</li>
+                  <li>
+                    Law Co-Pilot LLP does not assume any obligation to retain or return your data after termination, unless required
+                    by applicable law.
+                  </li>
+                </ul>
+                <p className="mt-2">
+                  Law Co-Pilot LLP disclaims all liability arising from any criminal or illegal conduct by users and shall cooperate
+                  fully with law enforcement authorities, including providing user data upon valid legal request.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">6.2 Reactivation Policy</h3>
+                <p className="mb-2">If your account has been suspended or terminated:</p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>You may submit a written request for reactivation to our support team at [support@lawcopilot.io].</li>
+                  <li>
+                    Law Co-Pilot LLP may, at its sole discretion, evaluate the request based on the nature of the violation,
+                    past conduct, and legal/regulatory circumstances.
+                  </li>
+                  <li>
+                    Reactivation may be conditional upon remediation steps, written assurances of compliance, and, where applicable,
+                    payment of reinstatement or outstanding dues.
+                  </li>
+                  <li>
+                    We are under no obligation to reinstate any account that has been terminated due to serious or repeated violations
+                    of these Terms or applicable laws.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-medium text-base md:text-lg mb-2">6.3 Enterprise Clients</h3>
+                <p className="mb-2">
+                  For enterprise clients or institutional users operating under a separate enterprise-level agreement,
+                  the following provisions apply:
+                </p>
+                <ul className="list-disc pl-8 space-y-1">
+                  <li>
+                    Termination and suspension procedures may vary based on the terms of the enterprise agreement.
+                  </li>
+                  <li>
+                    Enterprise clients may be provided advance notice and an opportunity to remedy non-compliance prior to suspension,
+                    where applicable.
+                  </li>
+                  <li>
+                    Data retention periods and service wind-down support may be governed by the enterprise agreement.
+                  </li>
+                  <li>
+                    Enterprise-level SLAs (Service Level Agreements) and DPA (Data Processing Addendums), if in place, shall take
+                    precedence in case of inconsistency with this section.
+                  </li>
+                </ul>
+                <p className="mt-2">
+                  Please contact your designated account representative or email [legal@lawcopilot.in] for enterprise-specific inquiries.
+                </p>
+              </div>
+            </div>
+
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="intellectual-property">
+              7. Intellectual Property Acknowledgment
+            </h2>
+            <div className="text-sm md:text-base mb-6">
+              <h3 className="font-medium text-base md:text-lg mb-2">7.1 Ownership of Intellectual Property</h3>
+              <p className="mb-3">
+                You acknowledge and agree that Law Co-Pilot LLP exclusively owns and retains all rights, title, and interest in and to the Services and all related intellectual property. This includes, without limitation:
+              </p>
+              <ul className="list-disc pl-6 mb-3 space-y-1">
+                <li>The software, source code, and executable code;</li>
+                <li>Platform design, architecture, and user interfaces;</li>
+                <li>Proprietary algorithms, model prompts, and AI workflows;</li>
+                <li>Backend infrastructure, system logic, and processing pipelines;</li>
+                <li>All data used to train or fine-tune models (excluding user-provided Input);</li>
+                <li>Aggregated usage data, statistical insights, and non-identifiable feedback generated through user interactions;</li>
+                <li>Documentation, APIs, product guides, manuals, help content, design assets, and visual elements;</li>
+                <li>All improvements, enhancements, derivative works, or modifications thereof.</li>
+              </ul>
+              <p className="mb-3">
+                All such materials are protected by applicable laws including Indian copyright, trademark, patent, trade secret laws, and relevant international treaties.
+              </p>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">7.2 Limited License</h3>
+              <p className="mb-3">
+                Nothing in these Terms grants you ownership of any intellectual property belonging to Law Co-Pilot LLP. You are granted only a limited, revocable, non-exclusive, and non-transferable license to use the Services for your internal legal, professional, or academic purposes, strictly in accordance with the License section above. This license does not authorize:
+              </p>
+              <ul className="list-disc pl-6 mb-3 space-y-1">
+                <li>Access to the source code or underlying architecture;</li>
+                <li>Creation of derivative works based on the Services;</li>
+                <li>Use of the Services to develop or train competing AI models;</li>
+                <li>Reverse-engineering, decompilation, or disassembly of any component.</li>
+              </ul>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">7.3 Trademarks and Branding</h3>
+              <p className="mb-3">
+                The name "Law Co-Pilot LLP," our logos, and all related product or service names, design marks, and slogans are the registered or unregistered trademarks of Law Co-Pilot LLP. You may not use any trademark or branding element without our prior written consent.
+              </p>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">7.4 Feedback and Suggestions</h3>
+              <p className="mb-3">
+                If you provide us with feedback, suggestions, or ideas regarding the Services (collectively, "Feedback"), you grant us a worldwide, royalty-free, irrevocable, transferable, sublicensable license to use that Feedback for any lawful purpose, including but not limited to improvement, development, and marketing of the Services.
+              </p>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">7.5 Reservation of Rights</h3>
+              <p className="mb-3">
+                All rights not expressly granted to you under these Terms are reserved by Law Co-Pilot LLP. No licenses are granted by implication or estoppel.
+              </p>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">7.6 Breach and Enforcement</h3>
+              <p className="mb-3">
+                Any breach of this section, including unauthorized reproduction, use, or disclosure of our intellectual property, constitutes a material breach of this Agreement and may result in immediate termination of your access to the Services and/or legal action, including injunctive relief and damages.
+              </p>
+            </div>
+
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="data-privacy">
+              8. Data Privacy
+            </h2>
+            <div className="text-sm md:text-base mb-6">
+              <h3 className="font-medium text-base md:text-lg mb-2">8.1 Privacy Policy Applicability</h3>
+              <p className="mb-3">
+                Your use of the Services is subject to our Privacy Policy, which is incorporated by reference into these Terms and governs how we collect, use, store, and disclose your Personal Data. By accessing or using the Services, you agree that Law Co-Pilot LLP may process your information in accordance with our Privacy Policy.
+              </p>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">8.2 User Consent and Acknowledgement</h3>
+              <p className="mb-3">
+                By using the Services, you:
+              </p>
+              <ul className="list-disc pl-6 mb-3 space-y-1">
+                <li>Provide express consent for Law Co-Pilot LLP to process your Personal Data for purposes including account creation, authentication, customer support, service enhancement, and compliance;</li>
+                <li>Acknowledge that you are solely responsible for the legality and content of any Input you submit, including documents, names, or other personal information of third parties;</li>
+                <li>Confirm that you have all required legal rights, permissions, or authorizations to submit such Input, and to allow its processing by Law Co-Pilot LLP and its third-party providers;</li>
+                <li>Understand that if your Input includes sensitive personal data or third-party data, you have obtained appropriate consent from the concerned individuals, if required under applicable law.</li>
+              </ul>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">8.3 Indian Data Localization Compliance</h3>
+              <p className="mb-3">
+                We process and store data, including personal information, on secure cloud servers located within India to comply with Indian data localization requirements under the Digital Personal Data Protection Act, 2023 (DPDPA) and other relevant laws. We do not transfer user personal data to foreign jurisdictions except where permitted by applicable law and with appropriate safeguards.
+              </p>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">8.4 Third-Party Data Processing</h3>
+              <p className="mb-3">
+                Law Co-Pilot LLP uses third-party service providers (e.g., OpenAI, Google Translate, cloud hosting services, OCR tools) to deliver some features of the Services. We do not sell or share your personal information for monetary consideration. Our third-party partners are contractually bound to use personal data only for the intended service and in accordance with applicable privacy laws.
+              </p>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">8.5 Retention and Deletion</h3>
+              <p className="mb-3">
+                Your data will be retained only as long as necessary to fulfill the purposes outlined in our Privacy Policy or as required by applicable law. Upon request or termination, we will delete or anonymize your data unless retention is mandated for legal, regulatory, or auditing purposes.
+              </p>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">8.6 Limitation of Liability</h3>
+              <p className="mb-3">
+                Law Co-Pilot LLP is not responsible for:
+              </p>
+              <ul className="list-disc pl-6 mb-3 space-y-1">
+                <li>Any content or data uploaded by users that violate applicable laws or the rights of third parties;</li>
+                <li>Any unauthorized disclosure resulting from user negligence, including failure to secure login credentials;</li>
+                <li>Any consequences arising from the user uploading data without consent from data subjects or from unlawful sources.</li>
+              </ul>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">8.7 Security Measures</h3>
+              <p className="mb-3">
+                We implement appropriate technical and organizational measures to protect your data against accidental or unlawful destruction, loss, alteration, unauthorized disclosure, or access. However, no method of transmission or storage is completely secure, and you acknowledge that you use the Services at your own risk.
+              </p>
+
+              <h3 className="font-medium text-base md:text-lg mb-2 mt-4">8.8 User Responsibilities</h3>
+              <p className="mb-3">
+                You agree to:
+              </p>
+              <ul className="list-disc pl-6 mb-3 space-y-1">
+                <li>Use the Services in compliance with all applicable data protection laws;</li>
+                <li>Not upload or transmit any illegal, obscene, defamatory, discriminatory, or unauthorized content;</li>
+                <li>Notify Law Co-Pilot LLP promptly of any actual or suspected breach of data or misuse of personal data through the Services.</li>
+              </ul>
+            </div>
             
-            <h3 className="text-lg md:text-xl font-semibold mb-2 mt-4 md:mt-6">Refunds</h3>
-            <p className="text-sm md:text-base">If you cancel your subscription within the specified trial period, your payment will be refunded to your original method of payment within 30 days. For cancellations after the trial period, no refunds will be issued.</p>
-            
-            <h3 className="text-lg md:text-xl font-semibold mb-2 mt-4 md:mt-6">Process for Cancellation</h3>
-            <p className="text-sm md:text-base">To initiate a cancellation, please contact our customer support team at <a href="mailto:support@lawcopilot.com" className="text-primary hover:underline">support@lawcopilot.com</a>. We will guide you through the steps required to process your cancellation.</p>
-            
-            <h3 className="text-lg md:text-xl font-semibold mb-2 mt-4 md:mt-6">Changes to Subscription</h3>
-            <p className="text-sm md:text-base">If you wish to change your subscription level, please contact us at <a href="mailto:info@lawcopilot.com" className="text-primary hover:underline">info@lawcopilot.com</a>, and we will assist you in adjusting your plan.</p>
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="general-terms">10. General Terms and Conditions</h2>
+            <div className="text-sm md:text-base mb-6 space-y-4">
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.1 Infringements</h3>
+                <p>Law Co-Pilot LLP retains full and exclusive rights to initiate and pursue legal proceedings against any unauthorized use or infringement of its intellectual property, platform, software, services, or content. The decision to initiate such proceedings rests solely with the Company and shall be undertaken at its discretion.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.2 Force Majeure</h3>
+                <p>Law Co-Pilot LLP shall not be held liable for any failure or delay in performance resulting from causes beyond its reasonable control, including but not limited to acts of God, acts of government, war, terrorism, natural disasters, pandemics, labor disputes, internet outages, failure of third-party hosting services, or other force majeure events. Notwithstanding the foregoing, all amounts due under these Terms shall remain payable.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.3 Notices</h3>
+                <p>Any notices from Law Co-Pilot LLP to the User will be issued via email to the User's registered email address or through general notifications on the platform. Notices from the User to the Company must be sent to [insert official support email] or by registered post to the Company's registered address. Notices shall be deemed delivered on the date of successful transmission or receipt.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.4 Jurisdiction and Arbitration</h3>
+                <p>These Terms shall be governed by the laws of India. The courts in Hyderabad, Telangana shall have exclusive jurisdiction for all disputes arising out of these Terms. Any unresolved disputes, if not amicably resolved within 90 days of written notice, shall be referred to arbitration in accordance with the Arbitration and Conciliation Act, 1996. The arbitration shall be conducted by a sole arbitrator appointed by the Company. The seat and venue shall be Hyderabad, Telangana. The arbitration proceedings shall be conducted in English.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.5 Binding on Successors</h3>
+                <p>These Terms are binding upon and inure to the benefit of the parties and their respective successors and permitted assigns.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.6 Entire Agreement</h3>
+                <p>These Terms, including the Privacy Policy and any separate written agreement entered into between the User and Law Co-Pilot LLP, constitute the entire agreement. In case of conflict between these Terms and a separate written agreement, the latter shall prevail to the extent of the conflict.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.7 Waiver</h3>
+                <p>Failure to enforce any provision of these Terms shall not be construed as a waiver of that provision or any other provision.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.8 Severability</h3>
+                <p>10.8.1 If any provision of these Terms is found to be unenforceable, the remaining provisions shall remain in full force and effect.</p>
+                <p className="mt-2">10.8.2 Upon termination or expiration of these Terms, all provisions which by their nature are intended to survive—including, but not limited to, provisions regarding Intellectual Property, Confidentiality, Indemnity, Limitations of Liability, Governing Law, Dispute Resolution, and License Restrictions—shall continue to apply in full force and effect.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.9 Assignment</h3>
+                <p>Users may not assign or transfer any rights or obligations under these Terms without prior written consent. Law Co-Pilot LLP may assign its rights and obligations to any affiliate or successor without prior notice.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.10 Independent Contractors</h3>
+                <p>The relationship between the User and Law Co-Pilot LLP is that of independent contractors. Nothing in these Terms shall be construed to create a partnership, joint venture, or agency relationship.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.11 Separate Agreements</h3>
+                <p>Where Law Co-Pilot LLP enters into a bespoke agreement with an enterprise client, such separate agreement shall take precedence over these Terms in the event of a conflict, but only to the extent of such conflict.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.12 Customer Solicitation Policy</h3>
+                <p>By opting in, the User consents to receive updates, promotional communications, and marketing content from the Company. Users may opt out at any time by notifying Law Co-Pilot LLP via email or platform preferences.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.13 No Class Actions</h3>
+                <p>You agree that any claims or disputes with Law Co-Pilot LLP must be brought solely on an individual basis, and not as a plaintiff or class member in any purported class, consolidated, or representative proceeding. You waive any right to participate in any class action lawsuit, arbitration, or other representative action against the Company.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-base md:text-lg mb-2">10.14 Changes to These Terms</h3>
+                <p>Law Co-Pilot LLP reserves the right to amend, revise, or replace these Terms at any time. Material changes will be notified to Users through email or in-platform notice. Continued use of the Services post-update constitutes acceptance of the revised Terms.</p>
+              </div>
+            </div>
+
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="contact-us">
+              11. Contact Us
+            </h2>
+            <div className="text-sm md:text-base">
+              <p className="mb-3">
+                For any questions regarding these Terms, please contact:
+              </p>
+              <p className="mb-2">
+                <strong>Email:</strong> support@lawcopilot.in
+              </p>
+              <p className="mb-2">
+                <strong>Postal Address:</strong>
+              </p>
+              <p>
+                Law Co-Pilot LLP<br />
+                3-104/43, Chavi, Manikonda, Hyderabad, 500089
+              </p>
+            </div>
           </div>
         </CardContent>
       </Card>
