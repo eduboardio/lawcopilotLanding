@@ -140,3 +140,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+.main-content-wrapper {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+}

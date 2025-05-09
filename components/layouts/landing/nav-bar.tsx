@@ -1,6 +1,6 @@
 "use client";
 import { Menu } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState, memo } from "react";
 import {
     Sheet,
     SheetContent,
@@ -12,28 +12,27 @@ import {
 import { Separator } from "@/components/ui/separator";
 import {
     NavigationMenu,
-    NavigationMenuContent,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
+    NavigationMenuContent,
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Image from "next/image";
 import { Logo } from "@/components/logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ROUTES_WITHOUT_NAVBAR } from "@/constants";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 interface RouteProps {
     href: string;
     label: string;
-}
-
-interface FeatureProps {
-    title: string;
-    description: string;
+    subMenu?: {
+        title: string;
+        items: { href: string; label: string }[];
+    };
 }
 
 const routeList: RouteProps[] = [
@@ -46,201 +45,268 @@ const routeList: RouteProps[] = [
         label: "Features",
     },
     {
+        href: "#",
+        label: "Products",
+        subMenu: {
+            title: "Our Products",
+            items: [
+                { href: "/products/lawfirms", label: "For Lawfirms" },
+                { href: "/products/lawyers", label: "For Lawyers" },
+                { href: "/products/everyone", label: "For Everyone" },
+            ],
+        },
+    },
+    {
         href: "/#benefits",
-        label: "Benefits",
+        label: "Why Us?",
     },
-    {
-        href: "/#faq",
-        label: "FAQs",
-    },
-    {
-        href: "/contact",
-        label: "Contact",
-    },
+    // {
+    //     href: "/#faq",
+    //     label: "FAQ",
+    // },
 ];
 
-const featureList: FeatureProps[] = [
-    {
-        title: "Showcase Your Value ",
-        description: "Highlight how your product solves user problems.",
-    },
-    {
-        title: "Build Trust",
-        description:
-            "Leverages social proof elements to establish trust and credibility.",
-    },
-    {
-        title: "Capture Leads",
-        description:
-            "Make your lead capture form visually appealing and strategically.",
-    },
-];
+// const CallToActions = memo(({ classes }: {
+//     classes?: {
+//         container?: string;
+//         buttonSignIn?: string;
+//         buttonGetStarted?: string;
+//     };
+// }) => {
+//     return (
+//         <div className={classes?.container}>
+//             <Button 
+//                 variant="secondary" 
+//                 className={cn("font-medium", classes?.buttonSignIn)}
+//                 asChild
+//             >
+//                 <Link href={`/signup`}>Sign up</Link>
+//             </Button>
+//             <Button
+//                 className={cn("font-medium", classes?.buttonGetStarted)}
+//                 asChild
+//             >
+//                 <Link href={`/signup`}>Get Started</Link>
+//             </Button>
+//         </div>
+//     );
+// });
+
+// CallToActions.displayName = 'CallToActions';
+
+const DesktopNavigation = memo(({ pathname }: { pathname: string }) => (
+    <NavigationMenu className="hidden lg:flex mx-auto">
+        <NavigationMenuList className="gap-1">
+            {routeList.map((route) => {
+                // Handle routes with submenus
+                if (route.subMenu) {
+                    return (
+                        <NavigationMenuItem key={route.label}>
+                            <NavigationMenuTrigger 
+                                className={cn(
+                                    "px-4 py-2 text-base bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent font-medium rounded-md transition-colors",
+                                    pathname === route.href ? "text-primary" : "hover:text-primary"
+                                )}
+                            >
+                                {route.label}
+                            </NavigationMenuTrigger>
+                            <NavigationMenuContent 
+                                className="bg-popover rounded-md shadow-md border border-border/40"
+                                // Remove forceMount to restore proper dropdown behavior
+                            >
+                                <div className="p-4 w-[220px]">
+                                    <p className="font-medium mb-2">{route.subMenu.title}</p>
+                                    <ul className="space-y-2">
+                                        {route.subMenu.items.map((item) => (
+                                            <li key={item.href}>
+                                                <NavigationMenuLink asChild>
+                                                    <Link 
+                                                        href={item.href}
+                                                        className="block p-2 hover:bg-accent rounded text-sm transition-colors"
+                                                    >
+                                                        {item.label}
+                                                    </Link>
+                                                </NavigationMenuLink>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </NavigationMenuContent>
+                        </NavigationMenuItem>
+                    );
+                }
+                
+                // Regular routes without submenus
+                return (
+                    <NavigationMenuItem key={route.href}>
+                        <Link 
+                            href={route.href} 
+                            className={cn(
+                                "px-4 py-2 text-base font-medium rounded-md transition-colors",
+                                pathname === route.href || (route.href === "/#hero" && pathname === "/") || 
+                                (route.href === "/blog" && pathname.startsWith("/blog"))
+                                    ? "text-primary" 
+                                    : "hover:text-primary"
+                            )}
+                        >
+                            {route.label}
+                        </Link>
+                    </NavigationMenuItem>
+                );
+            })}
+        </NavigationMenuList>
+    </NavigationMenu>
+));
+
+DesktopNavigation.displayName = 'DesktopNavigation';
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [scrolled, setScrolled] = useState<boolean>(false);
     const pathname = usePathname();
     const shouldHideHeaderNavbar = ROUTES_WITHOUT_NAVBAR.includes(pathname);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const heroSection = document.getElementById("hero");
-            const heroHeight = heroSection?.offsetHeight ?? 0;
-            const isScrolled = window.scrollY > heroHeight;
-            if (isScrolled !== scrolled) {
-                setScrolled(isScrolled);
-            }
-        };
-        window.addEventListener("scroll", handleScroll);
-        handleScroll();
-        return () => window.removeEventListener("scroll", handleScroll);
+    const handleScroll = useCallback(() => {
+        const isScrolled = window.scrollY > 20;
+        if (isScrolled !== scrolled) {
+            setScrolled(isScrolled);
+        }
     }, [scrolled]);
 
+    useEffect(() => {
+        let ticking = false;
+        const scrollListener = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener("scroll", scrollListener, { passive: true });
+        handleScroll();
+        
+        return () => window.removeEventListener("scroll", scrollListener);
+    }, [handleScroll]);
     if (shouldHideHeaderNavbar) return null;
+    
     return (
         <header
             className={cn(
-                "z-40 h-20 flex justify-center items-center mb-1.5 sticky top-0 !text-black",
+                "z-40 h-20 flex justify-center items-center sticky top-0 transition-all duration-300 backdrop-blur-md",
                 {
-                    "bg-[#DFE5F2]": pathname === "/" || !scrolled,
-                    "bg-background dark:!text-white": scrolled,
+                    "bg-transparent": pathname === "/" && !scrolled,
+                    "bg-background/80 shadow-sm border-b border-border/20": scrolled,
                 }
             )}
         >
-            <div className="container mx-auto flex justify-between items-center">
-                {/* Logo and Navigation */}
-                <div className="flex justify-between lg:w-max lg:justify-center items-center gap-10 w-full">
+            <div className="container mx-auto flex justify-between items-center p-2">
+                {/* Logo */}
+                <div className="flex justify-between lg:justify-start items-center gap-10 w-full">
                     <Logo />
-                    {/* <!-- Mobile --> */}
+                    
+                    {/* Mobile Menu */}
                     <div className="flex items-center lg:hidden">
                         <Sheet open={isOpen} onOpenChange={setIsOpen}>
                             <SheetTrigger asChild>
-                                <Menu
-                                    onClick={() => setIsOpen(!isOpen)}
-                                    className="cursor-pointer lg:hidden"
-                                />
+                                <Button variant="ghost" size="icon" className="lg:hidden">
+                                    <Menu className="h-6 w-6" />
+                                </Button>
                             </SheetTrigger>
 
                             <SheetContent
-                                side="left"
-                                className="flex flex-col justify-between rounded-tr-2xl rounded-br-2xl bg-card border-secondary"
+                                side="right"
+                                className="flex flex-col justify-between rounded-l-2xl bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border-l border-border/20"
                             >
                                 <div>
-                                    <SheetHeader className="mb-4 ml-4">
-                                        <SheetTitle className="flex items-center">
+                                    <SheetHeader className="mb-6">
+                                        <SheetTitle className="flex items-center justify-center">
                                             <Logo type="FULL" />
                                         </SheetTitle>
                                     </SheetHeader>
 
-                                    <div className="flex flex-col gap-2">
-                                        {routeList.map(({ href, label }) => (
-                                            <Button
-                                                key={href}
-                                                onClick={() => setIsOpen(false)}
-                                                asChild
-                                                variant="ghost"
-                                                className="justify-start text-base"
-                                            >
-                                                <Link href={href}>{label}</Link>
-                                            </Button>
-                                        ))}
+                                    <div className="flex flex-col gap-1">
+                                        {routeList.map((route) => {
+                                            // If it has a submenu, render the submenu items
+                                            if (route.subMenu) {
+                                                return (
+                                                    <div key={route.label} className="flex flex-col">
+                                                        <Button
+                                                            variant="ghost"
+                                                            className="justify-start text-lg font-medium"
+                                                        >
+                                                            {route.label}
+                                                        </Button>
+                                                        <div className="pl-4 flex flex-col gap-1">
+                                                            {route.subMenu.items.map((item) => (
+                                                                <Button
+                                                                    key={item.href}
+                                                                    onClick={() => setIsOpen(false)}
+                                                                    asChild
+                                                                    variant="ghost"
+                                                                    className="justify-start text-base"
+                                                                >
+                                                                    <Link href={item.href}>{item.label}</Link>
+                                                                </Button>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            }
+                                            
+                                            // Regular menu item
+                                            return (
+                                                <Button
+                                                    key={route.href}
+                                                    onClick={() => setIsOpen(false)}
+                                                    asChild
+                                                    variant="ghost"
+                                                    className="justify-start text-lg font-medium"
+                                                >
+                                                    <Link href={route.href}>{route.label}</Link>
+                                                </Button>
+                                            );
+                                        })}
                                     </div>
                                 </div>
 
-                                <SheetFooter className="flex-col sm:flex-col justify-start items-start w-full">
-                                    <Separator className="mb-2" />
+                                <SheetFooter className="flex-col sm:flex-col justify-start items-start w-full mt-auto">
+                                    <Separator className="my-4" />
 
-                                    <CallToActions
+                                    <div className="flex items-center justify-between w-full mb-4">
+                                        <span className="font-medium">Theme</span>
+                                        <ThemeToggle />
+                                    </div>
+
+                                    {/* <CallToActions
                                         classes={{
-                                            container: "w-full flex flex-col gap-4",
-                                            button: "w-full",
+                                            container: "w-full grid grid-cols-2 gap-4",
+                                            buttonSignIn: "w-full bg-secondary/80 hover:bg-secondary",
+                                            buttonGetStarted: "w-full bg-primary hover:bg-primary/90"
                                         }}
-                                    />
+                                    /> */}
                                 </SheetFooter>
                             </SheetContent>
                         </Sheet>
                     </div>
-                    {/* <!-- Desktop --> */}
-                    <NavigationMenu className="hidden lg:block mx-auto">
-                        <NavigationMenuList>
-                            {false && (
-                                <NavigationMenuItem>
-                                    <NavigationMenuTrigger className="bg-card text-base">
-                                        Features
-                                    </NavigationMenuTrigger>
-                                    <NavigationMenuContent>
-                                        <div className="grid w-[600px] grid-cols-2 gap-5 p-4">
-                                            <Image
-                                                src="/images/placeholder.png"
-                                                alt="RadixLogo"
-                                                className="h-full w-full rounded-md object-cover"
-                                                width={600}
-                                                height={600}
-                                            />
-                                            <ul className="flex flex-col gap-2">
-                                                {featureList.map(({ title, description }) => (
-                                                    <li
-                                                        key={title}
-                                                        className="rounded-md p-3 text-sm hover:bg-muted"
-                                                    >
-                                                        <p className="mb-1 font-semibold leading-none text-foreground">
-                                                            {title}
-                                                        </p>
-                                                        <p className="line-clamp-2 text-muted-foreground">
-                                                            {description}
-                                                        </p>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </NavigationMenuContent>
-                                </NavigationMenuItem>
-                            )}
-
-                            <NavigationMenuItem>
-                                {routeList.map(({ href, label }) => (
-                                    <NavigationMenuLink key={href} asChild>
-                                        <Link href={href} className="text-base px-2">
-                                            {label}
-                                        </Link>
-                                    </NavigationMenuLink>
-                                ))}
-                            </NavigationMenuItem>
-                        </NavigationMenuList>
-                    </NavigationMenu>
+                    
+                    {/* Desktop Navigation - Memoized */}
+                    <DesktopNavigation pathname={pathname} />
                 </div>
 
+                {/* Desktop Call to Actions */}
                 <div className="hidden lg:flex justify-center items-center gap-4">
-                    <CallToActions
+                    <ThemeToggle />
+                    {/* <CallToActions
                         classes={{
                             container: "flex gap-4",
+                            buttonSignIn: "bg-secondary/80 hover:bg-secondary text-secondary-foreground",
+                            buttonGetStarted: "bg-primary hover:bg-primary/90 text-primary-foreground"
                         }}
-                    />
-                    {/* <ThemeToggle /> */}
+                    /> */}
                 </div>
             </div>
         </header>
-    );
-};
-
-interface CallToActionsProps {
-    classes?: {
-        container?: string;
-        button?: string;
-    };
-}
-const CallToActions = ({ classes }: CallToActionsProps) => {
-    return (
-        <div className={classes?.container}>
-            <Button variant={"secondary"} className={classes?.button}>
-                <Link href={`/signin`}> Sign in </Link>
-            </Button>
-            <Button
-                className={`bg-foreground hover:bg-foreground/80 text-background ${classes?.button}`}
-                asChild
-            >
-                <Link href={`/signup`}> Get Started</Link>
-            </Button>
-        </div>
     );
 };

@@ -1,3 +1,6 @@
+"use client";
+
+import { memo, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -44,24 +47,39 @@ const FAQList: FAQProps[] = [
   },
 ];
 
-export const FAQ = () => {
+const FAQItem = memo(({ item }: { item: FAQProps }) => {
   return (
-    <section id="faq" className="container mx-auto py-24 sm:py-32">
+    <AccordionItem key={item.value} value={item.value}>
+      <AccordionTrigger className="text-left font-semibold font-title">
+        {item.question}
+      </AccordionTrigger>
+      
+      <AccordionContent className="text-muted-foreground">
+        {item.answer}
+      </AccordionContent>
+    </AccordionItem>
+  );
+});
+
+FAQItem.displayName = 'FAQItem';
+
+export const FAQ = () => {
+  const [mounted, setMounted] = useState(false);
+  
+  useState(() => {
+    setMounted(true);
+  });
+  console.log(mounted)
+  
+  return (
+    <section id="faq" className="container mx-auto py-12 sm:py-16 p-4">
       <h2 className="text-3xl md:text-4xl text-center font-bold mb-8">
         Frequently Asked Questions
       </h2>
-
+      
       <Accordion type="single" collapsible className="AccordionRoot">
-        {FAQList.map(({ question, answer, value }, index) => (
-          <AccordionItem key={value} value={value}>
-            <AccordionTrigger className="text-left font-semibold font-title">
-              {question}
-            </AccordionTrigger>
-
-            <AccordionContent className="text-muted-foreground">
-              {answer}
-            </AccordionContent>
-          </AccordionItem>
+        {FAQList.map((item) => (
+          <FAQItem key={item.value} item={item} />
         ))}
       </Accordion>
     </section>

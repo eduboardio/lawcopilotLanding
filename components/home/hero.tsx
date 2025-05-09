@@ -1,77 +1,91 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import HeroVideoDialog from "../ui/hero-video-dialog";
-import Image from "next/image";
+// import HeroVideoDialog from "../ui/hero-video-dialog";
+import { memo } from "react";
+
+const BackgroundElements = memo(() => (
+  <div className="absolute inset-0 w-full h-full pointer-events-none">
+    <div className="absolute top-20 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+    <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-grid-small-white/5 dark:bg-grid-small-white/10"></div>
+  </div>
+));
+
+BackgroundElements.displayName = 'BackgroundElements';
+
+const Stats = memo(() => (
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 mt-16 pt-8 border-t border-border/20 w-full max-w-4xl mx-auto">
+    <div className="text-center">
+      <p className="text-4xl font-bold text-primary">10k+</p>
+      <p className="text-xl font-semibold text-primary"> Legal Documents Trained</p>
+      <p className="text-sm text-muted-foreground mt-1">Built on real-world cases, contracts, and statutes.</p>
+    </div>
+    <div className="text-center">
+      <p className="text-4xl font-bold text-primary">100+</p>
+      <p className="text-xl font-semibold text-primary"> Lawyers Pre-Registered</p>
+      <p className="text-sm text-muted-foreground mt-1">Join India&apos;s fastest-growing legal AI movement.</p>
+    </div>
+    <div className="text-center">
+      <p className="text-4xl font-bold text-primary">2000+</p>
+      <p className="text-xl font-semibold text-primary"> Prebuilt Legal Templates</p>
+      <p className="text-sm text-muted-foreground mt-1">Draft faster with ready-to-use contracts, notices, and pleadings.</p>
+    </div>
+    <div className="text-center">
+      <p className="text-4xl font-bold text-primary">100%</p>
+      <p className="text-xl font-semibold text-primary"> India-Specific Legal Content</p>
+      <p className="text-sm text-muted-foreground mt-1">From trial courts to the Supreme Court, tailored for India.</p>
+    </div>
+  </div>
+));
+
+Stats.displayName = 'Stats';
+
+const ScrollIndicator = memo(() => (
+  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
+    <span className="text-xs text-muted-foreground mb-2">Scroll to explore</span>
+    <div className="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center">
+      <div className="w-1 h-2 bg-muted-foreground rounded-full mt-2"></div>
+    </div>
+  </div>
+));
+
+ScrollIndicator.displayName = 'ScrollIndicator';
 
 export const Hero = () => {
+
   return (
     <section
       id="hero"
-      className="w-full flex flex-col justify-center items-center bg-[#DFE5F2]"
+      className="w-full min-h-screen flex flex-col justify-center relative overflow-hidden bg-gradient-to-br from-background via-background to-background"
     >
-      <div className="container mx-auto w-full">
-        <div className="grid place-items-center lg:max-w-screen-xl gap-8 mx-auto pt-12 md:pt-24">
-          <div className="text-center space-y-8">
-            <div className="mx-auto max-w-screen-lg text-center text-3xl md:text-4xl lg:text-6xl font-bold">
-              <h1 className="tracking-normal leading-normal text-black">
-                AI-Powered
-                <span className="block sm:inline text-primary underline px-2">
-                  Legal
-                </span>
-                Excellence at Your Fingertips
-              </h1>
-            </div>
-
-            <p className="max-w-screen-lg mx-auto lg:text-lg font-medium text-muted-foreground">
-              Law Copilot is an AI-powered web app designed to streamline your
-              legal work, providing powerful tools for risk analysis, document
-              drafting, legal research, and translation.
-            </p>
-
-            <div className="space-y-4 md:space-y-0 md:space-x-4 relative">
-              <Image
-                src={`/arrow-1.svg`}
-                alt="arrow"
-                width={100}
-                height={100}
-                className="hidden lg:inline-block absolute -bottom-4 left-36 rotate-12"
-              />
-              <Button className="w-5/6 md:w-1/4 font-bold group/arrow">
-                <Link href={`/signup`} className="flex">
-                  Get Started Now
-                  <ArrowRight className="size-5 ml-2 group-hover/arrow:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-
-              <Button
-                asChild
-                variant="secondary"
-                className="w-5/6 md:w-1/4 font-bold"
-              >
-                <Link href="#features">Learn More</Link>
-              </Button>
-            </div>
-          </div>
-
-          <div className="relative mt-6">
-            <HeroVideoDialog
-              className="dark:hidden block border-2 border-border dark:border-darkBorder shadow-light dark:shadow-dark"
-              animationStyle="from-center"
-              videoSrc="https://www.youtube.com/watch?v=fJ2AII__o10"
-              thumbnailSrc="/images/placeholder.png"
-              thumbnailAlt="Hero Video"
-            />
-            <HeroVideoDialog
-              className="hidden dark:block border-2 border-border dark:border-darkBorder shadow-light dark:shadow-dark"
-              animationStyle="from-center"
-              videoSrc="https://www.youtube.com/watch?v=fJ2AII__o10"
-              thumbnailSrc="/images/placeholder.png"
-              thumbnailAlt="Hero Video"
-            />
-          </div>
+      <BackgroundElements />
+      <div className="container mx-auto relative z-10 px-4 py-24 flex flex-col items-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-8">
+          <span className="text-xs font-medium">New: Case Analytics Module</span>
+          <ChevronRight className="h-3 w-3" />
         </div>
+        <div className="text-center max-w-5xl mx-auto space-y-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+            The Future of Law Is Here. Work Smarter with AI.
+          </h1>
+
+          <p className="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground">
+            Meet Law Copilot—your AI-powered legal assistant built to help lawyers, businesses, and individuals draft faster, research deeper, and navigate legal challenges with confidence.
+            Real Legal intelligence at your fingertips.
+
+          </p>
+        </div>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+          <Button size="lg" className="rounded-full text-lg px-8 py-6 ml-auto bg-foreground hover:bg-foreground/80 text-background">
+            <Link href="/signup" className="flex items-center">
+              Get Started Now
+              <ArrowRight className="ml-2 w-5 h-5 transition-transform" />
+            </Link>
+          </Button>
+        </div>
+        <Stats />
       </div>
     </section>
   );

@@ -1,10 +1,5 @@
 "use client";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Building2, Clock, Mail, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { memo } from "react";
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(255),
@@ -36,8 +32,64 @@ const formSchema = z.object({
   message: z.string(),
 });
 
-export const Contact = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
+const ContactInfo = memo(() => (
+  <Card className="bg-gradient-to-br from-background/80 to-background border-0 shadow-xl backdrop-blur-sm overflow-hidden relative group h-full">
+    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-50 group-hover:opacity-70 transition-opacity duration-500"></div>
+    
+    <CardHeader>
+      <h3 className="text-2xl font-bold text-primary">How to Reach Us</h3>
+    </CardHeader>
+    
+    <CardContent className="space-y-8 relative z-10">
+      <div className="grid gap-6">
+        <div className="flex items-start gap-4 group/item hover:bg-primary/5 p-3 rounded-lg transition-colors">
+          <div className="bg-primary/10 p-3 rounded-lg text-primary">
+            <Building2 size={24} />
+          </div>
+          <div>
+            <h4 className="font-semibold text-lg mb-1">Our Office</h4>
+            <p className="text-muted-foreground">123 Main Street, Suite 100<br />New York, NY 10001</p>
+          </div>
+        </div>
+        
+        <div className="flex items-start gap-4 group/item hover:bg-primary/5 p-3 rounded-lg transition-colors">
+          <div className="bg-primary/10 p-3 rounded-lg text-primary">
+            <Phone size={24} />
+          </div>
+          <div>
+            <h4 className="font-semibold text-lg mb-1">Phone</h4>
+            <p className="text-muted-foreground">+1 (555) 123-4567</p>
+          </div>
+        </div>
+        
+        <div className="flex items-start gap-4 group/item hover:bg-primary/5 p-3 rounded-lg transition-colors">
+          <div className="bg-primary/10 p-3 rounded-lg text-primary">
+            <Mail size={24} />
+          </div>
+          <div>
+            <h4 className="font-semibold text-lg mb-1">Email</h4>
+            <p className="text-muted-foreground">info@lawcopilot.com</p>
+          </div>
+        </div>
+        
+        <div className="flex items-start gap-4 group/item hover:bg-primary/5 p-3 rounded-lg transition-colors">
+          <div className="bg-primary/10 p-3 rounded-lg text-primary">
+            <Clock size={24} />
+          </div>
+          <div>
+            <h4 className="font-semibold text-lg mb-1">Business Hours</h4>
+            <p className="text-muted-foreground">Monday - Friday<br />9AM - 5PM EST</p>
+          </div>
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+));
+
+ContactInfo.displayName = 'ContactInfo';
+
+const ContactForm = memo(() => {
+  const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       firstName: "",
@@ -46,206 +98,162 @@ export const Contact = () => {
       subject: "General Inquiry",
       message: "",
     },
+    mode: 'onBlur',
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+
     const { firstName, lastName, email, subject, message } = values;
-    console.log(values);
-
-    const mailToLink = `mailto:info@lawcopilot.com?subject=${subject}&body=Hello, I am ${firstName} ${lastName}. My email is ${email}. %0D%0A${message}`;
-
+    const mailToLink = `mailto:info@lawcopilot.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Hello, I am ${firstName} ${lastName}. My email is ${email}.\n\n${message}`)}`;
     window.location.href = mailToLink;
-  }
+  };
 
   return (
-    <section id="contact" className="container py-24 sm:py-32">
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <div className="mb-4">
-            <h2 className="text-lg text-primary mb-2 tracking-wider">
-              Contact
-            </h2>
+    <Card className="bg-gradient-to-br from-background/95 to-background/80 border shadow-xl backdrop-blur-md">
+      <CardHeader>
+        <h3 className="text-2xl font-bold">Send Us a Message</h3>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="grid w-full gap-6"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-foreground/80">First Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="John" className="bg-background/50 border-secondary/20 focus:border-primary" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-foreground/80">Last Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Doe" className="bg-background/50 border-secondary/20 focus:border-primary" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            <h2 className="text-3xl md:text-4xl font-bold">Get In Touch</h2>
-          </div>
-          <p className="mb-8 text-muted-foreground lg:w-5/6">
-            Have questions about Law Copilot or need assistance? Our team is
-            here to help. Reach out to us using the contact form or the
-            information provided below.
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-foreground/80">Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder="johndoe@example.com"
+                      className="bg-background/50 border-secondary/20 focus:border-primary"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="subject"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-foreground/80">Subject</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="bg-background/50 border-secondary/20 focus:border-primary">
+                        <SelectValue placeholder="Select a subject" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="General Inquiry">
+                        General Inquiry
+                      </SelectItem>
+                      <SelectItem value="Pricing">Pricing</SelectItem>
+                      <SelectItem value="Technical Support">
+                        Technical Support
+                      </SelectItem>
+                      <SelectItem value="Feature Request">
+                        Feature Request
+                      </SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-foreground/80">Message</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      rows={5}
+                      placeholder="Your message..."
+                      className="resize-none bg-background/50 border-secondary/20 focus:border-primary"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium">
+              Send Message
+            </Button>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
+  );
+});
+
+ContactForm.displayName = 'ContactForm';
+
+export const Contact = () => {
+  return (
+    <section id="contact" className="container mb-20 sm:mb-20 relative overflow-hidden py-12">
+      <div className="absolute -top-16 -right-32 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+      <div className="absolute -bottom-24 -left-32 w-72 h-72 bg-secondary/10 rounded-full blur-3xl"></div>
+      
+      <div className="relative z-10">
+        <div className="text-center mb-12">
+          <span className="px-4 py-1 text-sm font-medium rounded-full bg-primary/10 text-primary inline-block mb-4">
+            Get In Touch
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Contact Our Team</h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Have questions about Law Copilot? Our experts are ready to assist you on your journey to AI-powered legal excellence.
           </p>
-
-          <div className="flex flex-col gap-4">
-            <div>
-              <div className="flex gap-2 mb-1">
-                <Building2 size={20} />
-                <div className="font-medium">Address</div>
-              </div>
-
-              <div className="text-muted-foreground text-sm">
-                123 Main Street, Suite 100, New York, NY 10001
-              </div>
-            </div>
-
-            <div>
-              <div className="flex gap-2 mb-1">
-                <Phone size={20} />
-                <div className="font-medium">Phone</div>
-              </div>
-
-              <div className="text-muted-foreground text-sm">
-                +1 (555) 123-4567
-              </div>
-            </div>
-
-            <div>
-              <div className="flex gap-2 mb-1">
-                <Mail size={20} />
-                <div className="font-medium">Email</div>
-              </div>
-
-              <div className="text-muted-foreground text-sm">
-                info@lawcopilot.com
-              </div>
-            </div>
-
-            <div>
-              <div className="flex gap-2">
-                <Clock size={20} />
-                <div className="font-medium">Business Hours</div>
-              </div>
-
-              <div className="text-muted-foreground text-sm">
-                <div>Monday - Friday</div>
-                <div>9AM - 5PM EST</div>
-              </div>
-            </div>
-          </div>
         </div>
-
-        <Card className="bg-muted/60 dark:bg-card">
-          <CardHeader className="text-primary text-2xl">
-            Send Us a Message
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="grid w-full gap-4"
-              >
-                <div className="flex flex-col md:!flex-row gap-8">
-                  <FormField
-                    control={form.control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>First Name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="John" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Last Name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Doe" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="johndoe@example.com"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <FormField
-                    control={form.control}
-                    name="subject"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Subject</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select a subject" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="General Inquiry">
-                              General Inquiry
-                            </SelectItem>
-                            <SelectItem value="Pricing">Pricing</SelectItem>
-                            <SelectItem value="Technical Support">
-                              Technical Support
-                            </SelectItem>
-                            <SelectItem value="Feature Request">
-                              Feature Request
-                            </SelectItem>
-                            <SelectItem value="Other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Message</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            rows={5}
-                            placeholder="Your message..."
-                            className="resize-none"
-                            {...field}
-                          />
-                        </FormControl>
-
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <Button className="mt-4">Send Message</Button>
-              </form>
-            </Form>
-          </CardContent>
-          <CardFooter></CardFooter>
-        </Card>
-      </section>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <ContactInfo />
+          <ContactForm />
+        </div>
+      </div>
     </section>
   );
 };
