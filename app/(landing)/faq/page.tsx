@@ -185,7 +185,7 @@ export default function FAQPage() {
     handleScroll();
     
     return () => window.removeEventListener("scroll", scrollListener);
-  }, [scrolled]);
+  }, [scrolled, mounted]);
   
   // Filter FAQ items based on selected category
   const filteredFAQs = selectedCategory
