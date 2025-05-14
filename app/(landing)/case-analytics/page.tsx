@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Upload, BarChart2, FileText, AlertTriangle, TrendingUp, Scale, Clock } from "lucide-react";
+import { Upload, BarChart2, AlertTriangle, TrendingUp, Scale } from "lucide-react";
 import Link from "next/link";
 
 export default function CaseAnalytics() {
