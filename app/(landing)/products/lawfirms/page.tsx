@@ -111,7 +111,7 @@ export default function LawFirmsPage() {
           Join leading law firms already benefiting from our innovative legal technology solutions.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="w-full sm:w-auto">Get Started</Button>
+          <Button size="lg" className="w-full sm:w-auto">Coming Soon</Button>
           <Button size="lg" variant="outline" className="w-full sm:w-auto">Book a Demo</Button>
         </div>
       </div>

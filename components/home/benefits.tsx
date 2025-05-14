@@ -585,7 +585,7 @@ export function Benefits() {
             icon={<Bot size={32} />}
             accentColor="from-primary to-primary/70"
             className="md:col-span-12 mt-10"
-            ctaText="Try Law Copilot Now"
+            ctaText="Coming Soon"
             ctaHref="/signup"
           />
         </div>
