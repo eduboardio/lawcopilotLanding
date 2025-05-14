@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { ArrowRight, Mail, Lock, User, Briefcase } from "lucide-react";
 import Link from "next/link";
 import BlurFade from "@/components/ui/blur-fade";
+import { Badge } from "@/components/ui/badge";
 
 export default function SignUp() {
   const [step, setStep] = useState(1);
@@ -56,7 +57,10 @@ export default function SignUp() {
 
           <Card className="border-gray-200 dark:border-gray-800 dark:bg-gray-800">
             <CardHeader>
-              <CardTitle className="dark:text-gray-100">Create Your Account</CardTitle>
+              <CardTitle className="dark:text-gray-100 flex justify-between items-center">
+                Create Your Account
+                <Badge variant="secondary" className="text-xs">Coming Soon</Badge>
+              </CardTitle>
               <CardDescription className="dark:text-gray-400">
                 {step === 1 ? "Enter your personal information" : "Complete your professional profile"}
               </CardDescription>

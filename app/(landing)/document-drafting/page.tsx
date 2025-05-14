@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Shield, Clock, LayoutTemplate, Edit3 } from "lucide-react";
+import Link from "next/link";
 
 export default function DocumentDrafting() {
   const documentTypes = [
@@ -18,7 +19,7 @@ export default function DocumentDrafting() {
     { value: "will", label: "Last Will & Testament" },
     { value: "power-attorney", label: "Power of Attorney" }
   ];
-  
+
   return (
     <div className="container mx-auto px-4 py-8 md:py-10">
       <div className="max-w-5xl mx-auto">
@@ -58,7 +59,7 @@ export default function DocumentDrafting() {
                 </p>
               </CardContent>
             </Card>
-            
+
             <Card>
               <CardHeader className="pb-2">
                 <LayoutTemplate className="h-5 w-5 md:h-6 md:w-6 text-primary mb-2" />
@@ -70,7 +71,7 @@ export default function DocumentDrafting() {
                 </p>
               </CardContent>
             </Card>
-            
+
             <Card className="sm:col-span-2 md:col-span-1">
               <CardHeader className="pb-2">
                 <Edit3 className="h-5 w-5 md:h-6 md:w-6 text-primary mb-2" />
@@ -86,7 +87,7 @@ export default function DocumentDrafting() {
         </div>
 
         <div className="bg-primary/5 p-4 md:p-8 rounded-lg">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid gap-6 md:gap-8">
             <div>
               <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Supported Document Types</h2>
               <p className="text-muted-foreground mb-4 md:mb-6 text-sm md:text-base">
@@ -99,12 +100,12 @@ export default function DocumentDrafting() {
                     <span className="text-sm md:text-base">{type.label}</span>
                   </div>
                 ))}
-                <div className="col-span-1 sm:col-span-2 text-right mt-2">
+                {/* <div className="col-span-1 sm:col-span-2 text-right mt-2">
                   <Button variant="link" className="p-0 text-sm md:text-base">View all document types</Button>
-                </div>
+                </div> */}
               </div>
             </div>
-            <div className="mt-6 md:mt-0">
+            {/* <div className="mt-6 md:mt-0">
               <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Customer Success</h2>
               <blockquote className="italic border-l-4 pl-3 md:pl-4 border-primary mb-3 md:mb-4 text-sm md:text-base">
               &quot;Law Copilot helped our firm draft complex contracts in minutes instead of hours. The quality is on par with what our senior associates produce, and the jurisdiction-specific compliance is spot on.&quot;
@@ -113,7 +114,7 @@ export default function DocumentDrafting() {
                 <p className="font-medium text-sm md:text-base">Sarah Williams</p>
                 <p className="text-xs md:text-sm text-muted-foreground">Legal Operations Director, Williams & Partners</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -124,11 +125,13 @@ export default function DocumentDrafting() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
             <Button size="lg" className="w-full sm:w-auto">
-              Start Free Trial
+              Coming Soon
             </Button>
-            <Button variant="outline" size="lg" className="w-full sm:w-auto mt-2 sm:mt-0">
-              See Pricing
-            </Button>
+            <Link href="/contact">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto mt-2 sm:mt-0">
+                Schedule a Demo
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

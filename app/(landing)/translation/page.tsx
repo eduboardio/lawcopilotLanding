@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Globe, FileText, Check, Languages } from "lucide-react";
+import Link from "next/link";
 
 export default function LegalTranslation() {
     const languageOptions = [
@@ -86,7 +87,7 @@ export default function LegalTranslation() {
                 </div>
 
                 <div className="bg-primary/5 p-4 sm:p-6 md:p-8 rounded-lg">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <div className="grid gap-6 md:gap-8">
                         <div>
                             <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Supported Languages</h2>
                             <p className="text-muted-foreground text-sm mb-4 md:mb-6">
@@ -107,12 +108,12 @@ export default function LegalTranslation() {
                                     <Check className="h-4 w-4 text-primary flex-shrink-0" />
                                     <span className="text-sm">Dutch</span>
                                 </div>
-                                <div className="col-span-2 text-right mt-2">
+                                {/* <div className="col-span-2 text-right mt-2">
                                     <Button variant="link" className="p-0 text-sm">View all languages</Button>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
-                        <div className="mt-6 md:mt-0">
+                        {/* <div className="mt-6 md:mt-0">
                             <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Customer Success</h2>
                             <blockquote className="italic border-l-2 md:border-l-4 pl-3 md:pl-4 border-primary mb-3 md:mb-4 text-sm md:text-base">
                             &quot;The translation was not only accurate but preserved all the legal nuances we needed for our international contract. Saved us thousands in specialized translation costs.&quot;
@@ -121,7 +122,7 @@ export default function LegalTranslation() {
                                 <p className="font-medium text-sm md:text-base">Elena Rodriguez</p>
                                 <p className="text-xs md:text-sm text-muted-foreground">International Legal Counsel, Global Enterprises Inc.</p>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -132,11 +133,13 @@ export default function LegalTranslation() {
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
                         <Button size="lg" className="w-full sm:w-auto">
-                            Start Free Trial
+                            Coming Soon
                         </Button>
-                        <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                            See Pricing
-                        </Button>
+                        <Link href="/contact">
+                            <Button variant="outline" size="lg" className="w-full sm:w-auto mt-2 sm:mt-0">
+                                Schedule a Demo
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>

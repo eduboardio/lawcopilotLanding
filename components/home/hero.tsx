@@ -62,10 +62,10 @@ export const Hero = () => {
     >
       <BackgroundElements />
       <div className="container mx-auto relative z-10 px-4 py-24 flex flex-col items-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-8">
+        {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-8">
           <span className="text-xs font-medium">New: Case Analytics Module</span>
           <ChevronRight className="h-3 w-3" />
-        </div>
+        </div> */}
         <div className="text-center max-w-5xl mx-auto space-y-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
             The Future of Law Is Here. Work Smarter with AI.
@@ -80,7 +80,7 @@ export const Hero = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
           <Button size="lg" className="rounded-full text-lg px-8 py-6 ml-auto bg-foreground hover:bg-foreground/80 text-background">
             <Link href="/signup" className="flex items-center">
-              Get Started Now
+              Coming Soon
               <ArrowRight className="ml-2 w-5 h-5 transition-transform" />
             </Link>
           </Button>

@@ -3,6 +3,7 @@
 import { HelpCircle, FolderArchive, ArrowRight, PanelRight, Search, Scale, BookOpen, FileText, Server, Shield, MessageSquare, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function LitigantsPage() {
   return (
@@ -110,7 +111,7 @@ export default function LitigantsPage() {
               </p>
               <Button className="text-sm md:text-base w-full sm:w-auto">Explore Legal Vault</Button>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
               <div className="rounded-lg bg-card/70 p-3 md:p-4 border border-border/20">
                 <Shield className="h-5 w-5 md:h-6 md:w-6 text-primary mb-1 md:mb-2" />
@@ -201,8 +202,10 @@ export default function LitigantsPage() {
           Join thousands of users who are taking control of their legal needs with our powerful tools.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-          <Button size="lg" className="w-full sm:w-auto">Get Started for Free</Button>
-          <Button size="lg" variant="outline" className="w-full sm:w-auto mt-2 sm:mt-0">Schedule a Demo</Button>
+          <Button size="lg" className="w-full sm:w-auto">Coming Soon</Button>
+          <Link href="/contact">
+            <Button size="lg" variant="outline" className="w-full sm:w-auto mt-2 sm:mt-0">Schedule a Demo</Button>
+          </Link>
         </div>
       </div>
     </div>
