@@ -27,14 +27,14 @@ export default function SignIn() {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
   // Handle login logic here
   console.log("Login attempt:", formData);
   
   // Redirect to the frontend app after successful login
-  if (formData.email && formData.password) {
+   if  (formData.email && formData.password) {
      window.location.href = "https://app.lawcopilot.io";
-    }
+   }
   };
 
   return (
@@ -132,3 +132,4 @@ export default function SignIn() {
     </div>
   );
 }
+
