@@ -66,33 +66,33 @@ const routeList: RouteProps[] = [
     // },
 ];
 
-// const CallToActions = memo(({ classes }: {
-//     classes?: {
-//         container?: string;
-//         buttonSignIn?: string;
-//         buttonGetStarted?: string;
-//     };
-// }) => {
-//     return (
-//         <div className={classes?.container}>
-//             <Button 
-//                 variant="secondary" 
-//                 className={cn("font-medium", classes?.buttonSignIn)}
-//                 asChild
-//             >
-//                 <Link href={`/signup`}>Sign up</Link>
-//             </Button>
-//             <Button
-//                 className={cn("font-medium", classes?.buttonGetStarted)}
-//                 asChild
-//             >
-//                 <Link href={`/signup`}>Get Started</Link>
-//             </Button>
-//         </div>
-//     );
-// });
+const CallToActions = memo(({ classes }: {
+    classes?: {
+        container?: string;
+        buttonSignIn?: string;
+        buttonGetStarted?: string;
+    };
+}) => {
+    return (
+        <div className={classes?.container}>
+            <Button 
+                variant="secondary" 
+                className={cn("font-medium", classes?.buttonSignIn)}
+                asChild
+            >
+                <Link href="https://app.lawcopilot.io/signin">Sign In</Link>
+            </Button>
+            <Button
+                className={cn("font-medium", classes?.buttonGetStarted)}
+                asChild
+            >
+                <Link href="https://app.lawcopilot.io/signup">Get Started</Link>
+            </Button>
+        </div>
+    );
+});
 
-// CallToActions.displayName = 'CallToActions';
+CallToActions.displayName = 'CallToActions';
 
 const DesktopNavigation = memo(({ pathname }: { pathname: string }) => (
     <NavigationMenu className="hidden lg:flex mx-auto">
@@ -279,13 +279,13 @@ export const Navbar = () => {
                                         <ThemeToggle />
                                     </div>
 
-                                    {/* <CallToActions
+                                    <CallToActions
                                         classes={{
                                             container: "w-full grid grid-cols-2 gap-4",
                                             buttonSignIn: "w-full bg-secondary/80 hover:bg-secondary",
                                             buttonGetStarted: "w-full bg-primary hover:bg-primary/90"
                                         }}
-                                    /> */}
+                                    />
                                 </SheetFooter>
                             </SheetContent>
                         </Sheet>
@@ -298,13 +298,13 @@ export const Navbar = () => {
                 {/* Desktop Call to Actions */}
                 <div className="hidden lg:flex justify-center items-center gap-4">
                     <ThemeToggle />
-                    {/* <CallToActions
+                    <CallToActions
                         classes={{
                             container: "flex gap-4",
                             buttonSignIn: "bg-secondary/80 hover:bg-secondary text-secondary-foreground",
                             buttonGetStarted: "bg-primary hover:bg-primary/90 text-primary-foreground"
                         }}
-                    /> */}
+                    />
                 </div>
             </div>
         </header>
