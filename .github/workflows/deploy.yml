@@ -3,6 +3,10 @@ name: Deploy Landing Page
 on:
   push:
     branches: [ main, master ]
+    paths:
+      - 'landing-page/**'
+      - 'docker-compose.yml'
+      - '.github/workflows/deploy-landing.yml'
   workflow_dispatch:
 
 jobs:
@@ -12,13 +16,32 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
-    - name: Deploy to server
+    
+    - name: Deploy Landing Page to Server
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: 154.210.208.214
+        port: 22278
         username: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /opt/lawcopilot
+          
+          # Check if deploy script exists
+          if [ ! -f "./deploy.sh" ]; then
+            echo "❌ deploy.sh not found!"
+            exit 1
+          fi
+          
+          # Deploy landing page
           ./deploy.sh landing
+    
+    - name: Deployment Status
+      if: always()
+      run: |
+        if [ ${{ job.status }} == 'success' ]; then
+          echo "🎉 Landing page deployment successful!"
+        else
+          echo "💥 Landing page deployment failed!"
+          exit 1
+        fi
