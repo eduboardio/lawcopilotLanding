@@ -88,7 +88,7 @@ export default function ResearchEngine() {
           <CardHeader>
             <CardTitle className="flex justify-between items-center">
               Find Relevant Legal Precedents
-              <Badge variant="secondary" className="text-xs">Coming Soon: Citation Analysis</Badge>
+              <Badge variant="secondary" className="text-xs">Citation Analysis</Badge>
             </CardTitle>
             <CardDescription>Enter your search query and our AI will find the most relevant cases</CardDescription>
           </CardHeader>
@@ -267,9 +267,11 @@ export default function ResearchEngine() {
             Join thousands of legal professionals saving 70% of their research time.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" className="w-full sm:w-auto">
-              Coming Soon
-            </Button>
+            <Link href="/contact">
+              <Button size="lg" className="w-full sm:w-auto">
+                Request a demo
+              </Button>
+            </Link>
             <Link href="/contact">
               <Button variant="outline" size="lg" className="w-full sm:w-auto">
                 Schedule Demo

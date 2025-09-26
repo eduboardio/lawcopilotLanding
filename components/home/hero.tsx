@@ -79,8 +79,8 @@ export const Hero = () => {
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
           <Button size="lg" className="rounded-full text-lg px-8 py-6 ml-auto bg-foreground hover:bg-foreground/80 text-background">
-            <Link href="/signup" className="flex items-center">
-              Coming Soon
+            <Link href="/contact" className="flex items-center">
+              Request a demo
               <ArrowRight className="ml-2 w-5 h-5 transition-transform" />
             </Link>
           </Button>

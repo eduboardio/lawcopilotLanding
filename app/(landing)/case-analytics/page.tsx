@@ -206,14 +206,16 @@ export default function CaseAnalytics() {
         <div className="mt-10 sm:mt-16 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Ready to Transform Your Case Strategy?</h2>
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-2">
-            <Button size="lg" className="w-full sm:w-auto py-4 sm:py-5">
-              Coming Soon
-            </Button>
             <Link href="/contact">
+            <Button size="lg" className="w-full sm:w-auto py-4 sm:py-5">
+              Request a demo
+            </Button>
+            </Link>
+            {/* <Link href="/contact">
               <Button variant="outline" size="lg" className="w-full sm:w-auto py-4 sm:py-5">
                 Schedule a Demo
               </Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ export default function TermsPage() {
               <p>Please read the TERMS & CONDITIONS carefully before registering, accessing, or using the Services offered through the web application at https://lawcopilot.in or other associated subdomains as may be officially utilized by Us from time to time (&quot;the Law Co-Pilot Platform&quot;).</p>
 
               <p>These Terms and Conditions constitute a legally binding agreement between the user of the Services or the entity that you represent (You, Your) and [Insert Full Legal Name of LLP], an Indian limited liability partnership incorporated under the Limited Liability Partnership Act, 2008, with its registered office at 3-104/43
-                Chavi, Manikonda, Hyderabad, Telangana, India (Law Co-Pilot, Company, We, Us).</p>
+                , Hyderabad, Telangana, India (Law Co-Pilot, Company, We, Us).</p>
 
               <p>You agree and acknowledge that You have read these Terms and Conditions, as well as our Privacy Policy and any additional terms applicable to specific features or modules of the Services, which collectively form a part of this Agreement. If You do not agree to any of these Terms and Conditions, You must not use the Services and may request termination of your access or subscription.</p>
 
@@ -830,7 +830,7 @@ export default function TermsPage() {
               </p>
               <p>
                 Law Co-Pilot LLP<br />
-                3-104/43, Chavi, Manikonda, Hyderabad, 500089
+                3-104/43, Hyderabad, Telengana, 500089
               </p>
             </div>
           </div>

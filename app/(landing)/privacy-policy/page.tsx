@@ -448,7 +448,7 @@ export default function PrivacyPolicyPage() {
             <p>
               📬 Postal Address:<br />
               Law Co-Pilot LLP<br />
-              3-104/43, Chavi, Manikonda, Hyderabad, 500089<br />
+              3-104/43, Hyderabad, Telengana, 500089<br />
               India
             </p>
             <p>

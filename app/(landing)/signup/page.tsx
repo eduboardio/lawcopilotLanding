@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -21,6 +21,10 @@ export default function SignUp() {
     companyName: "",
     role: ""
   });
+
+  useEffect(() => {
+    window.location.href = "https://app.lawcopilot.io/signup";
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -59,7 +63,7 @@ export default function SignUp() {
             <CardHeader>
               <CardTitle className="dark:text-gray-100 flex justify-between items-center">
                 Create Your Account
-                <Badge variant="secondary" className="text-xs">Coming Soon</Badge>
+                <Badge variant="secondary" className="text-xs">Try it for free</Badge>
               </CardTitle>
               <CardDescription className="dark:text-gray-400">
                 {step === 1 ? "Enter your personal information" : "Complete your professional profile"}

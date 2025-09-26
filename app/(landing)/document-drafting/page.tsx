@@ -124,14 +124,15 @@ export default function DocumentDrafting() {
             Create perfect legal documents in minutes, not hours.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
-            <Button size="lg" className="w-full sm:w-auto">
-              Coming Soon
-            </Button>
             <Link href="/contact">
+              <Button size="lg" className="w-full sm:w-auto">
+                Request a demo
+              </Button></Link>
+            {/* <Link href="/contact">
               <Button variant="outline" size="lg" className="w-full sm:w-auto mt-2 sm:mt-0">
                 Schedule a Demo
               </Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

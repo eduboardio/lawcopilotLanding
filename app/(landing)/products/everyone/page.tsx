@@ -202,7 +202,9 @@ export default function LitigantsPage() {
           Join thousands of users who are taking control of their legal needs with our powerful tools.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-          <Button size="lg" className="w-full sm:w-auto">Coming Soon</Button>
+          <Link href="/contact">          
+          <Button size="lg" className="w-full sm:w-auto">Request a demo</Button>
+          </Link>
           <Link href="/contact">
             <Button size="lg" variant="outline" className="w-full sm:w-auto mt-2 sm:mt-0">Schedule a Demo</Button>
           </Link>

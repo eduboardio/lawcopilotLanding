@@ -585,8 +585,8 @@ export function Benefits() {
             icon={<Bot size={32} />}
             accentColor="from-primary to-primary/70"
             className="md:col-span-12 mt-10"
-            ctaText="Coming Soon"
-            ctaHref="/signup"
+            ctaText="Request a demo"
+            ctaHref="/contact"
           />
         </div>
       </div>

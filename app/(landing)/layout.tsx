@@ -55,16 +55,29 @@ const LoadingScreen = ({ onAnimationComplete }: LoadingScreenProps) => (
 
 const LandingLayout = ({ children }: { children: ReactNode }) => {
   const [mounted, setMounted] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Changed default to false
+  const [isTransitioning, setIsTransitioning] = useState(false); // Changed default to false
 
   useEffect(() => {
     setMounted(true);
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
     
-    return () => clearTimeout(timer);
+    // Check if user has already seen the loading animation in this session
+    const hasSeenLoading = sessionStorage.getItem('lawCopilotLoadingSeen');
+    
+    if (!hasSeenLoading) {
+      // First time in this session - show loading animation
+      setIsLoading(true);
+      setIsTransitioning(true);
+      
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        // Mark that user has seen the loading animation
+        sessionStorage.setItem('lawCopilotLoadingSeen', 'true');
+      }, 800);
+      
+      return () => clearTimeout(timer);
+    }
+    // If user has already seen loading, skip animation entirely
   }, []);
 
   const handleAnimationComplete = useCallback(() => {
