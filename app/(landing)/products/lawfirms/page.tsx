@@ -12,7 +12,9 @@ export default function LawFirmsPage() {
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-6 md:mb-8 px-4">
           Transform your practice with AI-powered tools designed specifically for the needs of modern law firms.
         </p>
-        <Button size="lg" className="px-6 md:px-8 w-full sm:w-auto">Schedule a Demo</Button>
+        <Link href="/contact">
+          <Button size="lg" variant="outline" className="w-full sm:w-auto mt-2 sm:mt-0">Schedule a Demo</Button>
+        </Link>
       </div>
 
       {/* Benefits Grid */}
@@ -115,7 +117,6 @@ export default function LawFirmsPage() {
           <Link href="/contact">
             <Button size="lg" className="w-full sm:w-auto">Request a demo</Button>
           </Link>
-          <Button size="lg" variant="outline" className="w-full sm:w-auto">Book a Demo</Button>
         </div>
       </div>
     </div>

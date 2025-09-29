@@ -390,7 +390,7 @@ export default function BlogPage() {
               )}>
                 Featured Products
               </h2>
-              <Link 
+              {/* <Link 
                 href="/products" 
                 className={cn(
                   "flex items-center hover:opacity-80 transition-colors font-medium text-sm sm:text-base",
@@ -399,7 +399,7 @@ export default function BlogPage() {
               >
                 View all products
                 <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-              </Link>
+              </Link> */}
             </div>
             
             {/* Bento Grid Layout for Featured Products */}

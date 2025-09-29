@@ -40,11 +40,7 @@ const routeList: RouteProps[] = [
         href: "/#hero",
         label: "Home",
     },
-    {
-        href: "/#features",
-        label: "Features",
-    },
-    {
+        {
         href: "#",
         label: "Products",
         subMenu: {
@@ -55,6 +51,10 @@ const routeList: RouteProps[] = [
                 { href: "/products/everyone", label: "For Everyone" },
             ],
         },
+    },
+    {
+        href: "/#features",
+        label: "Features",
     },
     {
         href: "/#benefits",
@@ -75,8 +75,8 @@ const CallToActions = memo(({ classes }: {
 }) => {
     return (
         <div className={classes?.container}>
-            <Button 
-                variant="secondary" 
+            <Button
+                variant="secondary"
                 className={cn("font-medium", classes?.buttonSignIn)}
                 asChild
             >
@@ -102,7 +102,7 @@ const DesktopNavigation = memo(({ pathname }: { pathname: string }) => (
                 if (route.subMenu) {
                     return (
                         <NavigationMenuItem key={route.label}>
-                            <NavigationMenuTrigger 
+                            <NavigationMenuTrigger
                                 className={cn(
                                     "px-4 py-2 text-base bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent font-medium rounded-md transition-colors",
                                     pathname === route.href ? "text-primary" : "hover:text-primary"
@@ -110,9 +110,8 @@ const DesktopNavigation = memo(({ pathname }: { pathname: string }) => (
                             >
                                 {route.label}
                             </NavigationMenuTrigger>
-                            <NavigationMenuContent 
-                                className="bg-popover rounded-md shadow-md border border-border/40"
-                                // Remove forceMount to restore proper dropdown behavior
+                            <NavigationMenuContent
+                                className="bg-popover rounded-md shadow-md border border-border/40"  // Add left-0
                             >
                                 <div className="p-4 w-[220px]">
                                     <p className="font-medium mb-2">{route.subMenu.title}</p>
@@ -120,7 +119,7 @@ const DesktopNavigation = memo(({ pathname }: { pathname: string }) => (
                                         {route.subMenu.items.map((item) => (
                                             <li key={item.href}>
                                                 <NavigationMenuLink asChild>
-                                                    <Link 
+                                                    <Link
                                                         href={item.href}
                                                         className="block p-2 hover:bg-accent rounded text-sm transition-colors"
                                                     >
@@ -135,17 +134,17 @@ const DesktopNavigation = memo(({ pathname }: { pathname: string }) => (
                         </NavigationMenuItem>
                     );
                 }
-                
+
                 // Regular routes without submenus
                 return (
                     <NavigationMenuItem key={route.href}>
-                        <Link 
-                            href={route.href} 
+                        <Link
+                            href={route.href}
                             className={cn(
                                 "px-4 py-2 text-base font-medium rounded-md transition-colors",
-                                pathname === route.href || (route.href === "/#hero" && pathname === "/") || 
-                                (route.href === "/blog" && pathname.startsWith("/blog"))
-                                    ? "text-primary" 
+                                pathname === route.href || (route.href === "/#hero" && pathname === "/") ||
+                                    (route.href === "/blog" && pathname.startsWith("/blog"))
+                                    ? "text-primary"
                                     : "hover:text-primary"
                             )}
                         >
@@ -186,11 +185,11 @@ export const Navbar = () => {
 
         window.addEventListener("scroll", scrollListener, { passive: true });
         handleScroll();
-        
+
         return () => window.removeEventListener("scroll", scrollListener);
     }, [handleScroll]);
     if (shouldHideHeaderNavbar) return null;
-    
+
     return (
         <header
             className={cn(
@@ -205,7 +204,7 @@ export const Navbar = () => {
                 {/* Logo */}
                 <div className="flex justify-between lg:justify-start items-center gap-10 w-full">
                     <Logo />
-                    
+
                     {/* Mobile Menu */}
                     <div className="flex items-center lg:hidden">
                         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -254,7 +253,7 @@ export const Navbar = () => {
                                                     </div>
                                                 );
                                             }
-                                            
+
                                             // Regular menu item
                                             return (
                                                 <Button
@@ -290,7 +289,7 @@ export const Navbar = () => {
                             </SheetContent>
                         </Sheet>
                     </div>
-                    
+
                     {/* Desktop Navigation - Memoized */}
                     <DesktopNavigation pathname={pathname} />
                 </div>

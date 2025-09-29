@@ -46,9 +46,9 @@ export default function LitigantsPage() {
                   </li>
                 </ul>
               </div>
-              <Button className="w-fit group mt-4 text-sm md:text-base">
+              {/* <Button className="w-fit group mt-4 text-sm md:text-base">
                 Explore Assistant <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              </Button> */}
             </div>
             {/* <div className="hidden md:flex bg-card/50 items-center justify-center p-6">
               <div className="rounded-lg overflow-hidden aspect-square w-full max-w-xs">
@@ -71,11 +71,11 @@ export default function LitigantsPage() {
               Securely store all your legal documents in one place with easy search and retrieval.
             </p>
           </CardContent>
-          <CardFooter className="mt-auto pt-3 md:pt-4">
+          {/* <CardFooter className="mt-auto pt-3 md:pt-4">
             <Button variant="ghost" className="w-full justify-start p-0 hover:bg-transparent hover:underline text-sm md:text-base">
               Learn more <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
             </Button>
-          </CardFooter>
+          </CardFooter> */}
         </Card>
 
         {/* Document Management */}
@@ -91,11 +91,11 @@ export default function LitigantsPage() {
               Organize and manage your legal documents with powerful categorization and tagging.
             </p>
           </CardContent>
-          <CardFooter className="mt-auto pt-3 md:pt-4">
+          {/* <CardFooter className="mt-auto pt-3 md:pt-4">
             <Button variant="ghost" className="w-full justify-start p-0 hover:bg-transparent hover:underline text-sm md:text-base">
               Learn more <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
             </Button>
-          </CardFooter>
+          </CardFooter> */}
         </Card>
 
         {/* Legal Vault - Feature Section */}
@@ -109,7 +109,7 @@ export default function LitigantsPage() {
               <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6">
                 Your comprehensive document storage and management solution with bank-level security.
               </p>
-              <Button className="text-sm md:text-base w-full sm:w-auto">Explore Legal Vault</Button>
+              {/* <Button className="text-sm md:text-base w-full sm:w-auto">Explore Legal Vault</Button> */}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
@@ -138,63 +138,6 @@ export default function LitigantsPage() {
         </Card>
       </div>
 
-      {/* Comparison Table */}
-      <div className="mt-12 md:mt-20 max-w-4xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-10">Choose the Right Plan</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="border-b border-border">
-                <th className="py-3 md:py-4 px-2 md:px-4 text-left text-sm md:text-base">Features</th>
-                <th className="py-3 md:py-4 px-2 md:px-4 text-center text-sm md:text-base">Basic</th>
-                <th className="py-3 md:py-4 px-2 md:px-4 text-center text-sm md:text-base">Pro</th>
-                <th className="py-3 md:py-4 px-2 md:px-4 text-center text-sm md:text-base">Enterprise</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b border-border/60">
-                <td className="py-2 md:py-3 px-2 md:px-4 text-sm md:text-base">Knowledge Assistant</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">✓</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">✓</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">✓</td>
-              </tr>
-              <tr className="border-b border-border/60">
-                <td className="py-2 md:py-3 px-2 md:px-4 text-sm md:text-base">Document Storage</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">1GB</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">10GB</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">Unlimited</td>
-              </tr>
-              <tr className="border-b border-border/60">
-                <td className="py-2 md:py-3 px-2 md:px-4 text-sm md:text-base">Document Management</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">–</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">✓</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">✓</td>
-              </tr>
-              <tr>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-sm md:text-base">Advanced Analytics</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">–</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">–</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-center text-sm md:text-base">✓</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr className="border-t border-border">
-                <td className="py-3 md:py-4 px-2 md:px-4"></td>
-                <td className="py-3 md:py-4 px-2 md:px-4 text-center">
-                  <Button variant="outline" size="sm" className="text-xs md:text-sm w-full">Free</Button>
-                </td>
-                <td className="py-3 md:py-4 px-2 md:px-4 text-center">
-                  <Button size="sm" className="text-xs md:text-sm w-full">$9.99/mo</Button>
-                </td>
-                <td className="py-3 md:py-4 px-2 md:px-4 text-center">
-                  <Button size="sm" className="text-xs md:text-sm w-full">$29.99/mo</Button>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
-
       {/* CTA Section */}
       <div className="mt-12 md:mt-20 text-center bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-6 md:p-12 max-w-5xl mx-auto border border-border/30">
         <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Start your legal journey today</h2>
@@ -205,9 +148,9 @@ export default function LitigantsPage() {
           <Link href="/contact">          
           <Button size="lg" className="w-full sm:w-auto">Request a demo</Button>
           </Link>
-          <Link href="/contact">
+          {/* <Link href="/contact">
             <Button size="lg" variant="outline" className="w-full sm:w-auto mt-2 sm:mt-0">Schedule a Demo</Button>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

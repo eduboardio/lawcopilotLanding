@@ -34,13 +34,13 @@ export default function CaseAnalytics() {
                 <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
                   Our AI will analyze your case files and provide comprehensive insights, risk assessment, and outcome predictions.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                {/* <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Button onClick={handleUpload} disabled={isAnalyzing} className="w-full sm:w-auto">
                     <Upload className="mr-2 h-4 w-4" />
                     {isAnalyzing ? "Analyzing..." : "Upload Files"}
                   </Button>
                   <Button variant="outline" className="w-full sm:w-auto">View Demo</Button>
-                </div>
+                </div> */}
               </div>
               <div className="bg-slate-50 p-4 sm:p-6 rounded-lg flex flex-col justify-center items-center mt-4 sm:mt-0">
                 {isAnalyzing ? (

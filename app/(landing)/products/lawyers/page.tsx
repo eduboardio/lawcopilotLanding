@@ -1,6 +1,7 @@
 import { FileText, BookOpen, BarChart3, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
 
 export default function LawyersPage() {
   return (
@@ -11,7 +12,6 @@ export default function LawyersPage() {
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-6 md:mb-8 px-4">
           Practice law more effectively with AI-powered assistance for drafting, research, and analysis.
         </p>
-        <Button size="lg" className="px-6 md:px-8 w-full sm:w-auto">Try Free for 14 Days</Button>
       </div>
 
       {/* Features Tabs */}
@@ -21,7 +21,7 @@ export default function LawyersPage() {
           <TabsTrigger value="research" className="text-sm md:text-base">Legal Research</TabsTrigger>
           <TabsTrigger value="analytics" className="text-sm md:text-base">Critical Analysis</TabsTrigger>
         </TabsList>
-        
+
         {/* Drafting Tab */}
         <TabsContent value="drafting" className="mt-0">
           <div className="grid md:grid-cols-5 gap-6 md:gap-8 items-start md:items-center">
@@ -55,7 +55,7 @@ export default function LawyersPage() {
             </div>
           </div>
         </TabsContent>
-        
+
         {/* Research Tab */}
         <TabsContent value="research" className="mt-0">
           <div className="grid md:grid-cols-5 gap-6 md:gap-8 items-start md:items-center">
@@ -89,7 +89,7 @@ export default function LawyersPage() {
             </div>
           </div>
         </TabsContent>
-        
+
         {/* Analytics Tab */}
         <TabsContent value="analytics" className="mt-0">
           <div className="grid md:grid-cols-5 gap-6 md:gap-8 items-start md:items-center">
@@ -140,8 +140,9 @@ export default function LawyersPage() {
       <div className="mt-12 md:mt-16 text-center px-4">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to elevate your legal practice?</h2>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="w-full sm:w-auto">Start Free Trial</Button>
-          <Button size="lg" variant="outline" className="w-full sm:w-auto">Learn More</Button>
+          <Link href="/contact">
+            <Button size="lg" className="w-full sm:w-auto">Request a demo</Button>
+          </Link>
         </div>
       </div>
     </div>

@@ -272,11 +272,11 @@ export default function ResearchEngine() {
                 Request a demo
               </Button>
             </Link>
-            <Link href="/contact">
+            {/* <Link href="/contact">
               <Button variant="outline" size="lg" className="w-full sm:w-auto">
                 Schedule Demo
               </Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
