@@ -4,17 +4,18 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Upload, BarChart2, AlertTriangle, TrendingUp, Scale } from "lucide-react";
+import { BarChart2, AlertTriangle, TrendingUp, Scale } from "lucide-react";
 import Link from "next/link";
 
 export default function CaseAnalytics() {
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isAnalyzing] = useState(false);
 
-  const handleUpload = () => {
-    setIsAnalyzing(true);
-    // Simulate analysis delay
-    setTimeout(() => setIsAnalyzing(false), 2000);
-  };
+  // Uncomment when upload feature is ready
+  // const handleUpload = () => {
+  //   setIsAnalyzing(true);
+  //   // Simulate analysis delay
+  //   setTimeout(() => setIsAnalyzing(false), 2000);
+  // };
 
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 lg:py-10">

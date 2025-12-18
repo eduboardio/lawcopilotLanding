@@ -1,8 +1,8 @@
 "use client";
 
-import { HelpCircle, FolderArchive, ArrowRight, PanelRight, Search, Scale, BookOpen, FileText, Server, Shield, MessageSquare, Clock } from "lucide-react";
+import { HelpCircle, FolderArchive, PanelRight, Search, Scale, BookOpen, FileText, Server, Shield, MessageSquare, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
 export default function LitigantsPage() {

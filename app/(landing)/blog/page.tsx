@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import BlurFade from "@/components/ui/blur-fade";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, ArrowRight, Clock, Calendar, ChevronRight, ArrowUpRight, BookOpen } from "lucide-react";
+import { Search, Clock, Calendar, ChevronRight, ArrowUpRight, BookOpen } from "lucide-react";
 
 interface BlogCard {
   id: string;

@@ -31,7 +31,21 @@ function isValidEmail(email: string): boolean {
   return emailRegex.test(email) && email.length <= 254;
 }
 
-function validateAndSanitizeBody(body: any): { isValid: boolean; sanitized?: any; error?: string } {
+interface ContactFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  companyName: string;
+  country: string;
+  jobTitle: string;
+  orgType: string;
+  teamSize: string;
+  hearAbout?: string;
+  message: string;
+  [key: string]: string | undefined;
+}
+
+function validateAndSanitizeBody(body: Record<string, unknown>): { isValid: boolean; sanitized?: ContactFormData; error?: string } {
   const requiredFields = ['firstName', 'lastName', 'email', 'companyName', 'country', 'jobTitle', 'orgType', 'teamSize', 'message'];
   
   // Check for missing fields
@@ -66,14 +80,14 @@ function validateAndSanitizeBody(body: any): { isValid: boolean; sanitized?: any
   }
   
   // Sanitize all string fields
-  const sanitized: any = {};
+  const sanitized: Partial<ContactFormData> = {};
   for (const field of Object.keys(body)) {
     if (typeof body[field] === 'string') {
-      sanitized[field] = sanitizeInput(body[field]);
+      sanitized[field as keyof ContactFormData] = sanitizeInput(body[field] as string);
     }
   }
   
-  return { isValid: true, sanitized };
+  return { isValid: true, sanitized: sanitized as ContactFormData };
 }
 
 export async function POST(request: NextRequest) {
