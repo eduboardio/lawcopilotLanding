@@ -55,12 +55,12 @@ function validateAndSanitizeBody(body: Record<string, unknown>): { isValid: bool
   }
   
   // Validate email
-  if (!isValidEmail(body.email)) {
+  if (typeof body.email !== 'string' || !isValidEmail(body.email)) {
     return { isValid: false, error: 'Invalid email address' };
   }
   
   // Check for excessively long fields
-  const maxLengths = {
+  const maxLengths: Record<string, number> = {
     firstName: 100,
     lastName: 100,
     email: 254,
@@ -74,7 +74,8 @@ function validateAndSanitizeBody(body: Record<string, unknown>): { isValid: bool
   };
   
   for (const [field, maxLength] of Object.entries(maxLengths)) {
-    if (body[field] && body[field].length > maxLength) {
+    const value = body[field];
+    if (value && typeof value === 'string' && value.length > maxLength) {
       return { isValid: false, error: `Field ${field} exceeds maximum length` };
     }
   }
