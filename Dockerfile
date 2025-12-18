@@ -5,8 +5,8 @@ WORKDIR /app
 # Copy dependency files
 COPY package.json package-lock.json* ./
 
-# Install dependencies with clean install
-RUN npm ci --only=production && \
+# Install ALL dependencies (including devDependencies needed for build)
+RUN npm ci && \
     npm cache clean --force
 
 FROM node:18-alpine AS builder
@@ -21,6 +21,10 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 # Build the application
 RUN npm run build
+
+# Install only production dependencies for runtime
+RUN npm ci --only=production && \
+    npm cache clean --force
 
 FROM node:18-alpine AS runner
 WORKDIR /app
@@ -43,7 +47,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/next.config.* ./
 
 # Security: Set read-only file system where possible
 RUN chown -R nextjs:nodejs /app && \
