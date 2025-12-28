@@ -1,594 +1,235 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
-import { CheckCircle, ArrowRight, Bot, Code, MapPin, Lock, ChevronDown, Shield, } from "lucide-react";
-import Link from "next/link";
+import React from "react";
+import { motion } from "framer-motion";
+import { 
+  MapPin, 
+  Cpu, 
+  Scale, 
+  Languages,
+  Shield,
+  Check
+} from "lucide-react";
 
-type BentoItemSize = 'sm' | 'md' | 'lg';
-type BentoItemType = 'benefit' | 'stat' | 'quote' | 'cta';
-
-interface BentoItemProps {
-  title: string;
-  description: string;
-  icon?: React.ReactNode;
-  accentColor: string;
-  darkAccentColor: string;
-  lightGradient: string;
-  darkGradient: string;
-  lightIconBg: string;
-  darkIconBg: string;
-  iconColor: string;
-  className?: string;
-  size?: "sm" | "md" | "lg";
-  points?: string[];
-  type?: "benefit" | "stat" | "quote" | "cta";
-  value?: string;
-  href?: string;
-}
-
-const BentoItem = ({
-  title,
-  description,
-  icon,
-  accentColor,
-  darkAccentColor,
-  lightGradient,
-  darkGradient,
-  lightIconBg,
-  darkIconBg,
-  iconColor,
-  className,
-  size = "md",
-  points,
-  type = "benefit",
-  value,
-  href
-}: BentoItemProps) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  console.log(accentColor);
-  console.log(darkAccentColor);
-
-  // Check if dark mode is enabled
-  useEffect(() => {
-    const checkDarkMode = () => {
-      const isDark = document.documentElement.classList.contains('dark') ||
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setIsDarkMode(isDark);
-    };
-
-    checkDarkMode();
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class') {
-          checkDarkMode();
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, { attributes: true });
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      className={cn(
-        "group relative flex flex-col overflow-hidden rounded-2xl border backdrop-blur-sm p-4 sm:p-5 transition-all duration-300 hover:shadow-xl h-full",
-        isDarkMode ? "border-white/10 hover:border-white/20 bg-background/30" : "border-border/40 hover:border-border/60 bg-background/80",
-        {
-          "col-span-1": size === "sm",
-          "col-span-2": size === "md",
-          "col-span-3": size === "lg",
-        },
-        className
-      )}
-    >
-      {/* Gradient background that changes based on dark/light mode - Matching Features component */}
-      <div
-        className={cn(
-          "absolute inset-0 transition-opacity duration-300",
-          isDarkMode
-            ? "opacity-[0.35] group-hover:opacity-[0.45]"
-            : "opacity-[0.15] group-hover:opacity-[0.25]",
-          `bg-gradient-to-br ${isDarkMode ? darkGradient : lightGradient}`
-        )}
-      />
-
-      {/* Content based on type with improved spacing */}
-      <div className="relative z-10 flex h-full flex-col">
-        {type === "benefit" && (
-          <>
-            {icon && (
-              <div className={cn(
-                "mb-4 flex h-10 w-10 items-center justify-center rounded-xl shadow-sm",
-                isDarkMode ? darkIconBg : lightIconBg
-              )}>
-                <span className={iconColor}>{icon}</span>
-              </div>
-            )}
-            <h3 className={cn(
-              "text-lg font-semibold mb-3 tracking-tight",
-              isDarkMode ? "text-white" : "text-foreground"
-            )}>
-              {title}
-            </h3>
-            <p className={cn(
-              "text-xs sm:text-sm mb-4 leading-relaxed",
-              isDarkMode ? "text-white/85" : "text-muted-foreground"
-            )}>
-              {description}
-            </p>
-            {points && (
-              <ul className="space-y-2 pt-1 mt-auto">
-                {points.map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm">
-                    <CheckCircle className={cn(
-                      "h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0 mt-0.5",
-                      isDarkMode ? "text-white/90" : iconColor
-                    )} />
-                    <span className={isDarkMode ? "text-white/90" : ""}>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </>
-        )}
-
-        {type === "stat" && (
-          <>
-            <div className="flex-1 flex flex-col items-start justify-center">
-              {icon && (
-                <div className={cn(
-                  "p-2 rounded-xl mb-3 shadow-sm",
-                  isDarkMode ? darkIconBg : lightIconBg,
-                  iconColor
-                )}>
-                  {icon}
-                </div>
-              )}
-              <p className={cn(
-                "text-3xl font-bold tracking-tight mb-2",
-                isDarkMode ? "text-white" : "text-foreground"
-              )}>
-                {value}
-              </p>
-              <h3 className={cn(
-                "text-sm font-medium mb-1",
-                isDarkMode ? "text-white" : "text-foreground"
-              )}>
-                {title}
-              </h3>
-              <p className={cn(
-                "text-xs",
-                isDarkMode ? "text-white/80" : "text-muted-foreground"
-              )}>
-                {description}
-              </p>
-            </div>
-          </>
-        )}
-
-        {type === "quote" && (
-          <>
-            <div className={cn(
-              "text-4xl font-serif mb-2",
-              isDarkMode ? "text-white/40" : iconColor + "/20"
-            )}>
-              &quot;
-            </div>
-            <p className={cn(
-              "text-sm italic mb-4 leading-relaxed",
-              isDarkMode ? "text-white/90" : "text-foreground"
-            )}>
-              {description}
-            </p>
-            <div className="mt-auto flex items-center gap-3">
-              <div className={cn(
-                "w-10 h-10 rounded-full flex items-center justify-center font-medium shadow-sm",
-                isDarkMode ? darkIconBg : lightIconBg,
-                iconColor
-              )}>
-                {value?.charAt(0)}
-              </div>
-              <div>
-                <p className={cn(
-                  "text-xs font-medium",
-                  isDarkMode ? "text-white" : "text-foreground"
-                )}>
-                  {title}
-                </p>
-                <p className={cn(
-                  "text-xs",
-                  isDarkMode ? "text-white/80" : "text-muted-foreground"
-                )}>
-                  {value}
-                </p>
-              </div>
-            </div>
-          </>
-        )}
-
-        {type === "cta" && (
-          <>
-            <div className="flex-1">
-              <h3 className={cn(
-                "text-lg font-semibold mb-3 tracking-tight",
-                isDarkMode ? "text-white" : "text-foreground"
-              )}>
-                {title}
-              </h3>
-              <p className={cn(
-                "text-xs sm:text-sm mb-4 leading-relaxed",
-                isDarkMode ? "text-white/85" : "text-muted-foreground"
-              )}>
-                {description}
-              </p>
-            </div>
-            {href && (
-              <Link
-                href={href}
-                className={cn(
-                  "mt-auto inline-flex items-center text-xs sm:text-sm font-medium transition-colors",
-                  isDarkMode ? "text-white hover:text-white/90" : iconColor + " hover:" + iconColor + "/80"
-                )}
-              >
-                Learn more
-                <ArrowRight className="ml-1.5 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            )}
-          </>
-        )}
-      </div>
-    </div>
-  );
-};
-
-interface SummaryCardProps {
-  title: string;
-  description: string;
+interface BenefitPillar {
   icon: React.ReactNode;
-  accentColor: string;
-  className?: string;
-  ctaText?: string;
-  ctaHref?: string;
+  badge: string;
+  title: string;
+  description: string;
+  points: string[];
 }
 
-const SummaryCard = ({
-  title,
-  description,
-  icon,
-  accentColor,
-  className,
-  ctaText,
-  ctaHref
-}: SummaryCardProps) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+const pillars: BenefitPillar[] = [
+  {
+    icon: <MapPin className="h-6 w-6" />,
+    badge: "India-First",
+    title: "Built for Indian Legal Practice",
+    description: "Designed specifically for India's legal landscape—not a global product adapted for Indian law.",
+    points: [
+      "Trained on Indian case law, statutes, and legal frameworks",
+      "Understands court-ready language and formal legal tone",
+      "Recognizes state-wise legal variations and jurisdictional nuances"
+    ]
+  },
+  {
+    icon: <Cpu className="h-6 w-6" />,
+    badge: "Proprietary",
+    title: "Custom AI Engine",
+    description: "Purpose-built legal AI—not a ChatGPT wrapper with legal templates.",
+    points: [
+      "Custom-trained model optimized for Indian legal documents",
+      "Designed collaboratively by lawyers and AI engineers",
+      "Continuously improved with feedback from legal professionals"
+    ]
+  },
+  {
+    icon: <Scale className="h-6 w-6" />,
+    badge: "Precision",
+    title: "Jurisdictional Intelligence",
+    description: "Adapts reasoning based on court type, forum, and applicable legal standards.",
+    points: [
+      "Context-aware responses for High Courts, District Courts, Tribunals",
+      "Citation intelligence with proper legal precedent hierarchy",
+      "Tailored legal arguments based on jurisdictional requirements"
+    ]
+  },
+  {
+    icon: <Languages className="h-6 w-6" />,
+    badge: "Multilingual",
+    title: "Indian Language Support",
+    description: "Legal intelligence that works across India's linguistic diversity with contextual accuracy.",
+    points: [
+      "Translate legal documents across major Indian languages",
+      "Preserve legal terminology and formal context",
+      "Bridge language barriers in client communication and court filings"
+    ]
+  }
+];
 
-  // Check if dark mode is enabled
-  useEffect(() => {
-    const checkDarkMode = () => {
-      const isDark = document.documentElement.classList.contains('dark') ||
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setIsDarkMode(isDark);
-    };
-
-    checkDarkMode();
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class') {
-          checkDarkMode();
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, { attributes: true });
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div className={cn(
-      "group relative rounded-2xl border border-border/40 overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-border/70",
-      "bg-gradient-to-br from-background to-background/95",
-      className
-    )}>
-      {/* Background gradient */}
-      <div
-        className={cn(
-          "absolute inset-0 opacity-[0.07] transition-opacity duration-300 group-hover:opacity-[0.12]",
-          `bg-gradient-to-br ${accentColor}`
-        )}
-      />
-
-      {/* Content container */}
-      <div className="p-6 md:p-8 relative z-10 h-full flex flex-col items-center text-center">
-        <div className={cn(
-          "flex h-16 w-16 items-center justify-center rounded-full mb-4",
-          `bg-primary/10 text-primary`
-        )}>
-          {icon}
-        </div>
-
-        <h3 className={cn(
-          "text-2xl font-bold tracking-tight mb-3",
-          isDarkMode ? "text-white" : "text-foreground"
-        )}>
-          {title}
-        </h3>
-
-        <p className={cn(
-          "text-muted-foreground max-w-2xl mb-6",
-          isDarkMode ? "text-white/85" : ""
-        )}>
-          {description}
-        </p>
-
-        {ctaText && ctaHref && (
-          <Link
-            href={ctaHref}
-            className={cn(
-              "inline-flex items-center justify-center px-6 py-3 font-medium rounded-full transition-all duration-300",
-              isDarkMode
-                ? "bg-white text-background hover:bg-white/90"
-                : "bg-primary text-white hover:bg-primary/90"
-            )}
-          >
-            {ctaText}
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        )}
-      </div>
-    </div>
-  );
-};
+const trustFactors = [
+  {
+    icon: <Shield className="h-5 w-5" />,
+    title: "Enterprise Security",
+    description: "Bank-level encryption with Indian data residency"
+  },
+  {
+    icon: <Check className="h-5 w-5" />,
+    title: "Fact-Checked Outputs",
+    description: "Citations verified, responses legally grounded"
+  },
+  {
+    icon: <Scale className="h-5 w-5" />,
+    title: "Professional Reliability",
+    description: "Built for real legal work, not experiments"
+  }
+];
 
 export function Benefits() {
-  const [showAllBenefits, setShowAllBenefits] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  // Check if dark mode is enabled
-  useEffect(() => {
-    const checkDarkMode = () => {
-      const isDark = document.documentElement.classList.contains('dark') ||
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setIsDarkMode(isDark);
-    };
-
-    checkDarkMode();
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class') {
-          checkDarkMode();
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, { attributes: true });
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Initial benefits to show with enhanced styling matching Features component
-  const initialBenefits = [
-    // First row - large item
-    {
-      icon: <MapPin size={24} />,
-      title: "Built for Indian Legal Professionals",
-      description: "AI solutions designed specifically for India's unique legal landscape and requirements.",
-      points: [
-        "Contextual analysis for Indian law",
-        "Support for multiple regional languages",
-        "Custom-built for Indian legal practice"
-      ],
-      accentColor: "from-blue-500 to-indigo-700", // Brightened
-      darkAccentColor: "from-blue-300 to-indigo-500",
-      lightGradient: "from-blue-400 to-indigo-700", // Brightened
-      darkGradient: "from-blue-400 to-indigo-600",
-      lightIconBg: "bg-blue-100/80", // Lighter to make icon stand out
-      darkIconBg: "bg-blue-800/60",
-      iconColor: "text-blue-600 dark:text-blue-200",
-      size: "lg",
-      type: "benefit",
-      href: "/indian-legal",
-      gridPos: "col-span-full lg:col-span-6"
-    },
-
-    // Second row - medium items
-    {
-      icon: <Code size={20} />,
-      title: "Proprietary Algorithm",
-      description: "Built on a custom-trained model, fine-tuned for Indian legal data.",
-      points: [
-        "Optimized for contract and litigation documents",
-        "Designed by lawyers and engineers",
-        "Continuously improving with feedback"
-      ],
-      accentColor: "from-amber-500 to-red-600", // Brightened
-      darkAccentColor: "from-amber-300 to-red-500",
-      lightGradient: "from-amber-400 to-red-500", // Brightened
-      darkGradient: "from-amber-400 to-red-500",
-      lightIconBg: "bg-amber-100/80", // Lighter
-      darkIconBg: "bg-amber-800/60",
-      iconColor: "text-amber-600 dark:text-amber-200",
-      size: "md",
-      type: "benefit",
-      href: "/technology",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
-    },
-    {
-      icon: <MapPin size={20} />,
-      title: "Jurisdictional Awareness",
-      description: "AI that understands legal variations across Indian states and forums.",
-      points: [
-        "Contextual reasoning by forum",
-        "Tailored language for courts and tribunals",
-        "Cross-jurisdictional citation intelligence"
-      ],
-      accentColor: "from-blue-500 to-cyan-700", // Brightened
-      darkAccentColor: "from-blue-300 to-cyan-500",
-      lightGradient: "from-blue-400 to-cyan-500", // Brightened
-      darkGradient: "from-blue-400 to-cyan-500",
-      lightIconBg: "bg-blue-100/80", // Lighter
-      darkIconBg: "bg-blue-800/60",
-      iconColor: "text-blue-600 dark:text-blue-200",
-      size: "md",
-      type: "benefit",
-      href: "/jurisdictions",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-3"
-    }
-  ];
-
-  const extraBenefits = [
-    // Additional benefits shown in "View All"
-    {
-      icon: <Lock size={20} />,
-      title: "Reliable, Safe Results",
-      description: "No hallucinations. Just dependable, legally-grounded answers.",
-      points: [
-        "Fact-checked responses",
-        "Built-in citation engine",
-        "Transparent model outputs"
-      ],
-      accentColor: "from-purple-500 to-violet-700", // Brightened
-      darkAccentColor: "from-purple-300 to-violet-500",
-      lightGradient: "from-purple-400 to-violet-500", // Brightened
-      darkGradient: "from-purple-400 to-violet-500",
-      lightIconBg: "bg-purple-100/80", // Lighter
-      darkIconBg: "bg-purple-800/60",
-      iconColor: "text-purple-600 dark:text-purple-200",
-      size: "md",
-      type: "benefit",
-      href: "/reliability",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-6"
-    },
-    {
-      icon: <Shield size={20} />,
-      title: "Enhanced Security",
-      description: "Bank-level encryption and privacy controls for sensitive legal documents.",
-      points: [
-        "Data stored in Indian servers",
-        "SOC 2 compliant infrastructure",
-        "Regular security audits"
-      ],
-      accentColor: "from-red-500 to-orange-600", // Brightened
-      darkAccentColor: "from-red-300 to-orange-500",
-      lightGradient: "from-red-400 to-orange-500", // Brightened
-      darkGradient: "from-red-400 to-orange-500",
-      lightIconBg: "bg-red-100/80", // Lighter
-      darkIconBg: "bg-red-800/60",
-      iconColor: "text-red-600 dark:text-red-200",
-      size: "md",
-      type: "benefit",
-      href: "/security",
-      gridPos: "col-span-full sm:col-span-1 lg:col-span-6"
-    }
-  ];
-
   return (
-    <section id="benefits" className="w-full py-8 md:py-12 bg-background">
-      <div className="container px-4 md:px-6 mx-auto max-w-7xl">
-        {/* Centered section header with improved spacing */}
-        <div className="mb-12 md:mb-16 text-center mx-auto max-w-3xl">
-          <h2 className={cn(
-            "text-3xl md:text-4xl font-bold tracking-tight mb-4",
-            isDarkMode ? "text-white" : ""
-          )}>
-            Why Choose Law Copilot
+    <section className="relative w-full overflow-hidden bg-background py-24 md:py-32">
+      {/* Subtle background matching Hero/Features */}
+      <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
+        <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
+        <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
+<div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
+      </div>
+      
+      <div className="container relative z-10 mx-auto max-w-7xl px-6">
+        {/* Section Header */}
+        <motion.div 
+          className="mb-16 text-center md:mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
+            <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
+            <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">Platform Differentiation</span>
+          </div>
+          
+          <h2 className="mb-4 text-4xl font-bold tracking-tight md:mb-6 md:text-5xl lg:text-6xl">
+            <span className="block text-foreground dark:text-white">
+              Why Law Copilot
+            </span>
           </h2>
-          <p className={cn(
-            "text-base md:text-lg",
-            isDarkMode ? "text-white/85" : "text-muted-foreground"
-          )}>
-            Discover how our platform transforms legal practice with AI technology designed specifically for Indian legal professionals.
+          
+          <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl dark:text-white/70">
+            Not another AI chatbot adapted for legal use. A purpose-built platform engineered specifically for Indian legal professionals who demand precision, reliability, and jurisdictional intelligence.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Asymmetric bento grid layout with better spacing and organization */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 auto-rows-fr">
-          {/* Initial benefits */}
-          {initialBenefits.map((benefit, index) => (
-            <div key={`initial-${index}`} className={benefit.gridPos}>
-              <BentoItem
-                icon={benefit.icon}
-                title={benefit.title}
-                description={benefit.description}
-                points={benefit.points}
-                accentColor={benefit.accentColor}
-                darkAccentColor={benefit.darkAccentColor}
-                lightGradient={benefit.lightGradient}
-                darkGradient={benefit.darkGradient}
-                lightIconBg={benefit.lightIconBg}
-                darkIconBg={benefit.darkIconBg}
-                iconColor={benefit.iconColor}
-                size={benefit.size as BentoItemSize}
-                type={benefit.type as BentoItemType}
-                // value={benefit.value}
-                href={benefit.href}
-              />
-            </div>
-          ))}
+        {/* Four Pillars Grid */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
+          {pillars.map((pillar, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group relative"
+            >
+              {/* Subtle glow on hover */}
+              <div className="absolute -inset-4 rounded-2xl bg-gradient-to-br from-foreground/[0.02] to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100 dark:from-white/[0.05]" />
+              
+              {/* Content */}
+              <div className="relative">
+                {/* Icon & Badge */}
+                <div className="mb-6 flex items-center gap-4">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
+                    <div className="text-foreground dark:text-white">
+                      {pillar.icon}
+                    </div>
+                  </div>
+                  <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-white/50">
+                    {pillar.badge}
+                  </span>
+                </div>
 
-          {/* View All Benefits button */}
-          {!showAllBenefits && (
-            <div className="col-span-full mt-8 mb-4 text-center">
-              <button
-                onClick={() => setShowAllBenefits(true)}
-                className={cn(
-                  "inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-200",
-                  isDarkMode
-                    ? "bg-white/10 hover:bg-white/15 text-white"
-                    : "bg-primary/10 hover:bg-primary/20 text-primary"
-                )}
-              >
-                View All Benefits <ChevronDown size={18} />
-              </button>
-            </div>
-          )}
+                {/* Title */}
+                <h3 className="mb-3 text-2xl font-semibold text-foreground dark:text-white">
+                  {pillar.title}
+                </h3>
 
-          {/* Extra benefits shown when "View All" is clicked */}
-          {showAllBenefits && extraBenefits.map((benefit, index) => (
-            <div key={`extra-${index}`} className={benefit.gridPos}>
-              <BentoItem
-                icon={benefit.icon}
-                title={benefit.title}
-                description={benefit.description}
-                points={benefit.points}
-                accentColor={benefit.accentColor}
-                darkAccentColor={benefit.darkAccentColor}
-                lightGradient={benefit.lightGradient}
-                darkGradient={benefit.darkGradient}
-                lightIconBg={benefit.lightIconBg}
-                darkIconBg={benefit.darkIconBg}
-                iconColor={benefit.iconColor}
-                size={benefit.size as BentoItemSize}
-                type={benefit.type as BentoItemType}
-                // value={benefit.value}
-                href={benefit.href}
-              />
-            </div>
+                {/* Description */}
+                <p className="mb-6 leading-relaxed text-muted-foreground dark:text-white/70">
+                  {pillar.description}
+                </p>
+
+                {/* Points */}
+                <ul className="space-y-3">
+                  {pillar.points.map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <div className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-foreground/40 dark:bg-white/40" />
+                      <span className="text-sm leading-relaxed text-muted-foreground dark:text-white/70">
+                        {point}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* Reduced gap between grid and summary card when extra benefits are shown */}
-        <div className={cn(
-          // "mt-8",
-          showAllBenefits ? "mt-0" : "mt-0"
-        )}>
-          <SummaryCard
-            title="One AI Engine. Every Legal Use Case."
-            description="Whether you're drafting contracts, seeking legal clarity, or analyzing complex documents, Law Copilot delivers intelligent, tailored solutions for all your legal needs."
-            icon={<Bot size={32} />}
-            accentColor="from-primary to-primary/70"
-            className="md:col-span-12 mt-10"
-            ctaText="Request a demo"
-            ctaHref="/contact"
-          />
-        </div>
+        {/* Trust Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-20 md:mt-24"
+        >
+          <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 p-8 backdrop-blur-md dark:border-white/10 dark:bg-white/[0.03] md:p-12">
+            {/* Subtle gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] to-transparent dark:from-white/[0.03]" />
+            
+            <div className="relative">
+              {/* Header */}
+              <div className="mb-8 text-center">
+                <h3 className="mb-3 text-2xl font-semibold text-foreground md:text-3xl dark:text-white">
+                  Built for Real Legal Work
+                </h3>
+                <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+                  Every decision in Law Copilot is made with one goal: delivering reliable, trustworthy AI for professional legal practice.
+                </p>
+              </div>
+
+              {/* Trust Factors */}
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                {trustFactors.map((factor, idx) => (
+                  <div key={idx} className="flex flex-col items-center text-center">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
+                      <div className="text-foreground dark:text-white">
+                        {factor.icon}
+                      </div>
+                    </div>
+                    <h4 className="mb-2 font-semibold text-foreground dark:text-white">
+                      {factor.title}
+                    </h4>
+                    <p className="text-sm text-muted-foreground dark:text-white/60">
+                      {factor.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Final Statement */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-16 text-center"
+        >
+          <p className="text-lg font-medium text-foreground dark:text-white">
+            Finally, an AI platform that understands Indian law the way you do.
+          </p>
+        </motion.div>
       </div>
     </section>
   );
