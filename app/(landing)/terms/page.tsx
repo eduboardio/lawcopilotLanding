@@ -4,22 +4,22 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function TermsPage() {
   return (
-    <section className="container px-4 sm:px-6 py-12 md:py-20 lg:py-24">
+    <section className="container mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-16 lg:py-24">
       <div className="text-center mb-8 md:mb-12">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">Terms of Service</h1>
-        <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto px-2">
+        <p className="text-muted-foreground text-base md:text-lg mx-auto px-2">
           Welcome to Law Copilot. By accessing our platform, you agree to these Terms and Conditions.
         </p>
       </div>
 
-      <Card className="mx-auto max-w-4xl shadow-md">
-        <CardContent className="pt-6 px-4 sm:px-6 md:px-8">
-          <div className="prose prose-slate dark:prose-invert max-w-none">
-            <div className="text-sm md:text-base mb-6">
+      <Card className="mx-auto max-w-8xl w-full shadow-md">
+        <CardContent className="pt-4 md:pt-6 px-4 md:px-8">
+          <div className="prose prose-slate dark:prose-invert max-w-none text-sm md:text-base prose-headings:text-center prose-p:text-justify">
+            <div className="text-sm md:text-base mb-6 text-left">
               <p>Please read the TERMS & CONDITIONS carefully before registering, accessing, or using the Services offered through the web application at https://lawcopilot.in or other associated subdomains as may be officially utilized by Us from time to time (&quot;the Law Co-Pilot Platform&quot;).</p>
 
               <p>These Terms and Conditions constitute a legally binding agreement between the user of the Services or the entity that you represent (You, Your) and [Insert Full Legal Name of LLP], an Indian limited liability partnership incorporated under the Limited Liability Partnership Act, 2008, with its registered office at 3-104/43
-                Chavi, Manikonda, Hyderabad, Telangana, India (Law Co-Pilot, Company, We, Us).</p>
+                , Hyderabad, Telangana, India (Law Co-Pilot, Company, We, Us).</p>
 
               <p>You agree and acknowledge that You have read these Terms and Conditions, as well as our Privacy Policy and any additional terms applicable to specific features or modules of the Services, which collectively form a part of this Agreement. If You do not agree to any of these Terms and Conditions, You must not use the Services and may request termination of your access or subscription.</p>
 
@@ -34,7 +34,7 @@ export default function TermsPage() {
             </div>
 
             <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">Definitions</h3>
-            <div className="text-sm md:text-base mb-6">
+            <div className="text-sm md:text-base mb-6 text-left">
               <p>For the purposes of these Terms and Conditions, the following capitalized terms shall have the meanings assigned to them below. These definitions apply whether they are used in the singular or plural form.</p>
 
               <p className="mb-1"><strong>&quot;Account&quot;</strong> means the user-specific profile created through registration on the Law Co-Pilot platform which enables access to the Services.</p>
@@ -83,7 +83,7 @@ export default function TermsPage() {
             </div>
 
             <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="who-we-are">1. Who We Are</h2>
-            <div className="text-sm md:text-base mb-6">
+            <div className="text-sm md:text-base mb-6 text-left">
               <p className="mb-4">
                 Law Co-Pilot LLP is a Hyderabad-based legal technology company that offers AI-powered solutions to support legal professionals in research, drafting, translation, and document review. Our objective is to streamline complex legal workflows through intelligent automation and data-driven insights.
               </p>
@@ -207,7 +207,7 @@ export default function TermsPage() {
             </div>
 
             <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="eligibility">2. Eligibility & Registration</h2>
-            <div className="text-sm md:text-base mb-6">
+            <div className="text-sm md:text-base mb-6 text-left">
               <h3 className="text-lg font-medium mb-2">2.1 Eligibility Criteria</h3>
               <p className="mb-3">To access or use the Law Co-Pilot Platform and its Services, you must satisfy the following eligibility conditions:</p>
               <ul className="list-disc pl-6 mb-4 space-y-1">
@@ -230,7 +230,7 @@ export default function TermsPage() {
             </div>
 
             <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="license">3. License Grant, Subscription, and Restrictions on Use</h2>
-            <div className="text-sm md:text-base mb-6">
+            <div className="text-sm md:text-base mb-6 text-left">
               <h3 className="text-lg font-medium mb-2">3.1 License Grant</h3>
               <p className="mb-4">Subject to your full compliance with these Terms and, where applicable, the successful payment of all subscription fees and applicable taxes, Law Co-Pilot LLP (&quot;Company&quot;, &quot;we&quot;, &quot;us&quot;) grants you a limited, non-exclusive, non-transferable, non-sublicensable, and revocable license to access and use the Services offered via the Law Co-Pilot platform. This license is solely for:</p>
               <ul className="list-disc pl-6 mb-4 space-y-1">
@@ -629,7 +629,7 @@ export default function TermsPage() {
             <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="intellectual-property">
               7. Intellectual Property Acknowledgment
             </h2>
-            <div className="text-sm md:text-base mb-6">
+            <div className="text-sm md:text-base mb-6 text-left">
               <h3 className="font-medium text-base md:text-lg mb-2">7.1 Ownership of Intellectual Property</h3>
               <p className="mb-3">
                 You acknowledge and agree that Law Co-Pilot LLP exclusively owns and retains all rights, title, and interest in and to the Services and all related intellectual property. This includes, without limitation:
@@ -683,7 +683,7 @@ export default function TermsPage() {
             <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4" id="data-privacy">
               8. Data Privacy
             </h2>
-            <div className="text-sm md:text-base mb-6">
+            <div className="text-sm md:text-base mb-6 text-left">
               <h3 className="font-medium text-base md:text-lg mb-2">8.1 Privacy Policy Applicability</h3>
               <p className="mb-3">
                 Your use of the Services is subject to our Privacy Policy, which is incorporated by reference into these Terms and governs how we collect, use, store, and disclose your Personal Data. By accessing or using the Services, you agree that Law Co-Pilot LLP may process your information in accordance with our Privacy Policy.
@@ -830,7 +830,7 @@ export default function TermsPage() {
               </p>
               <p>
                 Law Co-Pilot LLP<br />
-                3-104/43, Chavi, Manikonda, Hyderabad, 500089
+                3-104/43, Hyderabad, Telengana, 500089
               </p>
             </div>
           </div>

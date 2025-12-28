@@ -31,12 +31,14 @@ export default function ContactPage() {
     jobTitle: "",
     orgType: "",
     teamSize: "",
-    hearAbout: ""
+    hearAbout: "",
+    message: ""
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
@@ -46,18 +48,14 @@ export default function ContactPage() {
     if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
     if (!formData.companyName.trim()) newErrors.companyName = "Company name is required";
     if (!formData.jobTitle.trim()) newErrors.jobTitle = "Job title is required";
-
-    // Email validation
+    if (!formData.message.trim()) newErrors.message = "Message is required";
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email address";
     }
-
-    // Dropdown validation
     if (!formData.country) newErrors.country = "Please select a country";
     if (!formData.orgType) newErrors.orgType = "Please select an organization type";
-    if (!formData.teamSize) newErrors.teamSize = "Please select team size";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -92,15 +90,27 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitError("");
 
     if (!validateForm()) return;
 
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log("Form submitted:", formData);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit form');
+      }
+
+      console.log("Form submitted successfully");
       setIsSubmitted(true);
       // Clear form
       setFormData({
@@ -112,10 +122,12 @@ export default function ContactPage() {
         jobTitle: "",
         orgType: "",
         teamSize: "",
-        hearAbout: ""
+        hearAbout: "",
+        message: ""
       });
     } catch (error) {
       console.error("Error submitting form:", error);
+      setSubmitError(error instanceof Error ? error.message : 'Failed to submit form. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -151,7 +163,7 @@ export default function ContactPage() {
                     <Mail className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="font-medium mb-1">Email</p>
-                      <a href="mailto:support@lawcopilot.io" className="text-muted-foreground hover:text-primary transition-colors">
+                      <a href="mailto:hello@lawcopilot.io" className="text-muted-foreground hover:text-primary transition-colors">
                         hello@lawcopilot.io
                       </a>
                     </div>
@@ -161,7 +173,7 @@ export default function ContactPage() {
                     <Phone className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="font-medium mb-1">Phone</p>
-                      <a href="tel:+18001234567" className="text-muted-foreground hover:text-primary transition-colors">
+                      <a href="tel:+919603354488" className="text-muted-foreground hover:text-primary transition-colors">
                         9603354488
                       </a>
                     </div>
@@ -173,7 +185,7 @@ export default function ContactPage() {
                       <p className="font-medium mb-1">Headquarters</p>
                       <address className="not-italic text-muted-foreground">
                         3-104/43<br />
-                        Chavi, Manikonda, Hyderabad, 500089<br />
+                        Hyderabad, Telengana, 500089<br />
                         India
                       </address>
                     </div>
@@ -185,15 +197,14 @@ export default function ContactPage() {
                       <p className="font-medium mb-1">Business Hours</p>
                       <p className="text-muted-foreground">
                         Monday - Friday<br />
-                        9:00 AM - 5:00 PM PST
+                        9:00 AM - 5:00 PM IST
                       </p>
                     </div>
                   </div>
 
-                  <div className="pt-3">
+                  {/* <div className="pt-3">
                     <h3 className="font-medium mb-3">Connect With Us</h3>
                     <div className="flex space-x-3">
-                      {/* Social media icons with improved accessibility */}
                       <a
                         href="#"
                         className="h-9 w-9 flex items-center justify-center rounded-full bg-primary/15 text-primary hover:bg-primary hover:text-white transition-colors"
@@ -216,7 +227,7 @@ export default function ContactPage() {
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
                       </a>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </CardContent>
             </Card>
@@ -317,7 +328,7 @@ export default function ContactPage() {
                           name="companyName"
                           value={formData.companyName}
                           onChange={handleChange}
-                          placeholder="Legal Solutions Inc."
+                          placeholder="ABC Law Firm"
                           required
                           className={`border-muted-foreground/20 ${errors.companyName ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                           aria-invalid={errors.companyName ? "true" : "false"}
@@ -344,7 +355,7 @@ export default function ContactPage() {
                             aria-invalid={errors.country ? "true" : "false"}
                             aria-describedby={errors.country ? "country-error" : undefined}
                           >
-                            <SelectValue placeholder="Select..." />
+                            <SelectValue placeholder="Select country" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="usa">United States</SelectItem>
@@ -371,7 +382,7 @@ export default function ContactPage() {
                           name="jobTitle"
                           value={formData.jobTitle}
                           onChange={handleChange}
-                          placeholder="Legal Counsel"
+                          placeholder="Senior Associate"
                           required
                           className={`border-muted-foreground/20 ${errors.jobTitle ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                           aria-invalid={errors.jobTitle ? "true" : "false"}
@@ -398,7 +409,7 @@ export default function ContactPage() {
                             aria-invalid={errors.orgType ? "true" : "false"}
                             aria-describedby={errors.orgType ? "orgType-error" : undefined}
                           >
-                            <SelectValue placeholder="Select..." />
+                            <SelectValue placeholder="Select organization type" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="fullService">Full Service Law Firm</SelectItem>
@@ -415,19 +426,15 @@ export default function ContactPage() {
                       </div>
                       <div className="space-y-1.5">
                         <label htmlFor="teamSize" className="text-sm font-medium">
-                          Legal Team Size*
+                          Legal Team Size
                         </label>
                         <Select
                           name="teamSize"
                           onValueChange={(value) => handleSelectChange("teamSize", value)}
                           value={formData.teamSize}
                         >
-                          <SelectTrigger
-                            className={`border-muted-foreground/20 ${errors.teamSize ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                            aria-invalid={errors.teamSize ? "true" : "false"}
-                            aria-describedby={errors.teamSize ? "teamSize-error" : undefined}
-                          >
-                            <SelectValue placeholder="Select..." />
+                          <SelectTrigger className="border-muted-foreground/20">
+                            <SelectValue placeholder="Select team size (optional)" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="1-10">1-10</SelectItem>
@@ -437,9 +444,6 @@ export default function ContactPage() {
                             <SelectItem value="500+">500+</SelectItem>
                           </SelectContent>
                         </Select>
-                        {errors.teamSize && (
-                          <p id="teamSize-error" className="text-sm text-red-500 mt-1">{errors.teamSize}</p>
-                        )}
                       </div>
                     </div>
 
@@ -453,9 +457,35 @@ export default function ContactPage() {
                         value={formData.hearAbout}
                         onChange={handleChange}
                         placeholder="Let us know how you discovered Law Copilot"
-                        className="min-h-24 border-muted-foreground/20"
+                        className="min-h-20 border-muted-foreground/20"
                       />
                     </div>
+
+                    <div className="space-y-2">
+                      <label htmlFor="message" className="text-sm font-medium">
+                        Message*
+                      </label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        placeholder="Tell us about your legal needs, questions, or how we can help you..."
+                        className={`min-h-32 border-muted-foreground/20 ${errors.message ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                        required
+                        aria-invalid={errors.message ? "true" : "false"}
+                        aria-describedby={errors.message ? "message-error" : undefined}
+                      />
+                      {errors.message && (
+                        <p id="message-error" className="text-sm text-red-500 mt-1">{errors.message}</p>
+                      )}
+                    </div>
+
+                    {submitError && (
+                      <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md">
+                        {submitError}
+                      </div>
+                    )}
 
                     <div className="pt-2 sm:pt-3">
                       <p className="text-xs text-muted-foreground mb-4">

@@ -5,7 +5,8 @@ import { Separator } from "@/components/ui/separator";
 import { ROUTES_WITHOUT_FOOTER } from "@/constants";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Mail, Linkedin } from "lucide-react";
+import { Mail, Linkedin, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Footer = () => {
     const pathname = usePathname();
@@ -14,99 +15,151 @@ export const Footer = () => {
     if (shouldHideHeaderFooter) return null;
 
     return (
-        <footer id="footer" className="w-full bg-slate-50 dark:bg-slate-900/50 border-t border-border">
-            <div className="container py-12 mx-auto px-4 md:px-6">
-                <h2 className="text-xl md:text-2xl font-semibold text-primary mb-6">
-                    The Future of Law Is Here
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+        <footer id="footer" className="relative w-full overflow-hidden bg-background border-t border-border dark:border-white/10">
+            {/* Subtle background */}
+            <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
+                <div className="absolute left-1/4 top-0 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
+                <div className="absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-gradient-to-tl from-foreground/[0.015] to-transparent blur-3xl dark:from-white/[0.015]"></div>
+            </div>
+
+            <div className="container relative z-10 py-16 mx-auto px-6 md:px-8">
+                {/* Top CTA Section */}
+                <div className="mb-16 text-center">
+                    <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-4">
+                        Ready to Transform Your Legal Practice?
+                    </h2>
+                    <p className="text-muted-foreground dark:text-white/70 mb-8 max-w-2xl mx-auto">
+                        Join hundreds of legal professionals already using Law Copilot to work faster and smarter.
+                    </p>
+                    <Button
+                        size="lg"
+                        className="rounded-full bg-foreground hover:bg-foreground/90 dark:bg-white dark:hover:bg-white/90 text-background dark:text-foreground font-medium px-8 shadow-lg hover:shadow-xl transition-all group"
+                        asChild
+                    >
+                        <Link href="https://app.lawcopilot.io/signup">
+                            Get Started Free
+                            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </Link>
+                    </Button>
+                </div>
+
+                <Separator className="mb-12 bg-border dark:bg-white/10" />
+
+                {/* Main Footer Content */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 mb-12">
+                    {/* Brand Section */}
                     <div className="md:col-span-4">
-                        <div className="flex items-center mb-4">
+                        <div className="flex items-center mb-6">
                             <Logo type="LOGO_ONLY" />
-                            <span className="ml-2 font-bold text-xl">Law Copilot</span>
+                            <span className="ml-3 font-bold text-xl text-foreground dark:text-white">Law Copilot</span>
                         </div>
 
-                        <p className="text-sm text-muted-foreground mb-6 max-w-md">
-                            Your AI-powered legal assistant. Get instant answers to legal questions, document drafting assistance, and case law research in seconds.
+                        <p className="text-sm text-muted-foreground dark:text-white/60 mb-6 leading-relaxed max-w-sm">
+                            AI-powered legal intelligence built specifically for Indian legal practice. Research faster, draft smarter, and deliver exceptional outcomes.
                         </p>
+
+                        {/* Social Links */}
+                        <div className="flex items-center gap-3">
+                            <Link 
+                                href="https://www.linkedin.com/company/lawcopilot"
+                                target="_blank"
+                                rel="noopener noreferrer" 
+                                className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted dark:bg-white/[0.05] hover:bg-muted/80 dark:hover:bg-white/[0.08] transition-colors group"
+                            >
+                                <Linkedin className="h-5 w-5 text-muted-foreground dark:text-white/60 group-hover:text-foreground dark:group-hover:text-white transition-colors" />
+                            </Link>
+                            <Link 
+                                href="mailto:hello@lawcopilot.io" 
+                                className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted dark:bg-white/[0.05] hover:bg-muted/80 dark:hover:bg-white/[0.08] transition-colors group"
+                            >
+                                <Mail className="h-5 w-5 text-muted-foreground dark:text-white/60 group-hover:text-foreground dark:group-hover:text-white transition-colors" />
+                            </Link>
+                        </div>
                     </div>
 
+                    {/* Links Grid */}
                     <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {/* Products */}
                         <div className="flex flex-col gap-4">
-                            <h3 className="font-bold text-lg">Explore</h3>
+                            <h3 className="font-semibold text-base text-foreground dark:text-white mb-2">Products</h3>
                             <div className="flex flex-col gap-3">
-                                <Link href="/research-engine" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                <Link href="/products/lawfirms" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
+                                    For Law Firms
+                                </Link>
+                                <Link href="/products/lawyers" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
+                                    For Lawyers
+                                </Link>
+                                <Link href="/products/everyone" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
+                                    For Everyone
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Features */}
+                        <div className="flex flex-col gap-4">
+                            <h3 className="font-semibold text-base text-foreground dark:text-white mb-2">Features</h3>
+                            <div className="flex flex-col gap-3">
+                                <Link href="/research-engine" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
                                     Research Engine
                                 </Link>
-                                <Link href="/case-analytics" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                <Link href="/case-analytics" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
                                     Case Analytics
                                 </Link>
-                                <Link href="/translation" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                <Link href="/translation" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
                                     Legal Translation
                                 </Link>
-                                <Link href="/document-drafting" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                <Link href="/document-drafting" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
                                     Document Drafting
                                 </Link>
                             </div>
                         </div>
 
+                        {/* Company */}
                         <div className="flex flex-col gap-4">
-                            <h3 className="font-bold text-lg">Company</h3>
+                            <h3 className="font-semibold text-base text-foreground dark:text-white mb-2">Company</h3>
                             <div className="flex flex-col gap-3">
-                                <Link href="/about" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                <Link href="/about" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
                                     About Us
                                 </Link>
-                                <Link href="/contact" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                <Link href="/contact" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
                                     Contact Us
                                 </Link>
-                                {/* <Link href="/careers" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
-                                    Careers
-                                </Link> */}
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-4">
-                            <h3 className="font-bold text-lg">Resources</h3>
-                            <div className="flex flex-col gap-3">
-                                <Link href="/privacy-policy" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
-                                    Privacy Policy
-                                </Link>
-                                <Link href="/terms" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
-                                    Terms of Service
-                                </Link>
-                                {/* <Link href="/blog" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                <Link href="/blog" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
                                     Blog
-                                </Link> */}
-                                <Link href="/faq" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
+                                </Link>
+                                <Link href="/faq" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
                                     FAQ
                                 </Link>
                             </div>
                         </div>
 
+                        {/* Legal */}
                         <div className="flex flex-col gap-4">
-                            <h3 className="font-bold text-lg">Connect</h3>
+                            <h3 className="font-semibold text-base text-foreground dark:text-white mb-2">Legal</h3>
                             <div className="flex flex-col gap-3">
-                                <Link href="https://www.linkedin.com/company/lawcopilot" className="flex items-center gap-2 text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
-                                    <Linkedin className="h-4 w-4 text-primary" />
-                                    <span>LinkedIn</span>
+                                <Link href="/privacy-policy" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
+                                    Privacy Policy
                                 </Link>
-                                <Link href="mailto:hello@lawcopilot.io" className="flex items-center gap-2 text-sm opacity-70 hover:opacity-100 hover:text-primary transition-colors">
-                                    <Mail className="h-4 w-4 text-primary" />
-                                    <span>Email Us</span>
+                                <Link href="/terms" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
+                                    Terms of Service
                                 </Link>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <Separator className="mt-6" />
+                <Separator className="mb-8 bg-border dark:bg-white/10" />
 
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="py-6 flex justify-center items-center">
-                    <p className="text-sm text-muted-foreground">
+                {/* Bottom Bar */}
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p className="text-sm text-muted-foreground dark:text-white/50">
                         © 2025 Law Copilot. All rights reserved.
                     </p>
+                    <div className="flex items-center gap-6 text-xs text-muted-foreground dark:text-white/40">
+                        <span>Made in India 🇮🇳</span>
+                        <span className="hidden md:inline">•</span>
+                        <span>For Indian Legal Professionals</span>
+                    </div>
                 </div>
             </div>
         </footer>

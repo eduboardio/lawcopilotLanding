@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import BlurFade from "@/components/ui/blur-fade";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, ArrowRight, Clock, Calendar, ChevronRight, ArrowUpRight, BookOpen } from "lucide-react";
+import { Search, Clock, Calendar, ChevronRight, ArrowUpRight, BookOpen } from "lucide-react";
 
 interface BlogCard {
   id: string;
@@ -390,7 +390,7 @@ export default function BlogPage() {
               )}>
                 Featured Products
               </h2>
-              <Link 
+              {/* <Link 
                 href="/products" 
                 className={cn(
                   "flex items-center hover:opacity-80 transition-colors font-medium text-sm sm:text-base",
@@ -399,7 +399,7 @@ export default function BlogPage() {
               >
                 View all products
                 <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-              </Link>
+              </Link> */}
             </div>
             
             {/* Bento Grid Layout for Featured Products */}

@@ -2,19 +2,20 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Upload, BarChart2, FileText, AlertTriangle, TrendingUp, Scale, Clock } from "lucide-react";
+import { BarChart2, AlertTriangle, TrendingUp, Scale } from "lucide-react";
+import Link from "next/link";
 
 export default function CaseAnalytics() {
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  
-  const handleUpload = () => {
-    setIsAnalyzing(true);
-    // Simulate analysis delay
-    setTimeout(() => setIsAnalyzing(false), 2000);
-  };
+  const [isAnalyzing] = useState(false);
+
+  // Uncomment when upload feature is ready
+  // const handleUpload = () => {
+  //   setIsAnalyzing(true);
+  //   // Simulate analysis delay
+  //   setTimeout(() => setIsAnalyzing(false), 2000);
+  // };
 
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 lg:py-10">
@@ -34,13 +35,13 @@ export default function CaseAnalytics() {
                 <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
                   Our AI will analyze your case files and provide comprehensive insights, risk assessment, and outcome predictions.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                {/* <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Button onClick={handleUpload} disabled={isAnalyzing} className="w-full sm:w-auto">
                     <Upload className="mr-2 h-4 w-4" />
                     {isAnalyzing ? "Analyzing..." : "Upload Files"}
                   </Button>
                   <Button variant="outline" className="w-full sm:w-auto">View Demo</Button>
-                </div>
+                </div> */}
               </div>
               <div className="bg-slate-50 p-4 sm:p-6 rounded-lg flex flex-col justify-center items-center mt-4 sm:mt-0">
                 {isAnalyzing ? (
@@ -77,7 +78,7 @@ export default function CaseAnalytics() {
                 </p>
               </CardContent>
             </Card>
-            
+
             <Card>
               <CardHeader className="pb-2 px-4 sm:px-6 pt-4 sm:pt-6">
                 <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-primary mb-2" />
@@ -89,7 +90,7 @@ export default function CaseAnalytics() {
                 </p>
               </CardContent>
             </Card>
-            
+
             <Card className="sm:col-span-2 md:col-span-1">
               <CardHeader className="pb-2 px-4 sm:px-6 pt-4 sm:pt-6">
                 <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary mb-2" />
@@ -104,7 +105,7 @@ export default function CaseAnalytics() {
           </div>
         </div>
 
-        <Tabs defaultValue="demo" className="mb-6 sm:mb-0">
+        {/* <Tabs defaultValue="demo" className="mb-6 sm:mb-0">
           <TabsList className="grid grid-cols-2 mb-4 sm:mb-8 w-full">
             <TabsTrigger value="demo" className="text-sm sm:text-base">Demo Analysis</TabsTrigger>
             <TabsTrigger value="testimonials" className="text-sm sm:text-base">Client Success</TabsTrigger>
@@ -201,17 +202,21 @@ export default function CaseAnalytics() {
               </Card>
             </div>
           </TabsContent>
-        </Tabs>
+        </Tabs> */}
 
         <div className="mt-10 sm:mt-16 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Ready to Transform Your Case Strategy?</h2>
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-2">
+            <Link href="/contact">
             <Button size="lg" className="w-full sm:w-auto py-4 sm:py-5">
-              Start Your Free Trial
+              Request a demo
             </Button>
-            <Button variant="outline" size="lg" className="w-full sm:w-auto py-4 sm:py-5">
-              Schedule a Demo
-            </Button>
+            </Link>
+            {/* <Link href="/contact">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto py-4 sm:py-5">
+                Schedule a Demo
+              </Button>
+            </Link> */}
           </div>
         </div>
       </div>

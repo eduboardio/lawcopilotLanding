@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Search, BookOpen, FileText, Clock, ArrowRight, Filter, SlidersHorizontal, BookMarked, SortAsc } from "lucide-react";
+import Link from "next/link";
 
 interface SearchResult {
   id: number;
@@ -24,31 +25,31 @@ export default function ResearchEngine() {
 
   const handleSearch = () => {
     if (!searchQuery.trim()) return;
-    
+
     setIsSearching(true);
     // Simulate search delay
     setTimeout(() => {
       setIsSearching(false);
       setSearchResults([
-        { 
-          id: 1, 
-          title: "Smith v. Johnson (2023)", 
+        {
+          id: 1,
+          title: "Smith v. Johnson (2023)",
           excerpt: "The court ruled that in cases of contractual disputes where electronic signatures are contested, the burden of proof lies with the party seeking to enforce the contract...",
           jurisdiction: "Federal",
           relevance: 98,
           date: "Mar 15, 2023"
         },
-        { 
-          id: 2, 
-          title: "Hernandez v. City of Oakland (2022)", 
+        {
+          id: 2,
+          title: "Hernandez v. City of Oakland (2022)",
           excerpt: "This case established precedent regarding municipal liability in cases where administrative oversight resulted in procedural violations...",
           jurisdiction: "California",
           relevance: 92,
           date: "Nov 8, 2022"
         },
-        { 
-          id: 3, 
-          title: "United States v. Donovan (2021)", 
+        {
+          id: 3,
+          title: "United States v. Donovan (2021)",
           excerpt: "The Supreme Court clarified the standards for evidence admissibility when digital forensics are involved in warrant execution...",
           jurisdiction: "Supreme Court",
           relevance: 87,
@@ -85,27 +86,31 @@ export default function ResearchEngine() {
 
         <Card className="mb-8 md:mb-12">
           <CardHeader>
-            <CardTitle>Find Relevant Legal Precedents</CardTitle>
+            <CardTitle className="flex justify-between items-center">
+              Find Relevant Legal Precedents
+              <Badge variant="secondary" className="text-xs">Citation Analysis</Badge>
+            </CardTitle>
             <CardDescription>Enter your search query and our AI will find the most relevant cases</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col sm:flex-row gap-2">
-              <Input 
-                placeholder="Describe your legal question or enter case details..." 
+              <Input
+                placeholder="Describe your legal question or enter case details..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="flex-1"
+                disabled
               />
-              <Button 
+              <Button
                 onClick={handleSearch}
-                disabled={isSearching || !searchQuery.trim()}
+                disabled={true}
                 className="w-full sm:w-auto"
               >
                 {isSearching ? "Searching..." : "Search"}
                 {!isSearching && <Search className="ml-2 h-4 w-4" />}
               </Button>
             </div>
-            
+
             <div className="mt-6 overflow-x-auto">
               <Tabs defaultValue="all">
                 <TabsList className="w-full grid grid-cols-4 min-w-[400px]">
@@ -116,7 +121,7 @@ export default function ResearchEngine() {
                 </TabsList>
               </Tabs>
             </div>
-            
+
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4 gap-3">
               <p className="text-sm text-muted-foreground">Advanced filters:</p>
               <div className="flex flex-wrap gap-2">
@@ -134,10 +139,6 @@ export default function ResearchEngine() {
                 </Button>
               </div>
             </div>
-            
-            <div className="w-full mt-4 flex justify-center">
-              <Badge variant="secondary" className="text-xs">Coming Soon: Citation Analysis</Badge>
-            </div>
           </CardContent>
           <CardFooter className="flex-col items-start">
             {searchResults.length > 0 && (
@@ -146,7 +147,7 @@ export default function ResearchEngine() {
                   <h3 className="font-medium">Search Results</h3>
                   <span className="text-sm text-muted-foreground">{searchResults.length} results found</span>
                 </div>
-                
+
                 <div className="space-y-4 md:space-y-6">
                   {searchResults.map((result) => (
                     <div key={result.id} className="border rounded-lg p-3 md:p-4 hover:border-primary transition-colors">
@@ -186,7 +187,7 @@ export default function ResearchEngine() {
                 </p>
               </CardContent>
             </Card>
-            
+
             <Card className="h-full">
               <CardHeader className="pb-2">
                 <BookOpen className="h-5 w-5 md:h-6 md:w-6 text-primary mb-2" />
@@ -198,7 +199,7 @@ export default function ResearchEngine() {
                 </p>
               </CardContent>
             </Card>
-            
+
             <Card className="h-full">
               <CardHeader className="pb-2">
                 <FileText className="h-5 w-5 md:h-6 md:w-6 text-primary mb-2" />
@@ -214,7 +215,7 @@ export default function ResearchEngine() {
         </div>
 
         <div className="bg-primary/5 p-4 md:p-8 rounded-lg mb-8 md:mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid gap-6 md:gap-8">
             <div>
               <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Supported Research Materials</h2>
               <p className="text-muted-foreground mb-4 md:mb-6">
@@ -247,16 +248,16 @@ export default function ResearchEngine() {
                 </div>
               </div>
             </div>
-            <div className="mt-4 md:mt-0">
+            {/* <div className="mt-4 md:mt-0">
               <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Customer Success</h2>
               <blockquote className="italic border-l-4 pl-4 border-primary mb-4">
-              &quot;Law Copilot&apos;s research engine found a precedent that completely changed our approach to a difficult case. What would have taken days of research was done in minutes.&quot;
+                &quot;Law Copilot&apos;s research engine found a precedent that completely changed our approach to a difficult case. What would have taken days of research was done in minutes.&quot;
               </blockquote>
               <div className="mt-2">
                 <p className="font-medium">Michael Chen</p>
                 <p className="text-sm text-muted-foreground">Partner, Chen & Associates</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -266,12 +267,16 @@ export default function ResearchEngine() {
             Join thousands of legal professionals saving 70% of their research time.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" className="w-full sm:w-auto">
-              Start Free Trial
-            </Button>
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">
-              Schedule Demo
-            </Button>
+            <Link href="/contact">
+              <Button size="lg" className="w-full sm:w-auto">
+                Request a demo
+              </Button>
+            </Link>
+            {/* <Link href="/contact">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                Schedule Demo
+              </Button>
+            </Link> */}
           </div>
         </div>
       </div>
