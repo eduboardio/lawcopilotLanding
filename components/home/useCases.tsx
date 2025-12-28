@@ -156,7 +156,7 @@ export const UseCases = () => {
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
             <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
-            <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">Who It's For</span>
+            <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">Who It&apos;s For</span>
           </div>
           
           <h2 className="mb-4 text-4xl font-bold tracking-tight md:mb-6 md:text-5xl lg:text-6xl text-foreground dark:text-white">

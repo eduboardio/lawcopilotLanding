@@ -55,7 +55,7 @@ export const ConversionCTA = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mx-auto mb-12 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl dark:text-white/70"
           >
-            See how Law Copilot helps lawyers, legal teams, and businesses draft faster, research smarter, and work with confidence — built specifically for India's legal ecosystem.
+            See how Law Copilot helps lawyers, legal teams, and businesses draft faster, research smarter, and work with confidence — built specifically for India&apos;s legal ecosystem.
           </motion.p>
 
           {/* CTA Buttons */}

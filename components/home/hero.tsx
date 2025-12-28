@@ -132,7 +132,7 @@ export const Hero = () => {
         {/* Trust badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 dark:bg-white/[0.05] border border-border dark:border-white/10 backdrop-blur-sm mb-8 group hover:bg-muted dark:hover:bg-white/[0.08] transition-all duration-300">
           <div className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></div>
-          <span className="text-xs font-medium text-foreground/80 dark:text-white/80 tracking-wide">Trusted by India's leading law firms</span>
+          <span className="text-xs font-medium text-foreground/80 dark:text-white/80 tracking-wide">Trusted by India&apos;s leading law firms</span>
         </div>
 
         <div className="text-center max-w-5xl mx-auto space-y-8">

@@ -13,8 +13,6 @@ import {
   Sparkles,
   Check
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 interface FeatureShowcase {
   badge: string;
@@ -32,7 +30,7 @@ const ResearchPreview = () => (
       <span className="font-medium">Natural language query</span>
     </div>
     <div className="rounded-lg bg-muted/50 dark:bg-white/[0.03] p-3 font-mono text-xs text-foreground/90 dark:text-white/90">
-      "Section 73 remedies for breach"
+      &quot;Section 73 remedies for breach&quot;
     </div>
     <div className="space-y-2 text-xs">
       <div className="flex items-start gap-2">
@@ -139,11 +137,11 @@ const TranslatorPreview = () => (
     <div className="space-y-3 text-xs">
       <div className="rounded-lg bg-muted/30 dark:bg-white/[0.02] p-3">
         <p className="mb-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground dark:text-white/50">Source</p>
-        <p className="text-foreground dark:text-white">"Breach of contract under Section 73"</p>
+        <p className="text-foreground dark:text-white">&quot;Breach of contract under Section 73&quot;</p>
       </div>
       <div className="rounded-lg bg-muted/30 dark:bg-white/[0.02] p-3">
         <p className="mb-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground dark:text-white/50">Translation</p>
-        <p className="text-foreground dark:text-white">"धारा 73 के तहत अनुबंध का उल्लंघन"</p>
+        <p className="text-foreground dark:text-white">&quot;धारा 73 के तहत अनुबंध का उल्लंघन&quot;</p>
       </div>
     </div>
     <p className="text-[10px] italic text-muted-foreground dark:text-white/50">Legal terminology preserved with contextual accuracy</p>

@@ -125,7 +125,7 @@ export const ProductPreview = () => {
                         </div>
                         <div className="flex-1 pt-1">
                           <div className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                            Hello! I'm Law Copilot, your AI legal assistant. I can help you draft contracts, research case law, and answer legal questions specific to Indian jurisdiction.
+                            Hello! I&apos;m Law Copilot, your AI legal assistant. I can help you draft contracts, research case law, and answer legal questions specific to Indian jurisdiction.
                           </div>
                         </div>
                       </div>
@@ -207,7 +207,7 @@ export const ProductPreview = () => {
                             </div>
                             <div className="flex-1 pt-1 space-y-4">
                               <div className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                                I've drafted a comprehensive 11-month residential lease agreement for Delhi with all the clauses you requested. The document includes maintenance responsibilities, security deposit terms, and early termination provisions compliant with Indian rental laws.
+                                I&apos;ve drafted a comprehensive 11-month residential lease agreement for Delhi with all the clauses you requested. The document includes maintenance responsibilities, security deposit terms, and early termination provisions compliant with Indian rental laws.
                               </div>
                               
                               {/* Document artifact card */}
@@ -364,24 +364,24 @@ export const ProductPreview = () => {
 
                             <div className="space-y-4 text-sm leading-relaxed">
                               <p>
-                                This Lease Agreement ("<strong>Agreement</strong>") is entered into on this ____ day of __________, 20___ at New Delhi.
+                                This Lease Agreement (&quot;<strong>Agreement</strong>&quot;) is entered into on this ____ day of __________, 20___ at New Delhi.
                               </p>
 
                               <div className="space-y-2">
                                 <p className="font-semibold">BETWEEN:</p>
                                 <p className="pl-4">
-                                  <strong>LESSOR</strong> (Landlord): _____________________, residing at _____________________, New Delhi, hereinafter referred to as the "Lessor" (which expression shall, unless repugnant to the context, include their heirs, successors, and assigns) of the ONE PART;
+                                  <strong>LESSOR</strong> (Landlord): _____________________, residing at _____________________, New Delhi, hereinafter referred to as the &quot;Lessor&quot; (which expression shall, unless repugnant to the context, include their heirs, successors, and assigns) of the ONE PART;
                                 </p>
                                 <p className="text-center font-semibold py-2">AND</p>
                                 <p className="pl-4">
-                                  <strong>LESSEE</strong> (Tenant): _____________________, residing at _____________________, hereinafter referred to as the "Lessee" (which expression shall, unless repugnant to the context, include their heirs, successors, and assigns) of the OTHER PART.
+                                  <strong>LESSEE</strong> (Tenant): _____________________, residing at _____________________, hereinafter referred to as the &quot;Lessee&quot; (which expression shall, unless repugnant to the context, include their heirs, successors, and assigns) of the OTHER PART.
                                 </p>
                               </div>
 
                               <div className="space-y-3 pt-4">
                                 <h3 className="font-bold text-base">1. PROPERTY DETAILS</h3>
                                 <p className="pl-4">
-                                  The Lessor hereby agrees to lease the residential property bearing address: _____________________, New Delhi - ______ (hereinafter referred to as the "<strong>Premises</strong>") to the Lessee for residential purposes only.
+                                  The Lessor hereby agrees to lease the residential property bearing address: _____________________, New Delhi - ______ (hereinafter referred to as the &quot;<strong>Premises</strong>&quot;) to the Lessee for residential purposes only.
                                 </p>
                               </div>
 
@@ -427,7 +427,7 @@ export const ProductPreview = () => {
                                   5.1 Either party may terminate this Agreement by providing <strong>two (2) months</strong> prior written notice to the other party.
                                 </p>
                                 <p className="pl-4">
-                                  5.2 In case of early termination by the Lessee without proper notice, an amount equivalent to two months' rent shall be forfeited from the security deposit.
+                                  5.2 In case of early termination by the Lessee without proper notice, an amount equivalent to two months rent shall be forfeited from the security deposit.
                                 </p>
                                 <p className="pl-4">
                                   5.3 The Lessor may terminate this Agreement immediately if the Lessee violates any terms of this Agreement or uses the Premises for illegal purposes.
@@ -442,12 +442,12 @@ export const ProductPreview = () => {
                                 <div className="flex justify-between pt-8">
                                   <div className="space-y-1">
                                     <div className="border-t border-neutral-900 dark:border-neutral-100 w-48 pt-1">
-                                      <p className="text-xs font-semibold">LESSOR'S SIGNATURE</p>
+                                      <p className="text-xs font-semibold">LESSOR&apos;S SIGNATURE</p>
                                     </div>
                                   </div>
                                   <div className="space-y-1">
                                     <div className="border-t border-neutral-900 dark:border-neutral-100 w-48 pt-1">
-                                      <p className="text-xs font-semibold">LESSEE'S SIGNATURE</p>
+                                      <p className="text-xs font-semibold">LESSEE&apos;S SIGNATURE</p>
                                     </div>
                                   </div>
                                 </div>
