@@ -463,23 +463,6 @@ export const ProductPreview = () => {
             </div>
           </div>
         </motion.div>
-
-        {/* Bottom CTA */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-12"
-        >
-          <p className="text-neutral-600 dark:text-neutral-400 text-sm mb-4">Ready to transform your legal workflow?</p>
-          <Button
-            size="lg"
-            className="rounded-full bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:hover:bg-neutral-200 text-white dark:text-neutral-900 font-medium px-8"
-          >
-            Get Started Free
-          </Button>
-        </motion.div> */}
       </div>
     </section>
   );

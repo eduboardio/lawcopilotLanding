@@ -126,7 +126,7 @@ export const Hero = () => {
       className="w-full min-h-screen flex flex-col justify-center relative overflow-hidden bg-background"
     >
       <BackgroundElements />
-      <FloatingCard />
+      {/* <FloatingCard /> */}
       
       <div className="container mx-auto relative z-10 px-6 py-32 flex flex-col items-center">
         {/* Trust badge */}
