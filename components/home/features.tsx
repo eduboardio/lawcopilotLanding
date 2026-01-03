@@ -45,8 +45,7 @@ export default function Features() {
             Built specifically for Indian legal practice—from drafting to research, analysis to translation. See Law Copilot in action.
           </p>
         </motion.div>
-
-        {/* Feature Videos */}
+        
         <div className="space-y-0">
           <DraftingFeature />
           <AnalysisFeature />
