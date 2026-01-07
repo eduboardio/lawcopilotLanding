@@ -2,6 +2,7 @@
 
 import { lazy, Suspense, ComponentType } from "react";
 import BlurFade from "@/components/ui/blur-fade";
+// import { GrainyTexture } from "@/components/home/GrainyTexture";
 
 interface SectionConfig {
   component: ComponentType;
@@ -27,10 +28,6 @@ const UseCases = lazy(() =>
   import("@/components/home/useCases").then(module => ({ default: module.UseCases }))
 );
 
-// const SecurityTrust = lazy(() =>
-//   import("@/components/home/SecurityTrust").then(module => ({ default: module.SecurityTrust }))
-// );
-
 const FoundersSection = lazy(() =>
   import("@/components/home/FoundersSection").then(module => ({ default: module.FoundersSection }))
 );
@@ -39,18 +36,22 @@ const SocialProof = lazy(() =>
   import("@/components/home/SocialProof").then(module => ({ default: module.SocialProof }))
 );
 
+const ComplianceBadges = lazy(() =>
+  import("@/components/home/ComplianceBadges").then(module => ({ default: module.ComplianceBadges }))
+);
+
 const ConversionCTA = lazy(() =>
   import("@/components/home/ConversionCTA").then(module => ({ default: module.ConversionCTA }))
 );
 
 const sections: SectionConfig[] = [
   { component: Hero, priority: true },
-  { component: Features, priority: true }, // Features now contains all product videos
+  { component: Features, priority: true },
   { component: Benefits },
   { component: UseCases },
-  // { component: SecurityTrust },
   { component: FoundersSection },
   { component: SocialProof },
+  { component: ComplianceBadges },
   { component: ConversionCTA },
 ];
 
@@ -60,21 +61,26 @@ export default function Home() {
   return (
     <div className="w-full overflow-hidden">
       {sections.map(({ component: Component, priority }, index) => (
-        <BlurFade
-          key={index}
-          delay={BLUR_FADE_DELAY * (index + 1)}
-          inView
-        >
-          <div className="w-full px-4 sm:px-0">
-            {priority ? (
-              <Component />
-            ) : (
-              <Suspense fallback={<SectionPlaceholder />}>
+        <div key={index}>
+          <BlurFade
+            delay={BLUR_FADE_DELAY * (index + 1)}
+            inView
+          >
+            <div className="w-full px-4 sm:px-0">
+              {priority ? (
                 <Component />
-              </Suspense>
-            )}
-          </div>
-        </BlurFade>
+              ) : (
+                <Suspense fallback={<SectionPlaceholder />}>
+                  <Component />
+                </Suspense>
+              )}
+            </div>
+          </BlurFade>
+          
+          {/* Add GrainyTexture divider */}
+          {/* {index === 1 && <GrainyTexture />} */}
+          {/* {index === 4 && <GrainyTexture />} */}
+        </div>
       ))}
     </div>
   );

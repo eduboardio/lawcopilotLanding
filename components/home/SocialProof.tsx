@@ -40,7 +40,7 @@ export const SocialProof = () => {
     <section className="relative w-full overflow-hidden bg-background py-20 md:py-28">
       {/* Minimal background */}
       <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
-<div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
       </div>
 
       <div className="container relative z-10 mx-auto max-w-7xl px-6">
@@ -68,9 +68,9 @@ export const SocialProof = () => {
           </p>
         </motion.div>
 
-        {/* Stats Grid */}
+        {/* Stats Grid - Fixed gaps */}
         <div className="mx-auto max-w-6xl">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((stat, idx) => {
               const Icon = stat.icon;
               return (
@@ -83,14 +83,14 @@ export const SocialProof = () => {
                   className="group relative"
                 >
                   {/* Card */}
-                  <div className="relative h-full rounded-2xl border border-border bg-card/50 p-8 backdrop-blur-sm transition-all duration-300 hover:border-border/80 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-white/20">
+                  <div className="relative h-full rounded-xl border border-border bg-card/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-border/80 hover:shadow-lg dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-white/20">
                     {/* Icon */}
-                    <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
+                    <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
                       <Icon className="h-6 w-6 text-foreground dark:text-white" />
                     </div>
 
                     {/* Value */}
-                    <div className="mb-2 text-4xl font-bold tracking-tight text-foreground dark:text-white">
+                    <div className="mb-2 text-3xl font-bold tracking-tight text-foreground md:text-4xl dark:text-white">
                       {stat.value}
                     </div>
 
@@ -106,7 +106,7 @@ export const SocialProof = () => {
                   </div>
 
                   {/* Subtle glow on hover */}
-                  <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-foreground/[0.03] to-transparent opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100 dark:from-white/[0.03]"></div>
+                  <div className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-br from-foreground/[0.03] to-transparent opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100 dark:from-white/[0.03]"></div>
                 </motion.div>
               );
             })}

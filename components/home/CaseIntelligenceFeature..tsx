@@ -35,23 +35,18 @@ export function CaseIntelligenceFeature() {
     isRunningRef.current = true;
 
     while (true) {
-      // Reset to beginning
       setCurrentStep('idle');
       await wait(1500);
 
-      // Show user message
       setCurrentStep('user');
       await wait(2000);
 
-      // Show thinking
       setCurrentStep('thinking');
       await wait(1800);
 
-      // Show assistant response
       setCurrentStep('assistant');
       await wait(5000);
 
-      // Fade to beginning
       setCurrentStep('idle');
       await wait(800);
     }
@@ -59,7 +54,6 @@ export function CaseIntelligenceFeature() {
 
   useEffect(() => {
     runAnimation();
-
     return () => {
       isRunningRef.current = false;
       clearAllTimeouts();
@@ -76,10 +70,10 @@ export function CaseIntelligenceFeature() {
 
   return (
     <div className="w-full py-16 md:py-24">
-      <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
-                {/* Video/Animation Section */}
-        <div className="flex-1">
+        {/* Video/Animation Section - Now Wider */}
+        <div className="flex-1 w-full">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -87,22 +81,23 @@ export function CaseIntelligenceFeature() {
             transition={{ duration: 0.8, delay: 0.2 }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="relative"
+            className="relative w-full"
           >
             <div className="absolute -inset-4 bg-gradient-to-r from-neutral-200/50 via-neutral-300/50 to-neutral-200/50 dark:from-neutral-800/50 dark:via-neutral-700/50 dark:to-neutral-800/50 rounded-3xl blur-3xl opacity-50"></div>
 
-            <div className="relative bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-2xl">
+            {/* Wider rectangular container */}
+            <div className="relative bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-2xl w-full max-w-5xl mx-auto">
               <motion.div
                 initial={false}
                 animate={{ opacity: 1 }}
-                className="h-[700px] flex flex-col"
+                className="h-[700px] w-full flex flex-col"
               >
                 {/* Case Header */}
                 <div className="border-b border-neutral-200 dark:border-neutral-800 px-6 py-4 bg-white dark:bg-neutral-950">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center">
-                        <Briefcase className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                      <div className="w-10 h-10 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
+                        <Briefcase className="w-5 h-5 text-neutral-900 dark:text-neutral-100" />
                       </div>
                       <div>
                         <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
@@ -114,10 +109,10 @@ export function CaseIntelligenceFeature() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
+                      <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-200 dark:border-neutral-700">
                         Active
                       </span>
-                      <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
+                      <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-200 dark:border-neutral-700">
                         Medium Priority
                       </span>
                     </div>
@@ -126,7 +121,7 @@ export function CaseIntelligenceFeature() {
 
                 {/* Chat Messages */}
                 <div className="flex-1 overflow-y-auto px-8 py-8">
-                  <div className="max-w-3xl mx-auto space-y-6">
+                  <div className="max-w-4xl mx-auto space-y-6">
                     {/* Welcome message */}
                     <div className="flex items-start gap-4">
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 flex items-center justify-center flex-shrink-0">
@@ -218,61 +213,61 @@ export function CaseIntelligenceFeature() {
                             I&apos;ve completed a comprehensive analysis of all 30 contracts. Here&apos;s the executive summary:
                           </motion.div>
 
-                          {/* Summary Cards */}
+                          {/* Summary Cards - Neutral Grid */}
                           <motion.div
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.4 }}
                             className="grid grid-cols-2 gap-3"
                           >
-                            <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
+                            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-3">
                               <div className="flex items-center gap-2 mb-1">
-                                <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400" />
-                                <span className="text-xs font-semibold text-red-900 dark:text-red-100">
+                                <AlertTriangle className="w-4 h-4 text-neutral-900 dark:text-neutral-100" />
+                                <span className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
                                   Critical Risks
                                 </span>
                               </div>
-                              <p className="text-2xl font-bold text-red-700 dark:text-red-300">7</p>
-                              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">7</p>
+                              <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
                                 Require immediate attention
                               </p>
                             </div>
 
-                            <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
+                            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-3">
                               <div className="flex items-center gap-2 mb-1">
-                                <FileText className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                                <span className="text-xs font-semibold text-amber-900 dark:text-amber-100">
+                                <FileText className="w-4 h-4 text-neutral-900 dark:text-neutral-100" />
+                                <span className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
                                   Documents Reviewed
                                 </span>
                               </div>
-                              <p className="text-2xl font-bold text-amber-700 dark:text-amber-300">30</p>
-                              <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
+                              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">30</p>
+                              <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
                                 Across 15 categories
                               </p>
                             </div>
 
-                            <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
+                            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-3">
                               <div className="flex items-center gap-2 mb-1">
-                                <DollarSign className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                                <span className="text-xs font-semibold text-blue-900 dark:text-blue-100">
+                                <DollarSign className="w-4 h-4 text-neutral-900 dark:text-neutral-100" />
+                                <span className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
                                   Total Exposure
                                 </span>
                               </div>
-                              <p className="text-2xl font-bold text-blue-700 dark:text-blue-300">₹45Cr</p>
-                              <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">₹45Cr</p>
+                              <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
                                 Across all agreements
                               </p>
                             </div>
 
-                            <div className="bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800 rounded-lg p-3">
+                            <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-3">
                               <div className="flex items-center gap-2 mb-1">
-                                <Users className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                                <span className="text-xs font-semibold text-purple-900 dark:text-purple-100">
+                                <Users className="w-4 h-4 text-neutral-900 dark:text-neutral-100" />
+                                <span className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
                                   Key Parties
                                 </span>
                               </div>
-                              <p className="text-2xl font-bold text-purple-700 dark:text-purple-300">12</p>
-                              <p className="text-xs text-purple-600 dark:text-purple-400 mt-1">
+                              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">12</p>
+                              <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
                                 Counterparties involved
                               </p>
                             </div>
@@ -290,19 +285,19 @@ export function CaseIntelligenceFeature() {
                             </h4>
                             <div className="space-y-2">
                               <div className="flex items-start gap-2 text-sm">
-                                <span className="text-red-500 font-bold mt-0.5">•</span>
+                                <span className="text-neutral-900 dark:text-neutral-100 font-bold mt-0.5">•</span>
                                 <span className="text-neutral-700 dark:text-neutral-300">
                                   <strong>Change of Control clauses</strong> in 8 agreements may trigger termination rights
                                 </span>
                               </div>
                               <div className="flex items-start gap-2 text-sm">
-                                <span className="text-amber-500 font-bold mt-0.5">•</span>
+                                <span className="text-neutral-900 dark:text-neutral-100 font-bold mt-0.5">•</span>
                                 <span className="text-neutral-700 dark:text-neutral-300">
                                   <strong>IP Assignment Agreement</strong> lacks clear ownership transfer provisions
                                 </span>
                               </div>
                               <div className="flex items-start gap-2 text-sm">
-                                <span className="text-blue-500 font-bold mt-0.5">•</span>
+                                <span className="text-neutral-900 dark:text-neutral-100 font-bold mt-0.5">•</span>
                                 <span className="text-neutral-700 dark:text-neutral-300">
                                   <strong>Employee agreements</strong> contain non-compete clauses requiring review
                                 </span>
@@ -315,11 +310,11 @@ export function CaseIntelligenceFeature() {
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.8 }}
-                            className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-l-4 border-blue-500 dark:border-blue-400 rounded-r-lg p-4"
+                            className="bg-white dark:bg-neutral-900 border-l-4 border-neutral-900 dark:border-neutral-100 rounded-r-lg p-4 border border-neutral-200 dark:border-neutral-800"
                           >
                             <div className="flex items-center gap-2 mb-2">
-                              <TrendingUp className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                              <h4 className="text-xs font-bold text-blue-900 dark:text-blue-100 uppercase tracking-wide">
+                              <TrendingUp className="w-4 h-4 text-neutral-900 dark:text-neutral-100" />
+                              <h4 className="text-xs font-bold text-neutral-900 dark:text-neutral-100 uppercase tracking-wide">
                                 Recommended Actions
                               </h4>
                             </div>
@@ -337,7 +332,7 @@ export function CaseIntelligenceFeature() {
 
                 {/* Chat Input */}
                 <div className="border-t border-neutral-200 dark:border-neutral-800 p-6 bg-white dark:bg-neutral-950">
-                  <div className="max-w-3xl mx-auto">
+                  <div className="max-w-4xl mx-auto">
                     <div className="flex items-center gap-3">
                       <input
                         type="text"
@@ -352,7 +347,7 @@ export function CaseIntelligenceFeature() {
             </div>
           </motion.div>
         </div>
-
+        
         {/* Content Section */}
         <div className="flex-1 flex flex-col items-center justify-center">
           <motion.div

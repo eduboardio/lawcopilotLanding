@@ -86,12 +86,12 @@ const trustFactors = [
 
 export function Benefits() {
   return (
-    <section className="relative w-full overflow-hidden bg-background py-24 md:py-32">
+    <section id="benefits" className="relative w-full overflow-hidden bg-background py-24 md:py-32">
       {/* Subtle background matching Hero/Features */}
       <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
         <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
         <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
-<div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
       </div>
       
       <div className="container relative z-10 mx-auto max-w-7xl px-6">
@@ -120,7 +120,7 @@ export function Benefits() {
         </motion.div>
 
         {/* Four Pillars Grid */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-10">
           {pillars.map((pillar, index) => (
             <motion.div
               key={index}

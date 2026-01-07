@@ -2,12 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, FileText, Send, ChevronDown, ChevronUp } from "lucide-react";
-
-interface CaseDetail {
-  title: string;
-  content: React.ReactNode;
-}
+import { Sparkles, FileText, Send } from "lucide-react";
 
 interface Message {
   role: "user" | "assistant";
@@ -16,7 +11,6 @@ interface Message {
     type: "document" | "research";
     title: string;
     preview: React.ReactNode;
-    cases?: CaseDetail[];
   };
 }
 
@@ -26,6 +20,7 @@ interface VideoFeatureProps {
   description: string;
   messages: Message[];
   reverse?: boolean;
+  skipThinking?: boolean;
 }
 
 export const VideoFeature: React.FC<VideoFeatureProps> = ({
@@ -34,16 +29,13 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
   description,
   messages,
   reverse = false,
+  skipThinking = false,
 }) => {
   const [currentStep, setCurrentStep] = useState<'idle' | 'user' | 'thinking' | 'assistant'>('idle');
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [isArtifactOpen, setIsArtifactOpen] = useState(false);
-  const [expandedCaseIndex, setExpandedCaseIndex] = useState<number | null>(null);
   const isPausedRef = useRef(false);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
   const isRunningRef = useRef(false);
-
-  console.log(currentMessageIndex)
 
   const clearAllTimeouts = useCallback(() => {
     timeoutsRef.current.forEach(t => clearTimeout(t));
@@ -70,55 +62,47 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
     isRunningRef.current = true;
 
     while (true) {
-      // Reset to beginning - only show welcome message
+      // Reset to beginning
       setCurrentStep('idle');
-      setCurrentMessageIndex(0);
       setIsArtifactOpen(false);
-      setExpandedCaseIndex(null);
       await wait(1000);
 
-      // Find user message (should be first)
-      const userMessageIndex = messages.findIndex(m => m.role === "user");
-      if (userMessageIndex === -1) continue;
-
-      const userMessage = messages[userMessageIndex];
-      setCurrentMessageIndex(userMessageIndex);
+      const userMessage = messages.find(m => m.role === "user");
+      if (!userMessage) continue;
 
       // Show user message
       setCurrentStep('user');
       await wait(1600);
 
-      // Show thinking
-      setCurrentStep('thinking');
-      await wait(1400);
+      // Show thinking (skip if skipThinking is true)
+      if (!skipThinking) {
+        setCurrentStep('thinking');
+        await wait(1200);
+      }
 
       // Show assistant response
       setCurrentStep('assistant');
-      
       await wait(2000);
 
-      // Check if user message has artifact - if yes, open it
+      // If user message has artifact, open it
       if (userMessage.artifact) {
         await wait(1000);
         setIsArtifactOpen(true);
         await wait(5000);
         
-        // Close artifact and immediately fade to beginning
         setIsArtifactOpen(false);
         await wait(400);
-        
-        // Smooth transition back to idle (this resets to welcome message only)
-        setCurrentStep('idle');
-        await wait(600);
       } else {
         await wait(1500);
       }
+
+      setCurrentStep('idle');
+      await wait(600);
     }
-  }, [messages, wait]);
+  }, [messages, wait, skipThinking]);
 
   useEffect(() => {
     runAnimation();
-
     return () => {
       isRunningRef.current = false;
       clearAllTimeouts();
@@ -132,10 +116,6 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
   const handleMouseLeave = useCallback(() => {
     isPausedRef.current = false;
   }, []);
-
-  const toggleCase = (index: number) => {
-    setExpandedCaseIndex(expandedCaseIndex === index ? null : index);
-  };
 
   const userMessage = messages.find(m => m.role === "user");
   const assistantMessage = messages.find(m => m.role === "assistant");
@@ -168,19 +148,21 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
   );
 
   const video = (
-    <div className="flex-1">
+    <div className="flex-1 w-full">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="relative"
+        className="relative w-full"
       >
         <div className="absolute -inset-4 bg-gradient-to-r from-neutral-200/50 via-neutral-300/50 to-neutral-200/50 dark:from-neutral-800/50 dark:via-neutral-700/50 dark:to-neutral-800/50 rounded-3xl blur-3xl opacity-50"></div>
 
-        <div className="relative bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-2xl">
+        <div 
+          className="relative bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-2xl w-full max-w-5xl mx-auto"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           <AnimatePresence mode="wait">
             {!isArtifactOpen ? (
               <motion.div
@@ -189,11 +171,11 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="h-[700px] flex flex-col"
+                className="h-[700px] w-full flex flex-col"
               >
                 <div className="flex-1 overflow-y-auto px-8 py-8">
-                  <div className="max-w-3xl mx-auto space-y-6">
-                    {/* Welcome message - always visible */}
+                  <div className="max-w-4xl mx-auto space-y-6">
+                    {/* Welcome message */}
                     <div className="flex items-start gap-4">
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 flex items-center justify-center flex-shrink-0">
                         <Sparkles className="w-4 h-4 text-white dark:text-neutral-900" />
@@ -225,7 +207,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
                     )}
 
                     {/* AI thinking */}
-                    {currentStep === 'thinking' && (
+                    {currentStep === 'thinking' && !skipThinking && (
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -318,7 +300,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
 
                 {/* Chat input */}
                 <div className="border-t border-neutral-200 dark:border-neutral-800 p-6 bg-white dark:bg-neutral-950">
-                  <div className="max-w-3xl mx-auto">
+                  <div className="max-w-4xl mx-auto">
                     <div className="flex items-end gap-3">
                       <div className="flex-1 min-h-[44px] bg-neutral-100 dark:bg-neutral-900 rounded-2xl px-4 py-3 border border-neutral-200 dark:border-neutral-800 flex items-center">
                         <input
@@ -345,7 +327,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.4 }}
-                className="h-[700px] flex flex-col bg-neutral-50 dark:bg-neutral-900"
+                className="h-[700px] w-full flex flex-col bg-neutral-50 dark:bg-neutral-900"
               >
                 {/* Artifact header */}
                 <div className="border-b border-neutral-200 dark:border-neutral-800 p-6 bg-white dark:bg-neutral-950 flex items-center justify-between">
@@ -358,10 +340,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
                     </h4>
                   </div>
                   <button
-                    onClick={() => {
-                      setIsArtifactOpen(false);
-                      setExpandedCaseIndex(null);
-                    }}
+                    onClick={() => setIsArtifactOpen(false)}
                     className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                   >
                     Close
@@ -370,50 +349,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
 
                 {/* Artifact content */}
                 <div className="flex-1 overflow-y-auto p-8">
-                  {userMessage?.artifact?.cases && userMessage.artifact.cases.length > 0 ? (
-                    <div className="space-y-3">
-                      {userMessage.artifact.preview}
-                      
-                      {/* Case dropdowns */}
-                      <div className="mt-6 space-y-3">
-                        {userMessage.artifact.cases.map((caseDetail, index) => (
-                          <div key={index} className="border border-neutral-200 dark:border-neutral-700 rounded-lg overflow-hidden bg-white dark:bg-neutral-900">
-                            <button
-                              onClick={() => toggleCase(index)}
-                              className="w-full px-4 py-3 flex items-center justify-between hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
-                            >
-                              <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                                {caseDetail.title}
-                              </span>
-                              {expandedCaseIndex === index ? (
-                                <ChevronUp className="w-4 h-4 text-neutral-500" />
-                              ) : (
-                                <ChevronDown className="w-4 h-4 text-neutral-500" />
-                              )}
-                            </button>
-                            
-                            <AnimatePresence>
-                              {expandedCaseIndex === index && (
-                                <motion.div
-                                  initial={{ height: 0, opacity: 0 }}
-                                  animate={{ height: "auto", opacity: 1 }}
-                                  exit={{ height: 0, opacity: 0 }}
-                                  transition={{ duration: 0.3 }}
-                                  className="border-t border-neutral-200 dark:border-neutral-700"
-                                >
-                                  <div className="p-4 text-sm text-neutral-700 dark:text-neutral-300">
-                                    {caseDetail.content}
-                                  </div>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    userMessage?.artifact?.preview
-                  )}
+                  {userMessage?.artifact?.preview}
                 </div>
               </motion.div>
             )}
@@ -425,7 +361,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
 
   return (
     <div className="w-full py-16 md:py-24">
-      <div className={`container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 lg:gap-16 ${reverse ? 'lg:flex-row-reverse' : ''}`}>
+      <div className={`container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${reverse ? 'lg:flex-row-reverse' : ''}`}>
         {content}
         {video}
       </div>
