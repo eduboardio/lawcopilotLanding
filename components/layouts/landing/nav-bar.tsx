@@ -1,6 +1,6 @@
 "use client";
-import { Menu, ChevronDown } from "lucide-react";
-import { useCallback, useEffect, useState, memo } from "react";
+import { Menu, ChevronDown, Scale, FileText, Sparkles, Users, Briefcase, Globe, Search, FileCheck, Brain, Target, Zap, Languages, Building2 } from "lucide-react";
+import { useCallback, useEffect, useState, memo, useRef } from "react";
 import {
     Sheet,
     SheetContent,
@@ -17,11 +17,13 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ROUTES_WITHOUT_NAVBAR } from "@/constants";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { AnimatedVisual } from "@/components/layouts/landing/animated-visual";
 
 interface SubMenuItem {
     href: string;
     label: string;
     description?: string;
+    icon?: any;
 }
 
 interface RouteProps {
@@ -30,6 +32,11 @@ interface RouteProps {
     subMenu?: {
         title: string;
         items: SubMenuItem[];
+        visuals: {
+            image: string;
+            title: string;
+            description: string;
+        }[];
     };
 }
 
@@ -47,19 +54,34 @@ const routeList: RouteProps[] = [
                 { 
                     href: "/products/lawfirms", 
                     label: "For Law Firms",
-                    description: "Complete legal platform for growing firms"
+                    description: "Complete legal platform for growing firms",
+                    icon: Building2
                 },
                 { 
                     href: "/products/lawyers", 
                     label: "For Lawyers",
-                    description: "Tools for independent practitioners"
+                    description: "Tools for independent practitioners",
+                    icon: Scale
                 },
                 { 
                     href: "/products/everyone", 
                     label: "For Everyone",
-                    description: "Accessible legal AI for all"
+                    description: "Accessible legal AI for all",
+                    icon: Globe
                 },
             ],
+            visuals: [
+                {
+                    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                    title: "AI-Powered Legal Platform",
+                    description: "Transform your legal practice with intelligent automation"
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&q=80",
+                    title: "Seamless Collaboration",
+                    description: "Work together efficiently across teams and clients"
+                }
+            ]
         },
     },
     {
@@ -71,24 +93,40 @@ const routeList: RouteProps[] = [
                 {
                     href: "/#features",
                     label: "Legal Drafting",
-                    description: "AI-powered document generation"
+                    description: "AI-powered document generation",
+                    icon: FileText
                 },
                 {
                     href: "/#features",
                     label: "Legal Research",
-                    description: "Comprehensive case law search"
+                    description: "Comprehensive case law search",
+                    icon: Search
                 },
                 {
                     href: "/#features",
                     label: "Document Analysis",
-                    description: "Smart contract & agreement review"
+                    description: "Smart contract & agreement review",
+                    icon: FileCheck
                 },
                 {
                     href: "/#features",
                     label: "Case Intelligence",
-                    description: "Precedent analysis & insights"
+                    description: "Precedent analysis & insights",
+                    icon: Brain
                 },
             ],
+            visuals: [
+                {
+                    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+                    title: "Intelligent Research",
+                    description: "Find relevant case law and precedents instantly"
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+                    title: "Smart Analytics",
+                    description: "Data-driven insights for better legal outcomes"
+                }
+            ]
         },
     },
     {
@@ -100,24 +138,40 @@ const routeList: RouteProps[] = [
                 {
                     href: "/#benefits",
                     label: "India-First Platform",
-                    description: "Built for Indian legal practice"
+                    description: "Built for Indian legal practice",
+                    icon: Target
                 },
                 {
                     href: "/#benefits",
                     label: "Custom AI Engine",
-                    description: "Purpose-built legal intelligence"
+                    description: "Purpose-built legal intelligence",
+                    icon: Sparkles
                 },
                 {
                     href: "/#benefits",
                     label: "Jurisdictional Intelligence",
-                    description: "Court-specific legal reasoning"
+                    description: "Court-specific legal reasoning",
+                    icon: Zap
                 },
                 {
                     href: "/#benefits",
                     label: "Multilingual Support",
-                    description: "Legal work across Indian languages"
+                    description: "Legal work across Indian languages",
+                    icon: Languages
                 },
             ],
+            visuals: [
+                {
+                    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80",
+                    title: "Built for India",
+                    description: "Tailored for Indian legal system and practices"
+                },
+                {
+                    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80",
+                    title: "Expert Support",
+                    description: "Dedicated assistance for your legal journey"
+                }
+            ]
         },
     },
 ];
@@ -161,12 +215,8 @@ const DesktopNavigation = memo(({ pathname, openDropdown, setOpenDropdown }: {
         }
     };
 
-    const handleMouseLeave = () => {
-        setOpenDropdown(null);
-    };
-
     return (
-        <nav className="hidden lg:flex mx-auto" onMouseLeave={handleMouseLeave}>
+        <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2">
             <ul className="flex items-center gap-1">
                 {routeList.map((route) => {
                     const isActive = pathname === route.href || 
@@ -221,49 +271,106 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
     openDropdown: string | null;
     setOpenDropdown: (label: string | null) => void;
 }) => {
-    const activeRoute = routeList.find(r => r.label === openDropdown);
+    const [isVisible, setIsVisible] = useState(false);
+    const [activeLabel, setActiveLabel] = useState<string | null>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     
-    if (!openDropdown || !activeRoute?.subMenu) return null;
+    useEffect(() => {
+        if (openDropdown) {
+            setActiveLabel(openDropdown);
+            setIsVisible(true);
+        } else {
+            setIsVisible(false);
+            // Delay clearing the active label to allow exit animation
+            const timer = setTimeout(() => setActiveLabel(null), 300);
+            return () => clearTimeout(timer);
+        }
+    }, [openDropdown]);
 
-    // Determine grid columns based on number of items
-    const itemCount = activeRoute.subMenu.items.length;
-    let gridClass = "grid-cols-1 sm:grid-cols-2";
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
+
+    const activeRoute = routeList.find(r => r.label === activeLabel);
     
-    if (itemCount === 3) {
-        gridClass = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
-    } else if (itemCount === 4) {
-        gridClass = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
-    } else if (itemCount > 4) {
-        gridClass = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
-    }
+    if (!activeLabel || !activeRoute?.subMenu) return null;
+
+    const handleMouseEnter = () => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+    };
+
+    const handleMouseLeave = () => {
+        timeoutRef.current = setTimeout(() => {
+            setOpenDropdown(null);
+        }, 200);
+    };
 
     return (
         <div 
-            className="absolute left-0 right-0 top-full z-50 bg-background/95 backdrop-blur-xl border-b border-border/20 shadow-xl"
-            onMouseLeave={() => setOpenDropdown(null)}
+            ref={menuRef}
+            className={cn(
+                "absolute left-0 right-0 top-full z-50 bg-background/98 backdrop-blur-xl border-b border-border/20 shadow-2xl transition-all duration-300 ease-in-out",
+                isVisible 
+                    ? "opacity-100 translate-y-0" 
+                    : "opacity-0 -translate-y-2 pointer-events-none"
+            )}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
-            <div className="container mx-auto px-6 py-8">
-                <div className="max-w-7xl mx-auto">
-                    <h3 className="mb-6 text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                        {activeRoute.subMenu.title}
-                    </h3>
-                    <div className={cn("grid gap-4", gridClass)}>
-                        {activeRoute.subMenu.items.map((item, index) => (
-                            <Link
-                                key={index}
-                                href={item.href}
-                                className="group block p-4 rounded-lg hover:bg-accent transition-colors border border-transparent hover:border-border/50"
-                                onClick={() => setOpenDropdown(null)}
-                            >
-                                <div className="font-medium text-foreground group-hover:text-primary transition-colors mb-1">
-                                    {item.label}
-                                </div>
-                                {item.description && (
-                                    <div className="text-sm text-muted-foreground">
-                                        {item.description}
+            <div className="container mx-auto px-6 py-10">
+                <div className="flex items-start gap-8">
+                    {/* Left Side - Menu Items */}
+                    <div className="space-y-1 flex-shrink-0" style={{ width: '350px' }}>
+                        <h3 className="mb-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                            {activeRoute.subMenu.title}
+                        </h3>
+                        
+                        {activeRoute.subMenu.items.map((item, index) => {
+                            const Icon = item.icon;
+                            return (
+                                <Link
+                                    key={index}
+                                    href={item.href}
+                                    className="group flex items-start gap-3 p-3 rounded-md hover:bg-accent/30 transition-all duration-200"
+                                    onClick={() => setOpenDropdown(null)}
+                                >
+                                    {Icon && (
+                                        <div className="mt-0.5 text-primary/60 group-hover:text-primary transition-colors duration-200">
+                                            <Icon className="h-5 w-5" />
+                                        </div>
+                                    )}
+                                    <div className="flex-1">
+                                        <div className="font-medium text-foreground group-hover:text-primary transition-colors mb-0.5">
+                                            {item.label}
+                                        </div>
+                                        {item.description && (
+                                            <div className="text-xs text-muted-foreground leading-relaxed">
+                                                {item.description}
+                                            </div>
+                                        )}
                                     </div>
-                                )}
-                            </Link>
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    {/* Spacer */}
+                    <div className="flex-1" />
+
+                    {/* Right Side - Two Pictures (25% width each) */}
+                    <div className="flex gap-6 flex-shrink-0" style={{ width: '50%' }}>
+                        {activeRoute.subMenu.visuals.map((visual, index) => (
+                            <div key={index} className="flex-1">
+                                <AnimatedVisual visual={visual} index={index} />
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -319,9 +426,29 @@ export const Navbar = () => {
             )}
         >
             <div className="container mx-auto flex justify-between items-center p-2 relative">
-                {/* Logo */}
-                <div className="flex justify-between lg:justify-start items-center gap-10 w-full">
-                    <Logo />
+                {/* Logo - Left */}
+                <Logo />
+
+                {/* Desktop Navigation - Center */}
+                <DesktopNavigation 
+                    pathname={pathname} 
+                    openDropdown={openDropdown}
+                    setOpenDropdown={setOpenDropdown}
+                />
+
+                {/* Right Side - CTA Buttons + Mobile Menu */}
+                <div className="flex items-center gap-4">
+                    {/* Desktop Call to Actions */}
+                    <div className="hidden lg:flex justify-center items-center gap-4">
+                        <ThemeToggle />
+                        <CallToActions
+                            classes={{
+                                container: "flex gap-4",
+                                buttonSignIn: "bg-secondary/80 hover:bg-secondary text-secondary-foreground",
+                                buttonGetStarted: "bg-primary hover:bg-primary/90 text-primary-foreground"
+                            }}
+                        />
+                    </div>
 
                     {/* Mobile Menu */}
                     <div className="flex items-center lg:hidden">
@@ -352,26 +479,32 @@ export const Navbar = () => {
                                                             {route.label}
                                                         </div>
                                                         <div className="pl-4 flex flex-col gap-1">
-                                                            {route.subMenu.items.map((item) => (
-                                                                <Button
-                                                                    key={item.href}
-                                                                    onClick={() => setIsOpen(false)}
-                                                                    asChild
-                                                                    variant="ghost"
-                                                                    className="justify-start text-base h-auto py-2"
-                                                                >
-                                                                    <Link href={item.href}>
-                                                                        <div className="text-left">
-                                                                            <div className="font-medium">{item.label}</div>
-                                                                            {item.description && (
-                                                                                <div className="text-xs text-muted-foreground mt-0.5">
-                                                                                    {item.description}
+                                                            {route.subMenu.items.map((item) => {
+                                                                const Icon = item.icon;
+                                                                return (
+                                                                    <Button
+                                                                        key={item.href}
+                                                                        onClick={() => setIsOpen(false)}
+                                                                        asChild
+                                                                        variant="ghost"
+                                                                        className="justify-start text-base h-auto py-3"
+                                                                    >
+                                                                        <Link href={item.href}>
+                                                                            <div className="flex items-center gap-3 text-left w-full">
+                                                                                {Icon && <Icon className="h-4 w-4 text-primary" />}
+                                                                                <div>
+                                                                                    <div className="font-medium">{item.label}</div>
+                                                                                    {item.description && (
+                                                                                        <div className="text-xs text-muted-foreground mt-0.5">
+                                                                                            {item.description}
+                                                                                        </div>
+                                                                                    )}
                                                                                 </div>
-                                                                            )}
-                                                                        </div>
-                                                                    </Link>
-                                                                </Button>
-                                                            ))}
+                                                                            </div>
+                                                                        </Link>
+                                                                    </Button>
+                                                                );
+                                                            })}
                                                         </div>
                                                     </div>
                                                 );
@@ -411,25 +544,6 @@ export const Navbar = () => {
                             </SheetContent>
                         </Sheet>
                     </div>
-
-                    {/* Desktop Navigation */}
-                    <DesktopNavigation 
-                        pathname={pathname} 
-                        openDropdown={openDropdown}
-                        setOpenDropdown={setOpenDropdown}
-                    />
-                </div>
-
-                {/* Desktop Call to Actions */}
-                <div className="hidden lg:flex justify-center items-center gap-4">
-                    <ThemeToggle />
-                    <CallToActions
-                        classes={{
-                            container: "flex gap-4",
-                            buttonSignIn: "bg-secondary/80 hover:bg-secondary text-secondary-foreground",
-                            buttonGetStarted: "bg-primary hover:bg-primary/90 text-primary-foreground"
-                        }}
-                    />
                 </div>
             </div>
 

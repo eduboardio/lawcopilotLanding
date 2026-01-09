@@ -21,12 +21,6 @@ const certifications = [
         title: "DPDP Act 2023",
         description: "Compliant with India's Digital Personal Data Protection Act, 2023 for robust data privacy standards.",
         badge: "DPDP"
-    },
-    {
-        icon: Globe,
-        title: "GDPR",
-        description: "With our technical team based in Sweden, we operate under GDPR — the world's strictest standard for data privacy.",
-        badge: "GDPR"
     }
 ];
 
@@ -66,7 +60,7 @@ export function ComplianceBadges() {
                 </motion.div>
 
                 {/* Certifications Grid */}
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {certifications.map((cert, index) => {
                         const Icon = cert.icon;
                         return (
