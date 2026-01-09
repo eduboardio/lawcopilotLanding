@@ -51,10 +51,10 @@ export const ProductDemo = memo(() => {
     selectedCase: false,
   })
 
-  const chatScrollRef = useRef<HTMLDivElement>(null)
-  const artifactScrollRef = useRef<HTMLDivElement>(null)
-  const detailScrollRef = useRef<HTMLDivElement>(null)
-  const citedActsScrollRef = useRef<HTMLDivElement>(null)
+const chatScrollRef = useRef<HTMLDivElement>(null!)
+const artifactScrollRef = useRef<HTMLDivElement>(null!)
+const detailScrollRef = useRef<HTMLDivElement>(null!)
+const citedActsScrollRef = useRef<HTMLDivElement>(null!)
 
   const QUERY = "Find case laws on Order VII Rule 11(a) CPC"
 
@@ -464,7 +464,7 @@ const ResponseState = memo(
                 className="bg-card border border-border/60 p-6 shadow-md"
               >
                 <p className="text-sm leading-relaxed text-foreground/90">
-                  I'll research case law on whether a plaint that discloses any cause of action can be rejected under{" "}
+                  I&apos;ll research case law on whether a plaint that discloses any cause of action can be rejected under{" "}
                   <strong className="font-bold text-foreground">Order VII Rule 11(a) CPC</strong>.
                 </p>
               </motion.div>

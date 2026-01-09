@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -24,11 +25,17 @@ export const Logo = ({
             <Link
                 href={href}
                 className={cn(
-                    "size-10 lg:size-12 flex justify-center items-center bg-foreground text-background font-bold font-title text-lg lg:text-xl",
+                    "size-10 lg:size-12 flex justify-center items-center",
                     classes?.container
                 )}
             >
-                LC
+                <Image 
+                    src="/logo.svg" 
+                    alt="Law Copilot" 
+                    width={40} 
+                    height={40}
+                    className={cn("w-full h-full dark:invert", classes?.logo)}
+                />
             </Link>
         );
     }
@@ -40,8 +47,14 @@ export const Logo = ({
                 classes?.container
             )}
         >
-            <span className={cn("size-10 flex justify-center items-center bg-foreground text-background font-bold font-title text-base", classes?.logo)}>
-                LC
+            <span className={cn("size-10 flex justify-center items-center", classes?.logo)}>
+                <Image 
+                    src="/logo.svg" 
+                    alt="Law Copilot" 
+                    width={40} 
+                    height={40}
+                    className="w-full h-full dark:invert"
+                />
             </span>
             <motion.span
                 initial={{ opacity: 0 }}

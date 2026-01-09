@@ -12,7 +12,7 @@ interface AnimatedVisualProps {
     index: number;
 }
 
-export const AnimatedVisual = ({ visual, index }: AnimatedVisualProps) => {
+export const AnimatedVisual = ({ visual }: AnimatedVisualProps) => {
     const [isHovered, setIsHovered] = useState(false);
 
     return (

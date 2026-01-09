@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Lock, FileCheck, Globe } from "lucide-react";
+import { Shield, Lock, FileCheck } from "lucide-react";
 
 const certifications = [
     {

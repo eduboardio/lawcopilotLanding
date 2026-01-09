@@ -1,5 +1,5 @@
 "use client";
-import { Menu, ChevronDown, Scale, FileText, Sparkles, Users, Briefcase, Globe, Search, FileCheck, Brain, Target, Zap, Languages, Building2 } from "lucide-react";
+import { Menu, ChevronDown, Scale, FileText, Sparkles, Globe, Search, FileCheck, Brain, Target, Zap, Languages, Building2 } from "lucide-react";
 import { useCallback, useEffect, useState, memo, useRef } from "react";
 import {
     Sheet,
@@ -23,7 +23,7 @@ interface SubMenuItem {
     href: string;
     label: string;
     description?: string;
-    icon?: any;
+    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
 interface RouteProps {

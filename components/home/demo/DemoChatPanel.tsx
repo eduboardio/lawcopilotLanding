@@ -39,7 +39,7 @@ export const DemoChatPanel = memo(
             <div className="flex-1">
               <div className="bg-card border-2 border-border/60 rounded-lg p-5 text-sm shadow-md">
                 <p className="text-foreground leading-relaxed mb-4 font-semibold">
-                  Hello! I'm your legal research assistant. How can I help you today?
+                  Hello! I&apos;m your legal research assistant. How can I help you today?
                 </p>
                 <div className="space-y-2 text-xs text-muted-foreground">
                   <p className="font-bold text-foreground/80">You can ask me about:</p>
@@ -124,7 +124,7 @@ export const DemoChatPanel = memo(
               <div className="flex-1 space-y-4">
                 <div className="bg-card border-2 border-border/60 rounded-lg p-5 text-sm shadow-md">
                   <p className="text-foreground leading-relaxed">
-                    I'll research case law on whether a plaint that discloses any cause of action can be rejected under{" "}
+                    I&apos;ll research case law on whether a plaint that discloses any cause of action can be rejected under{" "}
                     <strong className="font-bold">Order VII Rule 11(a) CPC</strong>.
                   </p>
                 </div>
