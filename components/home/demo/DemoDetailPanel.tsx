@@ -3,18 +3,20 @@ import { memo } from "react"
 import type React from "react"
 
 import { motion } from "framer-motion"
-import { BookOpen, Search } from "lucide-react"
+import { BookOpen, X } from "lucide-react"
 
 export const DemoDetailPanel = memo(() => (
   <div className="h-full flex flex-col bg-background">
     {/* Header */}
     <div className="h-16 px-6 border-b border-border/60 flex items-center justify-between shrink-0 bg-background/95 backdrop-blur-sm">
       <div className="flex items-center gap-3">
-        <BookOpen className="w-5 h-5 text-primary" />
+        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+          <BookOpen className="w-4 h-4 text-primary" />
+        </div>
         <span className="text-sm font-bold">Court Copy</span>
       </div>
       <button className="p-2 hover:bg-muted/70 rounded-lg transition-colors">
-        <Search className="w-4 h-4 text-muted-foreground" />
+        <X className="w-4 h-4 text-muted-foreground" />
       </button>
     </div>
 
@@ -25,7 +27,7 @@ export const DemoDetailPanel = memo(() => (
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-card border-2 border-border/60 rounded-lg p-6 shadow-md"
+        className="bg-gradient-to-br from-muted/30 to-muted/10 border-2 border-border/60 rounded-xl p-6 shadow-md"
       >
         <h3 className="text-base font-bold mb-4 text-foreground">Mr. Manish Goel vs Mr. Raghav Goyal & Anr.</h3>
         <div className="grid grid-cols-2 gap-4 text-sm">
@@ -97,7 +99,7 @@ export const DemoDetailPanel = memo(() => (
                     transition={{ delay: 0.5 + i * 0.1 }}
                     className="flex items-start gap-3 text-muted-foreground"
                   >
-                    <span className="mt-2 w-2 h-2 rounded-full bg-primary shrink-0" />
+                    <span className="mt-1.5 w-2 h-2 rounded-full bg-primary shrink-0" />
                     <span className="leading-relaxed font-medium">{point}</span>
                   </motion.li>
                 ))}
@@ -110,7 +112,7 @@ export const DemoDetailPanel = memo(() => (
           title="Holding"
           delay={0.5}
           content={
-            <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/10 border-2 border-green-500/50 rounded-lg p-5">
+            <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/5 border-2 border-green-500/30 rounded-xl p-5">
               <p className="text-foreground/90 leading-relaxed font-bold">
                 The revision petition was dismissed. The impugned order of the trial court dated 4 August 2021 was
                 upheld. No costs ordered.
@@ -119,7 +121,34 @@ export const DemoDetailPanel = memo(() => (
           }
         />
 
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+        <DocumentSection
+          title="Legal Precedents Cited"
+          delay={0.6}
+          content={
+            <div className="space-y-3">
+              <ul className="space-y-2">
+                {[
+                  "Saleem Bhai vs State of Maharashtra (2003) 1 SCC 557",
+                  "Manchester Development Corporation vs Garmanson Ltd (1986) QB 1212",
+                  "Sopan Sukhdeo Sable vs Assistant Charity Commissioner (2004) 3 SCC 137",
+                ].map((precedent, i) => (
+                  <motion.li
+                    key={i}
+                    initial={{ opacity: 0, x: -5 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.7 + i * 0.1 }}
+                    className="flex items-start gap-3 text-muted-foreground"
+                  >
+                    <span className="mt-1.5 w-2 h-2 rounded-full bg-primary shrink-0" />
+                    <span className="leading-relaxed font-medium">{precedent}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          }
+        />
+
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
           <h4 className="font-bold text-sm mb-3 flex items-center gap-2 text-foreground">
             <div className="w-1.5 h-5 bg-primary rounded-full" />
             Acts & Laws Involved
@@ -130,8 +159,8 @@ export const DemoDetailPanel = memo(() => (
                 key={i}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.7 + i * 0.05 }}
-                className="px-3 py-1.5 bg-primary/20 text-primary rounded-lg text-xs font-bold border border-primary/50 hover:bg-primary/30 transition-colors"
+                transition={{ delay: 0.9 + i * 0.05 }}
+                className="px-3 py-2 bg-primary/10 text-primary rounded-lg text-xs font-bold border border-primary/30 hover:bg-primary/20 transition-colors shadow-sm"
               >
                 {act}
               </motion.span>
@@ -161,7 +190,7 @@ const DocumentSection = memo(
         <div className="w-1.5 h-5 bg-primary rounded-full" />
         {title}
       </h4>
-      <div className="text-muted-foreground leading-relaxed">
+      <div className="text-muted-foreground leading-relaxed pl-4">
         {typeof content === "string" ? <p className="font-medium">{content}</p> : content}
       </div>
     </motion.div>

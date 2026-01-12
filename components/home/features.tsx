@@ -5,12 +5,11 @@ import { DraftingFeature } from "./DraftingFeature";
 import { AnalysisFeature } from "./AnalysisFeature";
 import { ResearchFeature } from "./ResearchFeature";
 import { CaseIntelligenceFeature } from "./CaseIntelligenceFeature.";
-// import { ComplianceBadges } from "./ComplianceBadges";
 
 export default function Features() {
   return (
     <>
-      <section className="relative w-full overflow-hidden bg-background">
+      <section id="features" className="relative w-full overflow-hidden bg-background">
         {/* Subtle background */}
         <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
           <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
@@ -18,7 +17,7 @@ export default function Features() {
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
         </div>
 
-        <div className="container relative z-10 mx-auto max-w-7xl px-6 py-24 md:py-32">
+        <div className="container relative z-10 mx-auto py-24 md:py-32">
           {/* Section Header */}
           <motion.div
             className="mb-20 text-center md:mb-24"
@@ -49,10 +48,18 @@ export default function Features() {
           </motion.div>
           
           <div className="space-y-0">
-            <DraftingFeature />
-            <AnalysisFeature />
-            <ResearchFeature />
-            <CaseIntelligenceFeature />
+            <div id="legal-drafting">
+              <DraftingFeature />
+            </div>
+            <div id="document-analysis">
+              <AnalysisFeature />
+            </div>
+            <div id="legal-research">
+              <ResearchFeature />
+            </div>
+            <div id="case-intelligence">
+              <CaseIntelligenceFeature />
+            </div>
           </div>
         </div>
       </section>

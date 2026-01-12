@@ -1,7 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { memo } from "react";
 import { motion } from "framer-motion";
 import { ProductDemo } from "./ProductDemo";
@@ -17,49 +14,49 @@ const BackgroundElements = memo(() => (
 
 BackgroundElements.displayName = 'BackgroundElements';
 
-const Stats = memo(() => (
-  <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mt-16 w-full max-w-6xl mx-auto">
-    {[
-      {
-        value: "10,000+",
-        label: "Legal Documents",
-        sublabel: "Indian case law & statutes"
-      },
-      {
-        value: "100+",
-        label: "Legal Professionals",
-        sublabel: "Transforming their practice"
-      },
-      {
-        value: "2,000+",
-        label: "Ready Templates",
-        sublabel: "Contracts & legal drafts"
-      },
-      {
-        value: "100%",
-        label: "India-Focused",
-        sublabel: "Built for Indian law"
-      }
-    ].map((stat, i) => (
-      <div key={i} className="text-center group">
-        <div className="relative inline-block mb-2">
-          <div className="absolute inset-0 bg-foreground/[0.02] dark:bg-white/5 rounded-lg blur-xl group-hover:bg-foreground/[0.04] dark:group-hover:bg-white/10 transition-all duration-500"></div>
-          <p className="relative text-4xl lg:text-5xl font-bold text-foreground dark:text-white">
-            {stat.value}
-          </p>
-        </div>
-        <p className="text-sm font-semibold text-foreground dark:text-white/90 mb-1">
-          {stat.label}
-        </p>
-        <p className="text-xs text-muted-foreground dark:text-white/50 leading-relaxed max-w-[180px] mx-auto">
-          {stat.sublabel}
-        </p>
-      </div>
-    ))}
-  </div>
-));
+// const Stats = memo(() => (
+//   <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mt-16 w-full max-w-6xl mx-auto">
+//     {[
+//       {
+//         value: "10,000+",
+//         label: "Legal Documents",
+//         sublabel: "Indian case law & statutes"
+//       },
+//       {
+//         value: "100+",
+//         label: "Legal Professionals",
+//         sublabel: "Transforming their practice"
+//       },
+//       {
+//         value: "2,000+",
+//         label: "Ready Templates",
+//         sublabel: "Contracts & legal drafts"
+//       },
+//       {
+//         value: "100%",
+//         label: "India-Focused",
+//         sublabel: "Built for Indian law"
+//       }
+//     ].map((stat, i) => (
+//       <div key={i} className="text-center group">
+//         <div className="relative inline-block mb-2">
+//           <div className="absolute inset-0 bg-foreground/[0.02] dark:bg-white/5 rounded-lg blur-xl group-hover:bg-foreground/[0.04] dark:group-hover:bg-white/10 transition-all duration-500"></div>
+//           <p className="relative text-4xl lg:text-5xl font-bold text-foreground dark:text-white">
+//             {stat.value}
+//           </p>
+//         </div>
+//         <p className="text-sm font-semibold text-foreground dark:text-white/90 mb-1">
+//           {stat.label}
+//         </p>
+//         <p className="text-xs text-muted-foreground dark:text-white/50 leading-relaxed max-w-[180px] mx-auto">
+//           {stat.sublabel}
+//         </p>
+//       </div>
+//     ))}
+//   </div>
+// ));
 
-Stats.displayName = 'Stats';
+// Stats.displayName = 'Stats';
 
 export const Hero = () => {
   return (
@@ -109,7 +106,7 @@ export const Hero = () => {
         </div>
 
         {/* CTA buttons */}
-        <motion.div 
+        {/* <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -132,7 +129,7 @@ export const Hero = () => {
           >
             See How It Works
           </Button>
-        </motion.div>
+        </motion.div> */}
 
        {/* Product Demo Animation - Auto-playing */}
         <motion.div
@@ -145,14 +142,14 @@ export const Hero = () => {
         </motion.div>
 
         {/* Stats section */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
           className="w-full"
         >
           <Stats />
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

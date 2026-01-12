@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, FileText, Send } from "lucide-react";
+import { Sparkles, FileText, Send, X } from "lucide-react";
 
 interface Message {
   role: "user" | "assistant";
@@ -31,11 +31,14 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
   reverse = false,
   skipThinking = false,
 }) => {
-  const [currentStep, setCurrentStep] = useState<'idle' | 'user' | 'thinking' | 'assistant'>('idle');
+  const [currentStep, setCurrentStep] = useState<'idle' | 'typing' | 'user' | 'thinking' | 'assistant' | 'artifact-opening' | 'artifact-open' | 'restarting'>('idle');
+  const [typedText, setTypedText] = useState("");
   const [isArtifactOpen, setIsArtifactOpen] = useState(false);
+  const [isRestarting, setIsRestarting] = useState(false);
   const isPausedRef = useRef(false);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
   const isRunningRef = useRef(false);
+  const artifactScrollRef = useRef<HTMLDivElement>(null);
 
   const clearAllTimeouts = useCallback(() => {
     timeoutsRef.current.forEach(t => clearTimeout(t));
@@ -57,22 +60,37 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
     });
   }, []);
 
+  const typeText = useCallback(async (text: string, speed = 25) => {
+    for (let i = 0; i <= text.length; i++) {
+      if (!isRunningRef.current) break;
+      setTypedText(text.substring(0, i));
+      await wait(speed);
+    }
+  }, [wait]);
+
   const runAnimation = useCallback(async () => {
     if (isRunningRef.current) return;
     isRunningRef.current = true;
 
-    while (true) {
+    while (isRunningRef.current) {
       // Reset to beginning
       setCurrentStep('idle');
+      setTypedText("");
       setIsArtifactOpen(false);
-      await wait(1000);
+      setIsRestarting(false);
+      await wait(800);
 
       const userMessage = messages.find(m => m.role === "user");
       if (!userMessage) continue;
 
-      // Show user message
+      // Type user message
+      setCurrentStep('typing');
+      await typeText(userMessage.content, 20);
+      await wait(400);
+
+      // Show complete user message
       setCurrentStep('user');
-      await wait(1600);
+      await wait(600);
 
       // Show thinking (skip if skipThinking is true)
       if (!skipThinking) {
@@ -87,19 +105,37 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
       // If user message has artifact, open it
       if (userMessage.artifact) {
         await wait(1000);
+        setCurrentStep('artifact-opening');
+        await wait(300);
         setIsArtifactOpen(true);
-        await wait(5000);
+        setCurrentStep('artifact-open');
         
-        setIsArtifactOpen(false);
-        await wait(400);
-      } else {
+        // Auto-scroll artifact panel
+        await wait(800);
+        if (artifactScrollRef.current) {
+          artifactScrollRef.current.scrollTo({ top: 600, behavior: "smooth" });
+        }
+        await wait(3500);
+        
+        // Scroll back to top
+        if (artifactScrollRef.current) {
+          artifactScrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
+        }
         await wait(1500);
+        
+        // Close artifact smoothly
+        setIsArtifactOpen(false);
+        await wait(500);
+      } else {
+        await wait(1800);
       }
 
-      setCurrentStep('idle');
-      await wait(600);
+      // Smooth restart transition
+      setCurrentStep('restarting');
+      setIsRestarting(true);
+      await wait(800);
     }
-  }, [messages, wait, skipThinking]);
+  }, [messages, wait, typeText, skipThinking]);
 
   useEffect(() => {
     runAnimation();
@@ -120,14 +156,18 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
   const userMessage = messages.find(m => m.role === "user");
   const assistantMessage = messages.find(m => m.role === "assistant");
 
+  const getChatWidth = () => {
+    return isArtifactOpen ? "50%" : "100%";
+  };
+
   const content = (
-    <div className="flex-1 flex flex-col items-center justify-center">
+    <div className="flex-1 max-w-2xl flex flex-col items-center justify-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="max-w-xl"
+        className="w-full"
       >
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
           <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
@@ -136,11 +176,11 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
           </span>
         </div>
 
-        <h3 className="mb-4 text-3xl font-bold tracking-tight text-foreground dark:text-white md:text-4xl">
+        <h3 className="mb-4 text-2xl font-bold tracking-tight text-foreground dark:text-white md:text-3xl lg:text-4xl">
           {title}
         </h3>
 
-        <p className="text-base leading-relaxed text-muted-foreground dark:text-white/70 md:text-lg">
+        <p className="text-sm leading-relaxed text-muted-foreground dark:text-white/70 md:text-base">
           {description}
         </p>
       </motion.div>
@@ -148,7 +188,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
   );
 
   const video = (
-    <div className="flex-1 w-full">
+    <div className="flex-[1.5] w-full">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -156,204 +196,226 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
         transition={{ duration: 0.8, delay: 0.2 }}
         className="relative w-full"
       >
-        <div className="absolute -inset-4 bg-gradient-to-r from-neutral-200/50 via-neutral-300/50 to-neutral-200/50 dark:from-neutral-800/50 dark:via-neutral-700/50 dark:to-neutral-800/50 rounded-3xl blur-3xl opacity-50"></div>
+        <div className="absolute -inset-4 bg-gradient-to-r from-neutral-200/50 via-neutral-300/50 to-neutral-200/50 dark:from-neutral-800/50 dark:via-neutral-700/50 dark:to-neutral-800/50 blur-3xl opacity-50"></div>
 
         <div 
-          className="relative bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-2xl w-full max-w-5xl mx-auto"
+          className="relative bg-background border border-border overflow-hidden shadow-2xl w-full mx-auto"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <AnimatePresence mode="wait">
-            {!isArtifactOpen ? (
-              <motion.div
-                key="chat"
-                initial={false}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="h-[700px] w-full flex flex-col"
-              >
-                <div className="flex-1 overflow-y-auto px-8 py-8">
-                  <div className="max-w-4xl mx-auto space-y-6">
-                    {/* Welcome message */}
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 flex items-center justify-center flex-shrink-0">
-                        <Sparkles className="w-4 h-4 text-white dark:text-neutral-900" />
-                      </div>
-                      <div className="flex-1 pt-1">
-                        <div className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                          Hello! I&apos;m Law Copilot, your AI legal assistant. How can I help you today?
-                        </div>
+          <motion.div
+            animate={{
+              opacity: isRestarting ? 0 : 1,
+              scale: isRestarting ? 0.97 : 1,
+            }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="h-[700px]"
+          >
+            <div className="flex h-full">
+            {/* Chat Panel */}
+            <motion.div
+              initial={{ width: "100%" }}
+              animate={{ width: getChatWidth() }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="border-r border-border bg-background overflow-hidden flex flex-col"
+            >
+              {/* Chat content */}
+              <div className="flex-1 overflow-y-auto px-8 py-8">
+                <div className="max-w-4xl mx-auto space-y-6">
+                  {/* Welcome message */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/20">
+                      <Sparkles className="w-5 h-5 text-primary" />
+                    </div>
+                    <div className="flex-1 pt-2">
+                      <div className="text-sm text-foreground/90 leading-relaxed font-serif">
+                        Hello! I&apos;m Law Copilot, your AI legal assistant. How can I help you today?
                       </div>
                     </div>
+                  </div>
 
-                    {/* User message */}
-                    {currentStep !== 'idle' && userMessage && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                        className="flex items-start gap-4"
-                      >
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center flex-shrink-0 text-white font-semibold text-xs">
-                          U
-                        </div>
-                        <div className="flex-1 pt-1">
-                          <div className="text-sm text-neutral-900 dark:text-neutral-100 leading-relaxed">
-                            {userMessage.content}
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* AI thinking */}
-                    {currentStep === 'thinking' && !skipThinking && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                        className="flex items-start gap-4"
-                      >
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 flex items-center justify-center flex-shrink-0">
-                          <Sparkles className="w-4 h-4 text-white dark:text-neutral-900" />
-                        </div>
-                        <div className="flex-1 pt-1">
-                          <div className="flex items-center gap-2">
-                            <div className="flex gap-1">
-                              {[0, 1, 2].map((i) => (
-                                <motion.div
-                                  key={i}
-                                  className="w-2 h-2 rounded-full bg-neutral-400 dark:bg-neutral-600"
-                                  animate={{
-                                    scale: [1, 1.3, 1],
-                                    opacity: [0.5, 1, 0.5],
-                                  }}
-                                  transition={{
-                                    duration: 1.2,
-                                    repeat: Infinity,
-                                    delay: i * 0.2,
-                                  }}
+                  {/* User message - with typing animation */}
+                  {(currentStep === 'typing' || currentStep !== 'idle') && userMessage && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-primary-foreground font-semibold text-sm">
+                        U
+                      </div>
+                      <div className="flex-1 pt-2">
+                        <div className="text-sm text-foreground leading-relaxed">
+                          {currentStep === 'typing' ? (
+                            <>
+                              {typedText}
+                              {typedText && (
+                                <motion.span
+                                  animate={{ opacity: [1, 0] }}
+                                  transition={{ duration: 0.6, repeat: Infinity }}
+                                  className="inline-block w-0.5 h-4 bg-primary ml-0.5 align-middle"
                                 />
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* AI response */}
-                    {currentStep === 'assistant' && assistantMessage && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                        className="flex items-start gap-4"
-                      >
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-600 dark:from-neutral-200 dark:to-neutral-400 flex items-center justify-center flex-shrink-0">
-                          <Sparkles className="w-4 h-4 text-white dark:text-neutral-900" />
-                        </div>
-                        <div className="flex-1 pt-1 space-y-4">
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.4, delay: 0.2 }}
-                            className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed"
-                          >
-                            {assistantMessage.content}
-                          </motion.div>
-
-                          {userMessage?.artifact && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 8 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.5, delay: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                              className="w-full"
-                            >
-                              <button
-                                onClick={() => setIsArtifactOpen(true)}
-                                className="w-full text-left group"
-                              >
-                                <div className="border border-neutral-200 dark:border-neutral-800 rounded-xl p-4 bg-neutral-50 dark:bg-neutral-900/50 hover:bg-neutral-100 dark:hover:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-200">
-                                  <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                                      <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                      <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-0.5">
-                                        {userMessage.artifact.title}
-                                      </h4>
-                                    </div>
-                                    <div className="text-xs text-neutral-500 dark:text-neutral-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                                      Click to open →
-                                    </div>
-                                  </div>
-                                </div>
-                              </button>
-                            </motion.div>
+                              )}
+                            </>
+                          ) : (
+                            userMessage.content
                           )}
                         </div>
-                      </motion.div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Chat input */}
-                <div className="border-t border-neutral-200 dark:border-neutral-800 p-6 bg-white dark:bg-neutral-950">
-                  <div className="max-w-4xl mx-auto">
-                    <div className="flex items-end gap-3">
-                      <div className="flex-1 min-h-[44px] bg-neutral-100 dark:bg-neutral-900 rounded-2xl px-4 py-3 border border-neutral-200 dark:border-neutral-800 flex items-center">
-                        <input
-                          type="text"
-                          placeholder="Message Law Copilot..."
-                          className="flex-1 bg-transparent text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-500 dark:placeholder:text-neutral-500 outline-none"
-                          disabled
-                        />
                       </div>
-                      <button
-                        className="h-11 w-11 rounded-xl bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:hover:bg-neutral-200 text-white dark:text-neutral-900 flex-shrink-0 flex items-center justify-center transition-colors"
-                        disabled
-                      >
-                        <Send className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="artifact"
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.4 }}
-                className="h-[700px] w-full flex flex-col bg-neutral-50 dark:bg-neutral-900"
-              >
-                {/* Artifact header */}
-                <div className="border-b border-neutral-200 dark:border-neutral-800 p-6 bg-white dark:bg-neutral-950 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                      <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                      {userMessage?.artifact?.title}
-                    </h4>
-                  </div>
-                  <button
-                    onClick={() => setIsArtifactOpen(false)}
-                    className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-                  >
-                    Close
-                  </button>
-                </div>
+                    </motion.div>
+                  )}
 
-                {/* Artifact content */}
-                <div className="flex-1 overflow-y-auto p-8">
-                  {userMessage?.artifact?.preview}
+                  {/* AI thinking */}
+                  {currentStep === 'thinking' && !skipThinking && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/20">
+                        <Sparkles className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="flex-1 pt-2">
+                        <div className="flex items-center gap-2">
+                          <div className="flex gap-1.5">
+                            {[0, 1, 2].map((i) => (
+                              <motion.div
+                                key={i}
+                                className="w-2 h-2 rounded-full bg-primary"
+                                animate={{
+                                  scale: [1, 1.3, 1],
+                                  opacity: [0.5, 1, 0.5],
+                                }}
+                                transition={{
+                                  duration: 1,
+                                  repeat: Infinity,
+                                  delay: i * 0.15,
+                                }}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* AI response */}
+                  {(currentStep === 'assistant' || currentStep === 'artifact-opening' || currentStep === 'artifact-open') && assistantMessage && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/20">
+                        <Sparkles className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="flex-1 pt-2 space-y-4">
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.3, delay: 0.15 }}
+                          className="text-sm text-foreground/90 leading-relaxed font-serif"
+                        >
+                          {assistantMessage.content}
+                        </motion.div>
+
+                        {userMessage?.artifact && !isArtifactOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                            className="w-full"
+                          >
+                            <div className="w-full text-left group cursor-pointer">
+                              <div className="border-2 border-border rounded-xl p-5 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent hover:border-primary/40 transition-all duration-300 shadow-lg">
+                                <div className="flex items-center gap-3.5">
+                                  <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center flex-shrink-0 shadow-md border border-primary/50">
+                                    <FileText className="w-5 h-5 text-white" />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <h4 className="text-sm font-bold text-foreground mb-1">
+                                      {userMessage.artifact.title}
+                                    </h4>
+                                    <p className="text-xs text-muted-foreground font-medium">
+                                      Click to view document
+                                    </p>
+                                  </div>
+                                  <div className="text-xs font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Open →
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
+
+              {/* Chat input */}
+              <div className="border-t border-border p-6 bg-background">
+                <div className="max-w-4xl mx-auto">
+                  <div className="flex items-center gap-3 bg-card border-2 border-border rounded-xl px-5 py-4 hover:border-primary/30 transition-all shadow-md">
+                    <input
+                      type="text"
+                      placeholder="Message Law Copilot..."
+                      className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
+                      disabled
+                    />
+                    <button
+                      className="p-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all shadow-md"
+                      disabled
+                    >
+                      <Send className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Artifact Panel */}
+            <AnimatePresence>
+              {isArtifactOpen && (
+                <motion.div
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: "65%", opacity: 1 }}
+                  exit={{ width: 0, opacity: 0 }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="bg-background overflow-hidden flex flex-col"
+                  ref={artifactScrollRef}
+                >
+                  {/* Artifact header */}
+                  <div className="border-b border-border p-6 bg-background flex items-center justify-between shrink-0">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/20">
+                        <FileText className="w-5 h-5 text-primary" />
+                      </div>
+                      <h4 className="text-sm font-bold text-foreground">
+                        {userMessage?.artifact?.title}
+                      </h4>
+                    </div>
+                    <button
+                      className="text-muted-foreground hover:text-foreground text-sm font-medium px-3 py-2 rounded-lg hover:bg-muted transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* Artifact content */}
+                  <div className="flex-1 overflow-y-auto p-8 bg-muted/20">
+                    {userMessage?.artifact?.preview}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          </motion.div>
         </div>
       </motion.div>
     </div>
@@ -361,7 +423,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
 
   return (
     <div className="w-full py-16 md:py-24">
-      <div className={`container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${reverse ? 'lg:flex-row-reverse' : ''}`}>
+      <div className={`container mx-auto px-4 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 ${reverse ? 'lg:flex-row-reverse' : ''}`}>
         {content}
         {video}
       </div>

@@ -3,7 +3,7 @@ import { memo, useEffect, useState, useRef } from "react"
 import type React from "react"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { Send, Sparkles, Scale } from "lucide-react"
+import { Send, Scale } from "lucide-react"
 import { DemoChatPanel } from "./demo/DemoChatPanel"
 import { DemoArtifactPanel } from "./demo/DemoArtifactPanel"
 import { DemoDetailPanel } from "./demo/DemoDetailPanel"
@@ -12,24 +12,35 @@ import { AnimatedCursor } from "./demo/AnimatedCursor"
 
 type AnimationPhase =
   | "initial"
+  | "fade-in"
   | "input-ready"
-  | "sending"
+  | "typing"
+  | "move-to-send"
+  | "click-send"
   | "processing"
   | "response-shown"
+  | "artifact-appear"
+  | "move-to-artifact"
+  | "click-artifact"
   | "artifact-opening"
   | "artifact-open"
-  | "scroll-artifact"
-  | "case-selecting"
+  | "artifact-scrolling"
+  | "move-to-case"
+  | "click-case"
   | "case-expanded"
-  | "court-copy-opening"
-  | "court-copy-open"
-  | "scroll-court-copy"
-  | "close-court-copy"
-  | "cited-acts-opening"
-  | "cited-acts-open"
-  | "scroll-cited-acts"
-  | "closing"
-  | "complete"
+  | "move-to-court"
+  | "click-court"
+  | "court-opening"
+  | "court-open"
+  | "court-scrolling"
+  | "move-to-acts"
+  | "click-acts"
+  | "acts-opening"
+  | "acts-open"
+  | "acts-scrolling"
+  | "complete-pause"
+  | "fade-to-black"
+  | "reset"
 
 export const ProductDemo = memo(() => {
   const [phase, setPhase] = useState<AnimationPhase>("initial")
@@ -49,152 +60,194 @@ export const ProductDemo = memo(() => {
     showDetail: false,
     showCitedActs: false,
     selectedCase: false,
+    artifactScroll: 0,
+    detailScroll: 0,
+    actsScroll: 0,
   })
 
-const chatScrollRef = useRef<HTMLDivElement>(null!)
-const artifactScrollRef = useRef<HTMLDivElement>(null!)
-const detailScrollRef = useRef<HTMLDivElement>(null!)
-const citedActsScrollRef = useRef<HTMLDivElement>(null!)
+  const chatScrollRef = useRef<HTMLDivElement>(null!)
+  const artifactScrollRef = useRef<HTMLDivElement>(null!)
+  const detailScrollRef = useRef<HTMLDivElement>(null!)
+  const citedActsScrollRef = useRef<HTMLDivElement>(null!)
 
   const QUERY = "Find case laws on Order VII Rule 11(a) CPC"
+  const RESPONSE = "I'll research case law on whether a plaint that discloses any cause of action can be rejected under Order VII Rule 11(a) CPC."
 
   useEffect(() => {
     runAnimation()
   }, [])
 
+  const typeText = async (text: string, onUpdate: (partial: string) => void, speed = 25) => {
+    for (let i = 0; i <= text.length; i++) {
+      onUpdate(text.substring(0, i))
+      await wait(speed)
+    }
+  }
+
   const runAnimation = async () => {
     resetStates()
-    await wait(1000)
+    
+    // Smooth fade in
+    setPhase("fade-in")
+    await wait(500)
 
-    // Phase 1: Show input state
+    // Show input
     setPhase("input-ready")
-    await wait(800)
+    await wait(700)
 
-    // Phase 2: Show query text
-    setChatState((prev) => ({ ...prev, queryText: QUERY }))
-    await wait(600)
+    // Type query
+    setPhase("typing")
+    setCursorState({ visible: true, position: { x: 20, y: 92 }, clicking: false })
+    await typeText(QUERY, (partial) => {
+      setChatState((prev) => ({ ...prev, queryText: partial }))
+    }, 22)
+    await wait(350)
 
-    // Phase 3: Click send button
-    setCursorState({ visible: true, position: { x: 52, y: 88 }, clicking: false })
-    await wait(400)
+    // Move to send button
+    setPhase("move-to-send")
+    setCursorState((prev) => ({ ...prev, position: { x: 88, y: 92 } }))
+    await wait(450)
+    
+    // Click send
+    setPhase("click-send")
     setCursorState((prev) => ({ ...prev, clicking: true }))
-    await wait(150)
+    await wait(120)
     setCursorState((prev) => ({ ...prev, clicking: false }))
-    await wait(100)
+    await wait(80)
 
-    // Phase 4: Hide cursor and process
+    // Hide cursor and show processing
     setCursorState((prev) => ({ ...prev, visible: false }))
-    setPhase("sending")
-    await wait(400)
-
     setPhase("processing")
     setChatState((prev) => ({ ...prev, showProcessing: true }))
-    await wait(2200)
+    await wait(1800)
 
-    // Phase 5: Show response
+    // Show response instantly (no typing for AI)
     setPhase("response-shown")
     setChatState((prev) => ({
       ...prev,
       showProcessing: false,
       showResponse: true,
     }))
-    await wait(1000)
+    await wait(700)
 
-    // Phase 6: Show artifact card
+    // Show artifact card
+    setPhase("artifact-appear")
     setChatState((prev) => ({ ...prev, showArtifactCard: true }))
-    await wait(1200)
+    await wait(900)
 
-    // Phase 7: Click artifact card to open research panel
-    setCursorState({ visible: true, position: { x: 50, y: 72 }, clicking: false })
-    await wait(500)
+    // Move cursor to artifact card
+    setPhase("move-to-artifact")
+    setCursorState({ visible: true, position: { x: 25, y: 72 }, clicking: false })
+    await wait(550)
+    
+    // Click artifact
+    setPhase("click-artifact")
     setCursorState((prev) => ({ ...prev, clicking: true }))
-    await wait(150)
+    await wait(120)
     setCursorState((prev) => ({ ...prev, clicking: false }))
-    await wait(100)
+    await wait(80)
 
-    // Phase 8: Open artifact panel
+    // Open artifact panel
     setCursorState((prev) => ({ ...prev, visible: false }))
     setPhase("artifact-opening")
-    await wait(300)
+    await wait(250)
     setPanelState((prev) => ({ ...prev, showArtifact: true }))
     setPhase("artifact-open")
-    await wait(800)
-
-    // Phase 9: Auto-scroll artifact panel to show cases
-    setPhase("scroll-artifact")
-    if (artifactScrollRef.current) {
-      artifactScrollRef.current.scrollTo({ top: 600, behavior: "smooth" })
-    }
-    await wait(1500)
-
-    // Phase 10: Click first case to expand
-    setCursorState({ visible: true, position: { x: 64, y: 48 }, clicking: false })
     await wait(600)
+
+    // AUTO-SCROLL artifact panel
+    setPhase("artifact-scrolling")
+    setPanelState((prev) => ({ ...prev, artifactScroll: 600 }))
+    await wait(1600)
+
+    // Move to first case
+    setPhase("move-to-case")
+    setCursorState({ visible: true, position: { x: 58, y: 56 }, clicking: false })
+    await wait(550)
+    
+    // Click case
+    setPhase("click-case")
     setCursorState((prev) => ({ ...prev, clicking: true }))
-    await wait(150)
+    await wait(120)
     setCursorState((prev) => ({ ...prev, clicking: false }))
     setPanelState((prev) => ({ ...prev, selectedCase: true }))
     setPhase("case-expanded")
     await wait(600)
 
-    // Phase 11: Move cursor to "Get Court Copy"
-    setCursorState((prev) => ({ ...prev, position: { x: 64, y: 60 } }))
-    await wait(500)
+    // Move to "Get Court Copy" button
+    setPhase("move-to-court")
+    setCursorState((prev) => ({ ...prev, position: { x: 58, y: 66 } }))
+    await wait(450)
+    
+    // Click court copy
+    setPhase("click-court")
     setCursorState((prev) => ({ ...prev, clicking: true }))
-    await wait(150)
+    await wait(120)
     setCursorState((prev) => ({ ...prev, clicking: false }))
-    await wait(100)
+    await wait(80)
 
-    // Phase 12: Open court copy panel
+    // Open court copy panel
     setCursorState((prev) => ({ ...prev, visible: false }))
-    setPhase("court-copy-opening")
-    await wait(300)
+    setPhase("court-opening")
+    await wait(250)
     setPanelState((prev) => ({ ...prev, showDetail: true }))
-    setPhase("court-copy-open")
-    await wait(700)
-
-    // Phase 13: Auto-scroll court copy
-    setPhase("scroll-court-copy")
-    if (detailScrollRef.current) {
-      detailScrollRef.current.scrollTo({ top: 800, behavior: "smooth" })
-    }
-    await wait(2000)
-
-    // Phase 14: Close court copy and open cited acts
-    setPhase("close-court-copy")
-    setCursorState({ visible: true, position: { x: 64, y: 52 }, clicking: false })
+    setPhase("court-open")
     await wait(600)
+
+    // AUTO-SCROLL court copy
+    setPhase("court-scrolling")
+    setPanelState((prev) => ({ ...prev, detailScroll: 800 }))
+    await wait(1800)
+
+    // Scroll back up for cited acts button
+    setPanelState((prev) => ({ ...prev, detailScroll: 0 }))
+    await wait(1000)
+
+    // Move to "Get Cited Acts" button
+    setPhase("move-to-acts")
+    setCursorState({ visible: true, position: { x: 58, y: 68 }, clicking: false })
+    await wait(550)
+    
+    // Click cited acts
+    setPhase("click-acts")
     setCursorState((prev) => ({ ...prev, clicking: true }))
-    await wait(150)
+    await wait(120)
     setCursorState((prev) => ({ ...prev, clicking: false }))
-    await wait(100)
+    await wait(80)
+    
     setCursorState((prev) => ({ ...prev, visible: false }))
+    await wait(180)
 
-    // Replace detail panel with cited acts
-    await wait(200)
-    setPanelState((prev) => ({ ...prev, showDetail: false, showCitedActs: true }))
-    setPhase("cited-acts-opening")
-    await wait(400)
-    setPhase("cited-acts-open")
-    await wait(700)
+    // Replace detail with cited acts
+    setPhase("acts-opening")
+    setPanelState((prev) => ({ ...prev, showDetail: false, showCitedActs: true, actsScroll: 0 }))
+    await wait(250)
+    setPhase("acts-open")
+    await wait(600)
 
-    // Phase 15: Auto-scroll cited acts
-    setPhase("scroll-cited-acts")
-    if (citedActsScrollRef.current) {
-      citedActsScrollRef.current.scrollTo({ top: 600, behavior: "smooth" })
-    }
-    await wait(2000)
+    // AUTO-SCROLL cited acts
+    setPhase("acts-scrolling")
+    setPanelState((prev) => ({ ...prev, actsScroll: 600 }))
+    await wait(1800)
 
-    // Phase 16: Transition to restart
-    setPhase("closing")
-    await wait(1500)
-    setPhase("complete")
+    // Pause to let user see final state
+    setPhase("complete-pause")
+    await wait(1200)
+
+    // Smooth fade to black
+    setPhase("fade-to-black")
     await wait(800)
+
+    // Reset everything while still black
+    setPhase("reset")
+    resetStates()
+    await wait(250)
+    
+    // Restart fresh
     runAnimation()
   }
 
   const resetStates = () => {
-    setPhase("initial")
     setCursorState({ visible: false, position: { x: 50, y: 50 }, clicking: false })
     setChatState({
       queryText: "",
@@ -207,6 +260,9 @@ const citedActsScrollRef = useRef<HTMLDivElement>(null!)
       showDetail: false,
       showCitedActs: false,
       selectedCase: false,
+      artifactScroll: 0,
+      detailScroll: 0,
+      actsScroll: 0,
     })
   }
 
@@ -221,34 +277,60 @@ const citedActsScrollRef = useRef<HTMLDivElement>(null!)
     return "33.33%"
   }
 
+  // Sync scroll positions with refs
+  useEffect(() => {
+    if (artifactScrollRef.current && panelState.artifactScroll > 0) {
+      artifactScrollRef.current.scrollTo({ top: panelState.artifactScroll, behavior: "smooth" })
+    }
+  }, [panelState.artifactScroll])
+
+  useEffect(() => {
+    if (detailScrollRef.current) {
+      detailScrollRef.current.scrollTo({ top: panelState.detailScroll, behavior: "smooth" })
+    }
+  }, [panelState.detailScroll])
+
+  useEffect(() => {
+    if (citedActsScrollRef.current && panelState.actsScroll > 0) {
+      citedActsScrollRef.current.scrollTo({ top: panelState.actsScroll, behavior: "smooth" })
+    }
+  }, [panelState.actsScroll])
+
   return (
-    <div className="relative w-full aspect-[16/9] bg-background overflow-hidden border border-border/80 shadow-2xl">
+    <div className="relative w-full aspect-[16/9] bg-background overflow-hidden rounded-xl border border-border/80 shadow-2xl">
       <AnimatePresence>
         {cursorState.visible && <AnimatedCursor position={cursorState.position} clicking={cursorState.clicking} />}
       </AnimatePresence>
 
+      {/* Black fade overlay for smooth transitions */}
+      <AnimatePresence>
+        {(phase === "fade-to-black" || phase === "reset") && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="absolute inset-0 bg-black z-50 pointer-events-none"
+          />
+        )}
+      </AnimatePresence>
+
       <div className="relative w-full h-full">
         <AnimatePresence mode="wait">
-          {phase === "initial" && (
-            <motion.div
-              key="initial"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0"
+          {(phase === "initial" || phase === "fade-in" || phase === "input-ready" || phase === "typing" || phase === "move-to-send" || phase === "click-send") && (
+            <InitialInputState 
+              key="input" 
+              queryText={chatState.queryText}
+              isTyping={phase === "typing"}
             />
-          )}
-
-          {(phase === "input-ready" || phase === "sending") && (
-            <InitialInputState key="input" queryText={chatState.queryText} />
           )}
 
           {phase === "processing" && <ProcessingState key="processing" />}
 
-          {(phase === "response-shown" || phase.startsWith("artifact-opening")) && !panelState.showArtifact && (
+          {(phase === "response-shown" || phase === "artifact-appear" || phase === "move-to-artifact" || phase === "click-artifact") && !panelState.showArtifact && (
             <ResponseState
               key="response"
-              queryText={chatState.queryText}
+              queryText={QUERY}
               showArtifactCard={chatState.showArtifactCard}
             />
           )}
@@ -256,7 +338,8 @@ const citedActsScrollRef = useRef<HTMLDivElement>(null!)
           {(panelState.showArtifact || panelState.showDetail || panelState.showCitedActs) && (
             <MultiPanelState
               key="multi-panel"
-              queryText={chatState.queryText}
+              queryText={QUERY}
+              responseText={RESPONSE}
               showArtifact={panelState.showArtifact}
               showDetail={panelState.showDetail}
               showCitedActs={panelState.showCitedActs}
@@ -281,74 +364,53 @@ ProductDemo.displayName = "ProductDemo"
 // STATE COMPONENTS
 // ============================================================================
 
-const InitialInputState = memo(({ queryText }: { queryText: string }) => (
+const InitialInputState = memo(({ queryText, isTyping }: { queryText: string; isTyping: boolean }) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.96 }}
-    animate={{ opacity: 1, scale: 1 }}
-    exit={{ opacity: 0, scale: 0.96, y: -20 }}
-    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-    className="absolute inset-0 flex items-center justify-center p-12 bg-background"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.4 }}
+    className="absolute inset-0 flex items-center justify-center p-12 bg-gradient-to-b from-background to-background/95"
   >
-    <div className="w-full max-w-3xl space-y-8">
+    <div className="w-full max-w-3xl space-y-7">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.6 }}
-        className="text-center space-y-4"
+        transition={{ delay: 0.12, duration: 0.4 }}
+        className="text-center space-y-3"
       >
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <div className="w-12 h-12 bg-primary/20 flex items-center justify-center border border-primary/40">
-            <Scale className="w-7 h-7 text-primary" />
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
+            <Scale className="w-5 h-5 text-primary" />
           </div>
         </div>
-        <h2 className="text-4xl font-bold tracking-tight">Legal Research Assistant</h2>
-        <p className="text-lg text-muted-foreground">AI-powered research for Indian law</p>
+        <h2 className="text-3xl font-bold tracking-tight">Legal Research Assistant</h2>
+        <p className="text-base text-muted-foreground">AI-powered research for Indian law</p>
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.6 }}
+        transition={{ delay: 0.2, duration: 0.4 }}
         className="relative"
       >
-        <div className="flex items-center gap-4 bg-card border border-border/80 hover:border-primary/40 px-6 py-5 shadow-xl transition-all duration-300">
+        <div className="flex items-center gap-3 bg-card border-2 border-border/60 rounded-xl px-5 py-4 shadow-lg">
           <div className="flex-1">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="text-base font-semibold"
-            >
+            <p className="text-sm font-medium">
               {queryText || <span className="text-muted-foreground">Ask a legal question...</span>}
-            </motion.p>
+              {isTyping && queryText && (
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.6, repeat: Infinity }}
+                  className="inline-block w-0.5 h-4 bg-primary ml-0.5 align-middle"
+                />
+              )}
+            </p>
           </div>
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.92 }}
-            className="p-3.5 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg font-semibold"
-          >
-            <Send className="w-5 h-5" />
-          </motion.button>
+          <button className="p-3 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg transition-all shadow-md">
+            <Send className="w-4 h-4" />
+          </button>
         </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6, duration: 0.6 }}
-        className="flex flex-wrap gap-3 justify-center"
-      >
-        {["Property Disputes", "Contract Law", "Criminal Defense"].map((topic, i) => (
-          <motion.span
-            key={i}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.7 + i * 0.05 }}
-            className="px-4 py-2 bg-muted/70 hover:bg-muted border border-border/40 hover:border-primary/30 text-sm font-medium text-muted-foreground hover:text-foreground transition-all cursor-pointer"
-          >
-            {topic}
-          </motion.span>
-        ))}
       </motion.div>
     </div>
   </motion.div>
@@ -361,55 +423,40 @@ const ProcessingState = memo(() => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
-    transition={{ duration: 0.4 }}
-    className="absolute inset-0 flex items-center justify-center bg-background"
+    transition={{ duration: 0.3 }}
+    className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-background to-background/95"
   >
-    <div className="text-center space-y-8">
+    <div className="text-center space-y-5">
       <motion.div
-        animate={{
-          rotate: [0, 360],
-          scale: [1, 1.1, 1],
-        }}
+        animate={{ rotate: 360, scale: [1, 1.06, 1] }}
         transition={{
-          rotate: { duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
-          scale: { duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
+          rotate: { duration: 2.2, repeat: Infinity, ease: "linear" },
+          scale: { duration: 1.3, repeat: Infinity, ease: "easeInOut" },
         }}
         className="flex justify-center"
       >
-        <div className="w-16 h-16 bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center border border-primary/40">
-          <Sparkles className="w-8 h-8 text-primary" />
+        <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center border border-primary/30">
+          <Scale className="w-7 h-7 text-primary" />
         </div>
       </motion.div>
 
-      <div className="space-y-3">
-        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-xl font-bold">
-          Analyzing legal databases
-        </motion.p>
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-sm text-muted-foreground max-w-md mx-auto"
-        >
-          Searching through case law, statutes, and legal precedents
-        </motion.p>
+      <div className="space-y-2.5">
+        <p className="text-lg font-bold">Analyzing legal databases</p>
+        <p className="text-sm text-muted-foreground">Searching case law and statutes</p>
       </div>
 
-      <div className="flex justify-center gap-2">
+      <div className="flex justify-center gap-1.5">
         {[0, 1, 2].map((i) => (
           <motion.div
             key={i}
-            animate={{
-              y: [0, -16, 0],
-              opacity: [0.3, 1, 0.3],
-            }}
+            animate={{ y: [0, -13, 0], opacity: [0.4, 1, 0.4] }}
             transition={{
-              duration: 0.8,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: i * 0.15,
+              duration: 0.7,
+              repeat: Infinity,
+              delay: i * 0.11,
               ease: "easeInOut",
             }}
-            className="w-3 h-3 bg-primary"
+            className="w-2 h-2 bg-primary rounded-full"
           />
         ))}
       </div>
@@ -419,120 +466,94 @@ const ProcessingState = memo(() => (
 
 ProcessingState.displayName = "ProcessingState"
 
-const ResponseState = memo(
-  ({
-    queryText,
-    showArtifactCard,
-  }: {
-    queryText: string
-    showArtifactCard: boolean
-  }) => (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, x: -50 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute inset-0 flex items-center justify-center p-8 bg-background"
-    >
-      <div className="w-full max-w-4xl h-full flex flex-col">
-        <div className="flex-1 flex flex-col justify-center space-y-6 overflow-y-auto py-8">
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-            className="flex justify-end"
-          >
-            <div className="bg-primary text-primary-foreground px-6 py-3.5 max-w-[85%] shadow-lg font-semibold">
-              <p className="text-sm leading-relaxed">{queryText}</p>
-            </div>
-          </motion.div>
+const ResponseState = memo(({ queryText, showArtifactCard }: { queryText: string; showArtifactCard: boolean }) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.3 }}
+    className="absolute inset-0 flex items-center justify-center p-8 bg-gradient-to-b from-background to-background/95"
+  >
+    <div className="w-full max-w-4xl h-full flex flex-col">
+      <div className="flex-1 flex flex-col justify-center space-y-5 overflow-y-auto py-8">
+        <motion.div
+          initial={{ opacity: 0, x: 12 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.08 }}
+          className="flex justify-end"
+        >
+          <div className="bg-primary text-primary-foreground rounded-2xl px-5 py-3.5 max-w-[85%] shadow-md">
+            <p className="text-sm leading-relaxed font-medium">{queryText}</p>
+          </div>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex gap-4"
-          >
-            <div className="w-11 h-11 bg-primary/20 flex items-center justify-center shrink-0 border border-primary/40">
-              <Scale className="w-5 h-5 text-primary" />
+        <motion.div
+          initial={{ opacity: 0, x: -12 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex gap-3.5"
+        >
+          <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 border border-primary/20">
+            <Scale className="w-5 h-5 text-primary" />
+          </div>
+          <div className="flex-1 space-y-4">
+            <div className="bg-card border-2 border-border/60 rounded-xl p-5 shadow-md">
+              <p className="text-sm leading-relaxed text-foreground font-serif">
+                I&apos;ll research case law on whether a plaint that discloses any cause of action can be rejected under{" "}
+                <strong>Order VII Rule 11(a) CPC</strong>.
+              </p>
             </div>
-            <div className="flex-1 space-y-5">
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="bg-card border border-border/60 p-6 shadow-md"
-              >
-                <p className="text-sm leading-relaxed text-foreground/90">
-                  I&apos;ll research case law on whether a plaint that discloses any cause of action can be rejected under{" "}
-                  <strong className="font-bold text-foreground">Order VII Rule 11(a) CPC</strong>.
-                </p>
-              </motion.div>
 
-              <AnimatePresence>{showArtifactCard && <ArtifactCard />}</AnimatePresence>
-            </div>
-          </motion.div>
-        </div>
+            <AnimatePresence>{showArtifactCard && <ArtifactCard />}</AnimatePresence>
+          </div>
+        </motion.div>
       </div>
-    </motion.div>
-  ),
-)
+    </div>
+  </motion.div>
+))
 
 ResponseState.displayName = "ResponseState"
 
 const ArtifactCard = memo(() => (
   <motion.div
-    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+    initial={{ opacity: 0, y: 12, scale: 0.97 }}
     animate={{ opacity: 1, y: 0, scale: 1 }}
-    exit={{ opacity: 0, scale: 0.95 }}
-    transition={{
-      duration: 0.5,
-      ease: [0.16, 1, 0.3, 1],
-    }}
-    whileHover={{ scale: 1.02 }}
-    className="bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border border-primary/40 p-6 cursor-pointer shadow-lg hover:shadow-xl transition-all"
+    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+    className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-2 border-primary/30 rounded-xl p-5 cursor-pointer shadow-lg hover:shadow-xl transition-all"
   >
-    <div className="flex items-start gap-4 mb-5">
-      <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shrink-0 shadow-md border border-primary/50">
-        <Scale className="w-6 h-6 text-white" />
+    <div className="flex items-start gap-3.5 mb-4">
+      <div className="w-11 h-11 bg-gradient-to-br from-primary to-primary/60 rounded-lg flex items-center justify-center shadow-md border border-primary/50">
+        <Scale className="w-5 h-5 text-white" />
       </div>
-      <div className="flex-1 min-w-0">
+      <div className="flex-1">
         <div className="flex items-center gap-2 mb-1.5">
-          <h4 className="font-bold text-foreground text-base">Legal Research Created</h4>
-          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: "spring" }}>
-            <div className="w-5 h-5 bg-green-500 flex items-center justify-center border border-green-600">
-              <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-          </motion.div>
+          <h4 className="font-bold text-foreground text-sm">Legal Research Created</h4>
+          <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center border border-green-600">
+            <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
         </div>
-        <p className="text-sm text-primary/90 font-semibold">Order VII Rule 11(a) CPC Analysis</p>
+        <p className="text-xs text-muted-foreground font-medium">Found 5 cases, 3 acts, and 2 articles</p>
       </div>
     </div>
 
-    <div className="grid grid-cols-3 gap-3 mb-5">
+    <div className="grid grid-cols-3 gap-2.5 mb-4">
       {[
-        { number: "5", label: "Cases Found", delay: 0.1 },
-        { number: "3", label: "Acts Cited", delay: 0.2 },
-        { number: "2", label: "Articles", delay: 0.3 },
+        { number: "5", label: "Cases" },
+        { number: "3", label: "Acts" },
+        { number: "2", label: "Articles" },
       ].map((stat, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: stat.delay }}
-          className="bg-card/70 backdrop-blur-sm p-4 text-center border border-border/60"
-        >
-          <p className="text-2xl font-bold text-primary mb-1">{stat.number}</p>
+        <div key={i} className="bg-card/70 rounded-lg p-3 text-center border border-border/60">
+          <p className="text-xl font-bold text-primary mb-0.5">{stat.number}</p>
           <p className="text-xs font-semibold text-muted-foreground">{stat.label}</p>
-        </motion.div>
+        </div>
       ))}
     </div>
 
-    <div className="flex items-center justify-between pt-2">
-      <span className="text-sm font-bold text-primary">Click to view full research →</span>
-      <span className="text-xs font-bold text-primary bg-primary/20 px-3 py-1.5 border border-primary/40">Ready</span>
+    <div className="flex items-center justify-between pt-2.5 border-t border-border/40">
+      <span className="text-xs font-bold text-primary">Click to view research →</span>
+      <span className="text-xs font-bold text-primary bg-primary/20 px-2.5 py-1 rounded-md border border-primary/40">Ready</span>
     </div>
   </motion.div>
 ))
@@ -542,6 +563,7 @@ ArtifactCard.displayName = "ArtifactCard"
 const MultiPanelState = memo(
   ({
     queryText,
+    responseText,
     showArtifact,
     showDetail,
     showCitedActs,
@@ -554,6 +576,7 @@ const MultiPanelState = memo(
     citedActsScrollRef,
   }: {
     queryText: string
+    responseText: string
     showArtifact: boolean
     showDetail: boolean
     showCitedActs: boolean
@@ -569,12 +592,13 @@ const MultiPanelState = memo(
       <motion.div
         initial={{ width: "100%" }}
         animate={{ width: chatWidth }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="border-r border-border/60 bg-background overflow-hidden"
         ref={chatScrollRef}
       >
         <DemoChatPanel
           typedText={queryText}
+          responseText={responseText}
           showResponse={true}
           showProcessing={false}
           showArtifactCard={showArtifactCard && !showArtifact}
@@ -584,14 +608,13 @@ const MultiPanelState = memo(
       <AnimatePresence>
         {showArtifact && (
           <motion.div
-            initial={{ width: 0, opacity: 0, x: 20 }}
+            initial={{ width: 0, opacity: 0 }}
             animate={{
               width: showDetail || showCitedActs ? "33.33%" : "50%",
               opacity: 1,
-              x: 0,
             }}
-            exit={{ width: 0, opacity: 0, x: 20 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ width: 0, opacity: 0 }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             className="border-r border-border/60 bg-background overflow-hidden"
             ref={artifactScrollRef}
           >
@@ -603,10 +626,10 @@ const MultiPanelState = memo(
       <AnimatePresence>
         {showDetail && (
           <motion.div
-            initial={{ width: 0, opacity: 0, x: 20 }}
-            animate={{ width: "33.33%", opacity: 1, x: 0 }}
-            exit={{ width: 0, opacity: 0, x: 20 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: "33.33%", opacity: 1 }}
+            exit={{ width: 0, opacity: 0 }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             className="bg-background overflow-hidden"
             ref={detailScrollRef}
           >
@@ -618,10 +641,10 @@ const MultiPanelState = memo(
       <AnimatePresence>
         {showCitedActs && (
           <motion.div
-            initial={{ width: 0, opacity: 0, x: 20 }}
-            animate={{ width: "33.33%", opacity: 1, x: 0 }}
-            exit={{ width: 0, opacity: 0, x: 20 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: "33.33%", opacity: 1 }}
+            exit={{ width: 0, opacity: 0 }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             className="bg-background overflow-hidden"
             ref={citedActsScrollRef}
           >

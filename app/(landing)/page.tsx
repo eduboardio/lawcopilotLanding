@@ -24,35 +24,35 @@ const Benefits = lazy(() =>
   import("@/components/home/benefits").then(module => ({ default: module.Benefits }))
 );
 
-const UseCases = lazy(() =>
-  import("@/components/home/useCases").then(module => ({ default: module.UseCases }))
-);
+// const UseCases = lazy(() =>
+//   import("@/components/home/useCases").then(module => ({ default: module.UseCases }))
+// );
 
-const FoundersSection = lazy(() =>
-  import("@/components/home/FoundersSection").then(module => ({ default: module.FoundersSection }))
-);
+// const FoundersSection = lazy(() =>
+//   import("@/components/home/FoundersSection").then(module => ({ default: module.FoundersSection }))
+// );
 
-const SocialProof = lazy(() =>
-  import("@/components/home/SocialProof").then(module => ({ default: module.SocialProof }))
-);
+// const SocialProof = lazy(() =>
+//   import("@/components/home/SocialProof").then(module => ({ default: module.SocialProof }))
+// );
 
 const ComplianceBadges = lazy(() =>
   import("@/components/home/ComplianceBadges").then(module => ({ default: module.ComplianceBadges }))
 );
 
-const ConversionCTA = lazy(() =>
-  import("@/components/home/ConversionCTA").then(module => ({ default: module.ConversionCTA }))
-);
+// const ConversionCTA = lazy(() =>
+//   import("@/components/home/ConversionCTA").then(module => ({ default: module.ConversionCTA }))
+// );
 
 const sections: SectionConfig[] = [
   { component: Hero, priority: true },
   { component: Features, priority: true },
   { component: Benefits },
-  { component: UseCases },
-  { component: FoundersSection },
-  { component: SocialProof },
+  // { component: UseCases },
+  // { component: FoundersSection },
+  // { component: SocialProof },
   { component: ComplianceBadges },
-  { component: ConversionCTA },
+  // { component: ConversionCTA },
 ];
 
 export default function Home() {

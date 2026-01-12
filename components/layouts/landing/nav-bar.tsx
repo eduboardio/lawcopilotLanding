@@ -51,20 +51,20 @@ const routeList: RouteProps[] = [
         subMenu: {
             title: "Our Products",
             items: [
-                { 
-                    href: "/products/lawfirms", 
+                {
+                    href: "/products/lawfirms",
                     label: "For Law Firms",
                     description: "Complete legal platform for growing firms",
                     icon: Building2
                 },
-                { 
-                    href: "/products/lawyers", 
+                {
+                    href: "/products/lawyers",
                     label: "For Lawyers",
                     description: "Tools for independent practitioners",
                     icon: Scale
                 },
-                { 
-                    href: "/products/everyone", 
+                {
+                    href: "/products/everyone",
                     label: "For Everyone",
                     description: "Accessible legal AI for all",
                     icon: Globe
@@ -91,25 +91,25 @@ const routeList: RouteProps[] = [
             title: "Platform Capabilities",
             items: [
                 {
-                    href: "/#features",
+                    href: "/#legal-drafting",
                     label: "Legal Drafting",
                     description: "AI-powered document generation",
                     icon: FileText
                 },
                 {
-                    href: "/#features",
+                    href: "/#legal-research",
                     label: "Legal Research",
                     description: "Comprehensive case law search",
                     icon: Search
                 },
                 {
-                    href: "/#features",
+                    href: "/#document-analysis",
                     label: "Document Analysis",
                     description: "Smart contract & agreement review",
                     icon: FileCheck
                 },
                 {
-                    href: "/#features",
+                    href: "/#case-intelligence",
                     label: "Case Intelligence",
                     description: "Precedent analysis & insights",
                     icon: Brain
@@ -176,6 +176,26 @@ const routeList: RouteProps[] = [
     },
 ];
 
+const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Only handle hash links
+    if (href.startsWith('/#')) {
+        e.preventDefault();
+        const id = href.replace('/#', '');
+        const element = document.getElementById(id);
+
+        if (element) {
+            const navbarHeight = 80; // Height of your navbar (h-20 = 5rem = 80px)
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }
+};
+
 const CallToActions = memo(({ classes }: {
     classes?: {
         container?: string;
@@ -204,7 +224,7 @@ const CallToActions = memo(({ classes }: {
 
 CallToActions.displayName = 'CallToActions';
 
-const DesktopNavigation = memo(({ pathname, openDropdown, setOpenDropdown }: { 
+const DesktopNavigation = memo(({ pathname, openDropdown, setOpenDropdown }: {
     pathname: string;
     openDropdown: string | null;
     setOpenDropdown: (label: string | null) => void;
@@ -219,14 +239,14 @@ const DesktopNavigation = memo(({ pathname, openDropdown, setOpenDropdown }: {
         <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2">
             <ul className="flex items-center gap-1">
                 {routeList.map((route) => {
-                    const isActive = pathname === route.href || 
-                                   (route.href === "/#hero" && pathname === "/") ||
-                                   (route.href === "/blog" && pathname.startsWith("/blog"));
+                    const isActive = pathname === route.href ||
+                        (route.href === "/#hero" && pathname === "/") ||
+                        (route.href === "/blog" && pathname.startsWith("/blog"));
                     const hasSubMenu = !!route.subMenu;
                     const isOpen = openDropdown === route.label;
 
                     return (
-                        <li 
+                        <li
                             key={route.label}
                             className="relative"
                             onMouseEnter={() => handleMouseEnter(route.label, hasSubMenu)}
@@ -239,11 +259,11 @@ const DesktopNavigation = memo(({ pathname, openDropdown, setOpenDropdown }: {
                                     )}
                                 >
                                     {route.label}
-                                    <ChevronDown 
+                                    <ChevronDown
                                         className={cn(
                                             "h-4 w-4 transition-transform duration-200",
                                             isOpen && "rotate-180"
-                                        )} 
+                                        )}
                                     />
                                 </button>
                             ) : (
@@ -275,7 +295,7 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
     const [activeLabel, setActiveLabel] = useState<string | null>(null);
     const menuRef = useRef<HTMLDivElement>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-    
+
     useEffect(() => {
         if (openDropdown) {
             setActiveLabel(openDropdown);
@@ -297,7 +317,7 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
     }, []);
 
     const activeRoute = routeList.find(r => r.label === activeLabel);
-    
+
     if (!activeLabel || !activeRoute?.subMenu) return null;
 
     const handleMouseEnter = () => {
@@ -314,12 +334,12 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
     };
 
     return (
-        <div 
+        <div
             ref={menuRef}
             className={cn(
                 "absolute left-0 right-0 top-full z-50 bg-background/98 backdrop-blur-xl border-b border-border/20 shadow-2xl transition-all duration-300 ease-in-out",
-                isVisible 
-                    ? "opacity-100 translate-y-0" 
+                isVisible
+                    ? "opacity-100 translate-y-0"
                     : "opacity-0 -translate-y-2 pointer-events-none"
             )}
             onMouseEnter={handleMouseEnter}
@@ -332,7 +352,7 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
                         <h3 className="mb-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                             {activeRoute.subMenu.title}
                         </h3>
-                        
+
                         {activeRoute.subMenu.items.map((item, index) => {
                             const Icon = item.icon;
                             return (
@@ -340,7 +360,10 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
                                     key={index}
                                     href={item.href}
                                     className="group flex items-start gap-3 p-3 rounded-md hover:bg-accent/30 transition-all duration-200"
-                                    onClick={() => setOpenDropdown(null)}
+                                    onClick={(e) => {
+                                        handleSmoothScroll(e, item.href);
+                                        setOpenDropdown(null);
+                                    }}
                                 >
                                     {Icon && (
                                         <div className="mt-0.5 text-primary/60 group-hover:text-primary transition-colors duration-200">
@@ -387,7 +410,7 @@ export const Navbar = () => {
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
     const pathname = usePathname();
     const shouldHideHeaderNavbar = ROUTES_WITHOUT_NAVBAR.includes(pathname);
-    
+
     const handleScroll = useCallback(() => {
         const isScrolled = window.scrollY > 20;
         if (isScrolled !== scrolled) {
@@ -412,7 +435,7 @@ export const Navbar = () => {
 
         return () => window.removeEventListener("scroll", scrollListener);
     }, [handleScroll]);
-    
+
     if (shouldHideHeaderNavbar) return null;
 
     return (
@@ -430,8 +453,8 @@ export const Navbar = () => {
                 <Logo />
 
                 {/* Desktop Navigation - Center */}
-                <DesktopNavigation 
-                    pathname={pathname} 
+                <DesktopNavigation
+                    pathname={pathname}
                     openDropdown={openDropdown}
                     setOpenDropdown={setOpenDropdown}
                 />
@@ -489,7 +512,7 @@ export const Navbar = () => {
                                                                         variant="ghost"
                                                                         className="justify-start text-base h-auto py-3"
                                                                     >
-                                                                        <Link href={item.href}>
+                                                                        <Link href={item.href} onClick={(e) => handleSmoothScroll(e, item.href)}>
                                                                             <div className="flex items-center gap-3 text-left w-full">
                                                                                 {Icon && <Icon className="h-4 w-4 text-primary" />}
                                                                                 <div>
@@ -518,7 +541,7 @@ export const Navbar = () => {
                                                     variant="ghost"
                                                     className="justify-start text-lg font-medium"
                                                 >
-                                                    <Link href={route.href}>{route.label}</Link>
+                                                    <Link href={route.href} onClick={(e) => handleSmoothScroll(e, route.href)}>{route.label}</Link>
                                                 </Button>
                                             );
                                         })}
@@ -548,7 +571,7 @@ export const Navbar = () => {
             </div>
 
             {/* Mega Menu Dropdown */}
-            <MegaMenu 
+            <MegaMenu
                 openDropdown={openDropdown}
                 setOpenDropdown={setOpenDropdown}
             />
