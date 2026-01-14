@@ -86,7 +86,7 @@ const trustFactors = [
 
 export function Benefits() {
   return (
-    <section id="benefits" className="relative w-full overflow-hidden bg-background py-24 md:py-32">
+    <section id="benefits" className="relative w-full overflow-hidden bg-background py-6 md:py-8">
       {/* Subtle background matching Hero/Features */}
       <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
         <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>

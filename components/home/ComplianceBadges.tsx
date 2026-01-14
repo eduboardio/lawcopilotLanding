@@ -34,7 +34,7 @@ export function ComplianceBadges() {
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
             </div>
 
-            <div className="container relative z-10 mx-auto max-w-7xl px-6">
+            <div className="container relative z-10 mx-auto px-6">
                 {/* Header */}
                 <motion.div
                     className="mb-12 text-center"

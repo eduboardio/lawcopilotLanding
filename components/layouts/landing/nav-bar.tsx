@@ -1,5 +1,5 @@
 "use client";
-import { Menu, ChevronDown, Scale, FileText, Sparkles, Globe, Search, FileCheck, Brain, Target, Zap, Languages, Building2 } from "lucide-react";
+import { Menu, ChevronDown, Scale, FileText, Search, FileCheck, Brain, Building2, Globe } from "lucide-react";
 import { useCallback, useEffect, useState, memo, useRef } from "react";
 import {
     Sheet,
@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ROUTES_WITHOUT_NAVBAR } from "@/constants";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { AnimatedVisual } from "@/components/layouts/landing/animated-visual";
+import { useTheme } from "next-themes";
 
 interface SubMenuItem {
     href: string;
@@ -32,8 +32,9 @@ interface RouteProps {
     subMenu?: {
         title: string;
         items: SubMenuItem[];
-        visuals: {
-            image: string;
+        visuals?: {
+            lightImage: string;
+            darkImage: string;
             title: string;
             description: string;
         }[];
@@ -72,12 +73,14 @@ const routeList: RouteProps[] = [
             ],
             visuals: [
                 {
-                    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                    lightImage: "/dropdown_1.webp",
+                    darkImage: "/dropdown_dark_1.webp",
                     title: "AI-Powered Legal Platform",
                     description: "Transform your legal practice with intelligent automation"
                 },
                 {
-                    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&q=80",
+                    lightImage: "/dropdown_2.webp",
+                    darkImage: "/dropdown_dark_2.webp",
                     title: "Seamless Collaboration",
                     description: "Work together efficiently across teams and clients"
                 }
@@ -117,12 +120,14 @@ const routeList: RouteProps[] = [
             ],
             visuals: [
                 {
-                    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+                    lightImage: "/dropdown_1.webp",
+                    darkImage: "/dropdown_dark_1.webp",
                     title: "Intelligent Research",
                     description: "Find relevant case law and precedents instantly"
                 },
                 {
-                    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+                    lightImage: "/dropdown_2.webp",
+                    darkImage: "/dropdown_dark_2.webp",
                     title: "Smart Analytics",
                     description: "Data-driven insights for better legal outcomes"
                 }
@@ -139,39 +144,28 @@ const routeList: RouteProps[] = [
                     href: "/#benefits",
                     label: "India-First Platform",
                     description: "Built for Indian legal practice",
-                    icon: Target
+                    icon: Scale
                 },
                 {
                     href: "/#benefits",
                     label: "Custom AI Engine",
                     description: "Purpose-built legal intelligence",
-                    icon: Sparkles
+                    icon: Brain
                 },
                 {
                     href: "/#benefits",
                     label: "Jurisdictional Intelligence",
                     description: "Court-specific legal reasoning",
-                    icon: Zap
+                    icon: FileCheck
                 },
                 {
                     href: "/#benefits",
                     label: "Multilingual Support",
                     description: "Legal work across Indian languages",
-                    icon: Languages
+                    icon: Globe
                 },
             ],
-            visuals: [
-                {
-                    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80",
-                    title: "Built for India",
-                    description: "Tailored for Indian legal system and practices"
-                },
-                {
-                    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80",
-                    title: "Expert Support",
-                    description: "Dedicated assistance for your legal journey"
-                }
-            ]
+            // No visuals for Why Us section
         },
     },
 ];
@@ -287,6 +281,60 @@ const DesktopNavigation = memo(({ pathname, openDropdown, setOpenDropdown }: {
 
 DesktopNavigation.displayName = 'DesktopNavigation';
 
+// Clean Image Window Component
+const ImageWindow = memo(({ visual, index }: { 
+    visual: { lightImage: string; darkImage: string; title: string; description: string }, 
+    index: number 
+}) => {
+    const { theme, resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Use resolvedTheme to get the actual current theme (handles 'system' setting)
+    const currentTheme = mounted ? (resolvedTheme || theme) : 'light';
+    const imageSrc = currentTheme === 'dark' ? visual.darkImage : visual.lightImage;
+
+    return (
+        <div className="space-y-3">
+            {/* Single Window with professional gradient background (Legora-style) - gradient only on top and left */}
+            <div className="relative aspect-video w-full overflow-hidden bg-gradient-to-br from-blue-500/15 via-cyan-500/10 to-emerald-500/15 dark:from-blue-600/20 dark:via-cyan-600/15 dark:to-emerald-600/20 pt-4 pl-4 shadow-lg">
+                <div className="relative w-full h-full overflow-hidden bg-background/90 backdrop-blur-sm border border-border/40 rounded-sm">
+                    {mounted && (
+                        <div className="relative w-full h-full">
+                            <img
+                                src={imageSrc}
+                                alt={visual.title}
+                                className="absolute inset-0 w-full h-full object-cover"
+                                style={{
+                                    objectFit: 'cover',
+                                    objectPosition: index === 0 ? '20% 0%' : '50% 50%',
+                                    width: index === 0 ? '200%' : '180%',
+                                    height: index === 0 ? '200%' : '180%',
+                                }}
+                            />
+                        </div>
+                    )}
+                </div>
+            </div>
+            
+            {/* Text below without card */}
+            <div className="space-y-1">
+                <h4 className="font-semibold text-sm text-foreground">
+                    {visual.title}
+                </h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                    {visual.description}
+                </p>
+            </div>
+        </div>
+    );
+});
+
+ImageWindow.displayName = 'ImageWindow';
+
 const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
     openDropdown: string | null;
     setOpenDropdown: (label: string | null) => void;
@@ -333,6 +381,8 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
         }, 200);
     };
 
+    const hasVisuals = activeRoute.subMenu.visuals && activeRoute.subMenu.visuals.length > 0;
+
     return (
         <div
             ref={menuRef}
@@ -348,7 +398,7 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
             <div className="container mx-auto px-6 py-10">
                 <div className="flex items-start gap-8">
                     {/* Left Side - Menu Items */}
-                    <div className="space-y-1 flex-shrink-0" style={{ width: '350px' }}>
+                    <div className="space-y-1 flex-shrink-0" style={{ width: hasVisuals ? '350px' : '100%' }}>
                         <h3 className="mb-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                             {activeRoute.subMenu.title}
                         </h3>
@@ -385,17 +435,22 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
                         })}
                     </div>
 
-                    {/* Spacer */}
-                    <div className="flex-1" />
+                    {/* Right Side - Image Windows (only if visuals exist) */}
+                    {hasVisuals && (
+                        <>
+                            {/* Spacer */}
+                            <div className="flex-1" />
 
-                    {/* Right Side - Two Pictures (25% width each) */}
-                    <div className="flex gap-6 flex-shrink-0" style={{ width: '50%' }}>
-                        {activeRoute.subMenu.visuals.map((visual, index) => (
-                            <div key={index} className="flex-1">
-                                <AnimatedVisual visual={visual} index={index} />
+                            {/* Two Pictures */}
+                            <div className="flex gap-6 flex-shrink-0" style={{ width: '50%' }}>
+                                {activeRoute.subMenu.visuals!.map((visual, index) => (
+                                    <div key={index} className="flex-1">
+                                        <ImageWindow visual={visual} index={index} />
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { Logo } from "@/components/logo";
-import { Separator } from "@/components/ui/separator";
 import { ROUTES_WITHOUT_FOOTER } from "@/constants";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -22,18 +21,18 @@ export const Footer = () => {
                 <div className="absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-gradient-to-tl from-foreground/[0.015] to-transparent blur-3xl dark:from-white/[0.015]"></div>
             </div>
 
-            <div className="container relative z-10 py-16 mx-auto px-6 md:px-8">
-                {/* Top CTA Section */}
-                <div className="mb-16 text-center">
+            {/* Top CTA Section */}
+            <div className="container relative z-10 py-16 mx-auto px-6">
+                <div className="text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-4">
                         Ready to Transform Your Legal Practice?
                     </h2>
-                    <p className="text-muted-foreground dark:text-white/70 mb-8 max-w-2xl mx-auto">
+                    <p className="text-muted-foreground dark:text-white/70 mb-8 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
                         Join hundreds of legal professionals already using Law Copilot to work faster and smarter.
                     </p>
                     <Button
                         size="lg"
-                        className="rounded-full bg-foreground hover:bg-foreground/90 dark:bg-white dark:hover:bg-white/90 text-background dark:text-foreground font-medium px-8 shadow-lg hover:shadow-xl transition-all group"
+                        className="rounded-full bg-foreground hover:bg-foreground/90 dark:bg-white dark:hover:bg-white/90 text-background dark:text-foreground font-semibold px-8 shadow-lg hover:shadow-xl transition-all group"
                         asChild
                     >
                         <Link href="https://app.lawcopilot.io/signup">
@@ -42,11 +41,14 @@ export const Footer = () => {
                         </Link>
                     </Button>
                 </div>
+            </div>
 
-                <Separator className="mb-12 bg-border dark:bg-white/10" />
+            {/* Full-width Separator */}
+            <div className="w-full h-px bg-border dark:bg-white/10" />
 
-                {/* Main Footer Content */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 mb-12">
+            {/* Main Footer Content */}
+            <div className="container relative z-10 py-12 mx-auto px-6">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
                     {/* Brand Section */}
                     <div className="md:col-span-4">
                         <div className="flex items-center mb-6">
@@ -147,10 +149,13 @@ export const Footer = () => {
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <Separator className="mb-8 bg-border dark:bg-white/10" />
+            {/* Full-width Separator */}
+            <div className="w-full h-px bg-border dark:bg-white/10" />
 
-                {/* Bottom Bar */}
+            {/* Bottom Bar */}
+            <div className="container relative z-10 py-8 mx-auto px-6">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-sm text-muted-foreground dark:text-white/50">
                         © 2025 Law Copilot. All rights reserved.

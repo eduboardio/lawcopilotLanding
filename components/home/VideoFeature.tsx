@@ -35,10 +35,13 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
   const [typedText, setTypedText] = useState("");
   const [isArtifactOpen, setIsArtifactOpen] = useState(false);
   const [isRestarting, setIsRestarting] = useState(false);
+  const [showCursor, setShowCursor] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const isPausedRef = useRef(false);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
   const isRunningRef = useRef(false);
   const artifactScrollRef = useRef<HTMLDivElement>(null);
+  const artifactCardRef = useRef<HTMLDivElement>(null);
 
   const clearAllTimeouts = useCallback(() => {
     timeoutsRef.current.forEach(t => clearTimeout(t));
@@ -68,6 +71,40 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
     }
   }, [wait]);
 
+  const animateCursorToArtifact = useCallback(async () => {
+    if (!artifactCardRef.current) return;
+    
+    const rect = artifactCardRef.current.getBoundingClientRect();
+    const chatContainer = artifactCardRef.current.closest('.h-\\[700px\\]');
+    if (!chatContainer) return;
+    
+    const containerRect = chatContainer.getBoundingClientRect();
+    
+    // Calculate position relative to the chat container
+    const targetX = rect.left - containerRect.left + rect.width / 2;
+    const targetY = rect.top - containerRect.top + rect.height / 2;
+    
+    // Start position (from bottom right area)
+    const startX = containerRect.width - 100;
+    const startY = containerRect.height - 100;
+    
+    setCursorPosition({ x: startX, y: startY });
+    setShowCursor(true);
+    
+    await wait(300);
+    
+    // Animate to artifact card
+    setCursorPosition({ x: targetX, y: targetY });
+    
+    await wait(600);
+    
+    // Click animation
+    await wait(100);
+    
+    // Hide cursor
+    setShowCursor(false);
+  }, [wait]);
+
   const runAnimation = useCallback(async () => {
     if (isRunningRef.current) return;
     isRunningRef.current = true;
@@ -78,6 +115,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
       setTypedText("");
       setIsArtifactOpen(false);
       setIsRestarting(false);
+      setShowCursor(false);
       await wait(800);
 
       const userMessage = messages.find(m => m.role === "user");
@@ -104,7 +142,12 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
 
       // If user message has artifact, open it
       if (userMessage.artifact) {
-        await wait(1000);
+        await wait(800);
+        
+        // Animate cursor to artifact and click
+        await animateCursorToArtifact();
+        
+        await wait(200);
         setCurrentStep('artifact-opening');
         await wait(300);
         setIsArtifactOpen(true);
@@ -135,7 +178,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
       setIsRestarting(true);
       await wait(800);
     }
-  }, [messages, wait, typeText, skipThinking]);
+  }, [messages, wait, typeText, skipThinking, animateCursorToArtifact]);
 
   useEffect(() => {
     runAnimation();
@@ -211,7 +254,91 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="h-[700px]"
           >
-            <div className="flex h-full">
+            <div className="flex h-full relative">
+            {/* Animated Cursor */}
+            <AnimatePresence>
+              {showCursor && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ 
+                    opacity: 1, 
+                    scale: 1,
+                    x: cursorPosition.x,
+                    y: cursorPosition.y,
+                  }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ 
+                    x: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+                    y: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+                    opacity: { duration: 0.3, ease: "easeInOut" },
+                    scale: { duration: 0.3, ease: "easeInOut" }
+                  }}
+                  className="absolute pointer-events-none z-50 -translate-x-1 -translate-y-1"
+                  style={{
+                    left: 0,
+                    top: 0,
+                    filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15))',
+                  }}
+                >
+                  {/* Cursor pointer with gradient */}
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 28 28"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <linearGradient id="cursorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#FFFFFF" />
+                        <stop offset="100%" stopColor="#F0F0F0" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M6 4L20 14L12 16L8.5 23L6 4Z"
+                      fill="url(#cursorGradient)"
+                      stroke="#000000"
+                      strokeWidth="1.2"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  
+                  {/* Click ripple effect */}
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ 
+                      scale: [0, 2.5],
+                      opacity: [0.6, 0],
+                    }}
+                    transition={{
+                      duration: 0.8,
+                      ease: [0.25, 0.1, 0.25, 1],
+                      delay: 0.8
+                    }}
+                    className="absolute top-2 left-2 w-10 h-10 -ml-5 -mt-5 rounded-full border-2 border-primary/60"
+                    style={{
+                      boxShadow: '0 0 20px rgba(var(--primary), 0.3)'
+                    }}
+                  />
+                  
+                  {/* Cursor glow on click */}
+                  <motion.div
+                    initial={{ scale: 1, opacity: 0 }}
+                    animate={{ 
+                      scale: [1, 1.3, 1],
+                      opacity: [0, 0.8, 0],
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      ease: "easeInOut",
+                      delay: 0.8
+                    }}
+                    className="absolute top-0 left-0 w-7 h-7 rounded-full bg-primary/30 blur-md"
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Chat Panel */}
             <motion.div
               initial={{ width: "100%" }}
@@ -330,7 +457,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
                             transition={{ duration: 0.4, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
                             className="w-full"
                           >
-                            <div className="w-full text-left group cursor-pointer">
+                            <div className="w-full text-left group cursor-pointer" ref={artifactCardRef}>
                               <div className="border-2 border-border rounded-xl p-5 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent hover:border-primary/40 transition-all duration-300 shadow-lg">
                                 <div className="flex items-center gap-3.5">
                                   <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center flex-shrink-0 shadow-md border border-primary/50">

@@ -1,11 +1,10 @@
 import { FileText, BookOpen, BarChart3, CheckCircle2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Link from "next/link";
+import Image from "next/image";
 
 export default function LawyersPage() {
   return (
-    <div className="container mx-auto py-8 md:py-16 px-4">
+    <div className="container mx-auto py-16 md:py-32 px-4">
       {/* Hero Section */}
       <div className="flex flex-col items-center text-center mb-10 md:mb-16">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Tools for the Modern Lawyer</h1>
@@ -15,8 +14,8 @@ export default function LawyersPage() {
       </div>
 
       {/* Features Tabs */}
-      <Tabs defaultValue="drafting" className="max-w-5xl mx-auto px-2">
-        <TabsList className="grid w-full grid-cols-3 mb-6 md:mb-8 overflow-x-auto">
+      <Tabs defaultValue="drafting" className="w-full px-2">
+        <TabsList className="grid w-full grid-cols-3 mb-6 md:mb-8">
           <TabsTrigger value="drafting" className="text-sm md:text-base">Document Drafting</TabsTrigger>
           <TabsTrigger value="research" className="text-sm md:text-base">Legal Research</TabsTrigger>
           <TabsTrigger value="analytics" className="text-sm md:text-base">Critical Analysis</TabsTrigger>
@@ -49,8 +48,19 @@ export default function LawyersPage() {
               </ul>
             </div>
             <div className="md:col-span-3 bg-muted/50 rounded-xl p-4 md:p-6 border border-border/40 mt-4 md:mt-0">
-              <div className="aspect-video bg-card rounded-lg flex items-center justify-center">
-                <div className="text-center text-muted-foreground">Document drafting interface preview</div>
+              <div className="bg-card rounded-lg overflow-hidden relative h-[200px] md:h-[400px] lg:h-[400px]">
+                <Image
+                  src="/draft.webp"
+                  alt="Document drafting interface"
+                  fill
+                  className="object-contain dark:hidden"
+                />
+                <Image
+                  src="/dark_draft.webp"
+                  alt="Document drafting interface"
+                  fill
+                  className="object-contain hidden dark:block"
+                />
               </div>
             </div>
           </div>
@@ -83,8 +93,19 @@ export default function LawyersPage() {
               </ul>
             </div>
             <div className="md:col-span-3 bg-muted/50 rounded-xl p-4 md:p-6 border border-border/40 mt-4 md:mt-0">
-              <div className="aspect-video bg-card rounded-lg flex items-center justify-center">
-                <div className="text-center text-muted-foreground">Legal research interface preview</div>
+              <div className="bg-card rounded-lg overflow-hidden relative h-[200px] md:h-[400px] lg:h-[400px]">
+                <Image
+                  src="/legal.webp"
+                  alt="Legal research interface"
+                  fill
+                  className="object-contain dark:hidden"
+                />
+                <Image
+                  src="/dark_legal.webp"
+                  alt="Legal research interface"
+                  fill
+                  className="object-contain hidden dark:block"
+                />
               </div>
             </div>
           </div>
@@ -117,34 +138,24 @@ export default function LawyersPage() {
               </ul>
             </div>
             <div className="md:col-span-3 bg-muted/50 rounded-xl p-4 md:p-6 border border-border/40 mt-4 md:mt-0">
-              <div className="aspect-video bg-card rounded-lg flex items-center justify-center">
-                <div className="text-center text-muted-foreground">Legal analytics dashboard preview</div>
+              <div className="bg-card rounded-lg overflow-hidden relative h-[200px] md:h-[400px] lg:h-[400px]">
+                <Image
+                  src="/analysis.webp"
+                  alt="Legal analytics dashboard"
+                  fill
+                  className="object-contain dark:hidden"
+                />
+                <Image
+                  src="/dark_analysis.webp"
+                  alt="Legal analytics dashboard"
+                  fill
+                  className="object-contain hidden dark:block"
+                />
               </div>
             </div>
           </div>
         </TabsContent>
       </Tabs>
-
-      {/* Testimonial Section */}
-      <div className="mt-12 md:mt-20 max-w-4xl mx-auto bg-muted/30 rounded-xl p-6 md:p-8 border border-border/30">
-        <blockquote className="text-base md:text-lg italic text-center">
-          This platform has completely transformed my practice. I&apos;m drafting documents in half the time and my research is more thorough than ever before.
-        </blockquote>
-        <div className="mt-4 text-center">
-          <p className="font-medium">Sarah Johnson</p>
-          <p className="text-sm text-muted-foreground">Corporate Attorney, Johnson & Associates</p>
-        </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="mt-12 md:mt-16 text-center px-4">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to elevate your legal practice?</h2>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/contact">
-            <Button size="lg" className="w-full sm:w-auto">Request a demo</Button>
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }
