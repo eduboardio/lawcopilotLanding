@@ -4,56 +4,79 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  Languages,
-  FileText,
-  Globe,
+  FileCheck,
   Shield,
+  Zap,
+  Target,
   Sparkles,
   CheckCircle,
-  Zap
+  FileText,
+  TrendingUp
 } from "lucide-react";
 
 const features = [
   {
+    icon: <Target className="h-6 w-6" />,
+    title: "Risk Identification",
+    description:
+      "Automatically identify potential risks, unfavorable clauses, and compliance issues across all document types."
+  },
+  {
     icon: <FileText className="h-6 w-6" />,
-    title: "Legal Terminology",
+    title: "Clause Extraction",
     description:
-      "Preserves specialized legal terminology and concepts across all languages, ensuring technical accuracy."
-  },
-  {
-    icon: <Globe className="h-6 w-6" />,
-    title: "Jurisdiction Awareness",
-    description:
-      "Translations account for differences in legal systems and jurisdictional terminology variations."
-  },
-  {
-    icon: <Shield className="h-6 w-6" />,
-    title: "Format Preservation",
-    description:
-      "Document structure, formatting, and legal document conventions are maintained in translations."
+      "Extract and categorize key clauses, obligations, deadlines, and payment terms with precision."
   },
   {
     icon: <Zap className="h-6 w-6" />,
-    title: "Context Intelligence",
+    title: "Bulk Analysis",
     description:
-      "Understands legal context to provide accurate translations that maintain the original intent."
-  }
-];
-
-const languages = [
-  {
-    category: "Official Languages",
-    items: ["Hindi", "English", "Bengali", "Telugu", "Marathi", "Tamil"]
+      "Analyze hundreds of documents simultaneously for due diligence, portfolio reviews, and compliance checks."
   },
   {
-    category: "Regional Languages",
-    items: ["Gujarati", "Urdu", "Kannada", "Odia", "Malayalam", "Punjabi"]
+    icon: <TrendingUp className="h-6 w-6" />,
+    title: "Comparative Analysis",
+    description:
+      "Compare multiple versions of documents or analyze contracts against standard templates and benchmarks."
   }
 ];
 
-export default function TranslationPage() {
+const capabilities = [
+  {
+    title: "Contract Review",
+    items: [
+      "Identify non-standard or risky clauses",
+      "Flag missing essential provisions",
+      "Extract obligations and deadlines",
+      "Compare against your firm's playbook",
+      "Generate summary reports with findings"
+    ]
+  },
+  {
+    title: "Due Diligence",
+    items: [
+      "Bulk document processing for M&A",
+      "Compliance verification across documents",
+      "Inconsistency detection",
+      "Key term extraction and comparison",
+      "Risk assessment and flagging"
+    ]
+  }
+];
+
+const useCases = [
+  "M&A Due Diligence",
+  "Contract Portfolio Review",
+  "Vendor Agreement Analysis",
+  "Real Estate Document Review",
+  "Compliance Audits",
+  "Employment Contract Screening"
+];
+
+export default function DocumentAnalysisPage() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-background">
+      {/* Background effects */}
       <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
         <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
         <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
@@ -62,6 +85,7 @@ export default function TranslationPage() {
 
       <div className="relative z-10 container mx-auto px-6 py-20 md:py-28">
         <div className="mx-auto max-w-6xl">
+          {/* Hero */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -71,38 +95,39 @@ export default function TranslationPage() {
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
               <Sparkles className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
               <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">
-                AI-Powered Translation
+                AI-Powered Analysis
               </span>
             </div>
 
             <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-              <span className="block text-foreground dark:text-white">Legal Translation</span>
+              <span className="block text-foreground dark:text-white">Document Intelligence</span>
               <span className="block text-foreground/80 dark:text-white/90">
-                Across Indian Languages
+                at Scale
               </span>
             </h1>
 
             <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg dark:text-white/70">
-              Translate legal documents across major Indian languages while preserving legal terminology,
-              formal tone, and contextual accuracy for court filings and client communication.
+              Extract insights and identify risks across large document sets with precision AI analysis.
+              Review contracts 10x faster while improving accuracy and consistency.
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Badge variant="outline" className="border-emerald-500/30 px-4 py-2">
-                <Languages className="mr-2 h-4 w-4 text-emerald-500" />
-                15+ languages
+                <Zap className="mr-2 h-4 w-4 text-emerald-500" />
+                10x faster review
               </Badge>
               <Badge variant="outline" className="border-emerald-500/30 px-4 py-2">
                 <Shield className="mr-2 h-4 w-4 text-emerald-500" />
-                Terminology preserved
+                Risk detection
               </Badge>
               <Badge variant="outline" className="border-emerald-500/30 px-4 py-2">
                 <CheckCircle className="mr-2 h-4 w-4 text-emerald-500" />
-                Context-aware
+                Bulk processing
               </Badge>
             </div>
           </motion.div>
 
+          {/* Features */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -136,28 +161,30 @@ export default function TranslationPage() {
             </div>
           </motion.div>
 
+          {/* Capabilities */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="mb-20"
           >
             <h2 className="mb-8 text-center text-2xl font-bold text-foreground md:text-3xl dark:text-white">
-              Supported Languages
+              Key Capabilities
             </h2>
 
             <div className="grid gap-6 md:grid-cols-2">
-              {languages.map((lang, idx) => (
+              {capabilities.map((capability, idx) => (
                 <Card
                   key={idx}
                   className="border-border/50 bg-card/30 backdrop-blur-sm dark:border-white/10"
                 >
                   <CardHeader>
-                    <CardTitle className="text-lg">{lang.category}</CardTitle>
+                    <CardTitle className="text-lg">{capability.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2">
-                      {lang.items.map((item, itemIdx) => (
+                      {capability.items.map((item, itemIdx) => (
                         <li key={itemIdx} className="flex items-start gap-2">
                           <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500 dark:text-emerald-400" />
                           <span className="text-sm text-muted-foreground dark:text-white/70">
@@ -169,6 +196,34 @@ export default function TranslationPage() {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </motion.div>
+
+          {/* Use Cases */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="overflow-hidden rounded-2xl border border-border/50 bg-card/30 p-10 backdrop-blur-sm dark:border-white/10 md:p-12">
+              <h2 className="mb-8 text-center text-2xl font-bold text-foreground dark:text-white">
+                Common Use Cases
+              </h2>
+
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {useCases.map((useCase, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-3 rounded-xl border border-border/30 bg-background/50 p-4 dark:border-white/10"
+                  >
+                    <FileCheck className="h-5 w-5 flex-shrink-0 text-emerald-500 dark:text-emerald-400" />
+                    <span className="text-sm font-medium text-foreground dark:text-white">
+                      {useCase}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>

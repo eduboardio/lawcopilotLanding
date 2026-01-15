@@ -1,223 +1,194 @@
+// ==========================================================================
+// ALL PRODUCT AND GUIDE PAGES
+// Split each section into its respective file in your project
+// ==========================================================================
+
+// ==========================================================================
+// FILE: case-analytics/page.tsx
+// ==========================================================================
+
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { BarChart2, AlertTriangle, TrendingUp, Scale } from "lucide-react";
-import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import {
+  BarChart3,
+  TrendingUp,
+  Target,
+  AlertTriangle,
+  Sparkles,
+  Shield,
+  CheckCircle,
+  Scale
+} from "lucide-react";
 
-export default function CaseAnalytics() {
-  const [isAnalyzing] = useState(false);
+const features = [
+  {
+    icon: <Target className="h-6 w-6" />,
+    title: "Success Probability Analysis",
+    description:
+      "Data-driven estimates of case success probability based on precedent analysis and jurisdiction-specific factors."
+  },
+  {
+    icon: <AlertTriangle className="h-6 w-6" />,
+    title: "Risk Identification",
+    description:
+      "Identify potential challenges, weaknesses in arguments, and counterarguments you might face."
+  },
+  {
+    icon: <TrendingUp className="h-6 w-6" />,
+    title: "Strategic Recommendations",
+    description:
+      "AI-generated insights to strengthen your case and optimize your legal strategy."
+  },
+  {
+    icon: <Scale className="h-6 w-6" />,
+    title: "Precedent Patterns",
+    description:
+      "Analyze judicial trends and citation patterns across similar cases in your jurisdiction."
+  }
+];
 
-  // Uncomment when upload feature is ready
-  // const handleUpload = () => {
-  //   setIsAnalyzing(true);
-  //   // Simulate analysis delay
-  //   setTimeout(() => setIsAnalyzing(false), 2000);
-  // };
+const capabilities = [
+  {
+    title: "Judgment Analysis",
+    items: [
+      "Extract key holdings and legal reasoning",
+      "Identify ratio decidendi vs obiter dicta",
+      "Compare judgments across jurisdictions",
+      "Track judicial interpretation trends"
+    ]
+  },
+  {
+    title: "Litigation Strategy",
+    items: [
+      "Assess likelihood of favorable outcomes",
+      "Identify strongest arguments based on precedents",
+      "Predict potential opposing arguments",
+      "Recommend case law citations"
+    ]
+  }
+];
 
+export default function CaseAnalyticsPage() {
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 lg:py-10">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-6 sm:mb-10">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4">Case Analytics</h1>
-          <p className="text-base sm:text-xl text-muted-foreground px-2">
-            Predict case outcomes with AI precision and get data-driven insights
-          </p>
-        </div>
+    <div className="relative min-h-screen w-full overflow-hidden bg-background">
+      <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
+        <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
+        <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
+      </div>
 
-        <Card className="mb-6 sm:mb-10">
-          <CardContent className="pt-4 sm:pt-6 px-4 sm:px-6">
-            <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
-              <div className="flex flex-col justify-center">
-                <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Upload Your Case Documents</h2>
-                <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
-                  Our AI will analyze your case files and provide comprehensive insights, risk assessment, and outcome predictions.
-                </p>
-                {/* <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                  <Button onClick={handleUpload} disabled={isAnalyzing} className="w-full sm:w-auto">
-                    <Upload className="mr-2 h-4 w-4" />
-                    {isAnalyzing ? "Analyzing..." : "Upload Files"}
-                  </Button>
-                  <Button variant="outline" className="w-full sm:w-auto">View Demo</Button>
-                </div> */}
-              </div>
-              <div className="bg-slate-50 p-4 sm:p-6 rounded-lg flex flex-col justify-center items-center mt-4 sm:mt-0">
-                {isAnalyzing ? (
-                  <div className="w-full text-center">
-                    <h3 className="font-medium mb-2 sm:mb-3 text-sm sm:text-base">Analyzing your case...</h3>
-                    <Progress value={65} className="mb-2" />
-                    <p className="text-xs sm:text-sm text-muted-foreground">Discovering precedents and calculating probabilities</p>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center text-center">
-                    <BarChart2 className="h-12 w-12 sm:h-16 sm:w-16 text-primary mb-3 sm:mb-4" />
-                    <h3 className="font-medium text-sm sm:text-base">Upload case documents to see AI-powered analytics</h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">
-                      Supports PDF, DOCX, and plain text files
-                    </p>
-                  </div>
-                )}
-              </div>
+      <div className="relative z-10 container mx-auto px-6 py-20 md:py-28">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-16 text-center"
+          >
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
+              <Sparkles className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
+              <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">
+                AI-Powered Analytics
+              </span>
             </div>
-          </CardContent>
-        </Card>
 
-        <div className="mb-8 sm:mb-12">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Key Analytics Features</h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            <Card>
-              <CardHeader className="pb-2 px-4 sm:px-6 pt-4 sm:pt-6">
-                <Scale className="h-5 w-5 sm:h-6 sm:w-6 text-primary mb-2" />
-                <CardTitle className="text-lg sm:text-xl">Success Probability</CardTitle>
-              </CardHeader>
-              <CardContent className="px-4 sm:px-6">
-                <p className="text-muted-foreground text-xs sm:text-sm">
-                  Get data-driven estimates of case success probability based on precedent analysis and jurisdiction-specific factors.
-                </p>
-              </CardContent>
-            </Card>
+            <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+              <span className="block text-foreground dark:text-white">Case Analytics</span>
+              <span className="block text-foreground/80 dark:text-white/90">& Intelligence</span>
+            </h1>
 
-            <Card>
-              <CardHeader className="pb-2 px-4 sm:px-6 pt-4 sm:pt-6">
-                <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-primary mb-2" />
-                <CardTitle className="text-lg sm:text-xl">Risk Assessment</CardTitle>
-              </CardHeader>
-              <CardContent className="px-4 sm:px-6">
-                <p className="text-muted-foreground text-xs sm:text-sm">
-                  Identify potential challenges, weaknesses in arguments, and counterarguments you might face.
-                </p>
-              </CardContent>
-            </Card>
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg dark:text-white/70">
+              Analyze judgments and build data-driven litigation strategies with AI insights from
+              thousands of Indian legal cases and precedents.
+            </p>
 
-            <Card className="sm:col-span-2 md:col-span-1">
-              <CardHeader className="pb-2 px-4 sm:px-6 pt-4 sm:pt-6">
-                <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary mb-2" />
-                <CardTitle className="text-lg sm:text-xl">Strategic Insights</CardTitle>
-              </CardHeader>
-              <CardContent className="px-4 sm:px-6">
-                <p className="text-muted-foreground text-xs sm:text-sm">
-                  Receive AI-generated recommendations to strengthen your case and optimize your legal strategy.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <Badge variant="outline" className="border-emerald-500/30 px-4 py-2">
+                <BarChart3 className="mr-2 h-4 w-4 text-emerald-500" />
+                Predictive insights
+              </Badge>
+              <Badge variant="outline" className="border-emerald-500/30 px-4 py-2">
+                <Shield className="mr-2 h-4 w-4 text-emerald-500" />
+                Risk assessment
+              </Badge>
+              <Badge variant="outline" className="border-emerald-500/30 px-4 py-2">
+                <CheckCircle className="mr-2 h-4 w-4 text-emerald-500" />
+                Strategic recommendations
+              </Badge>
+            </div>
+          </motion.div>
 
-        {/* <Tabs defaultValue="demo" className="mb-6 sm:mb-0">
-          <TabsList className="grid grid-cols-2 mb-4 sm:mb-8 w-full">
-            <TabsTrigger value="demo" className="text-sm sm:text-base">Demo Analysis</TabsTrigger>
-            <TabsTrigger value="testimonials" className="text-sm sm:text-base">Client Success</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="demo">
-            <Card>
-              <CardHeader className="px-4 sm:px-6">
-                <CardTitle className="text-lg sm:text-xl">Sample Case Analysis: Johnson v. Tech Corp</CardTitle>
-                <CardDescription className="text-sm">Intellectual Property Dispute</CardDescription>
-              </CardHeader>
-              <CardContent className="px-4 sm:px-6">
-                <div className="mb-4 sm:mb-6">
-                  <h3 className="font-medium mb-2 sm:mb-3 text-sm sm:text-base">Success Probability</h3>
-                  <div className="flex items-center">
-                    <div className="w-full mr-4">
-                      <Progress value={75} className="h-3 sm:h-4" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-20"
+          >
+            <h2 className="mb-8 text-center text-2xl font-bold text-foreground md:text-3xl dark:text-white">
+              Core Features
+            </h2>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {features.map((feature, idx) => (
+                <Card
+                  key={idx}
+                  className="border-border/50 bg-card/30 backdrop-blur-sm dark:border-white/10"
+                >
+                  <CardHeader>
+                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
+                      <div className="text-foreground dark:text-white">{feature.icon}</div>
                     </div>
-                    <span className="font-bold text-base sm:text-lg">75%</span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">
-                    Based on 87 similar precedent cases in your jurisdiction
-                  </p>
-                </div>
-                
-                <div className="space-y-3 sm:space-y-4">
-                  <div className="p-3 sm:p-4 bg-green-50 rounded-lg border border-green-100">
-                    <h4 className="font-medium flex items-center text-green-800 text-sm sm:text-base">
-                      <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                      Strengths
-                    </h4>
-                    <ul className="mt-1 sm:mt-2 space-y-1 text-xs sm:text-sm text-green-700">
-                      <li>Strong documentary evidence of prior use</li>
-                      <li>Clear timeline establishing precedence</li>
-                      <li>Multiple expert witnesses available</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="p-3 sm:p-4 bg-red-50 rounded-lg border border-red-100">
-                    <h4 className="font-medium flex items-center text-red-800 text-sm sm:text-base">
-                      <AlertTriangle className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                      Risks
-                    </h4>
-                    <ul className="mt-1 sm:mt-2 space-y-1 text-xs sm:text-sm text-red-700">
-                      <li>Potential procedural challenge under Section 103</li>
-                      <li>Opposing party has prevailed in similar cases (Chen v. DataSystems)</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="p-3 sm:p-4 bg-blue-50 rounded-lg border border-blue-100">
-                    <h4 className="font-medium flex items-center text-blue-800 text-sm sm:text-base">
-                      <FileText className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                      Recommended Citations
-                    </h4>
-                    <ul className="mt-1 sm:mt-2 space-y-1 text-xs sm:text-sm text-blue-700">
-                      <li>Smith v. Johnson (2023) - Favorable precedent on digital IP</li>
-                      <li>MeTech v. Innovators Inc. (2022) - Similar facts, favorable outcome</li>
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="px-4 sm:px-6 pt-2 pb-4 sm:pb-6">
-                <Button className="w-full py-4 sm:py-5">
-                  <Clock className="mr-2 h-4 w-4" />
-                  Try With Your Case Now
-                </Button>
-              </CardFooter>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="testimonials">
-            <div className="grid gap-4">
-              <Card>
-                <CardContent className="pt-4 sm:pt-6 px-4 sm:px-6">
-                  <blockquote className="italic border-l-2 sm:border-l-4 pl-3 sm:pl-4 border-primary text-sm sm:text-base">
-                  &quot;Case Analytics helped us identify a critical precedent we had overlooked. The risk assessment was spot-on and helped us prepare for opposing arguments. We won the case with a 45% increase in efficiency.&quot;
-                  </blockquote>
-                  <div className="mt-3 sm:mt-4">
-                    <p className="font-medium text-sm sm:text-base">Sarah J. Williams</p>
-                    <p className="text-xs sm:text-sm text-muted-foreground">Senior Partner, WLL Legal</p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="pt-4 sm:pt-6 px-4 sm:px-6">
-                  <blockquote className="italic border-l-2 sm:border-l-4 pl-3 sm:pl-4 border-primary text-sm sm:text-base">
-                  &quot;Our firm has seen a 70% reduction in research time and a 30% increase in case success rate since implementing Law Copilot&apos;s Case Analytics. The predictive insights have been remarkably accurate.&quot;
-                  </blockquote>
-                  <div className="mt-3 sm:mt-4">
-                    <p className="font-medium text-sm sm:text-base">Mark R. Thompson</p>
-                    <p className="text-xs sm:text-sm text-muted-foreground">Managing Partner, Thompson & Associates</p>
-                  </div>
-                </CardContent>
-              </Card>
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="leading-relaxed text-muted-foreground dark:text-white/70">
+                      {feature.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
-          </TabsContent>
-        </Tabs> */}
+          </motion.div>
 
-        <div className="mt-10 sm:mt-16 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Ready to Transform Your Case Strategy?</h2>
-          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-2">
-            <Link href="/contact">
-            <Button size="lg" className="w-full sm:w-auto py-4 sm:py-5">
-              Request a demo
-            </Button>
-            </Link>
-            {/* <Link href="/contact">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto py-4 sm:py-5">
-                Schedule a Demo
-              </Button>
-            </Link> */}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="mb-8 text-center text-2xl font-bold text-foreground md:text-3xl dark:text-white">
+              Advanced Capabilities
+            </h2>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {capabilities.map((capability, idx) => (
+                <Card
+                  key={idx}
+                  className="border-border/50 bg-card/30 backdrop-blur-sm dark:border-white/10"
+                >
+                  <CardHeader>
+                    <CardTitle className="text-lg">{capability.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {capability.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="flex items-start gap-2">
+                          <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500 dark:text-emerald-400" />
+                          <span className="text-sm text-muted-foreground dark:text-white/70">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     </div>

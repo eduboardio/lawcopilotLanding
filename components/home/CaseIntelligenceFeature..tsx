@@ -86,7 +86,7 @@ export function CaseIntelligenceFeature() {
             <div className="absolute -inset-4 bg-gradient-to-r from-neutral-200/50 via-neutral-300/50 to-neutral-200/50 dark:from-neutral-800/50 dark:via-neutral-700/50 dark:to-neutral-800/50 rounded-3xl blur-3xl opacity-50"></div>
 
             {/* Wider rectangular container */}
-            <div className="relative bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-2xl w-full max-w-5xl mx-auto">
+            <div className="relative bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 overflow-hidden shadow-2xl w-full max-w-5xl mx-auto">
               <motion.div
                 initial={false}
                 animate={{ opacity: 1 }}

@@ -1,123 +1,527 @@
-import { Clock, ShieldCheck, Lock, CheckCircle2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
+"use client";
+
+import { motion } from "framer-motion";
+import {
+  Clock,
+  ShieldCheck,
+  Lock,
+  CheckCircle2,
+  Users,
+  TrendingUp,
+  Scale,
+  FileText,
+  Brain,
+  Zap,
+  Award,
+  Building2,
+  BarChart3,
+  Workflow
+} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+const coreValues = [
+  {
+    icon: <Clock className="h-6 w-6" />,
+    title: "Efficiency",
+    description: "Complete tasks in a fraction of the time",
+    benefits: [
+      "Save valuable billable hours on routine work",
+      "Automate workflows for higher productivity",
+      "Reduce administrative overhead by up to 40%"
+    ],
+    stat: "70% faster drafting"
+  },
+  {
+    icon: <ShieldCheck className="h-6 w-6" />,
+    title: "Error-free",
+    description: "Built-in guardrails to prevent common mistakes",
+    benefits: [
+      "Reduce time spent cross-checking documents",
+      "Consistent quality across all firm outputs",
+      "AI-powered validation and compliance checks"
+    ],
+    stat: "95% error reduction"
+  },
+  {
+    icon: <Lock className="h-6 w-6" />,
+    title: "Encrypted",
+    description: "End-to-end encryption for complete privacy",
+    benefits: [
+      "Your firm maintains full data control",
+      "Compliant with leading security standards",
+      "Bank-level security ensuring client confidentiality"
+    ],
+    stat: "256-bit encryption"
+  }
+];
+
+const firmBenefits = [
+  {
+    icon: <Users className="h-6 w-6" />,
+    title: "Scale Your Practice",
+    description:
+      "Handle more clients without expanding headcount. Law Copilot enables your team to take on higher caseloads while maintaining quality standards."
+  },
+  {
+    icon: <TrendingUp className="h-6 w-6" />,
+    title: "Increase Profitability",
+    description:
+      "Reduce time on low-value tasks and focus on billable work. Firms report 30-40% improvement in operational efficiency within the first quarter."
+  },
+  {
+    icon: <Scale className="h-6 w-6" />,
+    title: "Win More Cases",
+    description:
+      "Stronger legal research, better-drafted documents, and comprehensive case analysis give your firm a competitive edge in the courtroom."
+  },
+  {
+    icon: <FileText className="h-6 w-6" />,
+    title: "Standardize Quality",
+    description:
+      "Ensure every document meets your firm's standards. Build institutional knowledge and maintain consistency across all lawyers and practice areas."
+  },
+  {
+    icon: <Brain className="h-6 w-6" />,
+    title: "Empower Associates",
+    description:
+      "Junior lawyers produce partner-level work with AI guidance. Accelerate professional development and reduce training overhead."
+  },
+  {
+    icon: <Zap className="h-6 w-6" />,
+    title: "Faster Turnarounds",
+    description:
+      "Meet tight deadlines consistently. Deliver draft contracts in hours, complete research in minutes, and respond to client requests faster than competitors."
+  }
+];
+
+const firmTypes = [
+  {
+    type: "Boutique Firms",
+    icon: <Building2 className="h-5 w-5" />,
+    description: "Compete with larger firms on quality and speed",
+    features: [
+      "Access enterprise-grade AI without enterprise costs",
+      "Handle complex matters with limited resources",
+      "Build reputation through exceptional client service"
+    ]
+  },
+  {
+    type: "Mid-Size Firms",
+    icon: <BarChart3 className="h-5 w-5" />,
+    description: "Scale operations without proportional cost increases",
+    features: [
+      "Standardize workflows across practice groups",
+      "Support growth without sacrificing quality",
+      "Attract and retain top legal talent with modern tools"
+    ]
+  },
+  {
+    type: "Large Firms",
+    icon: <Workflow className="h-5 w-5" />,
+    description: "Drive efficiency and innovation across offices",
+    features: [
+      "Enterprise deployment with centralized management",
+      "Integrate with existing knowledge management systems",
+      "Measure and optimize firm-wide productivity"
+    ]
+  }
+];
+
+const practiceAreas = [
+  "Corporate & M&A",
+  "Litigation & Arbitration",
+  "Real Estate & Property",
+  "Intellectual Property",
+  "Employment & Labor",
+  "Banking & Finance",
+  "Tax & Regulatory",
+  "Family Law",
+  "Criminal Defense"
+];
+
+const implementations = [
+  {
+    phase: "Week 1",
+    title: "Setup & Training",
+    items: [
+      "Platform configuration and user onboarding",
+      "Integration with existing systems",
+      "Customization of templates and workflows"
+    ]
+  },
+  {
+    phase: "Week 2-4",
+    title: "Pilot Program",
+    items: [
+      "Select practice group begins using platform",
+      "Monitor usage and gather feedback",
+      "Refine workflows based on firm needs"
+    ]
+  },
+  {
+    phase: "Month 2+",
+    title: "Firm-Wide Rollout",
+    items: [
+      "Gradual expansion to all practice areas",
+      "Ongoing training and support",
+      "Performance tracking and optimization"
+    ]
+  }
+];
 
 export default function LawFirmsPage() {
   return (
-    <div className="container mx-auto py-8 md:py-16 px-4">
-      {/* Hero Section */}
-      <div className="flex flex-col items-center text-center mb-10 md:mb-16">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Empower Your Law Firm</h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-6 md:mb-8 px-4">
-          Transform your practice with AI-powered tools designed specifically for the needs of modern law firms.
-        </p>
-        <Link href="/contact">
-          <Button size="lg" variant="outline" className="w-full sm:w-auto mt-2 sm:mt-0">Schedule a Demo</Button>
-        </Link>
+    <div className="relative w-full overflow-hidden bg-background">
+      {/* Background effects */}
+      <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
+        <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
+        <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
       </div>
 
-      {/* Benefits Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto px-2">
-        {/* Efficiency Card */}
-        <Card className="bg-card/50 backdrop-blur-sm border border-border/40 hover:shadow-md transition-all h-full">
-          <CardHeader className="pb-2">
-            <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-              <Clock className="h-6 w-6 text-primary" />
-            </div>
-            <CardTitle className="text-xl md:text-2xl">Efficiency</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>Complete tasks in a fraction of the time</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>Save valuable billable hours on routine work</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>Automate workflows for higher productivity</span>
-              </li>
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <p className="text-sm text-muted-foreground">Reduce time spent on administrative tasks by up to 40%</p>
-          </CardFooter>
-        </Card>
+      <div className="container relative z-10 mx-auto px-6 py-16 md:py-24">
+        {/* Hero Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-20 text-center md:mb-28"
+        >
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
+            <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
+            <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">
+              Built for Law Firms
+            </span>
+          </div>
 
-        {/* Error-free Card */}
-        <Card className="bg-card/50 backdrop-blur-sm border border-border/40 hover:shadow-md transition-all h-full">
-          <CardHeader className="pb-2">
-            <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-              <ShieldCheck className="h-6 w-6 text-primary" />
-            </div>
-            <CardTitle className="text-xl md:text-2xl">Error-free</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>Built-in guardrails to prevent common mistakes</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>Reduce time spent cross-checking documents</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>Consistent quality across all firm outputs</span>
-              </li>
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <p className="text-sm text-muted-foreground">Reliable systems that minimize human error and maximize confidence</p>
-          </CardFooter>
-        </Card>
+          <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+            <span className="block text-foreground dark:text-white">
+              Empower Your Law Firm
+            </span>
+            <span className="block text-foreground/80 dark:text-white/90">
+              With AI-Powered Intelligence
+            </span>
+          </h1>
 
-        {/* Encrypted Card */}
-        <Card className="bg-card/50 backdrop-blur-sm border border-border/40 hover:shadow-md transition-all h-full">
-          <CardHeader className="pb-2">
-            <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-              <Lock className="h-6 w-6 text-primary" />
-            </div>
-            <CardTitle className="text-xl md:text-2xl">Encrypted</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>End-to-end encryption for complete privacy</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>Your firm maintains full data control</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>Compliant with leading security standards</span>
-              </li>
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <p className="text-sm text-muted-foreground">Bank-level security ensuring client confidentiality at all times</p>
-          </CardFooter>
-        </Card>
-      </div>
+          <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl dark:text-white/70">
+            Transform your practice with AI-powered tools designed specifically for modern law
+            firms. Work smarter, scale faster, and deliver exceptional results for every client.
+          </p>
+        </motion.div>
 
-      {/* CTA Section */}
-      <div className="mt-12 md:mt-20 text-center px-4">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to transform your practice?</h2>
-        <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-6 md:mb-8">
-          Join leading law firms already benefiting from our innovative legal technology solutions.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/contact">
-            <Button size="lg" className="w-full sm:w-auto">Request a demo</Button>
-          </Link>
+        {/* Core Values - Three Pillars */}
+        <div className="mb-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-12 text-center"
+          >
+            <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+              Why Law Firms Choose Us
+            </h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+              Three core principles that drive every decision we make
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {coreValues.map((value, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Card className="group relative h-full overflow-hidden border-border/40 bg-card/50 backdrop-blur-sm transition-all hover:shadow-lg dark:border-white/10 dark:bg-white/[0.03]">
+                  <div className="absolute -inset-2 rounded-xl bg-gradient-to-br from-foreground/[0.02] to-transparent opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100 dark:from-white/[0.05]" />
+                  
+                  <CardHeader className="relative pb-4">
+                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-foreground/10 dark:bg-white/10">
+                      <div className="text-foreground dark:text-white">{value.icon}</div>
+                    </div>
+                    <CardTitle className="mb-2 text-2xl">{value.title}</CardTitle>
+                    <p className="text-sm font-medium text-muted-foreground dark:text-white/70">
+                      {value.description}
+                    </p>
+                  </CardHeader>
+
+                  <CardContent className="relative space-y-4">
+                    <ul className="space-y-3">
+                      {value.benefits.map((benefit, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500 dark:text-emerald-400" />
+                          <span className="text-sm leading-relaxed text-muted-foreground dark:text-white/70">
+                            {benefit}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="mt-6 rounded-lg border border-border/30 bg-muted/30 px-4 py-3 dark:border-white/10 dark:bg-white/[0.02]">
+                      <p className="text-center text-sm font-semibold text-foreground dark:text-white">
+                        {value.stat}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
         </div>
+
+        {/* Firm Benefits Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-32"
+        >
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+              Measurable Impact on Your Firm
+            </h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+              Real benefits that translate directly to your firm&apos;s success
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {firmBenefits.map((benefit, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="group relative"
+              >
+                <div className="absolute -inset-2 rounded-xl bg-gradient-to-br from-foreground/[0.02] to-transparent opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100 dark:from-white/[0.05]" />
+                <div className="relative flex flex-col">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
+                    <div className="text-foreground dark:text-white">{benefit.icon}</div>
+                  </div>
+                  <h3 className="mb-2 text-xl font-semibold text-foreground dark:text-white">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground dark:text-white/70">
+                    {benefit.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Firm Types Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-32"
+        >
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+              Built for Every Firm Size
+            </h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+              Whether you&apos;re a boutique practice or a national firm, Law Copilot scales with your
+              needs
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {firmTypes.map((firm, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="relative overflow-hidden rounded-2xl border border-border/50 bg-card/30 p-8 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]"
+              >
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-foreground/10 dark:bg-white/10">
+                    <div className="text-foreground dark:text-white">{firm.icon}</div>
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground dark:text-white">
+                    {firm.type}
+                  </h3>
+                </div>
+
+                <p className="mb-6 text-sm text-muted-foreground dark:text-white/70">
+                  {firm.description}
+                </p>
+
+                <ul className="space-y-3">
+                  {firm.features.map((feature, featureIdx) => (
+                    <li key={featureIdx} className="flex items-start gap-2">
+                      <div className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-foreground/40 dark:bg-white/40" />
+                      <span className="text-sm leading-relaxed text-muted-foreground dark:text-white/70">
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Practice Areas */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-32"
+        >
+          <div className="relative overflow-hidden rounded-3xl border border-border/50 bg-card/50 p-12 backdrop-blur-md dark:border-white/10 dark:bg-white/[0.03] md:p-16">
+            <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] to-transparent dark:from-white/[0.03]" />
+
+            <div className="relative">
+              <div className="mb-12 text-center">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
+                  <Award className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
+                  <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">
+                    Cross-Practice Expertise
+                  </span>
+                </div>
+                <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+                  Supporting Every Practice Area
+                </h2>
+                <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+                  Law Copilot is trained on Indian legal frameworks across all major practice areas
+                </p>
+              </div>
+
+              <div className="flex flex-wrap justify-center gap-3">
+                {practiceAreas.map((area, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: idx * 0.05 }}
+                    className="rounded-full border border-border/30 bg-background/50 px-6 py-3 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]"
+                  >
+                    <span className="text-sm font-medium text-foreground dark:text-white">
+                      {area}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Implementation Timeline */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-32"
+        >
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+              Simple Implementation Process
+            </h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+              Get your firm up and running in weeks, not months
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {implementations.map((phase, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="relative"
+              >
+                {/* Connector line - desktop only */}
+                {idx < implementations.length - 1 && (
+                  <div className="absolute left-full top-8 hidden h-0.5 w-full -translate-x-1/2 bg-gradient-to-r from-border via-border to-transparent lg:block dark:from-white/10 dark:via-white/10" />
+                )}
+
+                <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-card/30 p-8 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <div className="mb-4 inline-block rounded-lg bg-foreground/10 px-3 py-1 text-sm font-semibold text-foreground dark:bg-white/10 dark:text-white">
+                    {phase.phase}
+                  </div>
+
+                  <h3 className="mb-4 text-xl font-semibold text-foreground dark:text-white">
+                    {phase.title}
+                  </h3>
+
+                  <ul className="space-y-3">
+                    {phase.items.map((item, itemIdx) => (
+                      <li key={itemIdx} className="flex items-start gap-2">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500 dark:text-emerald-400" />
+                        <span className="text-sm leading-relaxed text-muted-foreground dark:text-white/70">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Trust Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="relative overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br from-foreground/[0.03] to-transparent p-12 backdrop-blur-md dark:border-white/10 dark:from-white/[0.05] md:p-16">
+            <div className="relative text-center">
+              <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+                Join Leading Law Firms Across India
+              </h2>
+              <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground dark:text-white/70">
+                Trusted by boutique practices and national firms to transform how they deliver legal
+                services. Experience the future of legal practice with Law Copilot.
+              </p>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <div className="mb-2 text-3xl font-bold text-foreground dark:text-white">
+                    100+
+                  </div>
+                  <p className="text-sm text-muted-foreground dark:text-white/60">
+                    Law Firms Using Daily
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <div className="mb-2 text-3xl font-bold text-foreground dark:text-white">
+                    10,000+
+                  </div>
+                  <p className="text-sm text-muted-foreground dark:text-white/60">
+                    Documents Generated
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <div className="mb-2 text-3xl font-bold text-foreground dark:text-white">
+                    40%
+                  </div>
+                  <p className="text-sm text-muted-foreground dark:text-white/60">
+                    Average Time Savings
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

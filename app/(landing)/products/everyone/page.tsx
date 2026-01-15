@@ -1,157 +1,503 @@
 "use client";
 
-import { HelpCircle, FolderArchive, PanelRight, Search, Scale, BookOpen, FileText, Server, Shield, MessageSquare, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import {
+  HelpCircle,
+  FolderArchive,
+  PanelRight,
+  Search,
+  Scale,
+  BookOpen,
+  FileText,
+  Server,
+  Shield,
+  MessageSquare,
+  Clock,
+  Users,
+  Zap,
+  CheckCircle2,
+  Lock,
+  FileCheck,
+  Sparkles
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
+
+const coreFeatures = [
+  {
+    icon: <HelpCircle className="h-6 w-6" />,
+    title: "Knowledge Assistant",
+    description: "Your personal legal guide powered by AI",
+    features: [
+      "Research legal concepts in plain language",
+      "Understand your rights and obligations",
+      "Ask questions without legal jargon",
+      "Get instant answers 24/7"
+    ],
+    highlight: true
+  },
+  {
+    icon: <FolderArchive className="h-6 w-6" />,
+    title: "Document Storage",
+    description: "Securely store all your legal documents",
+    features: [
+      "Bank-level encryption for privacy",
+      "Easy search and retrieval",
+      "Unlimited storage capacity",
+      "Access from anywhere"
+    ]
+  },
+  {
+    icon: <PanelRight className="h-6 w-6" />,
+    title: "Document Management",
+    description: "Organize documents with smart tools",
+    features: [
+      "Automatic categorization",
+      "Custom tags and folders",
+      "Version control",
+      "Share securely with lawyers"
+    ]
+  }
+];
+
+const vaultFeatures = [
+  {
+    icon: <Shield className="h-6 w-6" />,
+    title: "Secure Storage",
+    description: "End-to-end encryption for total privacy"
+  },
+  {
+    icon: <BookOpen className="h-6 w-6" />,
+    title: "Smart Search",
+    description: "Find documents instantly with AI search"
+  },
+  {
+    icon: <FileText className="h-6 w-6" />,
+    title: "Auto-Organize",
+    description: "AI categorization of documents"
+  },
+  {
+    icon: <Clock className="h-6 w-6" />,
+    title: "Version History",
+    description: "Track changes and restore previous versions"
+  }
+];
+
+const benefits = [
+  {
+    icon: <Scale className="h-6 w-6" />,
+    title: "Understand Your Rights",
+    description: "Get clear explanations of legal concepts relevant to your situation without confusing jargon."
+  },
+  {
+    icon: <FileCheck className="h-6 w-6" />,
+    title: "Stay Organized",
+    description: "Keep all your legal documents in one secure place with automatic organization and easy retrieval."
+  },
+  {
+    icon: <Zap className="h-6 w-6" />,
+    title: "Save Time & Money",
+    description: "Handle routine legal tasks yourself and come to your lawyer better prepared, reducing billable hours."
+  },
+  {
+    icon: <Lock className="h-6 w-6" />,
+    title: "Complete Privacy",
+    description: "Your documents and conversations are encrypted and never shared. You maintain full control of your data."
+  }
+];
+
+const useCases = [
+  "Navigate property disputes and contracts",
+  "Understand employment rights and agreements",
+  "Manage family law matters confidently",
+  "Track consumer protection claims",
+  "Organize business legal documents",
+  "Prepare for court proceedings"
+];
 
 export default function LitigantsPage() {
   return (
-    <div className="container mx-auto py-8 md:py-16 px-4">
-      {/* Hero Section */}
-      <div className="flex flex-col items-center text-center mb-10 md:mb-16">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">Legal Solutions for Everyone</h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-6 md:mb-8 px-2">
-          Navigate the legal system with confidence using our powerful yet accessible tools.
-        </p>
-        <Button size="lg" className="px-6 md:px-8 w-full sm:w-auto">Explore Solutions</Button>
+    <div className="relative w-full overflow-hidden bg-background">
+      {/* Background effects */}
+      <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
+        <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
+        <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
       </div>
 
-      {/* Bento Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto">
-        {/* Knowledge Assistant - Main Feature */}
-        <Card className="col-span-1 md:col-span-full lg:col-span-2 row-span-2 bg-gradient-to-br from-primary/10 to-secondary/5 border border-border/40 overflow-hidden hover:shadow-md transition-all">
-          <div className="grid grid-cols-1 md:grid-cols-2 h-full">
-            <div className="p-4 md:p-6 lg:p-8 flex flex-col justify-between">
-              <div>
-                <div className="h-10 w-10 md:h-12 md:w-12 rounded-lg bg-primary/20 flex items-center justify-center mb-3 md:mb-4">
-                  <HelpCircle className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+      <div className="container relative z-10 mx-auto px-6 py-16 md:py-24">
+        {/* Hero Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-20 text-center md:mb-28"
+        >
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
+            <Sparkles className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
+            <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">
+              Legal Intelligence for Everyone
+            </span>
+          </div>
+
+          <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+            <span className="block text-foreground dark:text-white">
+              Legal Solutions for
+            </span>
+            <span className="block text-foreground/80 dark:text-white/90">
+              Everyone
+            </span>
+          </h1>
+
+          <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl dark:text-white/70">
+            Navigate the legal system with confidence using our powerful yet accessible tools.
+            Whether you&apos;re managing documents, researching your rights, or preparing for legal
+            matters—we make it simple.
+          </p>
+        </motion.div>
+
+        {/* Benefits Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-32"
+        >
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+              Why Choose Law Copilot
+            </h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+              Legal tools designed for people, not just professionals
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {benefits.map((benefit, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="group relative"
+              >
+                <div className="absolute -inset-2 rounded-xl bg-gradient-to-br from-foreground/[0.02] to-transparent opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100 dark:from-white/[0.05]" />
+                <div className="relative flex flex-col items-center text-center">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
+                    <div className="text-foreground dark:text-white">{benefit.icon}</div>
+                  </div>
+                  <h3 className="mb-2 text-lg font-semibold text-foreground dark:text-white">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground dark:text-white/70">
+                    {benefit.description}
+                  </p>
                 </div>
-                <CardTitle className="text-2xl md:text-3xl mb-3 md:mb-4">Knowledge Assistant</CardTitle>
-                <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6">
-                  Your personal legal guide powered by AI. Get answers to complex legal questions in plain language.
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Core Features - Bento Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-32"
+        >
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+              Essential Tools at Your Fingertips
+            </h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+              Everything you need to manage your legal matters with confidence
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {coreFeatures.map((feature, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className={feature.highlight ? "lg:col-span-2" : "lg:col-span-1"}
+              >
+                <Card
+                  className={`group h-full overflow-hidden border-border/40 transition-all hover:shadow-lg dark:border-white/10 ${
+                    feature.highlight
+                      ? "bg-gradient-to-br from-foreground/[0.05] to-foreground/[0.02] dark:from-white/[0.08] dark:to-white/[0.03]"
+                      : "bg-card/50 backdrop-blur-sm dark:bg-white/[0.03]"
+                  }`}
+                >
+                  <CardHeader className="pb-4">
+                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-foreground/10 dark:bg-white/10">
+                      <div className="text-foreground dark:text-white">{feature.icon}</div>
+                    </div>
+                    <CardTitle className="mb-2 text-2xl">{feature.title}</CardTitle>
+                    <p className="text-sm text-muted-foreground dark:text-white/70">
+                      {feature.description}
+                    </p>
+                  </CardHeader>
+
+                  <CardContent>
+                    <ul className="space-y-3">
+                      {feature.features.map((item, itemIdx) => (
+                        <li key={itemIdx} className="flex items-start gap-3">
+                          <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500 dark:text-emerald-400" />
+                          <span className="text-sm leading-relaxed text-foreground dark:text-white">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Legal Vault Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-32"
+        >
+          <Card className="overflow-hidden border-border/50 bg-muted/30 dark:border-white/10">
+            <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 md:p-12">
+              {/* Left: Description */}
+              <div>
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-foreground/10 to-foreground/5 dark:from-white/10 dark:to-white/5">
+                  <Server className="h-8 w-8 text-foreground dark:text-white" />
+                </div>
+                <CardTitle className="mb-4 text-3xl">Legal Vault</CardTitle>
+                <p className="mb-6 leading-relaxed text-muted-foreground dark:text-white/70">
+                  Your comprehensive document storage and management solution with bank-level
+                  security. Store, organize, and access all your legal documents from anywhere,
+                  anytime.
                 </p>
-                <ul className="space-y-2 mb-4 md:mb-6 text-sm md:text-base">
-                  <li className="flex items-center gap-2">
-                    <Search className="h-3 w-3 md:h-4 md:w-4 text-primary flex-shrink-0" />
-                    <span>Research legal concepts</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Scale className="h-3 w-3 md:h-4 md:w-4 text-primary flex-shrink-0" />
-                    <span>Understand your rights</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <MessageSquare className="h-3 w-3 md:h-4 md:w-4 text-primary flex-shrink-0" />
-                    <span>Ask questions in plain English</span>
-                  </li>
-                </ul>
+
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-foreground/40 dark:bg-white/40" />
+                    <span className="text-sm text-muted-foreground dark:text-white/70">
+                      Unlimited storage for all your legal documents
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-foreground/40 dark:bg-white/40" />
+                    <span className="text-sm text-muted-foreground dark:text-white/70">
+                      AI-powered organization and categorization
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-foreground/40 dark:bg-white/40" />
+                    <span className="text-sm text-muted-foreground dark:text-white/70">
+                      Share securely with lawyers and family members
+                    </span>
+                  </div>
+                </div>
               </div>
-              {/* <Button className="w-fit group mt-4 text-sm md:text-base">
-                Explore Assistant <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4 group-hover:translate-x-1 transition-transform" />
-              </Button> */}
+
+              {/* Right: Feature Grid */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {vaultFeatures.map((vaultFeature, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: idx * 0.1 }}
+                    className="rounded-xl border border-border/30 bg-card/70 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]"
+                  >
+                    <div className="mb-3 text-foreground dark:text-white">
+                      {vaultFeature.icon}
+                    </div>
+                    <h3 className="mb-2 font-semibold text-foreground dark:text-white">
+                      {vaultFeature.title}
+                    </h3>
+                    <p className="text-xs leading-relaxed text-muted-foreground dark:text-white/60">
+                      {vaultFeature.description}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-            {/* <div className="hidden md:flex bg-card/50 items-center justify-center p-6">
-              <div className="rounded-lg overflow-hidden aspect-square w-full max-w-xs">
-                <img src="/api/placeholder/400/400" alt="Knowledge Assistant interface" className="w-full h-full object-cover" />
+          </Card>
+        </motion.div>
+
+        {/* Use Cases Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-32"
+        >
+          <div className="relative overflow-hidden rounded-3xl border border-border/50 bg-card/50 p-12 backdrop-blur-md dark:border-white/10 dark:bg-white/[0.03] md:p-16">
+            <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] to-transparent dark:from-white/[0.03]" />
+
+            <div className="relative">
+              <div className="mb-12 text-center">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
+                  <Users className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
+                  <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">
+                    Real-World Applications
+                  </span>
+                </div>
+                <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+                  How People Use Law Copilot
+                </h2>
+                <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+                  From everyday legal questions to complex document management
+                </p>
               </div>
-            </div> */}
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {useCases.map((useCase, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: idx * 0.05 }}
+                    className="flex items-start gap-3 rounded-xl border border-border/30 bg-background/50 p-4 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]"
+                  >
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500 dark:text-emerald-400" />
+                    <span className="text-sm leading-relaxed text-foreground dark:text-white">
+                      {useCase}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
-        </Card>
+        </motion.div>
 
-        {/* Document Storage */}
-        <Card className="row-span-1 bg-card/50 backdrop-blur-sm border border-border/40 hover:shadow-md transition-all">
-          <CardHeader>
-            <div className="h-8 w-8 md:h-10 md:w-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
-              <FolderArchive className="h-4 w-4 md:h-5 md:w-5 text-primary" />
-            </div>
-            <CardTitle className="text-lg md:text-xl">Document Storage</CardTitle>
-          </CardHeader>
-          <CardContent className="pb-0">
-            <p className="text-muted-foreground text-xs md:text-sm">
-              Securely store all your legal documents in one place with easy search and retrieval.
+        {/* How It Works Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-32"
+        >
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+              Simple to Get Started
+            </h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+              No legal knowledge required—we guide you every step of the way
             </p>
-          </CardContent>
-          {/* <CardFooter className="mt-auto pt-3 md:pt-4">
-            <Button variant="ghost" className="w-full justify-start p-0 hover:bg-transparent hover:underline text-sm md:text-base">
-              Learn more <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
-            </Button>
-          </CardFooter> */}
-        </Card>
+          </div>
 
-        {/* Document Management */}
-        <Card className="row-span-1 bg-card/50 backdrop-blur-sm border border-border/40 hover:shadow-md transition-all">
-          <CardHeader>
-            <div className="h-8 w-8 md:h-10 md:w-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
-              <PanelRight className="h-4 w-4 md:h-5 md:w-5 text-primary" />
-            </div>
-            <CardTitle className="text-lg md:text-xl">Document Management</CardTitle>
-          </CardHeader>
-          <CardContent className="pb-0">
-            <p className="text-muted-foreground text-xs md:text-sm">
-              Organize and manage your legal documents with powerful categorization and tagging.
-            </p>
-          </CardContent>
-          {/* <CardFooter className="mt-auto pt-3 md:pt-4">
-            <Button variant="ghost" className="w-full justify-start p-0 hover:bg-transparent hover:underline text-sm md:text-base">
-              Learn more <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
-            </Button>
-          </CardFooter> */}
-        </Card>
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {[
+              {
+                number: "01",
+                title: "Ask Your Question",
+                description:
+                  "Type your legal question in plain language. No need to know legal terminology—just ask naturally."
+              },
+              {
+                number: "02",
+                title: "Get Clear Answers",
+                description:
+                  "Receive easy-to-understand explanations powered by AI trained on Indian legal frameworks."
+              },
+              {
+                number: "03",
+                title: "Take Action",
+                description:
+                  "Use your newfound knowledge to make informed decisions or prepare for meetings with your lawyer."
+              }
+            ].map((step, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="relative"
+              >
+                {/* Connector line - desktop only */}
+                {idx < 2 && (
+                  <div className="absolute left-full top-12 hidden h-0.5 w-full -translate-x-1/2 bg-gradient-to-r from-border via-border to-transparent lg:block dark:from-white/10 dark:via-white/10" />
+                )}
 
-        {/* Legal Vault - Feature Section */}
-        <Card className="col-span-1 md:col-span-full bg-muted/30 border border-border/40 overflow-hidden hover:shadow-md transition-all">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 p-4 md:p-8">
-            <div>
-              <div className="h-10 w-10 md:h-12 md:w-12 rounded-lg bg-primary/20 flex items-center justify-center mb-3 md:mb-4">
-                <Server className="h-5 w-5 md:h-6 md:w-6 text-primary" />
-              </div>
-              <CardTitle className="text-xl md:text-2xl mb-3 md:mb-4">Legal Vault</CardTitle>
-              <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6">
-                Your comprehensive document storage and management solution with bank-level security.
+                <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-card/30 p-8 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <div className="mb-4 inline-block rounded-lg bg-foreground/10 px-4 py-2 text-2xl font-bold text-foreground dark:bg-white/10 dark:text-white">
+                    {step.number}
+                  </div>
+
+                  <h3 className="mb-3 text-xl font-semibold text-foreground dark:text-white">
+                    {step.title}
+                  </h3>
+
+                  <p className="text-sm leading-relaxed text-muted-foreground dark:text-white/70">
+                    {step.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Trust Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="relative overflow-hidden rounded-3xl border border-border/50 bg-gradient-to-br from-foreground/[0.03] to-transparent p-12 backdrop-blur-md dark:border-white/10 dark:from-white/[0.05] md:p-16">
+            <div className="relative text-center">
+              <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+                Legal Intelligence Made Accessible
+              </h2>
+              <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground dark:text-white/70">
+                Join thousands of people who are navigating legal matters with confidence using Law
+                Copilot&apos;s accessible tools and guidance.
               </p>
-              {/* <Button className="text-sm md:text-base w-full sm:w-auto">Explore Legal Vault</Button> */}
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-              <div className="rounded-lg bg-card/70 p-3 md:p-4 border border-border/20">
-                <Shield className="h-5 w-5 md:h-6 md:w-6 text-primary mb-1 md:mb-2" />
-                <h3 className="font-medium mb-1 text-sm md:text-base">Secure Storage</h3>
-                <p className="text-xs text-muted-foreground">End-to-end encryption for total privacy</p>
-              </div>
-              <div className="rounded-lg bg-card/70 p-3 md:p-4 border border-border/20">
-                <BookOpen className="h-5 w-5 md:h-6 md:w-6 text-primary mb-1 md:mb-2" />
-                <h3 className="font-medium mb-1 text-sm md:text-base">Smart Search</h3>
-                <p className="text-xs text-muted-foreground">Find documents instantly with AI search</p>
-              </div>
-              <div className="rounded-lg bg-card/70 p-3 md:p-4 border border-border/20">
-                <FileText className="h-5 w-5 md:h-6 md:w-6 text-primary mb-1 md:mb-2" />
-                <h3 className="font-medium mb-1 text-sm md:text-base">Auto-Organize</h3>
-                <p className="text-xs text-muted-foreground">AI categorization of documents</p>
-              </div>
-              <div className="rounded-lg bg-card/70 p-3 md:p-4 border border-border/20">
-                <Clock className="h-5 w-5 md:h-6 md:w-6 text-primary mb-1 md:mb-2" />
-                <h3 className="font-medium mb-1 text-sm md:text-base">Version History</h3>
-                <p className="text-xs text-muted-foreground">Track changes and restore previous versions</p>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <MessageSquare className="mx-auto mb-3 h-8 w-8 text-foreground dark:text-white" />
+                  <div className="mb-2 text-3xl font-bold text-foreground dark:text-white">
+                    24/7
+                  </div>
+                  <p className="text-sm text-muted-foreground dark:text-white/60">
+                    Always Available Support
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <Shield className="mx-auto mb-3 h-8 w-8 text-foreground dark:text-white" />
+                  <div className="mb-2 text-3xl font-bold text-foreground dark:text-white">
+                    100%
+                  </div>
+                  <p className="text-sm text-muted-foreground dark:text-white/60">
+                    Private & Secure
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <Search className="mx-auto mb-3 h-8 w-8 text-foreground dark:text-white" />
+                  <div className="mb-2 text-3xl font-bold text-foreground dark:text-white">
+                    1,000+
+                  </div>
+                  <p className="text-sm text-muted-foreground dark:text-white/60">
+                    Legal Topics Covered
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </Card>
-      </div>
-
-      {/* CTA Section */}
-      <div className="mt-12 md:mt-20 text-center bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-6 md:p-12 max-w-5xl mx-auto border border-border/30">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Start your legal journey today</h2>
-        <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-6 md:mb-8 px-2">
-          Join thousands of users who are taking control of their legal needs with our powerful tools.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-          <Link href="/contact">          
-          <Button size="lg" className="w-full sm:w-auto">Request a demo</Button>
-          </Link>
-          {/* <Link href="/contact">
-            <Button size="lg" variant="outline" className="w-full sm:w-auto mt-2 sm:mt-0">Schedule a Demo</Button>
-          </Link> */}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

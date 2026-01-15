@@ -1,18 +1,51 @@
 "use client";
 
-import { Mail, Phone, Building2, Clock } from "lucide-react";
+import { Mail, Phone, Clock, MapPin, Send, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
 import Link from "next/link";
 import { useState } from "react";
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
 
 type FormErrors = {
   [key: string]: string;
 };
+
+const contactInfo = [
+  {
+    icon: <Mail className="h-5 w-5" />,
+    label: "Email",
+    value: "hello@lawcopilot.io",
+    href: "mailto:hello@lawcopilot.io"
+  },
+  {
+    icon: <Phone className="h-5 w-5" />,
+    label: "Phone",
+    value: "+91 9603354488",
+    href: "tel:+919603354488"
+  },
+  {
+    icon: <MapPin className="h-5 w-5" />,
+    label: "Location",
+    value: "Hyderabad, Telangana, India",
+    href: null
+  },
+  {
+    icon: <Clock className="h-5 w-5" />,
+    label: "Business Hours",
+    value: "Mon-Fri, 9:00 AM - 5:00 PM IST",
+    href: null
+  }
+];
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -55,9 +88,9 @@ export default function ContactPage() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors(prev => {
+      setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
@@ -66,9 +99,9 @@ export default function ContactPage() {
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors(prev => {
+      setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
@@ -85,17 +118,17 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const response = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData)
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to submit form');
+        throw new Error(errorData.error || "Failed to submit form");
       }
 
       setIsSubmitted(true);
@@ -112,7 +145,9 @@ export default function ContactPage() {
         message: ""
       });
     } catch (error) {
-      setSubmitError(error instanceof Error ? error.message : 'Failed to submit form. Please try again.');
+      setSubmitError(
+        error instanceof Error ? error.message : "Failed to submit form. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -120,31 +155,35 @@ export default function ContactPage() {
 
   if (isSubmitted) {
     return (
-      <div className="relative w-full overflow-hidden bg-background min-h-screen flex items-center justify-center">
+      <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background">
         <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-foreground/[0.03] to-transparent dark:from-white/[0.03] rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-foreground/[0.02] to-transparent dark:from-white/[0.02] rounded-full blur-3xl"></div>
+          <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
+          <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
         </div>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="relative z-10 max-w-md mx-auto px-6 text-center"
+          className="relative z-10 mx-auto max-w-md px-6 text-center"
         >
-          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 dark:bg-emerald-400/10">
+            <CheckCircle className="h-8 w-8 text-emerald-500 dark:text-emerald-400" />
           </div>
-          <h2 className="text-3xl font-bold mb-4">Thank you for reaching out</h2>
-          <p className="text-muted-foreground text-lg mb-8">
-            We&apos;ve received your message and will get back to you shortly.
+
+          <h2 className="mb-4 text-3xl font-bold text-foreground dark:text-white">
+            Thank You for Reaching Out
+          </h2>
+
+          <p className="mb-8 text-lg text-muted-foreground dark:text-white/70">
+            We&apos;ve received your message and will get back to you within 24 hours.
           </p>
+
           <Button
             onClick={() => setIsSubmitted(false)}
             variant="outline"
             size="lg"
+            className="rounded-full"
           >
             Send Another Message
           </Button>
@@ -157,23 +196,32 @@ export default function ContactPage() {
     <div className="relative w-full overflow-hidden bg-background">
       {/* Background */}
       <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-foreground/[0.03] to-transparent dark:from-white/[0.03] rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-foreground/[0.02] to-transparent dark:from-white/[0.02] rounded-full blur-3xl"></div>
+        <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
+        <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
       </div>
 
       {/* Hero Section */}
-      <section className="relative z-10 container mx-auto px-6 py-20 md:py-32">
+      <section className="relative z-10 container mx-auto px-6 py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto text-center"
+          className="mx-auto max-w-3xl text-center"
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
-            Get in Touch
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
+            <Send className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
+            <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">
+              We&apos;re Here to Help
+            </span>
+          </div>
+
+          <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+            <span className="block text-foreground dark:text-white">Get in Touch</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Have questions about Law Copilot? Our team is here to help you discover how AI can 
+
+          <p className="text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl dark:text-white/70">
+            Have questions about Law Copilot? Our team is here to help you discover how AI can
             transform your legal practice.
           </p>
         </motion.div>
@@ -181,70 +229,63 @@ export default function ContactPage() {
 
       {/* Contact Content */}
       <section className="relative z-10 container mx-auto px-6 pb-24 md:pb-32">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
-            {/* Contact Information */}
+        <div className="mx-auto">
+          <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
+            {/* Contact Information Sidebar */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:col-span-2 space-y-8"
+              className="lg:col-span-1"
             >
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-8">Contact Information</h2>
-                
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm mb-1">General inquiries</p>
-                      <a href="mailto:hello@lawcopilot.io" className="text-muted-foreground hover:text-foreground transition-colors">
-                        hello@lawcopilot.io
-                      </a>
-                    </div>
-                  </div>
+              <div className="sticky top-24 space-y-8">
+                <div>
+                  <h2 className="mb-6 text-2xl font-bold text-foreground md:text-3xl dark:text-white">
+                    Contact Information
+                  </h2>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm mb-1">Phone</p>
-                      <a href="tel:+919603354488" className="text-muted-foreground hover:text-foreground transition-colors">
-                        +91 9603354488
-                      </a>
-                    </div>
+                  <div className="space-y-6">
+                    {contactInfo.map((info, idx) => (
+                      <div key={idx} className="flex items-start gap-4">
+                        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
+                          <div className="text-foreground dark:text-white">{info.icon}</div>
+                        </div>
+                        <div>
+                          <p className="mb-1 text-sm font-medium text-foreground dark:text-white">
+                            {info.label}
+                          </p>
+                          {info.href ? (
+                            <a
+                              href={info.href}
+                              className="text-sm text-muted-foreground transition-colors hover:text-foreground dark:text-white/70 dark:hover:text-white"
+                            >
+                              {info.value}
+                            </a>
+                          ) : (
+                            <p className="text-sm text-muted-foreground dark:text-white/70">
+                              {info.value}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
+                </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Building2 className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm mb-1">Headquarters</p>
-                      <address className="not-italic text-muted-foreground">
-                        3-104/43<br />
-                        Hyderabad, Telangana 500089<br />
-                        India
-                      </address>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Clock className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm mb-1">Business Hours</p>
-                      <p className="text-muted-foreground">
-                        Monday - Friday<br />
-                        9:00 AM - 5:00 PM IST
-                      </p>
-                    </div>
-                  </div>
+                <div className="rounded-2xl border border-border/50 bg-card/30 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <h3 className="mb-3 font-semibold text-foreground dark:text-white">
+                    Prefer Email?
+                  </h3>
+                  <p className="mb-4 text-sm text-muted-foreground dark:text-white/70">
+                    For general inquiries or quick questions, reach us directly at{" "}
+                    <a
+                      href="mailto:hello@lawcopilot.io"
+                      className="font-medium text-foreground hover:underline dark:text-white"
+                    >
+                      hello@lawcopilot.io
+                    </a>
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -255,51 +296,53 @@ export default function ContactPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:col-span-3"
+              className="lg:col-span-2"
             >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="firstName" className="text-sm font-medium">
-                      First Name*
-                    </label>
-                    <Input
-                      id="firstName"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      placeholder="John"
-                      required
-                      className={errors.firstName ? 'border-red-500' : ''}
-                    />
-                    {errors.firstName && (
-                      <p className="text-sm text-red-500">{errors.firstName}</p>
-                    )}
+              <div className="rounded-2xl border border-border/50 bg-card/30 p-8 backdrop-blur-sm md:p-10 dark:border-white/10 dark:bg-white/[0.02]">
+                <h2 className="mb-6 text-2xl font-bold text-foreground dark:text-white">
+                  Send Us a Message
+                </h2>
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <label htmlFor="firstName" className="text-sm font-medium text-foreground dark:text-white">
+                        First Name <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        id="firstName"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        placeholder="John"
+                        required
+                        className={errors.firstName ? "border-red-500" : ""}
+                      />
+                      {errors.firstName && (
+                        <p className="text-sm text-red-500">{errors.firstName}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <label htmlFor="lastName" className="text-sm font-medium text-foreground dark:text-white">
+                        Last Name <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        id="lastName"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        placeholder="Doe"
+                        required
+                        className={errors.lastName ? "border-red-500" : ""}
+                      />
+                      {errors.lastName && <p className="text-sm text-red-500">{errors.lastName}</p>}
+                    </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="lastName" className="text-sm font-medium">
-                      Last Name*
-                    </label>
-                    <Input
-                      id="lastName"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      placeholder="Doe"
-                      required
-                      className={errors.lastName ? 'border-red-500' : ''}
-                    />
-                    {errors.lastName && (
-                      <p className="text-sm text-red-500">{errors.lastName}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium">
-                      Email Address*
+                    <label htmlFor="email" className="text-sm font-medium text-foreground dark:text-white">
+                      Email Address <span className="text-red-500">*</span>
                     </label>
                     <Input
                       id="email"
@@ -309,110 +352,100 @@ export default function ContactPage() {
                       onChange={handleChange}
                       placeholder="john.doe@example.com"
                       required
-                      className={errors.email ? 'border-red-500' : ''}
+                      className={errors.email ? "border-red-500" : ""}
                     />
-                    {errors.email && (
-                      <p className="text-sm text-red-500">{errors.email}</p>
-                    )}
+                    {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+                  </div>
+
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <label htmlFor="companyName" className="text-sm font-medium text-foreground dark:text-white">
+                        Company Name <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        id="companyName"
+                        name="companyName"
+                        value={formData.companyName}
+                        onChange={handleChange}
+                        placeholder="ABC Law Firm"
+                        required
+                        className={errors.companyName ? "border-red-500" : ""}
+                      />
+                      {errors.companyName && (
+                        <p className="text-sm text-red-500">{errors.companyName}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <label htmlFor="jobTitle" className="text-sm font-medium text-foreground dark:text-white">
+                        Job Title <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        id="jobTitle"
+                        name="jobTitle"
+                        value={formData.jobTitle}
+                        onChange={handleChange}
+                        placeholder="Senior Associate"
+                        required
+                        className={errors.jobTitle ? "border-red-500" : ""}
+                      />
+                      {errors.jobTitle && <p className="text-sm text-red-500">{errors.jobTitle}</p>}
+                    </div>
+                  </div>
+
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <label htmlFor="country" className="text-sm font-medium text-foreground dark:text-white">
+                        Country <span className="text-red-500">*</span>
+                      </label>
+                      <Select
+                        name="country"
+                        onValueChange={(value) => handleSelectChange("country", value)}
+                        value={formData.country}
+                      >
+                        <SelectTrigger className={errors.country ? "border-red-500" : ""}>
+                          <SelectValue placeholder="Select country" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="india">India</SelectItem>
+                          <SelectItem value="usa">United States</SelectItem>
+                          <SelectItem value="uk">United Kingdom</SelectItem>
+                          <SelectItem value="canada">Canada</SelectItem>
+                          <SelectItem value="australia">Australia</SelectItem>
+                          <SelectItem value="singapore">Singapore</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {errors.country && <p className="text-sm text-red-500">{errors.country}</p>}
+                    </div>
+
+                    <div className="space-y-2">
+                      <label htmlFor="orgType" className="text-sm font-medium text-foreground dark:text-white">
+                        Organization Type <span className="text-red-500">*</span>
+                      </label>
+                      <Select
+                        name="orgType"
+                        onValueChange={(value) => handleSelectChange("orgType", value)}
+                        value={formData.orgType}
+                      >
+                        <SelectTrigger className={errors.orgType ? "border-red-500" : ""}>
+                          <SelectValue placeholder="Select type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="fullService">Full Service Law Firm</SelectItem>
+                          <SelectItem value="transactional">Transactional Law Firm</SelectItem>
+                          <SelectItem value="litigation">Litigation Law Firm</SelectItem>
+                          <SelectItem value="inHouse">In-House Legal Team</SelectItem>
+                          <SelectItem value="individual">Individual Practitioner</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {errors.orgType && <p className="text-sm text-red-500">{errors.orgType}</p>}
+                    </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="companyName" className="text-sm font-medium">
-                      Company Name*
-                    </label>
-                    <Input
-                      id="companyName"
-                      name="companyName"
-                      value={formData.companyName}
-                      onChange={handleChange}
-                      placeholder="ABC Law Firm"
-                      required
-                      className={errors.companyName ? 'border-red-500' : ''}
-                    />
-                    {errors.companyName && (
-                      <p className="text-sm text-red-500">{errors.companyName}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="country" className="text-sm font-medium">
-                      Country*
-                    </label>
-                    <Select
-                      name="country"
-                      onValueChange={(value) => handleSelectChange("country", value)}
-                      value={formData.country}
-                    >
-                      <SelectTrigger className={errors.country ? 'border-red-500' : ''}>
-                        <SelectValue placeholder="Select country" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="usa">United States</SelectItem>
-                        <SelectItem value="canada">Canada</SelectItem>
-                        <SelectItem value="uk">United Kingdom</SelectItem>
-                        <SelectItem value="germany">Germany</SelectItem>
-                        <SelectItem value="france">France</SelectItem>
-                        <SelectItem value="australia">Australia</SelectItem>
-                        <SelectItem value="india">India</SelectItem>
-                        <SelectItem value="singapore">Singapore</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {errors.country && (
-                      <p className="text-sm text-red-500">{errors.country}</p>
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="jobTitle" className="text-sm font-medium">
-                      Job Title*
-                    </label>
-                    <Input
-                      id="jobTitle"
-                      name="jobTitle"
-                      value={formData.jobTitle}
-                      onChange={handleChange}
-                      placeholder="Senior Associate"
-                      required
-                      className={errors.jobTitle ? 'border-red-500' : ''}
-                    />
-                    {errors.jobTitle && (
-                      <p className="text-sm text-red-500">{errors.jobTitle}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="orgType" className="text-sm font-medium">
-                      Organization Type*
-                    </label>
-                    <Select
-                      name="orgType"
-                      onValueChange={(value) => handleSelectChange("orgType", value)}
-                      value={formData.orgType}
-                    >
-                      <SelectTrigger className={errors.orgType ? 'border-red-500' : ''}>
-                        <SelectValue placeholder="Select organization type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="fullService">Full Service Law Firm</SelectItem>
-                        <SelectItem value="transactional">Transactional Law Firm</SelectItem>
-                        <SelectItem value="litigation">Litigation Law Firm</SelectItem>
-                        <SelectItem value="financial">Financial Services Firm</SelectItem>
-                        <SelectItem value="inHouse">In-House Legal Team</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {errors.orgType && (
-                      <p className="text-sm text-red-500">{errors.orgType}</p>
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="teamSize" className="text-sm font-medium">
+                    <label htmlFor="teamSize" className="text-sm font-medium text-foreground dark:text-white">
                       Legal Team Size
                     </label>
                     <Select
@@ -432,64 +465,59 @@ export default function ContactPage() {
                       </SelectContent>
                     </Select>
                   </div>
-                </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="hearAbout" className="text-sm font-medium">
-                    How did you hear about us?
-                  </label>
-                  <Textarea
-                    id="hearAbout"
-                    name="hearAbout"
-                    value={formData.hearAbout}
-                    onChange={handleChange}
-                    placeholder="Let us know how you discovered Law Copilot"
-                    className="min-h-20 resize-none"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium">
-                    Message*
-                  </label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Tell us about your legal needs or how we can help..."
-                    className={`min-h-32 resize-none ${errors.message ? 'border-red-500' : ''}`}
-                    required
-                  />
-                  {errors.message && (
-                    <p className="text-sm text-red-500">{errors.message}</p>
-                  )}
-                </div>
-
-                {submitError && (
-                  <div className="p-4 text-sm text-red-600 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 rounded-lg">
-                    {submitError}
+                  <div className="space-y-2">
+                    <label htmlFor="message" className="text-sm font-medium text-foreground dark:text-white">
+                      Message <span className="text-red-500">*</span>
+                    </label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Tell us about your legal needs or how we can help..."
+                      className={`min-h-32 resize-none ${errors.message ? "border-red-500" : ""}`}
+                      required
+                    />
+                    {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
                   </div>
-                )}
 
-                <div className="pt-2">
-                  <p className="text-xs text-muted-foreground mb-6">
-                    By submitting this form, you agree to our{" "}
-                    <Link href="/privacy-policy" className="text-primary hover:underline">
-                      Privacy Policy
-                    </Link>.
-                  </p>
+                  {submitError && (
+                    <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-600 dark:border-red-900 dark:bg-red-950/20">
+                      {submitError}
+                    </div>
+                  )}
 
-                  <Button
-                    type="submit"
-                    size="lg"
-                    disabled={isSubmitting}
-                    className="w-full sm:w-auto px-8"
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </div>
-              </form>
+                  <div className="pt-2">
+                    <p className="mb-6 text-xs text-muted-foreground dark:text-white/60">
+                      By submitting this form, you agree to our{" "}
+                      <Link href="/privacy-policy" className="text-foreground hover:underline dark:text-white">
+                        Privacy Policy
+                      </Link>
+                      .
+                    </p>
+
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={isSubmitting}
+                      className="w-full rounded-full sm:w-auto"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-4 w-4" />
+                          Send Message
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </form>
+              </div>
             </motion.div>
           </div>
         </div>
