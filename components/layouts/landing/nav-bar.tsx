@@ -165,20 +165,18 @@ const routeList: RouteProps[] = [
                     icon: Globe
                 },
             ],
-            // No visuals for Why Us section
         },
     },
 ];
 
 const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    // Only handle hash links
     if (href.startsWith('/#')) {
         e.preventDefault();
         const id = href.replace('/#', '');
         const element = document.getElementById(id);
 
         if (element) {
-            const navbarHeight = 80; // Height of your navbar (h-20 = 5rem = 80px)
+            const navbarHeight = 80;
             const elementPosition = element.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
 
@@ -201,13 +199,13 @@ const CallToActions = memo(({ classes }: {
         <div className={classes?.container}>
             <Button
                 variant="secondary"
-                className={cn("font-medium", classes?.buttonSignIn)}
+                className={cn("font-medium text-xs sm:text-sm", classes?.buttonSignIn)}
                 asChild
             >
                 <Link href="https://app.lawcopilot.io/signin">Sign In</Link>
             </Button>
             <Button
-                className={cn("font-medium", classes?.buttonGetStarted)}
+                className={cn("font-medium text-xs sm:text-sm", classes?.buttonGetStarted)}
                 asChild
             >
                 <Link href="https://app.lawcopilot.io/signup">Get Started</Link>
@@ -248,14 +246,14 @@ const DesktopNavigation = memo(({ pathname, openDropdown, setOpenDropdown }: {
                             {hasSubMenu ? (
                                 <button
                                     className={cn(
-                                        "flex items-center gap-1 px-4 py-2 text-base font-medium rounded-md transition-colors",
+                                        "flex items-center gap-1 px-3 xl:px-4 py-2 text-sm xl:text-base font-medium rounded-md transition-colors",
                                         isActive ? "text-primary" : "hover:text-primary"
                                     )}
                                 >
                                     {route.label}
                                     <ChevronDown
                                         className={cn(
-                                            "h-4 w-4 transition-transform duration-200",
+                                            "h-3.5 w-3.5 xl:h-4 xl:w-4 transition-transform duration-200",
                                             isOpen && "rotate-180"
                                         )}
                                     />
@@ -264,7 +262,7 @@ const DesktopNavigation = memo(({ pathname, openDropdown, setOpenDropdown }: {
                                 <Link
                                     href={route.href}
                                     className={cn(
-                                        "block px-4 py-2 text-base font-medium rounded-md transition-colors",
+                                        "block px-3 xl:px-4 py-2 text-sm xl:text-base font-medium rounded-md transition-colors",
                                         isActive ? "text-primary" : "hover:text-primary"
                                     )}
                                 >
@@ -281,7 +279,6 @@ const DesktopNavigation = memo(({ pathname, openDropdown, setOpenDropdown }: {
 
 DesktopNavigation.displayName = 'DesktopNavigation';
 
-// Clean Image Window Component
 const ImageWindow = memo(({ visual, index }: { 
     visual: { lightImage: string; darkImage: string; title: string; description: string }, 
     index: number 
@@ -293,14 +290,12 @@ const ImageWindow = memo(({ visual, index }: {
         setMounted(true);
     }, []);
 
-    // Use resolvedTheme to get the actual current theme (handles 'system' setting)
     const currentTheme = mounted ? (resolvedTheme || theme) : 'light';
     const imageSrc = currentTheme === 'dark' ? visual.darkImage : visual.lightImage;
 
     return (
-        <div className="space-y-3">
-            {/* Single Window with professional gradient background (Legora-style) - gradient only on top and left */}
-            <div className="relative aspect-video w-full overflow-hidden bg-gradient-to-br from-blue-500/15 via-cyan-500/10 to-emerald-500/15 dark:from-blue-600/20 dark:via-cyan-600/15 dark:to-emerald-600/20 pt-4 pl-4 shadow-lg">
+        <div className="space-y-2 sm:space-y-3">
+            <div className="relative aspect-video w-full overflow-hidden bg-gradient-to-br from-blue-500/15 via-cyan-500/10 to-emerald-500/15 dark:from-blue-600/20 dark:via-cyan-600/15 dark:to-emerald-600/20 pt-3 sm:pt-4 pl-3 sm:pl-4 shadow-lg">
                 <div className="relative w-full h-full overflow-hidden bg-background/90 backdrop-blur-sm border border-border/40 rounded-sm">
                     {mounted && (
                         <div className="relative w-full h-full">
@@ -320,12 +315,11 @@ const ImageWindow = memo(({ visual, index }: {
                 </div>
             </div>
             
-            {/* Text below without card */}
-            <div className="space-y-1">
-                <h4 className="font-semibold text-sm text-foreground">
+            <div className="space-y-0.5 sm:space-y-1">
+                <h4 className="font-semibold text-xs sm:text-sm text-foreground">
                     {visual.title}
                 </h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-[10px] sm:text-xs text-muted-foreground leading-relaxed">
                     {visual.description}
                 </p>
             </div>
@@ -350,7 +344,6 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
             setIsVisible(true);
         } else {
             setIsVisible(false);
-            // Delay clearing the active label to allow exit animation
             const timer = setTimeout(() => setActiveLabel(null), 300);
             return () => clearTimeout(timer);
         }
@@ -395,11 +388,11 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            <div className="container mx-auto px-6 py-10">
-                <div className="flex items-start gap-8">
+            <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 md:py-10">
+                <div className="flex flex-col md:flex-row items-start gap-6 md:gap-8">
                     {/* Left Side - Menu Items */}
-                    <div className="space-y-1 flex-shrink-0" style={{ width: hasVisuals ? '350px' : '100%' }}>
-                        <h3 className="mb-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    <div className="space-y-1 flex-shrink-0 w-full" style={{ maxWidth: hasVisuals ? '350px' : '100%' }}>
+                        <h3 className="mb-3 sm:mb-4 text-[10px] sm:text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                             {activeRoute.subMenu.title}
                         </h3>
 
@@ -409,7 +402,7 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
                                 <Link
                                     key={index}
                                     href={item.href}
-                                    className="group flex items-start gap-3 p-3 rounded-md hover:bg-accent/30 transition-all duration-200"
+                                    className="group flex items-start gap-2 sm:gap-3 p-2 sm:p-3 rounded-md hover:bg-accent/30 transition-all duration-200"
                                     onClick={(e) => {
                                         handleSmoothScroll(e, item.href);
                                         setOpenDropdown(null);
@@ -417,15 +410,15 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
                                 >
                                     {Icon && (
                                         <div className="mt-0.5 text-primary/60 group-hover:text-primary transition-colors duration-200">
-                                            <Icon className="h-5 w-5" />
+                                            <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                                         </div>
                                     )}
-                                    <div className="flex-1">
-                                        <div className="font-medium text-foreground group-hover:text-primary transition-colors mb-0.5">
+                                    <div className="flex-1 min-w-0">
+                                        <div className="font-medium text-sm sm:text-base text-foreground group-hover:text-primary transition-colors mb-0.5 truncate">
                                             {item.label}
                                         </div>
                                         {item.description && (
-                                            <div className="text-xs text-muted-foreground leading-relaxed">
+                                            <div className="text-[10px] sm:text-xs text-muted-foreground leading-relaxed line-clamp-2">
                                                 {item.description}
                                             </div>
                                         )}
@@ -435,16 +428,14 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
                         })}
                     </div>
 
-                    {/* Right Side - Image Windows (only if visuals exist) */}
+                    {/* Right Side - Image Windows (only if visuals exist and on larger screens) */}
                     {hasVisuals && (
                         <>
-                            {/* Spacer */}
-                            <div className="flex-1" />
+                            <div className="flex-1 hidden md:block" />
 
-                            {/* Two Pictures */}
-                            <div className="flex gap-6 flex-shrink-0" style={{ width: '50%' }}>
+                            <div className="hidden md:flex gap-4 lg:gap-6 flex-shrink-0 w-full md:w-1/2">
                                 {activeRoute.subMenu.visuals!.map((visual, index) => (
-                                    <div key={index} className="flex-1">
+                                    <div key={index} className="flex-1 min-w-0">
                                         <ImageWindow visual={visual} index={index} />
                                     </div>
                                 ))}
@@ -496,14 +487,14 @@ export const Navbar = () => {
     return (
         <header
             className={cn(
-                "z-40 h-20 flex justify-center items-center sticky top-0 transition-all duration-300 backdrop-blur-md",
+                "z-40 h-16 sm:h-18 md:h-20 flex justify-center items-center sticky top-0 transition-all duration-300 backdrop-blur-md",
                 {
                     "bg-transparent": pathname === "/" && !scrolled,
                     "bg-background/80 shadow-sm border-b border-border/20": scrolled,
                 }
             )}
         >
-            <div className="container mx-auto flex justify-between items-center p-2 relative">
+            <div className="container mx-auto flex justify-between items-center px-3 sm:px-4 md:px-6 relative">
                 {/* Logo - Left */}
                 <Logo />
 
@@ -515,15 +506,15 @@ export const Navbar = () => {
                 />
 
                 {/* Right Side - CTA Buttons + Mobile Menu */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
                     {/* Desktop Call to Actions */}
-                    <div className="hidden lg:flex justify-center items-center gap-4">
+                    <div className="hidden lg:flex justify-center items-center gap-2 md:gap-3 lg:gap-4">
                         <ThemeToggle />
                         <CallToActions
                             classes={{
-                                container: "flex gap-4",
-                                buttonSignIn: "bg-secondary/80 hover:bg-secondary text-secondary-foreground",
-                                buttonGetStarted: "bg-primary hover:bg-primary/90 text-primary-foreground"
+                                container: "flex gap-2 md:gap-3 lg:gap-4",
+                                buttonSignIn: "bg-secondary/80 hover:bg-secondary text-secondary-foreground h-8 sm:h-9 px-3 sm:px-4",
+                                buttonGetStarted: "bg-primary hover:bg-primary/90 text-primary-foreground h-8 sm:h-9 px-3 sm:px-4"
                             }}
                         />
                     </div>
@@ -532,17 +523,17 @@ export const Navbar = () => {
                     <div className="flex items-center lg:hidden">
                         <Sheet open={isOpen} onOpenChange={setIsOpen}>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="lg:hidden">
-                                    <Menu className="h-6 w-6" />
+                                <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9 sm:h-10 sm:w-10">
+                                    <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
                                 </Button>
                             </SheetTrigger>
 
                             <SheetContent
                                 side="right"
-                                className="flex flex-col justify-between rounded-l-2xl bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border-l border-border/20"
+                                className="flex flex-col justify-between rounded-l-2xl bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border-l border-border/20 w-[85vw] sm:w-[400px]"
                             >
                                 <div>
-                                    <SheetHeader className="mb-6">
+                                    <SheetHeader className="mb-4 sm:mb-6">
                                         <SheetTitle className="flex items-center justify-center">
                                             <Logo type="FULL" />
                                         </SheetTitle>
@@ -553,10 +544,10 @@ export const Navbar = () => {
                                             if (route.subMenu) {
                                                 return (
                                                     <div key={route.label} className="flex flex-col">
-                                                        <div className="px-4 py-2 text-sm font-semibold text-muted-foreground">
+                                                        <div className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-muted-foreground">
                                                             {route.label}
                                                         </div>
-                                                        <div className="pl-4 flex flex-col gap-1">
+                                                        <div className="pl-2 sm:pl-4 flex flex-col gap-0.5 sm:gap-1">
                                                             {route.subMenu.items.map((item) => {
                                                                 const Icon = item.icon;
                                                                 return (
@@ -565,15 +556,15 @@ export const Navbar = () => {
                                                                         onClick={() => setIsOpen(false)}
                                                                         asChild
                                                                         variant="ghost"
-                                                                        className="justify-start text-base h-auto py-3"
+                                                                        className="justify-start text-sm sm:text-base h-auto py-2 sm:py-3"
                                                                     >
                                                                         <Link href={item.href} onClick={(e) => handleSmoothScroll(e, item.href)}>
-                                                                            <div className="flex items-center gap-3 text-left w-full">
-                                                                                {Icon && <Icon className="h-4 w-4 text-primary" />}
-                                                                                <div>
-                                                                                    <div className="font-medium">{item.label}</div>
+                                                                            <div className="flex items-center gap-2 sm:gap-3 text-left w-full">
+                                                                                {Icon && <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary flex-shrink-0" />}
+                                                                                <div className="min-w-0 flex-1">
+                                                                                    <div className="font-medium truncate">{item.label}</div>
                                                                                     {item.description && (
-                                                                                        <div className="text-xs text-muted-foreground mt-0.5">
+                                                                                        <div className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 line-clamp-1">
                                                                                             {item.description}
                                                                                         </div>
                                                                                     )}
@@ -594,7 +585,7 @@ export const Navbar = () => {
                                                     onClick={() => setIsOpen(false)}
                                                     asChild
                                                     variant="ghost"
-                                                    className="justify-start text-lg font-medium"
+                                                    className="justify-start text-base sm:text-lg font-medium"
                                                 >
                                                     <Link href={route.href} onClick={(e) => handleSmoothScroll(e, route.href)}>{route.label}</Link>
                                                 </Button>
@@ -604,18 +595,18 @@ export const Navbar = () => {
                                 </div>
 
                                 <SheetFooter className="flex-col sm:flex-col justify-start items-start w-full mt-auto">
-                                    <Separator className="my-4" />
+                                    <Separator className="my-3 sm:my-4" />
 
-                                    <div className="flex items-center justify-between w-full mb-4">
-                                        <span className="font-medium">Theme</span>
+                                    <div className="flex items-center justify-between w-full mb-3 sm:mb-4">
+                                        <span className="font-medium text-sm sm:text-base">Theme</span>
                                         <ThemeToggle />
                                     </div>
 
                                     <CallToActions
                                         classes={{
-                                            container: "w-full grid grid-cols-2 gap-4",
-                                            buttonSignIn: "w-full bg-secondary/80 hover:bg-secondary",
-                                            buttonGetStarted: "w-full bg-primary hover:bg-primary/90"
+                                            container: "w-full grid grid-cols-2 gap-2 sm:gap-4",
+                                            buttonSignIn: "w-full bg-secondary/80 hover:bg-secondary text-xs sm:text-sm h-9 sm:h-10",
+                                            buttonGetStarted: "w-full bg-primary hover:bg-primary/90 text-xs sm:text-sm h-9 sm:h-10"
                                         }}
                                     />
                                 </SheetFooter>

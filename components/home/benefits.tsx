@@ -21,7 +21,7 @@ interface BenefitPillar {
 
 const pillars: BenefitPillar[] = [
   {
-    icon: <MapPin className="h-6 w-6" />,
+    icon: <MapPin className="h-5 w-5 sm:h-6 sm:w-6" />,
     badge: "India-First",
     title: "Built for Indian Legal Practice",
     description: "Designed specifically for India's legal landscape—not a global product adapted for Indian law.",
@@ -32,7 +32,7 @@ const pillars: BenefitPillar[] = [
     ]
   },
   {
-    icon: <Cpu className="h-6 w-6" />,
+    icon: <Cpu className="h-5 w-5 sm:h-6 sm:w-6" />,
     badge: "Proprietary",
     title: "Custom AI Engine",
     description: "Purpose-built legal AI—not a ChatGPT wrapper with legal templates.",
@@ -43,7 +43,7 @@ const pillars: BenefitPillar[] = [
     ]
   },
   {
-    icon: <Scale className="h-6 w-6" />,
+    icon: <Scale className="h-5 w-5 sm:h-6 sm:w-6" />,
     badge: "Precision",
     title: "Jurisdictional Intelligence",
     description: "Adapts reasoning based on court type, forum, and applicable legal standards.",
@@ -54,7 +54,7 @@ const pillars: BenefitPillar[] = [
     ]
   },
   {
-    icon: <Languages className="h-6 w-6" />,
+    icon: <Languages className="h-5 w-5 sm:h-6 sm:w-6" />,
     badge: "Multilingual",
     title: "Indian Language Support",
     description: "Legal intelligence that works across India's linguistic diversity with contextual accuracy.",
@@ -68,17 +68,17 @@ const pillars: BenefitPillar[] = [
 
 const trustFactors = [
   {
-    icon: <Shield className="h-5 w-5" />,
+    icon: <Shield className="h-4 w-4 sm:h-5 sm:w-5" />,
     title: "Enterprise Security",
     description: "Bank-level encryption with Indian data residency"
   },
   {
-    icon: <Check className="h-5 w-5" />,
+    icon: <Check className="h-4 w-4 sm:h-5 sm:w-5" />,
     title: "Fact-Checked Outputs",
     description: "Citations verified, responses legally grounded"
   },
   {
-    icon: <Scale className="h-5 w-5" />,
+    icon: <Scale className="h-4 w-4 sm:h-5 sm:w-5" />,
     title: "Professional Reliability",
     description: "Built for real legal work, not experiments"
   }
@@ -86,7 +86,7 @@ const trustFactors = [
 
 export function Benefits() {
   return (
-    <section id="benefits" className="relative w-full overflow-hidden bg-background py-6 md:py-8">
+    <section id="benefits" className="relative w-full overflow-hidden bg-background py-12 sm:py-16 md:py-20 lg:py-24">
       {/* Subtle background matching Hero/Features */}
       <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
         <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
@@ -94,33 +94,33 @@ export function Benefits() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
       </div>
       
-      <div className="container relative z-10 mx-auto max-w-7xl px-6">
+      <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         {/* Section Header */}
         <motion.div 
-          className="mb-16 text-center md:mb-20"
+          className="mb-12 sm:mb-16 md:mb-20 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
-            <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
-            <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">Platform Differentiation</span>
+          <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
+            <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
+            <span className="text-[10px] sm:text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">Platform Differentiation</span>
           </div>
           
-          <h2 className="mb-4 text-4xl font-bold tracking-tight md:mb-6 md:text-5xl lg:text-6xl">
+          <h2 className="mb-3 sm:mb-4 md:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
             <span className="block text-foreground dark:text-white">
               Why Law Copilot
             </span>
           </h2>
           
-          <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl dark:text-white/70">
+          <p className="mx-auto max-w-3xl text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-muted-foreground dark:text-white/70 px-4">
             Not another AI chatbot adapted for legal use. A purpose-built platform engineered specifically for Indian legal professionals who demand precision, reliability, and jurisdictional intelligence.
           </p>
         </motion.div>
 
         {/* Four Pillars Grid */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-10">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:gap-10">
           {pillars.map((pillar, index) => (
             <motion.div
               key={index}
@@ -131,38 +131,38 @@ export function Benefits() {
               className="group relative"
             >
               {/* Subtle glow on hover */}
-              <div className="absolute -inset-4 rounded-2xl bg-gradient-to-br from-foreground/[0.02] to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100 dark:from-white/[0.05]" />
+              <div className="absolute -inset-2 sm:-inset-4 rounded-xl sm:rounded-2xl bg-gradient-to-br from-foreground/[0.02] to-transparent opacity-0 blur-xl sm:blur-2xl transition-opacity duration-500 group-hover:opacity-100 dark:from-white/[0.05]" />
               
               {/* Content */}
               <div className="relative">
                 {/* Icon & Badge */}
-                <div className="mb-6 flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
+                <div className="mb-4 sm:mb-6 flex items-center gap-3 sm:gap-4">
+                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-lg sm:rounded-xl bg-muted dark:bg-white/10">
                     <div className="text-foreground dark:text-white">
                       {pillar.icon}
                     </div>
                   </div>
-                  <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-white/50">
+                  <span className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-white/50">
                     {pillar.badge}
                   </span>
                 </div>
 
                 {/* Title */}
-                <h3 className="mb-3 text-2xl font-semibold text-foreground dark:text-white">
+                <h3 className="mb-2 sm:mb-3 text-xl sm:text-2xl font-semibold text-foreground dark:text-white">
                   {pillar.title}
                 </h3>
 
                 {/* Description */}
-                <p className="mb-6 leading-relaxed text-muted-foreground dark:text-white/70">
+                <p className="mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed text-muted-foreground dark:text-white/70">
                   {pillar.description}
                 </p>
 
                 {/* Points */}
-                <ul className="space-y-3">
+                <ul className="space-y-2 sm:space-y-3">
                   {pillar.points.map((point, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <div className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-foreground/40 dark:bg-white/40" />
-                      <span className="text-sm leading-relaxed text-muted-foreground dark:text-white/70">
+                    <li key={idx} className="flex items-start gap-2 sm:gap-3">
+                      <div className="mt-1 sm:mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-foreground/40 dark:bg-white/40" />
+                      <span className="text-xs sm:text-sm leading-relaxed text-muted-foreground dark:text-white/70">
                         {point}
                       </span>
                     </li>
@@ -179,36 +179,36 @@ export function Benefits() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-20 md:mt-24"
+          className="mt-12 sm:mt-16 md:mt-20 lg:mt-24"
         >
-          <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 p-8 backdrop-blur-md dark:border-white/10 dark:bg-white/[0.03] md:p-12">
+          <div className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-border/50 bg-card/50 p-6 sm:p-8 md:p-12 backdrop-blur-md dark:border-white/10 dark:bg-white/[0.03]">
             {/* Subtle gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] to-transparent dark:from-white/[0.03]" />
             
             <div className="relative">
               {/* Header */}
-              <div className="mb-8 text-center">
-                <h3 className="mb-3 text-2xl font-semibold text-foreground md:text-3xl dark:text-white">
+              <div className="mb-6 sm:mb-8 text-center">
+                <h3 className="mb-2 sm:mb-3 text-xl sm:text-2xl md:text-3xl font-semibold text-foreground dark:text-white">
                   Built for Real Legal Work
                 </h3>
-                <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+                <p className="mx-auto max-w-2xl text-sm sm:text-base text-muted-foreground dark:text-white/70 px-4">
                   Every decision in Law Copilot is made with one goal: delivering reliable, trustworthy AI for professional legal practice.
                 </p>
               </div>
 
               {/* Trust Factors */}
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 {trustFactors.map((factor, idx) => (
                   <div key={idx} className="flex flex-col items-center text-center">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
+                    <div className="mb-3 sm:mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl bg-muted dark:bg-white/10">
                       <div className="text-foreground dark:text-white">
                         {factor.icon}
                       </div>
                     </div>
-                    <h4 className="mb-2 font-semibold text-foreground dark:text-white">
+                    <h4 className="mb-1.5 sm:mb-2 text-sm sm:text-base font-semibold text-foreground dark:text-white">
                       {factor.title}
                     </h4>
-                    <p className="text-sm text-muted-foreground dark:text-white/60">
+                    <p className="text-xs sm:text-sm text-muted-foreground dark:text-white/60">
                       {factor.description}
                     </p>
                   </div>
@@ -224,9 +224,9 @@ export function Benefits() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-16 text-center"
+          className="mt-12 sm:mt-16 text-center"
         >
-          <p className="text-lg font-medium text-foreground dark:text-white">
+          <p className="text-base sm:text-lg font-medium text-foreground dark:text-white px-4">
             Finally, an AI platform that understands Indian law the way you do.
           </p>
         </motion.div>
