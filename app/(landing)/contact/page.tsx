@@ -4,15 +4,8 @@ import { Mail, Phone, Clock, MapPin, Send, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
 
@@ -58,13 +51,40 @@ export default function ContactPage() {
     orgType: "",
     teamSize: "",
     hearAbout: "",
-    message: ""
+    message: "",
+    honeypot: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [csrfToken, setCsrfToken] = useState("");
+
+  // Fetch CSRF token on mount
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        const res = await fetch('/api/csrf');
+        if (!res.ok) {
+          throw new Error('Failed to fetch CSRF token');
+        }
+        const data = await res.json();
+        if (data.csrfToken) {
+          setCsrfToken(data.csrfToken);
+        } else {
+          throw new Error('No CSRF token in response');
+        }
+      } catch (err) {
+        console.error('Failed to fetch CSRF token:', err);
+        // Set a placeholder token so form can still be submitted
+        // Backend will handle CSRF validation
+        setCsrfToken('pending');
+      }
+    };
+
+    fetchCsrfToken();
+  }, []);
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
@@ -74,13 +94,15 @@ export default function ContactPage() {
     if (!formData.companyName.trim()) newErrors.companyName = "Company name is required";
     if (!formData.jobTitle.trim()) newErrors.jobTitle = "Job title is required";
     if (!formData.message.trim()) newErrors.message = "Message is required";
+    if (formData.message.trim().length < 10) newErrors.message = "Message must be at least 10 characters";
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email address";
     }
-    if (!formData.country) newErrors.country = "Please select a country";
-    if (!formData.orgType) newErrors.orgType = "Please select an organization type";
+    // Country and orgType validation removed as fields are commented out
+    // if (!formData.country) newErrors.country = "Please select a country";
+    // if (!formData.orgType) newErrors.orgType = "Please select an organization type";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -98,39 +120,66 @@ export default function ContactPage() {
     }
   };
 
-  const handleSelectChange = (name: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
-  };
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('Form submitted'); // Debug log
+    
     setSubmitError("");
-
-    if (!validateForm()) return;
-
+  
+    // Check honeypot
+    if (formData.honeypot) {
+      setSubmitError("Invalid form submission");
+      return;
+    }
+  
+    // Check if CSRF token is loaded
+    if (!csrfToken || csrfToken === 'pending') {
+      setSubmitError("Security token not loaded. Please refresh the page and try again.");
+      return;
+    }
+  
+    if (!validateForm()) {
+      console.log('Validation failed', errors); // Debug log
+      return;
+    }
+  
     setIsSubmitting(true);
-
+  
     try {
+      console.log('Sending request...'); // Debug log
+      
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          companyName: formData.companyName,
+          country: "not-provided", // Default value since field removed
+          jobTitle: formData.jobTitle,
+          orgType: "not-provided", // Default value since field removed
+          teamSize: "not-provided", // Default value since field removed
+          hearAbout: formData.hearAbout,
+          message: formData.message,
+          csrfToken: csrfToken,
+        })
       });
-
+  
+      console.log('Response received:', response.status); // Debug log
+  
+      const data = await response.json();
+  
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to submit form");
+        throw new Error(data.error || data.details?.join(', ') || "Failed to submit form");
       }
-
+  
+      console.log('Success!'); // Debug log
+      
       setIsSubmitted(true);
       setFormData({
         firstName: "",
@@ -142,9 +191,18 @@ export default function ContactPage() {
         orgType: "",
         teamSize: "",
         hearAbout: "",
-        message: ""
+        message: "",
+        honeypot: "",
       });
+      
+      // Fetch new CSRF token for next submission
+      fetch('/api/csrf')
+        .then(res => res.json())
+        .then(data => setCsrfToken(data.csrfToken))
+        .catch(err => console.error('Failed to fetch CSRF token:', err));
+        
     } catch (error) {
+      console.error('Submit error:', error); // Debug log
       setSubmitError(
         error instanceof Error ? error.message : "Failed to submit form. Please try again."
       );
@@ -303,7 +361,27 @@ export default function ContactPage() {
                   Send Us a Message
                 </h2>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                  {/* Honeypot field (hidden from users) */}
+                  <div style={{
+                    position: 'absolute',
+                    left: '-9999px',
+                    width: '1px',
+                    height: '1px',
+                    overflow: 'hidden',
+                  }} aria-hidden="true">
+                    <label htmlFor="honeypot">Leave this field empty</label>
+                    <input
+                      type="text"
+                      id="honeypot"
+                      name="honeypot"
+                      value={formData.honeypot}
+                      onChange={handleChange}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
                   <div className="grid gap-6 sm:grid-cols-2">
                     <div className="space-y-2">
                       <label htmlFor="firstName" className="text-sm font-medium text-foreground dark:text-white">
@@ -391,79 +469,6 @@ export default function ContactPage() {
                       />
                       {errors.jobTitle && <p className="text-sm text-red-500">{errors.jobTitle}</p>}
                     </div>
-                  </div>
-
-                  <div className="grid gap-6 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <label htmlFor="country" className="text-sm font-medium text-foreground dark:text-white">
-                        Country <span className="text-red-500">*</span>
-                      </label>
-                      <Select
-                        name="country"
-                        onValueChange={(value) => handleSelectChange("country", value)}
-                        value={formData.country}
-                      >
-                        <SelectTrigger className={errors.country ? "border-red-500" : ""}>
-                          <SelectValue placeholder="Select country" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="india">India</SelectItem>
-                          <SelectItem value="usa">United States</SelectItem>
-                          <SelectItem value="uk">United Kingdom</SelectItem>
-                          <SelectItem value="canada">Canada</SelectItem>
-                          <SelectItem value="australia">Australia</SelectItem>
-                          <SelectItem value="singapore">Singapore</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      {errors.country && <p className="text-sm text-red-500">{errors.country}</p>}
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="orgType" className="text-sm font-medium text-foreground dark:text-white">
-                        Organization Type <span className="text-red-500">*</span>
-                      </label>
-                      <Select
-                        name="orgType"
-                        onValueChange={(value) => handleSelectChange("orgType", value)}
-                        value={formData.orgType}
-                      >
-                        <SelectTrigger className={errors.orgType ? "border-red-500" : ""}>
-                          <SelectValue placeholder="Select type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="fullService">Full Service Law Firm</SelectItem>
-                          <SelectItem value="transactional">Transactional Law Firm</SelectItem>
-                          <SelectItem value="litigation">Litigation Law Firm</SelectItem>
-                          <SelectItem value="inHouse">In-House Legal Team</SelectItem>
-                          <SelectItem value="individual">Individual Practitioner</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      {errors.orgType && <p className="text-sm text-red-500">{errors.orgType}</p>}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="teamSize" className="text-sm font-medium text-foreground dark:text-white">
-                      Legal Team Size
-                    </label>
-                    <Select
-                      name="teamSize"
-                      onValueChange={(value) => handleSelectChange("teamSize", value)}
-                      value={formData.teamSize}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select team size (optional)" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1-10">1-10</SelectItem>
-                        <SelectItem value="11-50">11-50</SelectItem>
-                        <SelectItem value="51-100">51-100</SelectItem>
-                        <SelectItem value="101-500">101-500</SelectItem>
-                        <SelectItem value="500+">500+</SelectItem>
-                      </SelectContent>
-                    </Select>
                   </div>
 
                   <div className="space-y-2">

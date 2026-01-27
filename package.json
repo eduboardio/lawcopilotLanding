@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "security:audit": "npm audit --production",
+    "security:check": "npm audit --audit-level=moderate"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
@@ -46,6 +48,7 @@
     "google-spreadsheet": "^5.0.2",
     "googleapis": "^160.0.0",
     "input-otp": "^1.4.2",
+    "isomorphic-dompurify": "^2.18.0",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.484.0",
     "next": "15.2.8",
@@ -60,17 +63,21 @@
     "sonner": "^2.0.2",
     "tailwind-merge": "^3.0.2",
     "tw-animate-css": "^1.2.5",
+    "validator": "^13.12.0",
     "vaul": "^1.1.2",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@sentry/nextjs": "^8.45.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/validator": "^13.15.10",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
+    "eslint-plugin-security": "^3.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

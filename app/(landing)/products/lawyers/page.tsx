@@ -229,8 +229,8 @@ export default function LawyersPage() {
                   </div>
                 </div>
                 <div className="md:col-span-3">
-                  <div className="overflow-hidden rounded-2xl border border-border/50 bg-muted/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
-                    <div className="relative h-[250px] overflow-hidden rounded-lg bg-card md:h-[400px] lg:h-[450px]">
+                  <div className="overflow-hidden border border-border/50 bg-muted/50 p-5 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                    <div className="relative h-[250px] overflow-hidden md:h-[400px] lg:h-[400px] bg-muted/50 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02] ">
                       <Image
                         src="/draft.webp"
                         alt="Document drafting interface"
@@ -296,8 +296,8 @@ export default function LawyersPage() {
                   </div>
                 </div>
                 <div className="md:col-span-3">
-                  <div className="overflow-hidden rounded-2xl border border-border/50 bg-muted/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
-                    <div className="relative h-[250px] overflow-hidden rounded-lg bg-card md:h-[400px] lg:h-[450px]">
+                  <div className="overflow-hidden border border-border/50 bg-muted/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                    <div className="relative h-[250px] overflow-hidden md:h-[400px] lg:h-[400px] bg-muted/50 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02] ">
                       <Image
                         src="/legal.webp"
                         alt="Legal research interface"
@@ -363,8 +363,8 @@ export default function LawyersPage() {
                   </div>
                 </div>
                 <div className="md:col-span-3">
-                  <div className="overflow-hidden rounded-2xl border border-border/50 bg-muted/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
-                    <div className="relative h-[250px] overflow-hidden rounded-lg bg-card md:h-[400px] lg:h-[450px]">
+                  <div className="overflow-hidden border border-border/50 bg-muted/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                    <div className="relative h-[250px] overflow-hidden md:h-[400px] lg:h-[400px] bg-muted/50 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02] ">
                       <Image
                         src="/analysis.webp"
                         alt="Legal analytics dashboard"

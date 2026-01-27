@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Output standalone for Docker optimization (commented out as it may not be needed)
-  // output: 'standalone',
-  
   // Security headers
   async headers() {
     return [
@@ -24,7 +21,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN'
+            value: 'DENY'
           },
           {
             key: 'X-XSS-Protection',
@@ -39,17 +36,12 @@ const nextConfig: NextConfig = {
     ];
   },
   
-  // Disable X-Powered-By header
   poweredByHeader: false,
-  
-  // Compress responses
   compress: true,
   
-  // Limit request body size
   experimental: {
     serverActions: {
       bodySizeLimit: '2mb',
-      // Disable server actions if not needed
       allowedOrigins: [],
     },
   },
