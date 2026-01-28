@@ -100,8 +100,12 @@ const cspHeader = isDev
     ].join('; ')
   : [
       "default-src 'self'",
-      `script-src 'self' 'nonce-${nonce}' https://vercel.live`,
-      "style-src 'self' https://fonts.googleapis.com",
+      // Next.js (App Router) injects some inline bootstrapping scripts/styles.
+      // If we don't allow them, the app can render a blank page in production.
+      // Prefer nonces/hashes for strict CSP, but that requires plumbing the nonce
+      // into all inline scripts/styles (including framework-generated ones).
+      `script-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://vercel.live`,
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: https: blob:",
       "connect-src 'self'",
