@@ -17,6 +17,9 @@ import {
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const lawyerBenefits = [
   {
@@ -27,17 +30,17 @@ const lawyerBenefits = [
   {
     icon: <Brain className="h-6 w-6" />,
     title: "Enhance Quality",
-    description: "Leverage AI to catch issues you might miss, suggest stronger arguments, and ensure every document is court-ready."
+    description: "Identify gaps, strengthen arguments, and ensure your work meets professional legal standards before it reaches court."
   },
   {
     icon: <Target className="h-6 w-6" />,
     title: "Focus on Strategy",
-    description: "Spend less time on routine tasks and more time on high-value legal strategy and client relationships."
+    description: "Spend less time on routine tasks and focus more on legal reasoning, case strategy, and client counsel."
   },
   {
     icon: <TrendingUp className="h-6 w-6" />,
     title: "Grow Your Practice",
-    description: "Handle more clients without burning out. Scale your practice while maintaining exceptional quality standards."
+    description: "Take on more matters without compromising quality even as a solo practitioner or small practice."
   }
 ];
 
@@ -55,7 +58,7 @@ const workflowSteps = [
   {
     number: "03",
     title: "Refine & Deliver",
-    description: "Make any necessary adjustments and deliver professional work to your clients faster than ever."
+    description: "Refine as needed and deliver court-ready work with confidence."
   }
 ];
 
@@ -95,17 +98,23 @@ export default function LawyersPage() {
 
           <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
             <span className="block text-foreground dark:text-white">
-              Tools for the Modern
+            AI Built for Practicing
             </span>
             <span className="block text-foreground/80 dark:text-white/90">
-              Lawyer
+              Lawyers
             </span>
           </h1>
 
           <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl dark:text-white/70">
-            Practice law more effectively with AI-powered assistance for drafting, research, and
-            analysis. Work smarter, deliver faster, and serve your clients better.
+          Research case law faster, draft precise legal documents, and analyse judgments with confidence using AI designed for Indian legal practice.
           </p>
+
+          <Button
+            className={cn("font-medium text-xs sm:text-sm mt-12 p-6")}
+            asChild
+          >
+            <Link href="https://app.lawcopilot.io/signup">Get Started Free</Link>
+          </Button>
         </motion.div>
 
         {/* Core Benefits */}
@@ -121,7 +130,7 @@ export default function LawyersPage() {
               Why Lawyers Choose Law Copilot
             </h2>
             <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
-              Transform how you practice law with AI that understands Indian legal frameworks
+            Built for everyday legal work — with AI trained on Indian law, courts, and drafting standards.
             </p>
           </div>
 
@@ -149,6 +158,15 @@ export default function LawyersPage() {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          <div className="text-center"> 
+          <Button
+            className={cn("font-medium text-xs sm:text-sm mt-12 p-6")}
+            asChild
+          >
+            <Link href="https://app.lawcopilot.io/signup">Transform Now</Link>
+          </Button>
           </div>
         </motion.div>
 
@@ -324,11 +342,10 @@ export default function LawyersPage() {
                     <BarChart3 className="h-8 w-8 text-foreground dark:text-white" />
                   </div>
                   <h3 className="mb-4 text-2xl font-bold text-foreground md:text-3xl dark:text-white">
-                    Accurate Analytics
+                  Critical Legal Analysis
                   </h3>
                   <p className="mb-6 leading-relaxed text-muted-foreground dark:text-white/70">
-                    Build stronger cases with data-driven insights and critical reasoning
-                    assistance. Analyze judgments and identify winning strategies.
+                  Strengthen your arguments with structured analysis of judgments, facts, and precedent supported by AI-assisted reasoning for winning strategies
                   </p>
                   <ul className="mb-6 space-y-3">
                     <li className="flex items-start gap-3">
@@ -398,7 +415,7 @@ export default function LawyersPage() {
               Simple, Efficient Workflow
             </h2>
             <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
-              From task to delivery in three easy steps
+            From legal question to professional output in three clear steps
             </p>
           </div>
 
@@ -452,7 +469,7 @@ export default function LawyersPage() {
                   Built for Professional Excellence
                 </h2>
                 <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
-                  Every feature designed with the practicing lawyer in mind
+                  Every feature designed by practicing Lawyers
                 </p>
               </div>
 
@@ -520,6 +537,17 @@ export default function LawyersPage() {
                   </p>
                 </div>
               </div>
+
+              <p className="mx-auto mt-10 max-w-3xl font-semibold leading-relaxed md:text-lg lg:text-xl">
+              Ready to Work Smarter as a Lawyer?
+              </p>
+
+              <Button
+                className={cn("font-medium text-xs sm:text-sm mt-10 p-5")}
+                asChild
+              >
+                <Link href="https://lawcopilot.io/contact">Start Free Now</Link>
+              </Button>
             </div>
           </div>
         </motion.div>

@@ -111,7 +111,7 @@ export function DraftingFeature() {
     <VideoFeature
       badge="Automated Drafting"
       title="Generate Legal Documents in Seconds"
-      description="From contracts to notices, create compliant legal documents tailored to Indian jurisdiction. Our AI understands the nuances of Indian law and drafts documents ready for review."
+      description="Generate structured drafts of legal documents using templates grounded in Indian legal formats, terminology, and practice."
       messages={messages}
       reverse={false}
       skipThinking={true}

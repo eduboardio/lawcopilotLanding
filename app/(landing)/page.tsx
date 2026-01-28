@@ -29,8 +29,8 @@ const ComplianceBadges = lazy(() =>
 const sections: SectionConfig[] = [
   { component: Hero, priority: true },
   { component: Features, priority: true },
-  { component: Benefits },
   { component: ComplianceBadges },
+  { component: Benefits },
 ];
 
 export default function Home() {

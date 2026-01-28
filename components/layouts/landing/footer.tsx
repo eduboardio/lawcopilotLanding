@@ -32,7 +32,7 @@ export const Footer = () => {
                     </p>
                     <Button
                         size="lg"
-                        className="rounded-full bg-foreground hover:bg-foreground/90 dark:bg-white dark:hover:bg-white/90 text-primary-foreground font-semibold px-8 shadow-lg hover:shadow-xl transition-all group"
+                        className="rounded-lg bg-foreground hover:bg-foreground/90 dark:bg-white dark:hover:bg-white/90 text-primary-foreground font-semibold px-8 shadow-lg hover:shadow-xl transition-all group"
                         asChild
                     >
                         <Link href="https://app.lawcopilot.io/signup">

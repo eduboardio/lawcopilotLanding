@@ -237,8 +237,8 @@ export function ResearchFeature() {
   return (
     <VideoFeature
       badge="AI-Powered Research"
-      title="Comprehensive Legal Research"
-      description="Natural language search across Indian case law, statutes, and regulations. Get precise answers with proper citations, analyze precedents with detailed case breakdowns including issues, holdings, and judgment summaries—all in seconds."
+      title="Comprehensive Legal Research for Indian Law"
+      description="Natural language research across Indian case law, statutes, and regulations. Receive precise, citation-backed answers and detailed precedent analysis including issues, holdings, and judgment summaries."
       messages={messages}
       reverse={false}
       skipThinking={true}

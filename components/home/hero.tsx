@@ -2,6 +2,9 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
 import { ProductDemo } from "./ProductDemo";
+import { Button } from "../ui/button";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const BackgroundElements = memo(() => (
   <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
@@ -18,7 +21,7 @@ export const Hero = () => {
   return (
     <section
       id="hero"
-      className="w-full min-h-screen flex flex-col justify-center relative overflow-hidden bg-background py-20"
+      className="w-full min-h-screen flex flex-col justify-center relative overflow-hidden bg-background py-20 md:py-24 lg:py-28"
     >
       <BackgroundElements />
       
@@ -28,37 +31,58 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 dark:bg-white/[0.05] border border-border dark:border-white/10 backdrop-blur-sm mb-8 group hover:bg-muted dark:hover:bg-white/[0.08] transition-all duration-300"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 dark:bg-white/[0.05] border border-border dark:border-white/10 backdrop-blur-sm mb-10 md:mb-12 group hover:bg-muted dark:hover:bg-white/[0.08] transition-all duration-300"
         >
           <div className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></div>
           <span className="text-xs font-medium text-foreground/80 dark:text-white/80 tracking-wide">Trusted by India&apos;s leading law firms</span>
         </motion.div>
 
-        <div className="text-center max-w-5xl mx-auto space-y-6 mb-12">
+        <div className="text-center max-w-5xl mx-auto space-y-8 md:space-y-10 mb-16 md:mb-20">
           {/* Main headline */}
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] space-y-2 md:space-y-3"
           >
             <span className="block text-foreground dark:text-white">
-              Legal Intelligence,
+            Legal Practice Reimagined
             </span>
             <span className="block text-foreground/80 dark:text-white/90">
-              Amplified by AI
+            with AI for India
             </span>
           </motion.h1>
 
-          {/* Subheadline */}
-          <motion.p 
+          {/* Subheadlines */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-base md:text-lg lg:text-xl max-w-3xl mx-auto text-muted-foreground dark:text-white/70 font-light leading-relaxed"
+            className="space-y-4 md:space-y-5 max-w-3xl mx-auto"
           >
-            Law Copilot transforms how legal professionals work—research faster, draft smarter, and deliver exceptional outcomes with AI trained on Indian legal frameworks.
-          </motion.p>
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground dark:text-white/70 font-light leading-relaxed">
+              AI built for Indian legal professionals — enabling faster research, precision drafting, and reliable analysis with intelligence grounded in Indian law.
+            </p>
+
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground dark:text-white/70 font-light leading-relaxed">
+              Research case law with context. Draft compliant documents in minutes. Analyse complex materials with structured insights. Designed for Indian courts, statutes, and legal language.
+            </p>
+          </motion.div>
+
+          {/* CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="md:pt-2"
+          >
+            <Button
+              className={cn("font-medium text-sm md:text-base px-4 md:px-6 py-5 md:py-3 h-auto shadow-lg hover:shadow-xl transition-shadow")}
+              asChild
+            >
+              <Link href="https://app.lawcopilot.io/signup">Get Started Free</Link>
+            </Button>
+          </motion.div>
         </div>
 
        {/* Product Demo Animation - Auto-playing */}
@@ -66,7 +90,7 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5 }}
-          className="w-full mx-auto mb-16"
+          className="w-full mx-auto"
         >
           <ProductDemo />
         </motion.div>

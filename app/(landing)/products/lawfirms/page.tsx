@@ -18,12 +18,15 @@ import {
   Workflow
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const coreValues = [
   {
     icon: <Clock className="h-6 w-6" />,
     title: "Efficiency",
-    description: "Complete tasks in a fraction of the time",
+    description: "Faster Turnarounds Without Compromising Quality",
     benefits: [
       "Save valuable billable hours on routine work",
       "Automate workflows for higher productivity",
@@ -34,7 +37,7 @@ const coreValues = [
   {
     icon: <ShieldCheck className="h-6 w-6" />,
     title: "Error-free",
-    description: "Built-in guardrails to prevent common mistakes",
+    description: "Built-in Legal Guardrails to Reduce Risk",
     benefits: [
       "Reduce time spent cross-checking documents",
       "Consistent quality across all firm outputs",
@@ -45,7 +48,7 @@ const coreValues = [
   {
     icon: <Lock className="h-6 w-6" />,
     title: "Encrypted",
-    description: "End-to-end encryption for complete privacy",
+    description: "Enterprise-Grade Security for Client-Confidential Data",
     benefits: [
       "Your firm maintains full data control",
       "Compliant with leading security standards",
@@ -60,19 +63,19 @@ const firmBenefits = [
     icon: <Users className="h-6 w-6" />,
     title: "Scale Your Practice",
     description:
-      "Handle more clients without expanding headcount. Law Copilot enables your team to take on higher caseloads while maintaining quality standards."
+      "Handle higher caseloads without increasing headcount. Law Copilot enables your team to take on higher caseloads while maintaining quality standards."
   },
   {
     icon: <TrendingUp className="h-6 w-6" />,
     title: "Increase Profitability",
     description:
-      "Reduce time on low-value tasks and focus on billable work. Firms report 30-40% improvement in operational efficiency within the first quarter."
+      "Reduce time on low-value tasks and focus on billable work. Firms report 30-40% improvement in operational efficiency within the first quarter. Freeing up more billable time. ."
   },
   {
     icon: <Scale className="h-6 w-6" />,
     title: "Win More Cases",
     description:
-      "Stronger legal research, better-drafted documents, and comprehensive case analysis give your firm a competitive edge in the courtroom."
+      "Stronger legal research, better-drafted submissions, and deeper case analysis gives our partner firms a competitive edge where it matters most."
   },
   {
     icon: <FileText className="h-6 w-6" />,
@@ -98,7 +101,7 @@ const firmTypes = [
   {
     type: "Boutique Firms",
     icon: <Building2 className="h-5 w-5" />,
-    description: "Compete with larger firms on quality and speed",
+    description: "Compete with larger firms on research depth, drafting quality, and turnaround time",
     features: [
       "Access enterprise-grade AI without enterprise costs",
       "Handle complex matters with limited resources",
@@ -108,7 +111,7 @@ const firmTypes = [
   {
     type: "Mid-Size Firms",
     icon: <BarChart3 className="h-5 w-5" />,
-    description: "Scale operations without proportional cost increases",
+    description: "Scale operations without proportional increases in cost or risk",
     features: [
       "Standardize workflows across practice groups",
       "Support growth without sacrificing quality",
@@ -204,9 +207,59 @@ export default function LawFirmsPage() {
           </h1>
 
           <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl dark:text-white/70">
-            Transform your practice with AI-powered tools designed specifically for modern law
-            firms. Work smarter, scale faster, and deliver exceptional results for every client.
+            Transform your firm’s research, drafting, and case workflows with AI designed for Indian law firms so your team works faster, scales safely, and delivers consistently high-quality outcomes.
           </p>
+
+          <Button
+            className={cn("font-medium text-xs sm:text-sm mt-10 p-5")}
+            asChild
+          >
+            <Link href="https://lawcopilot.io/contact">Book a Firm Demo</Link>
+          </Button>
+        </motion.div>
+
+        {/* Firm Benefits Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-32"
+        >
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
+              Measurable Impact on Your Firm’s Growth
+            </h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
+              Tangible improvements across efficiency, profitability, and outcomes
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {firmBenefits.map((benefit, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="group relative"
+              >
+                <div className="absolute -inset-2 rounded-xl bg-gradient-to-br from-foreground/[0.02] to-transparent opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100 dark:from-white/[0.05]" />
+                <div className="relative flex flex-col">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
+                    <div className="text-foreground dark:text-white">{benefit.icon}</div>
+                  </div>
+                  <h3 className="mb-2 text-xl font-semibold text-foreground dark:text-white">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground dark:text-white/70">
+                    {benefit.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Core Values - Three Pillars */}
@@ -219,10 +272,10 @@ export default function LawFirmsPage() {
             className="mb-12 text-center"
           >
             <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
-              Why Law Firms Choose Us
+              Why Leading Firms Choose Law Copilot
             </h2>
             <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
-              Three core principles that drive every decision we make
+              Built to meet the accuracy, security, and scale demands of Indian law firms
             </p>
           </motion.div>
 
@@ -237,7 +290,7 @@ export default function LawFirmsPage() {
               >
                 <Card className="group relative h-full overflow-hidden border-border/40 bg-card/50 backdrop-blur-sm transition-all hover:shadow-lg dark:border-white/10 dark:bg-white/[0.03]">
                   <div className="absolute -inset-2 rounded-xl bg-gradient-to-br from-foreground/[0.02] to-transparent opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100 dark:from-white/[0.05]" />
-                  
+
                   <CardHeader className="relative pb-4">
                     <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-foreground/10 dark:bg-white/10">
                       <div className="text-foreground dark:text-white">{value.icon}</div>
@@ -272,50 +325,6 @@ export default function LawFirmsPage() {
           </div>
         </div>
 
-        {/* Firm Benefits Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-32"
-        >
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
-              Measurable Impact on Your Firm
-            </h2>
-            <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
-              Real benefits that translate directly to your firm&apos;s success
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {firmBenefits.map((benefit, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="group relative"
-              >
-                <div className="absolute -inset-2 rounded-xl bg-gradient-to-br from-foreground/[0.02] to-transparent opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100 dark:from-white/[0.05]" />
-                <div className="relative flex flex-col">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
-                    <div className="text-foreground dark:text-white">{benefit.icon}</div>
-                  </div>
-                  <h3 className="mb-2 text-xl font-semibold text-foreground dark:text-white">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground dark:text-white/70">
-                    {benefit.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
         {/* Firm Types Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -326,7 +335,7 @@ export default function LawFirmsPage() {
         >
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
-              Built for Every Firm Size
+              Designed to Scale Across Every Firm Size
             </h2>
             <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
               Whether you&apos;re a boutique practice or a national firm, Law Copilot scales with your
@@ -392,10 +401,10 @@ export default function LawFirmsPage() {
                   </span>
                 </div>
                 <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
-                  Supporting Every Practice Area
+                  Trusted Across Core Indian Practice Areas
                 </h2>
                 <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
-                  Law Copilot is trained on Indian legal frameworks across all major practice areas
+                  Law Copilot is trained on Indian legal frameworks and drafting conventions across all major practice areas.
                 </p>
               </div>
 
@@ -429,10 +438,10 @@ export default function LawFirmsPage() {
         >
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl dark:text-white">
-              Simple Implementation Process
+              Low-Risk, Firm-Friendly Implementation
             </h2>
             <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
-              Get your firm up and running in weeks, not months
+              Get your firm up and running in weeks with minimal disruption to existing workflows.
             </p>
           </div>
 
@@ -489,8 +498,7 @@ export default function LawFirmsPage() {
                 Join Leading Law Firms Across India
               </h2>
               <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground dark:text-white/70">
-                Trusted by boutique practices and national firms to transform how they deliver legal
-                services. Experience the future of legal practice with Law Copilot.
+                Trusted by boutique practices and national firms to improve research accuracy, drafting quality, and delivery speed.
               </p>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -519,6 +527,17 @@ export default function LawFirmsPage() {
                   </p>
                 </div>
               </div>
+
+              <p className="mx-auto mt-10 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl dark:text-white/70">
+                See how law firms like yours use Law Copilot to improve quality, reduce turnaround time, and scale safely.
+              </p>
+
+              <Button
+                className={cn("font-medium text-xs sm:text-sm mt-10 p-5")}
+                asChild
+              >
+                <Link href="https://lawcopilot.io/contact">Book a Firm Demo</Link>
+              </Button>
             </div>
           </div>
         </motion.div>

@@ -29,21 +29,21 @@ export default function Features() {
             <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
               <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
               <span className="text-[10px] sm:text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">
-                AI-Powered Legal Intelligence
+              AI That Understands Indian Law — Not Just Text
               </span>
             </div>
 
             <h2 className="mb-3 sm:mb-4 md:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
               <span className="block text-foreground dark:text-white">
-                Everything You Need for
+              Law Copilot is built for actual legal work
               </span>
               <span className="block text-foreground/80 dark:text-white/90">
-                Modern Legal Practice
+               not generic text generation.
               </span>
             </h2>
 
             <p className="mx-auto max-w-3xl text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-muted-foreground dark:text-white/70">
-              Built specifically for Indian legal practice—from drafting to research, analysis to translation. See Law Copilot in action.
+            Whether you’re preparing pleadings, analysing documents, or researching precedent, our AI operates within the standards and conventions Indian lawyers rely on every day.
             </p>
 </motion.div>
           

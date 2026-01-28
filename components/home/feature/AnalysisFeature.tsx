@@ -190,8 +190,8 @@ export function AnalysisFeature() {
   return (
     <VideoFeature
       badge="Intelligent Analysis"
-      title="Smart Document Analysis with Interactive Citations"
-      description="Upload any legal document for instant, comprehensive analysis. Extract key terms, identify risks, assess compliance, and get structured summaries with intelligent Q&A capabilities and clickable citations."
+      title="Smart Document Analysis with Verifiable References"
+      description="Upload legal documents and receive structured insights — key clauses, risks, obligations, and contextual understanding — supported by clear references for verification."
       messages={messages}
       reverse={true}
       skipThinking={true}

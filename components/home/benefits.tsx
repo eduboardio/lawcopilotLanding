@@ -2,14 +2,17 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { 
-  MapPin, 
-  Cpu, 
-  Scale, 
+import {
+  MapPin,
+  Cpu,
+  Scale,
   Languages,
   Shield,
   Check
 } from "lucide-react";
+import { Button } from "../ui/button";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface BenefitPillar {
   icon: React.ReactNode;
@@ -93,10 +96,10 @@ export function Benefits() {
         <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
       </div>
-      
+
       <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           className="mb-12 sm:mb-16 md:mb-20 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -107,15 +110,15 @@ export function Benefits() {
             <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
             <span className="text-[10px] sm:text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">Platform Differentiation</span>
           </div>
-          
+
           <h2 className="mb-3 sm:mb-4 md:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
             <span className="block text-foreground dark:text-white">
               Why Law Copilot
             </span>
           </h2>
-          
+
           <p className="mx-auto max-w-3xl text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-muted-foreground dark:text-white/70 px-4">
-            Not another AI chatbot adapted for legal use. A purpose-built platform engineered specifically for Indian legal professionals who demand precision, reliability, and jurisdictional intelligence.
+            Not another AI chatbot adapted for legal use. A purpose-built platform engineered for Indian legal professionals who demand precision, reliability, and jurisdictional intelligence.
           </p>
         </motion.div>
 
@@ -132,7 +135,7 @@ export function Benefits() {
             >
               {/* Subtle glow on hover */}
               <div className="absolute -inset-2 sm:-inset-4 rounded-xl sm:rounded-2xl bg-gradient-to-br from-foreground/[0.02] to-transparent opacity-0 blur-xl sm:blur-2xl transition-opacity duration-500 group-hover:opacity-100 dark:from-white/[0.05]" />
-              
+
               {/* Content */}
               <div className="relative">
                 {/* Icon & Badge */}
@@ -184,7 +187,7 @@ export function Benefits() {
           <div className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-border/50 bg-card/50 p-6 sm:p-8 md:p-12 backdrop-blur-md dark:border-white/10 dark:bg-white/[0.03]">
             {/* Subtle gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] to-transparent dark:from-white/[0.03]" />
-            
+
             <div className="relative">
               {/* Header */}
               <div className="mb-6 sm:mb-8 text-center">
@@ -227,9 +230,24 @@ export function Benefits() {
           className="mt-12 sm:mt-16 text-center"
         >
           <p className="text-base sm:text-lg font-medium text-foreground dark:text-white px-4">
-            Finally, an AI platform that understands Indian law the way you do.
+            Finally, an AI platform that understands Indian law the way legal professionals do.
           </p>
         </motion.div>
+
+        <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.5 }}
+        className="mt-6 sm:mt-8 text-center">
+          <Button
+            className={cn("font-medium text-xs sm:text-sm")}
+            asChild
+          >
+            <Link href="https://lawcopilot.io/contact">Book a Demo</Link>
+          </Button>
+        </motion.div>
+
       </div>
     </section>
   );
