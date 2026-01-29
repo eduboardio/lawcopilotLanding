@@ -247,21 +247,19 @@ export default function LawyersPage() {
                   </div>
                 </div>
                 <div className="md:col-span-3">
-                  <div className="overflow-hidden border border-border/50 bg-muted/50 p-5 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
-                    <div className="relative h-[250px] overflow-hidden md:h-[400px] lg:h-[400px] bg-muted/50 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02] ">
-                      <Image
-                        src="/draft.webp"
-                        alt="Document drafting interface"
-                        fill
-                        className="object-contain dark:hidden"
-                      />
-                      <Image
-                        src="/dark_draft.webp"
-                        alt="Document drafting interface"
-                        fill
-                        className="hidden object-contain dark:block"
-                      />
-                    </div>
+                  <div className="relative h-[250px] overflow-hidden border border-border/50 bg-muted/50 md:h-[400px] lg:h-[400px] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                    <Image
+                      src="/draft.webp"
+                      alt="Document drafting interface"
+                      fill
+                      className="object-contain dark:hidden"
+                    />
+                    <Image
+                      src="/dark_draft.webp"
+                      alt="Document drafting interface"
+                      fill
+                      className="hidden object-contain dark:block"
+                    />
                   </div>
                 </div>
               </div>
@@ -314,21 +312,19 @@ export default function LawyersPage() {
                   </div>
                 </div>
                 <div className="md:col-span-3">
-                  <div className="overflow-hidden border border-border/50 bg-muted/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
-                    <div className="relative h-[250px] overflow-hidden md:h-[400px] lg:h-[400px] bg-muted/50 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02] ">
-                      <Image
-                        src="/legal.webp"
-                        alt="Legal research interface"
-                        fill
-                        className="object-contain dark:hidden"
-                      />
-                      <Image
-                        src="/dark_legal.webp"
-                        alt="Legal research interface"
-                        fill
-                        className="hidden object-contain dark:block"
-                      />
-                    </div>
+                  <div className="relative h-[250px] overflow-hidden border border-border/50 bg-muted/50 md:h-[400px] lg:h-[400px] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                    <Image
+                      src="/legal.webp"
+                      alt="Legal research interface"
+                      fill
+                      className="object-contain dark:hidden"
+                    />
+                    <Image
+                      src="/dark_legal.webp"
+                      alt="Legal research interface"
+                      fill
+                      className="hidden object-contain dark:block"
+                    />
                   </div>
                 </div>
               </div>
@@ -380,21 +376,19 @@ export default function LawyersPage() {
                   </div>
                 </div>
                 <div className="md:col-span-3">
-                  <div className="overflow-hidden border border-border/50 bg-muted/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
-                    <div className="relative h-[250px] overflow-hidden md:h-[400px] lg:h-[400px] bg-muted/50 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02] ">
-                      <Image
-                        src="/analysis.webp"
-                        alt="Legal analytics dashboard"
-                        fill
-                        className="object-contain dark:hidden"
-                      />
-                      <Image
-                        src="/dark_analysis.webp"
-                        alt="Legal analytics dashboard"
-                        fill
-                        className="hidden object-contain dark:block"
-                      />
-                    </div>
+                  <div className="relative h-[250px] overflow-hidden border border-border/50 bg-muted/50 md:h-[400px] lg:h-[400px] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                    <Image
+                      src="/analysis.webp"
+                      alt="Legal analytics dashboard"
+                      fill
+                      className="object-contain dark:hidden"
+                    />
+                    <Image
+                      src="/dark_analysis.webp"
+                      alt="Legal analytics dashboard"
+                      fill
+                      className="hidden object-contain dark:block"
+                    />
                   </div>
                 </div>
               </div>
@@ -512,7 +506,7 @@ export default function LawyersPage() {
               </p>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02] flex flex-col items-center text-center">
                   <div className="mb-2 text-3xl font-bold text-foreground dark:text-white">
                     5,000+
                   </div>
@@ -520,7 +514,7 @@ export default function LawyersPage() {
                     Active Lawyers
                   </p>
                 </div>
-                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02] flex flex-col items-center text-center">
                   <div className="mb-2 text-3xl font-bold text-foreground dark:text-white">
                     50,000+
                   </div>
@@ -528,7 +522,7 @@ export default function LawyersPage() {
                     Documents Created
                   </p>
                 </div>
-                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                <div className="rounded-xl border border-border/30 bg-background/50 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02] flex flex-col items-center text-center">
                   <div className="mb-2 text-3xl font-bold text-foreground dark:text-white">
                     4.8/5
                   </div>

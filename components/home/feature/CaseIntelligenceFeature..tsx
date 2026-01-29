@@ -70,10 +70,36 @@ export function CaseIntelligenceFeature() {
 
   return (
     <div className="w-full py-12 sm:py-16 md:py-24">
-      <div className="container mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20">
+      <div className="container mx-auto px-4 sm:px-6 flex flex-col-reverse lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20">
 
-        {/* Video/Animation Section */}
-        <div className="flex-1 w-full">
+        {/* Content Section - appears first on mobile */}
+        <div className="flex-1 flex flex-col items-center lg:items-start justify-center text-center lg:text-left order-2 lg:order-1">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-xl"
+          >
+            <div className="mb-3 sm:mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
+              <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
+              <span className="text-[10px] sm:text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">
+                Case Intelligence
+              </span>
+              </div>
+
+            <h3 className="mb-3 sm:mb-4 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground dark:text-white">
+              Case-Centric Legal Intelligence
+            </h3>
+
+            <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground dark:text-white/70">
+              Track all your cases in one place. Law Copilot understands your pleadings, orders, and evidence to give you contextual insights, next steps, and deadlines—so nothing slips through the cracks.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Video/Animation Section - appears second on mobile */}
+        <div className="flex-1 w-full order-1 lg:order-2">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -345,32 +371,6 @@ export function CaseIntelligenceFeature() {
                 </div>
               </motion.div>
             </div>
-          </motion.div>
-        </div>
-        
-        {/* Content Section */}
-        <div className="flex-1 flex flex-col items-center lg:items-start justify-center text-center lg:text-left">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="max-w-xl"
-          >
-            <div className="mb-3 sm:mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
-              <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
-              <span className="text-[10px] sm:text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">
-                Case Intelligence
-              </span>
-              </div>
-
-            <h3 className="mb-3 sm:mb-4 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground dark:text-white">
-              Case-Centric Legal Intelligence
-            </h3>
-
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground dark:text-white/70">
-              Track all your cases in one place. Law Copilot understands your pleadings, orders, and evidence to give you contextual insights, next steps, and deadlines—so nothing slips through the cracks.
-            </p>
           </motion.div>
         </div>
       </div>
