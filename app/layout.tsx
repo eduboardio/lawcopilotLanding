@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${nohemi.variable}`}>
       <body className="font-sans antialiased">
         <ThemeProvider attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

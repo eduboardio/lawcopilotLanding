@@ -247,7 +247,7 @@ export default function LawyersPage() {
                   </div>
                 </div>
                 <div className="md:col-span-3">
-                  <div className="relative h-[250px] overflow-hidden border border-border/50 bg-muted/50 md:h-[400px] lg:h-[400px] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <div className="relative aspect-video w-full overflow-hidden border border-border/50 bg-muted/50 md:aspect-auto md:h-[400px] lg:h-[400px] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
                     <Image
                       src="/draft.webp"
                       alt="Document drafting interface"
@@ -312,7 +312,7 @@ export default function LawyersPage() {
                   </div>
                 </div>
                 <div className="md:col-span-3">
-                  <div className="relative h-[250px] overflow-hidden border border-border/50 bg-muted/50 md:h-[400px] lg:h-[400px] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <div className="relative aspect-video w-full overflow-hidden border border-border/50 bg-muted/50 md:aspect-auto md:h-[400px] lg:h-[400px] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
                     <Image
                       src="/legal.webp"
                       alt="Legal research interface"
@@ -376,7 +376,7 @@ export default function LawyersPage() {
                   </div>
                 </div>
                 <div className="md:col-span-3">
-                  <div className="relative h-[250px] overflow-hidden border border-border/50 bg-muted/50 md:h-[400px] lg:h-[400px] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
+                  <div className="relative aspect-video w-full overflow-hidden border border-border/50 bg-muted/50 md:aspect-auto md:h-[400px] lg:h-[400px] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
                     <Image
                       src="/analysis.webp"
                       alt="Legal analytics dashboard"

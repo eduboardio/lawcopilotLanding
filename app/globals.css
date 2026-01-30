@@ -169,6 +169,25 @@ button {
   font-family: var(--font-heading) !important;
 }
 
+/* System font for animated demos/videos only — overrides Nohemi/Inter inside these containers */
+.font-system-ui,
+.font-system-ui h1,
+.font-system-ui h2,
+.font-system-ui h3,
+.font-system-ui h4,
+.font-system-ui h5,
+.font-system-ui h6,
+.font-system-ui .font-bold,
+.font-system-ui .font-semibold,
+.font-system-ui .font-extrabold,
+.font-system-ui .font-black,
+.font-system-ui strong,
+.font-system-ui b,
+.font-system-ui button,
+.font-system-ui * {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
 /* Navbar: use Inter only (override heading font for nav links, buttons, labels) */
 header.font-sans,
 header.font-sans * {

@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -56,13 +55,6 @@ export const LogoText = ({
                     className="w-full h-full invert dark:invert-0"
                 />
             </span>
-            <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className={cn("font-heading font-medium text-foreground whitespace-pre", classes?.text)}
-            >
-                Law Copilot
-            </motion.span>
         </Link>
     );
 };

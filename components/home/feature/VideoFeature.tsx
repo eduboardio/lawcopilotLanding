@@ -42,6 +42,9 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
   const isRunningRef = useRef(false);
   const artifactScrollRef = useRef<HTMLDivElement>(null);
   const artifactCardRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inViewRef = useRef(true);
+  const hasScrolledAwayRef = useRef(false);
 
   const clearAllTimeouts = useCallback(() => {
     timeoutsRef.current.forEach(t => clearTimeout(t));
@@ -152,6 +155,11 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
         }
         await wait(1500);
 
+        if (inViewRef.current) {
+          isRunningRef.current = false;
+          return;
+        }
+
         setIsArtifactOpen(false);
         await wait(500);
       } else {
@@ -161,6 +169,11 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
       setCurrentStep('restarting');
       setIsRestarting(true);
       await wait(800);
+
+      if (inViewRef.current) {
+        isRunningRef.current = false;
+        return;
+      }
     }
   }, [messages, wait, typeText, skipThinking, animateCursorToArtifact]);
 
@@ -171,6 +184,28 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
       clearAllTimeouts();
     };
   }, [runAnimation, clearAllTimeouts]);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        const inView = entry.isIntersecting;
+        inViewRef.current = inView;
+        if (!inView) {
+          hasScrolledAwayRef.current = true;
+        } else if (hasScrolledAwayRef.current && !isRunningRef.current) {
+          hasScrolledAwayRef.current = false;
+          runAnimation();
+        }
+      },
+      { threshold: 0.2, rootMargin: "0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [runAnimation]);
 
   const handleMouseEnter = useCallback(() => {
     isPausedRef.current = true;
@@ -219,7 +254,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
   );
 
   const video = (
-    <div className="flex-1 w-full px-4 sm:px-0">
+    <div className="font-system-ui flex-1 w-full px-4 sm:px-0">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -230,6 +265,7 @@ export const VideoFeature: React.FC<VideoFeatureProps> = ({
         <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-neutral-200/50 via-neutral-300/50 to-neutral-200/50 dark:from-neutral-800/50 dark:via-neutral-700/50 dark:to-neutral-800/50 blur-2xl sm:blur-3xl opacity-50"></div>
 
         <div
+          ref={containerRef}
           className="relative bg-background border border-border overflow-hidden shadow-xl sm:shadow-2xl w-full mx-auto rounded-lg sm:rounded-xl responsive-chat-container"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}

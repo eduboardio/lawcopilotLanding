@@ -320,7 +320,7 @@ export const ProductDemo = memo(() => {
   }, [panelState.actsScroll])
 
   return (
-    <div className="relative w-full aspect-[3/4] sm:aspect-[4/3] md:aspect-[16/10] lg:aspect-[16/9] bg-background overflow-hidden border border-border/80 shadow-2xl">
+    <div className="font-system-ui relative w-full aspect-[3/4] sm:aspect-[4/3] md:aspect-[16/10] lg:aspect-[16/9] bg-background overflow-hidden border border-border/80 shadow-2xl">
       <AnimatePresence>
         {cursorState.visible && <AnimatedCursor position={cursorState.position} clicking={cursorState.clicking} />}
       </AnimatePresence>

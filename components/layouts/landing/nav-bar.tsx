@@ -540,7 +540,9 @@ export const Navbar = () => {
                                     </SheetHeader>
 
                                     <div className="flex flex-col gap-1">
-                                        {routeList.map((route) => {
+                                        {routeList
+                                            .filter((route) => route.label !== "Products")
+                                            .map((route) => {
                                             if (route.subMenu) {
                                                 return (
                                                     <div key={route.label} className="flex flex-col">
@@ -552,7 +554,7 @@ export const Navbar = () => {
                                                                 const Icon = item.icon;
                                                                 return (
                                                                     <Button
-                                                                        key={item.href}
+                                                                        key={`${route.label}-${item.label}`}
                                                                         onClick={() => setIsOpen(false)}
                                                                         asChild
                                                                         variant="ghost"

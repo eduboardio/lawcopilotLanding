@@ -2,13 +2,16 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Briefcase, AlertTriangle, FileText, TrendingUp, Users, DollarSign } from "lucide-react";
+import { Sparkles, Briefcase, AlertTriangle, FileText, TrendingUp, Users, DollarSign, Calendar } from "lucide-react";
 
 export function CaseIntelligenceFeature() {
   const [currentStep, setCurrentStep] = useState<'idle' | 'user' | 'thinking' | 'assistant'>('idle');
   const isPausedRef = useRef(false);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
   const isRunningRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inViewRef = useRef(true);
+  const hasScrolledAwayRef = useRef(false);
 
   const clearAllTimeouts = useCallback(() => {
     timeoutsRef.current.forEach(t => clearTimeout(t));
@@ -34,7 +37,7 @@ export function CaseIntelligenceFeature() {
     if (isRunningRef.current) return;
     isRunningRef.current = true;
 
-    while (true) {
+    while (isRunningRef.current) {
       setCurrentStep('idle');
       await wait(1500);
 
@@ -49,6 +52,11 @@ export function CaseIntelligenceFeature() {
 
       setCurrentStep('idle');
       await wait(800);
+
+      if (inViewRef.current) {
+        isRunningRef.current = false;
+        return;
+      }
     }
   }, [wait]);
 
@@ -59,6 +67,28 @@ export function CaseIntelligenceFeature() {
       clearAllTimeouts();
     };
   }, [runAnimation, clearAllTimeouts]);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        const inView = entry.isIntersecting;
+        inViewRef.current = inView;
+        if (!inView) {
+          hasScrolledAwayRef.current = true;
+        } else if (hasScrolledAwayRef.current && !isRunningRef.current) {
+          hasScrolledAwayRef.current = false;
+          runAnimation();
+        }
+      },
+      { threshold: 0.2, rootMargin: "0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [runAnimation]);
 
   const handleMouseEnter = useCallback(() => {
     isPausedRef.current = true;
@@ -79,7 +109,7 @@ export function CaseIntelligenceFeature() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-xl"
+            className="max-w-2xl"
           >
             <div className="mb-3 sm:mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
               <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
@@ -92,14 +122,37 @@ export function CaseIntelligenceFeature() {
               Case-Centric Legal Intelligence
             </h3>
 
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground dark:text-white/70">
+            <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground dark:text-white/70 mb-4 sm:mb-5">
               Track all your cases in one place. Law Copilot understands your pleadings, orders, and evidence to give you contextual insights, next steps, and deadlines—so nothing slips through the cracks.
             </p>
+
+            <p className="text-sm sm:text-base leading-relaxed text-muted-foreground dark:text-white/70 mb-4 sm:mb-5">
+              Upload case files, link orders and judgments, and get a single dashboard per matter: key dates, risk flags, document summaries, and AI-suggested next steps tailored to Indian courts and practice.
+            </p>
+
+            <ul className="space-y-2 sm:space-y-2.5 text-sm sm:text-base text-muted-foreground dark:text-white/70">
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-500 dark:text-emerald-400 mt-0.5 flex-shrink-0">✓</span>
+                <span>Automatic extraction of dates, parties, and reliefs from pleadings and orders</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-500 dark:text-emerald-400 mt-0.5 flex-shrink-0">✓</span>
+                <span>Upcoming deadlines and listing dates surfaced per case</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-500 dark:text-emerald-400 mt-0.5 flex-shrink-0">✓</span>
+                <span>Risk and exposure summaries for M&amp;A and contract-heavy matters</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-500 dark:text-emerald-400 mt-0.5 flex-shrink-0">✓</span>
+                <span>Recommended next steps and follow-ups based on case stage</span>
+              </li>
+            </ul>
           </motion.div>
         </div>
 
         {/* Video/Animation Section - first on large (left), second on small (below content) */}
-        <div className="flex-1 w-full order-2 lg:order-1">
+        <div ref={containerRef} className="font-system-ui flex-1 w-full order-2 lg:order-1">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -130,7 +183,7 @@ export function CaseIntelligenceFeature() {
                           Company X Acquisition
                         </h4>
                         <p className="text-[10px] sm:text-xs text-neutral-500 dark:text-neutral-400 truncate">
-                          Due Diligence Review
+                          Due Diligence · 30 contracts · 12 counterparties
                         </p>
                       </div>
                     </div>
@@ -155,7 +208,7 @@ export function CaseIntelligenceFeature() {
                       </div>
                       <div className="flex-1 pt-0.5 sm:pt-1">
                         <div className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                          I&apos;ve analyzed all 30 documents for the Company X acquisition. How can I help you with this case?
+                          I&apos;ve analyzed all 30 contracts and annexures for the Company X acquisition. I can summarize risks, deadlines, or answer questions on specific clauses. What would you like to focus on?
                         </div>
                       </div>
                     </div>
@@ -211,7 +264,7 @@ export function CaseIntelligenceFeature() {
                               ))}
                             </div>
                             <span className="text-[10px] sm:text-xs text-neutral-500 dark:text-neutral-400">
-                              Analyzing 30 documents...
+                              Analyzing 30 documents for risks and key terms...
                             </span>
                           </div>
                         </div>
@@ -236,7 +289,7 @@ export function CaseIntelligenceFeature() {
                             transition={{ duration: 0.4, delay: 0.2 }}
                             className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed"
                           >
-                            I&apos;ve completed a comprehensive analysis of all 30 contracts. Here&apos;s the executive summary:
+                            I&apos;ve completed a comprehensive analysis of all 30 contracts in this due diligence matter. Below is the executive summary, critical risks, and recommended actions for your team.
                           </motion.div>
 
                           {/* Summary Cards */}
@@ -299,6 +352,26 @@ export function CaseIntelligenceFeature() {
                             </div>
                           </motion.div>
 
+                          {/* Key Dates */}
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.5 }}
+                            className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-3 sm:p-4"
+                          >
+                            <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                              <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-neutral-900 dark:text-neutral-100" />
+                              <h4 className="text-[10px] sm:text-xs font-bold text-neutral-900 dark:text-neutral-100 uppercase tracking-wide">
+                                Key Dates
+                              </h4>
+                            </div>
+                            <div className="space-y-1 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300">
+                              <p><strong>15 Feb</strong> — Final DD report to lead counsel</p>
+                              <p><strong>28 Feb</strong> — Counterparty consent deadline</p>
+                              <p><strong>10 Mar</strong> — Target board approval</p>
+                            </div>
+                          </motion.div>
+
                           {/* Key Findings */}
                           <motion.div
                             initial={{ opacity: 0, y: 8 }}
@@ -313,19 +386,31 @@ export function CaseIntelligenceFeature() {
                               <div className="flex items-start gap-1.5 sm:gap-2 text-xs sm:text-sm">
                                 <span className="text-neutral-900 dark:text-neutral-100 font-bold mt-0.5">•</span>
                                 <span className="text-neutral-700 dark:text-neutral-300">
-                                  <strong>Change of Control clauses</strong> in 8 agreements may trigger termination rights
+                                  <strong>Change of Control clauses</strong> in 8 agreements may trigger termination rights; counterparty consents recommended before closing
                                 </span>
                               </div>
                               <div className="flex items-start gap-1.5 sm:gap-2 text-xs sm:text-sm">
                                 <span className="text-neutral-900 dark:text-neutral-100 font-bold mt-0.5">•</span>
                                 <span className="text-neutral-700 dark:text-neutral-300">
-                                  <strong>IP Assignment Agreement</strong> lacks clear ownership transfer provisions
+                                  <strong>IP Assignment Agreement</strong> lacks clear ownership transfer and indemnity provisions for acquired IP
                                 </span>
                               </div>
                               <div className="flex items-start gap-1.5 sm:gap-2 text-xs sm:text-sm">
                                 <span className="text-neutral-900 dark:text-neutral-100 font-bold mt-0.5">•</span>
                                 <span className="text-neutral-700 dark:text-neutral-300">
-                                  <strong>Employee agreements</strong> contain non-compete clauses requiring review
+                                  <strong>Employee agreements</strong> contain broad non-compete and non-solicit clauses; HR and legal review advised
+                                </span>
+                              </div>
+                              <div className="flex items-start gap-1.5 sm:gap-2 text-xs sm:text-sm">
+                                <span className="text-neutral-900 dark:text-neutral-100 font-bold mt-0.5">•</span>
+                                <span className="text-neutral-700 dark:text-neutral-300">
+                                  <strong>Liability caps</strong> in 5 service agreements are below market; renegotiation may reduce exposure
+                                </span>
+                              </div>
+                              <div className="flex items-start gap-1.5 sm:gap-2 text-xs sm:text-sm">
+                                <span className="text-neutral-900 dark:text-neutral-100 font-bold mt-0.5">•</span>
+                                <span className="text-neutral-700 dark:text-neutral-300">
+                                  <strong>Data and confidentiality</strong> clauses need alignment with target&apos;s privacy policies and local regulations
                                 </span>
                               </div>
                             </div>
@@ -345,9 +430,11 @@ export function CaseIntelligenceFeature() {
                               </h4>
                             </div>
                             <div className="space-y-1 sm:space-y-1.5 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300">
-                              <p>1. Obtain consents for Change of Control from 8 counterparties</p>
-                              <p>2. Amend IP Assignment Agreement before closing</p>
-                              <p>3. Review and renegotiate key employee retention terms</p>
+                              <p>1. Obtain consents for Change of Control from 8 counterparties; track responses in deal tracker</p>
+                              <p>2. Amend IP Assignment Agreement to clarify ownership transfer and add indemnities</p>
+                              <p>3. Review and renegotiate key employee retention and non-compete terms with HR</p>
+                              <p>4. Align liability caps in top 5 service agreements with deal risk allocation</p>
+                              <p>5. Complete data and confidentiality memo for compliance sign-off before signing</p>
                             </div>
                           </motion.div>
                         </div>

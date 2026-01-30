@@ -43,13 +43,20 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] space-y-2 md:space-y-3"
+            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.15]"
           >
-            <span className="block text-foreground dark:text-white">
-            Legal Practice Reimagined
+            {/* Mobile: single block with <br /> so two lines have consistent spacing */}
+            <span className="block md:hidden">
+              <span className="text-foreground dark:text-white">Legal Practice Reimagined</span>
+              <br />
+              <span className="text-foreground/80 dark:text-white/90">with AI for India</span>
             </span>
-            <span className="block text-foreground/80 dark:text-white/90">
-            with AI for India
+            {/* Desktop: two blocks with gap */}
+            <span className="hidden md:block text-foreground dark:text-white">
+              Legal Practice Reimagined
+            </span>
+            <span className="hidden md:block mt-2 md:mt-3 text-foreground/80 dark:text-white/90">
+              with AI for India
             </span>
           </motion.h1>
 
