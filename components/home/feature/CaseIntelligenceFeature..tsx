@@ -70,10 +70,10 @@ export function CaseIntelligenceFeature() {
 
   return (
     <div className="w-full py-12 sm:py-16 md:py-24">
-      <div className="container mx-auto px-4 sm:px-6 flex flex-col-reverse lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20">
+      <div className="container mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20">
 
-        {/* Content Section - appears first on mobile */}
-        <div className="flex-1 flex flex-col items-center lg:items-start justify-center text-center lg:text-left order-2 lg:order-1">
+        {/* Content Section - first on small (top), second on large (right) */}
+        <div className="flex-1 flex flex-col items-center lg:items-start justify-center text-center lg:text-left order-1 lg:order-2">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -98,8 +98,8 @@ export function CaseIntelligenceFeature() {
           </motion.div>
         </div>
 
-        {/* Video/Animation Section - appears second on mobile */}
-        <div className="flex-1 w-full order-1 lg:order-2">
+        {/* Video/Animation Section - first on large (left), second on small (below content) */}
+        <div className="flex-1 w-full order-2 lg:order-1">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}

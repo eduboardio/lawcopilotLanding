@@ -142,27 +142,37 @@
   body {
     @apply bg-background text-foreground font-sans;
   }
-  /* Bold / headline font: Nohemi for all headings and bold text */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  .font-bold,
-  .font-semibold,
-  .font-extrabold,
-  .font-black,
-  strong,
-  b,
-  button {
-    font-family: var(--font-heading);
-  }
+}
+
+/*
+ * Nohemi for bold/headings — outside @layer base so it wins over Tailwind utilities
+ * (utilities would otherwise override font-family when e.g. font-sans is also applied)
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-bold,
+.font-semibold,
+.font-extrabold,
+.font-black,
+strong,
+b,
+button {
+  font-family: var(--font-heading) !important;
 }
 
 /* Optional: use class font-heading to apply Nohemi to any element (e.g. logo, nav brand) */
 .font-heading {
-  font-family: var(--font-heading);
+  font-family: var(--font-heading) !important;
+}
+
+/* Navbar: use Inter only (override heading font for nav links, buttons, labels) */
+header.font-sans,
+header.font-sans * {
+  font-family: var(--font-sans) !important;
 }
 
 .main-content-wrapper {

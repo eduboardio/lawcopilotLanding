@@ -43,7 +43,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] space-y-2 md:space-y-3"
+            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] space-y-2 md:space-y-3"
           >
             <span className="block text-foreground dark:text-white">
             Legal Practice Reimagined
@@ -77,7 +77,7 @@ export const Hero = () => {
             className="md:pt-2"
           >
             <Button
-              className={cn("font-medium text-sm md:text-base px-4 md:px-6 py-5 md:py-3 h-auto shadow-lg hover:shadow-xl transition-shadow")}
+              className={cn("font-heading font-medium text-sm md:text-base px-4 md:px-6 py-5 md:py-3 h-auto shadow-lg hover:shadow-xl transition-shadow")}
               asChild
             >
               <Link href="https://app.lawcopilot.io/signup">Get Started Free</Link>

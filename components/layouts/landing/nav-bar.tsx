@@ -487,7 +487,7 @@ export const Navbar = () => {
     return (
         <header
             className={cn(
-                "z-40 h-16 sm:h-18 md:h-20 flex justify-center items-center sticky top-0 transition-all duration-300 backdrop-blur-md",
+                "font-sans z-40 h-16 sm:h-18 md:h-20 flex justify-center items-center sticky top-0 transition-all duration-300 backdrop-blur-md",
                 {
                     "bg-transparent": pathname === "/" && !scrolled,
                     "bg-background/80 shadow-sm border-b border-border/20": scrolled,

@@ -14,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${nohemi.variable} font-sans antialiased`}>
+    <html lang="en" className={`${inter.variable} ${nohemi.variable}`}>
+      <body className="font-sans antialiased">
         <ThemeProvider attribute="class"
           defaultTheme="light"
           enableSystem
