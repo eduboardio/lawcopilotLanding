@@ -15,7 +15,7 @@ interface Props {
     };
 }
 
-export const Logo = ({
+export const LogoText = ({
     type = "LOGO_ONLY",
     href = "/",
     classes,
@@ -25,16 +25,16 @@ export const Logo = ({
             <Link
                 href={href}
                 className={cn(
-                    "size-10 lg:size-12 flex justify-center items-center",
+                    "flex justify-center items-center",
                     classes?.container
                 )}
             >
                 <Image 
-                    src="/logo.svg" 
+                    src="/Dark-Logo.png" 
                     alt="Law Copilot" 
-                    width={40} 
-                    height={40}
-                    className={cn("w-full h-full dark:invert", classes?.logo)}
+                    width={100} 
+                    height={100}
+                    className={cn("w-full h-full invert dark:invert-0", classes?.logo)}
                 />
             </Link>
         );
@@ -49,11 +49,11 @@ export const Logo = ({
         >
             <span className={cn("size-10 flex justify-center items-center", classes?.logo)}>
                 <Image 
-                    src="/logo.svg" 
+                    src="/Dark-Logo.png" 
                     alt="Law Copilot" 
                     width={40} 
                     height={40}
-                    className="w-full h-full dark:invert"
+                    className="w-full h-full invert dark:invert-0"
                 />
             </span>
             <motion.span

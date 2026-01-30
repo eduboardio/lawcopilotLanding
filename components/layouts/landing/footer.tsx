@@ -1,11 +1,11 @@
 "use client";
 
-import { Logo } from "@/components/logo";
 import { ROUTES_WITHOUT_FOOTER } from "@/constants";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Mail, Linkedin, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LogoText }from "@/components/logo_text";
 
 export const Footer = () => {
     const pathname = usePathname();
@@ -52,8 +52,8 @@ export const Footer = () => {
                     {/* Brand Section */}
                     <div className="md:col-span-4">
                         <div className="flex items-center mb-6">
-                            <Logo type="LOGO_ONLY" />
-                            <span className="ml-3 font-bold text-xl text-foreground dark:text-white">Law Copilot</span>
+                            <LogoText type="LOGO_ONLY" />
+                            {/* <span className="ml-3 font-bold text-xl text-foreground dark:text-white">Law Copilot</span> */}
                         </div>
 
                         <p className="text-sm text-muted-foreground dark:text-white/60 mb-6 leading-relaxed max-w-sm">
