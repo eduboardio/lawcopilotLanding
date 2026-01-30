@@ -109,7 +109,7 @@ export function CaseIntelligenceFeature() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-2xl"
+            className="max-w-xl"
           >
             <div className="mb-3 sm:mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
               <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
@@ -122,32 +122,9 @@ export function CaseIntelligenceFeature() {
               Case-Centric Legal Intelligence
             </h3>
 
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground dark:text-white/70 mb-4 sm:mb-5">
+            <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground dark:text-white/70">
               Track all your cases in one place. Law Copilot understands your pleadings, orders, and evidence to give you contextual insights, next steps, and deadlines—so nothing slips through the cracks.
             </p>
-
-            <p className="text-sm sm:text-base leading-relaxed text-muted-foreground dark:text-white/70 mb-4 sm:mb-5">
-              Upload case files, link orders and judgments, and get a single dashboard per matter: key dates, risk flags, document summaries, and AI-suggested next steps tailored to Indian courts and practice.
-            </p>
-
-            <ul className="space-y-2 sm:space-y-2.5 text-sm sm:text-base text-muted-foreground dark:text-white/70">
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-500 dark:text-emerald-400 mt-0.5 flex-shrink-0">✓</span>
-                <span>Automatic extraction of dates, parties, and reliefs from pleadings and orders</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-500 dark:text-emerald-400 mt-0.5 flex-shrink-0">✓</span>
-                <span>Upcoming deadlines and listing dates surfaced per case</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-500 dark:text-emerald-400 mt-0.5 flex-shrink-0">✓</span>
-                <span>Risk and exposure summaries for M&amp;A and contract-heavy matters</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-500 dark:text-emerald-400 mt-0.5 flex-shrink-0">✓</span>
-                <span>Recommended next steps and follow-ups based on case stage</span>
-              </li>
-            </ul>
           </motion.div>
         </div>
 
@@ -350,6 +327,24 @@ export function CaseIntelligenceFeature() {
                                 Counterparties involved
                               </p>
                             </div>
+                          </motion.div>
+
+                          {/* Deal progress / status */}
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.45 }}
+                            className="flex flex-wrap gap-1.5 sm:gap-2"
+                          >
+                            <span className="inline-flex items-center rounded-md bg-neutral-100 dark:bg-neutral-800 px-2 py-1 text-[10px] sm:text-xs font-medium text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">
+                              DD 78% complete
+                            </span>
+                            <span className="inline-flex items-center rounded-md bg-amber-50 dark:bg-amber-900/30 px-2 py-1 text-[10px] sm:text-xs font-medium text-amber-800 dark:text-amber-200 border border-amber-200 dark:border-amber-800">
+                              3 open items
+                            </span>
+                            <span className="inline-flex items-center rounded-md bg-emerald-50 dark:bg-emerald-900/30 px-2 py-1 text-[10px] sm:text-xs font-medium text-emerald-800 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800">
+                              On track
+                            </span>
                           </motion.div>
 
                           {/* Key Dates */}
