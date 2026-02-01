@@ -10,7 +10,7 @@ const defaultDescription =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: "Law Copilot | AI Legal Intelligence for India", template: "%s | Law Copilot" },
+  title: { default: "Law Copilot", template: "%s | Law Copilot" },
   description: defaultDescription,
   keywords: ["legal AI", "Indian legal", "legal research", "document drafting", "case analytics", "law firm software", "legal technology"],
   openGraph: {
