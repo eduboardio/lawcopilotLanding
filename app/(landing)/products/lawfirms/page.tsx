@@ -214,7 +214,7 @@ export default function LawFirmsPage() {
             className={cn("font-medium text-xs sm:text-sm mt-10 p-5")}
             asChild
           >
-            <Link href="https://lawcopilot.io/contact">Book a Firm Demo</Link>
+            <Link href="/contact">Book a Firm Demo</Link>
           </Button>
         </motion.div>
 
@@ -536,7 +536,7 @@ export default function LawFirmsPage() {
                 className={cn("font-medium text-xs sm:text-sm mt-10 p-5")}
                 asChild
               >
-                <Link href="https://lawcopilot.io/contact">Book a Firm Demo</Link>
+                <Link href="/contact">Book a Firm Demo</Link>
               </Button>
             </div>
           </div>

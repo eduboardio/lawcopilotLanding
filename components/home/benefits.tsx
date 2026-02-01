@@ -244,7 +244,7 @@ export function Benefits() {
             className={cn("font-medium text-xs sm:text-sm")}
             asChild
           >
-            <Link href="https://lawcopilot.io/contact">Book a Demo</Link>
+            <Link href="/contact">Book a Demo</Link>
           </Button>
         </motion.div>
 

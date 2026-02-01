@@ -540,7 +540,7 @@ export default function LawyersPage() {
                 className={cn("font-medium text-xs sm:text-sm mt-10 p-5")}
                 asChild
               >
-                <Link href="https://lawcopilot.io/contact">Start Free Now</Link>
+                <Link href="/contact">Start Free Now</Link>
               </Button>
             </div>
           </div>

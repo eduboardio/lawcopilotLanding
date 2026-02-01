@@ -77,7 +77,7 @@ export const CTA = () => {
             >
               <span className="absolute inset-0 w-full h-full bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               <span className="relative z-10">
-                <Link href={`/signup`} className="flex items-center">
+                <Link href="https://app.lawcopilot.io/signup" className="flex items-center">
                   START YOUR FREE 14-DAY TRIAL
                 </Link>
               </span>

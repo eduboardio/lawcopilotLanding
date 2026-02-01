@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Building2, 
@@ -308,9 +309,12 @@ export const UseCases = () => {
                 <Button
                   size="lg"
                   className="w-full sm:w-auto rounded-full bg-foreground hover:bg-foreground/90 dark:bg-white dark:hover:bg-white/90 text-background dark:text-foreground font-medium px-8"
+                  asChild
                 >
-                  Get Started
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <Link href="https://app.lawcopilot.io/signup">
+                    Get Started
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
                 </Button>
               </motion.div>
 

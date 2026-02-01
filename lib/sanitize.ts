@@ -1,5 +1,9 @@
-import DOMPurify from 'isomorphic-dompurify';
 import validator from 'validator';
+
+// Strip HTML tags (no DOM dependency; avoids jsdom → html-encoding-sniffer → @exodus/bytes ESM require in Node)
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, '');
+}
 
 // Whitelist of allowed characters for different field types
 const ALLOWED_NAME_CHARS = /^[a-zA-Z\s'-]+$/;
@@ -78,11 +82,7 @@ export function sanitizeName(input: string): SanitizationResult {
     return { sanitized: '', isValid: false, errors };
   }
   
-  // Additional HTML sanitization
-  sanitized = DOMPurify.sanitize(sanitized, {
-    ALLOWED_TAGS: [],
-    ALLOWED_ATTR: [],
-  });
+  sanitized = stripHtml(sanitized);
   
   return {
     sanitized,
@@ -148,10 +148,7 @@ export function sanitizeCompanyName(input: string): SanitizationResult {
     return { sanitized: '', isValid: false, errors };
   }
   
-  sanitized = DOMPurify.sanitize(sanitized, {
-    ALLOWED_TAGS: [],
-    ALLOWED_ATTR: [],
-  });
+  sanitized = stripHtml(sanitized);
   
   return {
     sanitized,
@@ -193,11 +190,7 @@ export function sanitizeMessage(input: string): SanitizationResult {
     return { sanitized: '', isValid: false, errors };
   }
   
-  // Additional HTML sanitization
-  sanitized = DOMPurify.sanitize(sanitized, {
-    ALLOWED_TAGS: [],
-    ALLOWED_ATTR: [],
-  });
+  sanitized = stripHtml(sanitized);
   
   return {
     sanitized,
@@ -228,10 +221,7 @@ export function sanitizeGenericField(
     return { sanitized: '', isValid: false, errors };
   }
   
-  sanitized = DOMPurify.sanitize(sanitized, {
-    ALLOWED_TAGS: [],
-    ALLOWED_ATTR: [],
-  });
+  sanitized = stripHtml(sanitized);
   
   return {
     sanitized,
