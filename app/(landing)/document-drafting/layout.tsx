@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: "Document Drafting",
   description:
     "AI-powered legal document drafting for Indian law. Draft contracts, pleadings, and court-ready documents with Indian legal compliance and citation intelligence.",
+  alternates: { canonical: "/document-drafting" },
 };
 
 export default function DocumentDraftingLayout({ children }: { children: React.ReactNode }) {

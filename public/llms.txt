@@ -1,0 +1,29 @@
+# Law Copilot
+
+> AI-powered legal intelligence built for Indian legal practice. Research faster, draft smarter, and deliver exceptional outcomes.
+
+Law Copilot helps lawyers and law firms in India with legal research, document drafting, case analytics, and translation. Our product is designed for Indian legal professionals and supports Hindi and English.
+
+## Main
+
+- [Home](https://lawcopilot.io)
+- [Contact](https://lawcopilot.io/contact)
+- [Products – Law Firms](https://lawcopilot.io/products/lawfirms)
+- [Products – Lawyers](https://lawcopilot.io/products/lawyers)
+- [Research Engine](https://lawcopilot.io/research-engine)
+- [Case Analytics](https://lawcopilot.io/case-analytics)
+- [Document Drafting](https://lawcopilot.io/document-drafting)
+- [Legal Translation](https://lawcopilot.io/translation)
+
+## Company
+
+- [About Us](https://lawcopilot.io/about)
+- [FAQ](https://lawcopilot.io/faq)
+- [Blog](https://lawcopilot.io/blog)
+- [Privacy Policy](https://lawcopilot.io/privacy-policy)
+- [Terms of Service](https://lawcopilot.io/terms)
+
+## Optional
+
+- [Careers](https://lawcopilot.io/careers)
+- [Resources](https://lawcopilot.io/resources)

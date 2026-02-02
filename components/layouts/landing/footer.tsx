@@ -3,7 +3,8 @@
 import { ROUTES_WITHOUT_FOOTER } from "@/constants";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Mail, Linkedin, ArrowRight } from "lucide-react";
+import { Mail, Linkedin, ArrowRight, Instagram } from "lucide-react";
+import { SOCIAL } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { LogoText }from "@/components/logo_text";
 
@@ -62,17 +63,30 @@ export const Footer = () => {
 
                         {/* Social Links */}
                         <div className="flex items-center gap-3">
+                            {SOCIAL.instagram && (
+                                <Link 
+                                    href={SOCIAL.instagram}
+                                    target="_blank"
+                                    rel="noopener noreferrer" 
+                                    className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted dark:bg-white/[0.05] hover:bg-muted/80 dark:hover:bg-white/[0.08] transition-colors group"
+                                    aria-label="Instagram"
+                                >
+                                    <Instagram className="h-5 w-5 text-muted-foreground dark:text-white/60 group-hover:text-foreground dark:group-hover:text-white transition-colors" />
+                                </Link>
+                            )}
                             <Link 
-                                href="https://www.linkedin.com/company/lawcopilot"
+                                href={SOCIAL.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer" 
                                 className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted dark:bg-white/[0.05] hover:bg-muted/80 dark:hover:bg-white/[0.08] transition-colors group"
+                                aria-label="LinkedIn"
                             >
                                 <Linkedin className="h-5 w-5 text-muted-foreground dark:text-white/60 group-hover:text-foreground dark:group-hover:text-white transition-colors" />
                             </Link>
                             <Link 
                                 href="mailto:hello@lawcopilot.io" 
                                 className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted dark:bg-white/[0.05] hover:bg-muted/80 dark:hover:bg-white/[0.08] transition-colors group"
+                                aria-label="Email"
                             >
                                 <Mail className="h-5 w-5 text-muted-foreground dark:text-white/60 group-hover:text-foreground dark:group-hover:text-white transition-colors" />
                             </Link>
