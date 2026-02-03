@@ -169,22 +169,22 @@ const routeList: RouteProps[] = [
     },
 ];
 
-const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('/#')) {
-        e.preventDefault();
-        const id = href.replace('/#', '');
-        const element = document.getElementById(id);
-
-        if (element) {
-            const navbarHeight = 80;
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
+/** Only smooth-scroll when already on home; otherwise let Link navigate to absolute path (e.g. /#features). */
+const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string, pathname: string) => {
+    if (!href.startsWith('/#')) return;
+    // When on another page, do not prevent default — let the link go to /#section (absolute path).
+    if (pathname !== '/') return;
+    e.preventDefault();
+    const id = href.replace('/#', '');
+    const element = document.getElementById(id);
+    if (element) {
+        const navbarHeight = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
     }
 };
 
@@ -329,9 +329,10 @@ const ImageWindow = memo(({ visual, index }: {
 
 ImageWindow.displayName = 'ImageWindow';
 
-const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
+const MegaMenu = memo(({ openDropdown, setOpenDropdown, pathname }: {
     openDropdown: string | null;
     setOpenDropdown: (label: string | null) => void;
+    pathname: string;
 }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [activeLabel, setActiveLabel] = useState<string | null>(null);
@@ -404,7 +405,7 @@ const MegaMenu = memo(({ openDropdown, setOpenDropdown }: {
                                     href={item.href}
                                     className="group flex items-start gap-2 sm:gap-3 p-2 sm:p-3 rounded-md hover:bg-accent/30 transition-all duration-200"
                                     onClick={(e) => {
-                                        handleSmoothScroll(e, item.href);
+                                        handleSmoothScroll(e, item.href, pathname);
                                         setOpenDropdown(null);
                                     }}
                                 >
@@ -560,7 +561,7 @@ export const Navbar = () => {
                                                                         variant="ghost"
                                                                         className="justify-start text-sm sm:text-base h-auto py-2 sm:py-3"
                                                                     >
-                                                                        <Link href={item.href} onClick={(e) => handleSmoothScroll(e, item.href)}>
+                                                                        <Link href={item.href} onClick={(e) => handleSmoothScroll(e, item.href, pathname)}>
                                                                             <div className="flex items-center gap-2 sm:gap-3 text-left w-full">
                                                                                 {Icon && <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary flex-shrink-0" />}
                                                                                 <div className="min-w-0 flex-1">
@@ -589,7 +590,7 @@ export const Navbar = () => {
                                                     variant="ghost"
                                                     className="justify-start text-base sm:text-lg font-medium"
                                                 >
-                                                    <Link href={route.href} onClick={(e) => handleSmoothScroll(e, route.href)}>{route.label}</Link>
+                                                    <Link href={route.href} onClick={(e) => handleSmoothScroll(e, route.href, pathname)}>{route.label}</Link>
                                                 </Button>
                                             );
                                         })}
@@ -622,6 +623,7 @@ export const Navbar = () => {
             <MegaMenu
                 openDropdown={openDropdown}
                 setOpenDropdown={setOpenDropdown}
+                pathname={pathname}
             />
         </header>
     );

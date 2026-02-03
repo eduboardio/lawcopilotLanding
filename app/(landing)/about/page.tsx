@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FoundersSection } from "@/components/home/FoundersSection";
 import {
   Target,
   Eye,
@@ -274,9 +273,6 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-
-      {/* Founders Section */}
-      <FoundersSection />
 
       {/* Team Section */}
       <section className="relative z-10 container mx-auto px-6 py-16 md:py-24">

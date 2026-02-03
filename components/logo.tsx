@@ -3,6 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
+// dark_logo.webp = dark colour for light theme; light_logo.webp = white for dark theme
+const LOGO_LIGHT_THEME = "/dark_logo.webp";
+const LOGO_DARK_THEME = "/light_logo.webp";
+
 interface Props {
     type?: "LOGO_ONLY" | "FULL";
     isResponsive?: boolean;
@@ -28,12 +32,19 @@ export const Logo = ({
                     classes?.container
                 )}
             >
-                <Image 
-                    src="/logo.svg" 
-                    alt="Law Copilot" 
-                    width={40} 
+                <Image
+                    src={LOGO_LIGHT_THEME}
+                    alt="Law Copilot"
+                    width={40}
                     height={40}
-                    className={cn("w-full h-full dark:invert", classes?.logo)}
+                    className={cn("w-full h-full dark:hidden", classes?.logo)}
+                />
+                <Image
+                    src={LOGO_DARK_THEME}
+                    alt="Law Copilot"
+                    width={40}
+                    height={40}
+                    className={cn("w-full h-full hidden dark:block", classes?.logo)}
                 />
             </Link>
         );
@@ -47,12 +58,19 @@ export const Logo = ({
             )}
         >
             <span className={cn("size-10 flex justify-center items-center", classes?.logo)}>
-                <Image 
-                    src="/logo.svg" 
-                    alt="Law Copilot" 
-                    width={40} 
+                <Image
+                    src={LOGO_LIGHT_THEME}
+                    alt="Law Copilot"
+                    width={40}
                     height={40}
-                    className="w-full h-full dark:invert"
+                    className="w-full h-full dark:hidden"
+                />
+                <Image
+                    src={LOGO_DARK_THEME}
+                    alt="Law Copilot"
+                    width={40}
+                    height={40}
+                    className="w-full h-full hidden dark:block"
                 />
             </span>
             <span className={cn("flex justify-center items-center", classes?.logo)}>
