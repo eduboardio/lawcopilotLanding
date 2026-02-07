@@ -251,4 +251,21 @@ class GoogleSheetsClient {
   }
 }
 
-export const googleSheetsClient = new GoogleSheetsClient();
+// Lazy singleton: avoid running constructor at build time (env vars not set in Docker build).
+let _instance: GoogleSheetsClient | null = null;
+
+function getGoogleSheetsClient(): GoogleSheetsClient {
+  if (!_instance) {
+    _instance = new GoogleSheetsClient();
+  }
+  return _instance;
+}
+
+export const googleSheetsClient = {
+  get checkQuota() {
+    return getGoogleSheetsClient().checkQuota.bind(getGoogleSheetsClient());
+  },
+  get addRow() {
+    return getGoogleSheetsClient().addRow.bind(getGoogleSheetsClient());
+  },
+};
