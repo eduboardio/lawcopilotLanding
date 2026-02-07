@@ -277,6 +277,16 @@ export default function LawFirmsPage() {
             <p className="mx-auto max-w-2xl text-muted-foreground dark:text-white/70">
               Built to meet the accuracy, security, and scale demands of Indian law firms
             </p>
+
+            {/* Testimonial */}
+            <blockquote className="mx-auto mt-10 max-w-2xl rounded-xl border border-border/40 bg-card/40 px-6 py-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.03]">
+              <p className="text-base font-medium italic text-foreground dark:text-white md:text-lg">
+                &ldquo;Stronger legal research, better-drafted submissions, and deeper case analysis gives our partner firms a competitive edge where it matters most.&rdquo;
+              </p>
+              <footer className="mt-3 text-sm text-muted-foreground dark:text-white/60">
+                — Legal Firm Head
+              </footer>
+            </blockquote>
           </motion.div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">

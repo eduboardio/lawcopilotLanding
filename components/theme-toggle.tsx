@@ -7,22 +7,28 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-// import { Moon, Sun } from "lucide-react";
 import { MoonIcon as Moon, SunIcon as Sun } from "@radix-ui/react-icons";
 
 export function ThemeToggle() {
     const { setTheme, theme } = useTheme();
+    const [mounted, setMounted] = React.useState(false);
+
+    React.useEffect(() => {
+        setMounted(true);
+    }, []);
+
     return (
         <Tooltip delayDuration={100}>
             <TooltipTrigger asChild>
                 <Button
-                    suppressHydrationWarning={true}
                     className="bg-background min-w-10"
                     variant="outline"
                     size="icon"
                     onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 >
-                    {theme === "light" ? (
+                    {!mounted ? (
+                        <Sun className="w-[1rem] h-[1rem]" aria-hidden />
+                    ) : theme === "light" ? (
                         <Sun className="w-[1rem] h-[1rem]" />
                     ) : (
                         <Moon className="w-[1rem] h-[1rem]" />
