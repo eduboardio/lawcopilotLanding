@@ -1,5 +1,5 @@
 "use client"
-import { memo, useEffect, useState, useRef } from "react"
+import { memo, useEffect, useState, useRef, useCallback } from "react"
 import type React from "react"
 
 import { motion, AnimatePresence } from "framer-motion"
@@ -83,18 +83,36 @@ export const ProductDemo = memo(() => {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  useEffect(() => {
-    runAnimation()
-  }, [])
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-  const typeText = async (text: string, onUpdate: (partial: string) => void, speed = 25) => {
+  const typeText = useCallback(async (text: string, onUpdate: (partial: string) => void, speed = 25) => {
     for (let i = 0; i <= text.length; i++) {
       onUpdate(text.substring(0, i))
       await wait(speed)
     }
-  }
+  }, [])
 
-  const runAnimation = async () => {
+  const resetStates = useCallback(() => {
+    setCursorState({ visible: false, position: { x: 50, y: 50 }, clicking: false })
+    setChatState({
+      queryText: "",
+      showResponse: false,
+      showProcessing: false,
+      showArtifactCard: false,
+    })
+    setPanelState({
+      showArtifact: false,
+      showDetail: false,
+      showCitedActs: false,
+      selectedCase: false,
+      artifactScroll: 0,
+      detailScroll: 0,
+      actsScroll: 0,
+    })
+  }, [])
+
+  // FIX: Wrap runAnimation in useCallback to stabilize it
+  const runAnimation = useCallback(async () => {
     resetStates()
     
     // Smooth fade in
@@ -255,28 +273,11 @@ export const ProductDemo = memo(() => {
     
     // Restart fresh
     runAnimation()
-  }
+  }, [resetStates, typeText])
 
-  const resetStates = () => {
-    setCursorState({ visible: false, position: { x: 50, y: 50 }, clicking: false })
-    setChatState({
-      queryText: "",
-      showResponse: false,
-      showProcessing: false,
-      showArtifactCard: false,
-    })
-    setPanelState({
-      showArtifact: false,
-      showDetail: false,
-      showCitedActs: false,
-      selectedCase: false,
-      artifactScroll: 0,
-      detailScroll: 0,
-      actsScroll: 0,
-    })
-  }
-
-  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+  useEffect(() => {
+    runAnimation()
+  }, [runAnimation])
 
   const getChatWidth = () => {
     // On mobile, panels take full width

@@ -58,10 +58,10 @@ function inMemoryRateLimit(
   windowMs: number
 ): RateLimitResult {
   const now = Date.now();
-  const record = requestCounts[key];
+  const record = requestCounts[key as string];
   
   if (!record || now > record.resetTime) {
-    requestCounts[key] = { count: 1, resetTime: now + windowMs };
+    requestCounts[key as string] = { count: 1, resetTime: now + windowMs };
     return {
       success: true,
       limit,
@@ -99,7 +99,7 @@ export async function rateLimit(
     }
     
     // Check if IP is currently blocked
-    const blockUntil = ipBlockList[identifier];
+    const blockUntil = ipBlockList[identifier as string];
     if (blockUntil && Date.now() < blockUntil) {
       return {
         success: false,
@@ -109,8 +109,8 @@ export async function rateLimit(
       };
     } else if (blockUntil) {
       // Unblock if time has passed
-      delete ipBlockList[identifier];
-      delete violationCounts[identifier];
+      delete ipBlockList[identifier as string];
+      delete violationCounts[identifier as string];
       await saveIPBlocks(ipBlockList);
     }
     
@@ -139,12 +139,12 @@ export async function rateLimit(
     
     // Track violations and block if necessary
     if (!result.success) {
-      const violations = (violationCounts[identifier] || 0) + 1;
-      violationCounts[identifier] = violations;
+      const violations = (violationCounts[identifier as string] || 0) + 1;
+      violationCounts[identifier as string] = violations;
       
       if (violations >= MAX_VIOLATIONS) {
         const blockUntil = Date.now() + BLOCK_DURATION;
-        ipBlockList[identifier] = blockUntil;
+        ipBlockList[identifier as string] = blockUntil;
         await saveIPBlocks(ipBlockList);
         logger.warn(`IP ${identifier} blocked until ${new Date(blockUntil).toISOString()}`);
       }
@@ -171,14 +171,14 @@ export function getBlockedIPs(): string[] {
 }
 
 export async function blockIP(ip: string, durationMs: number = BLOCK_DURATION): Promise<void> {
-  ipBlockList[ip] = Date.now() + durationMs;
+  ipBlockList[ip as string] = Date.now() + durationMs;
   await saveIPBlocks(ipBlockList);
   logger.warn(`Manually blocked IP: ${ip}`);
 }
 
 export async function unblockIP(ip: string): Promise<void> {
-  delete ipBlockList[ip];
-  delete violationCounts[ip];
+  delete ipBlockList[ip as string];
+  delete violationCounts[ip as string];
   await saveIPBlocks(ipBlockList);
   logger.info(`Unblocked IP: ${ip}`);
 }
@@ -190,15 +190,15 @@ if (typeof window === 'undefined' && !process.env.NEXT_RUNTIME?.includes('edge')
       // Clean up expired rate limit records
       for (const [key, record] of Object.entries(requestCounts)) {
         if (now > record.resetTime) {
-          delete requestCounts[key];
+          delete requestCounts[key as string];
         }
       }
       
       // Clean up expired blocks
       for (const [ip, blockUntil] of Object.entries(ipBlockList)) {
         if (now > blockUntil) {
-          delete ipBlockList[ip];
-          delete violationCounts[ip];
+          delete ipBlockList[ip as string];
+          delete violationCounts[ip as string];
         }
       }
     }, 60000);

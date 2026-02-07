@@ -1,5 +1,5 @@
 // components/home/demo/useDemoAnimation.ts
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export const useDemoAnimation = () => {
   const [cursorPos, setCursorPos] = useState({ x: 20, y: 50 });
@@ -18,17 +18,17 @@ export const useDemoAnimation = () => {
 
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-  const animateCursor = async (target: { x: number; y: number }, duration = 600) => {
+  const animateCursor = useCallback(async (target: { x: number; y: number }, duration = 600) => {
     setCursorPos(target);
     await delay(duration);
-  };
+  }, []);
 
-  const clickAnimation = async () => {
+  const clickAnimation = useCallback(async () => {
     setCursorClicking(true);
     await delay(150);
     setCursorClicking(false);
     await delay(100);
-  };
+  }, []);
 
   const resetAnimation = () => {
     setTypedText("");
@@ -117,7 +117,7 @@ export const useDemoAnimation = () => {
     };
 
     runAnimation();
-  }, []);
+  }, [animateCursor, clickAnimation]);
 
   return {
     cursorPos,

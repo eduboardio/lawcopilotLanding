@@ -170,7 +170,7 @@ export async function cleanupOldData(): Promise<void> {
   const activeRateLimits: RateLimitData = {};
   for (const [key, value] of Object.entries(rateLimits)) {
     if (value.resetTime > now) {
-      activeRateLimits[key] = value;
+      activeRateLimits[key as string] = value;
     }
   }
   edgePersistence.setRateLimits(activeRateLimits);
@@ -180,7 +180,7 @@ export async function cleanupOldData(): Promise<void> {
   const activeBlocks: IPBlockData = {};
   for (const [ip, blockUntil] of Object.entries(ipBlocks)) {
     if (blockUntil > now) {
-      activeBlocks[ip] = blockUntil;
+      activeBlocks[ip as string] = blockUntil;
     }
   }
   edgePersistence.setIPBlocks(activeBlocks);

@@ -108,13 +108,14 @@ export default function ContactPage() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // FIX: Use 'in' operator and type assertion to avoid object injection warning
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
+    if (name in errors) {
       setErrors((prev) => {
         const newErrors = { ...prev };
-        delete newErrors[name];
+        delete newErrors[name as keyof FormErrors];
         return newErrors;
       });
     }

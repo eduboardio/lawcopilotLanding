@@ -79,7 +79,7 @@ export default function HeroVideoDialog({
   onOpenChange,
 }: HeroVideoProps) {
   const [isVideoOpenInternal, setIsVideoOpenInternal] = useState(false);
-  const selectedAnimation = animationVariants[animationStyle];
+  const selectedAnimation = animationVariants[animationStyle as keyof typeof animationVariants];
   
   // Use either controlled or uncontrolled state
   const videoOpen = onOpenChange ? isOpen : isVideoOpenInternal;

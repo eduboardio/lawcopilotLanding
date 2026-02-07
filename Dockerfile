@@ -27,6 +27,9 @@ COPY . .
 # Disable telemetry
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Match CI/server behavior: fail build on ESLint warnings (so you see the same errors locally)
+ENV CI=true
+
 # Build the application
 RUN npm run build
 

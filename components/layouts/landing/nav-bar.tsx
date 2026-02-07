@@ -12,6 +12,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 import { Logo } from "@/components/logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -299,16 +300,15 @@ const ImageWindow = memo(({ visual, index }: {
                 <div className="relative w-full h-full overflow-hidden bg-background/90 backdrop-blur-sm border border-border/40 rounded-sm">
                     {mounted && (
                         <div className="relative w-full h-full">
-                            <img
+                            <Image
                                 src={imageSrc}
                                 alt={visual.title}
-                                className="absolute inset-0 w-full h-full object-cover"
+                                fill
+                                className="object-cover"
                                 style={{
-                                    objectFit: 'cover',
                                     objectPosition: index === 0 ? '20% 0%' : '50% 50%',
-                                    width: index === 0 ? '200%' : '180%',
-                                    height: index === 0 ? '200%' : '180%',
                                 }}
+                                unoptimized
                             />
                         </div>
                     )}

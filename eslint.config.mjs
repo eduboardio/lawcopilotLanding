@@ -14,7 +14,8 @@ const eslintConfig = [
   ...compat.plugins("security"),
   {
     rules: {
-      'security/detect-object-injection': 'warn',
+      // Treat as errors so docker build fails locally (same as server/CI)
+      'security/detect-object-injection': 'error',
       'security/detect-non-literal-regexp': 'warn',
       'security/detect-unsafe-regex': 'error',
       'security/detect-buffer-noassert': 'error',
@@ -26,6 +27,9 @@ const eslintConfig = [
       'security/detect-non-literal-require': 'warn',
       'security/detect-possible-timing-attacks': 'warn',
       'security/detect-pseudoRandomBytes': 'error',
+      // Fail build on these so you see server-style errors locally
+      'react-hooks/exhaustive-deps': 'error',
+      '@next/next/no-img-element': 'error',
     }
   }
 ];

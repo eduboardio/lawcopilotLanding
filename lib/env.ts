@@ -46,13 +46,15 @@ const requiredEnvVars = [
     const criticalWarnings: string[] = [];
     
     for (const varName of requiredEnvVars) {
-      if (!process.env[varName]) {
+      const envValue = process.env[varName as string];
+      if (!envValue) {
         missingVars.push(varName);
       }
     }
     
     for (const varName of optionalEnvVars) {
-      if (!process.env[varName]) {
+      const envValue = process.env[varName as string];
+      if (!envValue) {
         const warning = `Optional environment variable ${varName} is not set`;
         warnings.push(warning);
         
@@ -63,8 +65,9 @@ const requiredEnvVars = [
       }
     }
     
-    if (process.env.GOOGLE_SHEETS_PRIVATE_KEY) {
-      const key = process.env.GOOGLE_SHEETS_PRIVATE_KEY;
+    const privateKeyValue = process.env.GOOGLE_SHEETS_PRIVATE_KEY;
+    if (privateKeyValue) {
+      const key = privateKeyValue;
       const hasBegin = key.includes('BEGIN PRIVATE KEY');
       const hasEnd = key.includes('END PRIVATE KEY');
       
@@ -73,9 +76,10 @@ const requiredEnvVars = [
       }
     }
     
-    if (process.env.GOOGLE_SHEETS_CLIENT_EMAIL) {
+    const clientEmailValue = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
+    if (clientEmailValue) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(process.env.GOOGLE_SHEETS_CLIENT_EMAIL)) {
+      if (!emailRegex.test(clientEmailValue)) {
         warnings.push('GOOGLE_SHEETS_CLIENT_EMAIL does not appear to be a valid email');
       }
     }
@@ -89,7 +93,7 @@ const requiredEnvVars = [
   }
   
   export function getEnvVar(name: EnvVar, fallback?: string): string {
-    const value = process.env[name];
+    const value = process.env[name as string];
     if (!value) {
       if (fallback !== undefined) {
         return fallback;

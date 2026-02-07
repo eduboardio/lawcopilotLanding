@@ -44,7 +44,11 @@ function InputOTPSlot({
   index: number
 }) {
   const inputOTPContext = React.useContext(OTPInputContext)
-  const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {}
+  type SlotProps = { char?: string; hasFakeCaret?: boolean; isActive?: boolean }
+  const slots = inputOTPContext?.slots as Record<number, SlotProps> | undefined
+  // eslint-disable-next-line security/detect-object-injection -- index is slot index from props
+  const slot: SlotProps | undefined = slots ? slots[index] : undefined
+  const { char, hasFakeCaret, isActive } = slot ?? {}
 
   return (
     <div

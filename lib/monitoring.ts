@@ -89,12 +89,13 @@ async function detectSuspiciousActivity(ip: string): Promise<void> {
   );
   
   if (recentBlockedRequests.length > SUSPICIOUS_THRESHOLD) {
-    monitoringData.violations[ip] = (monitoringData.violations[ip] || 0) + 1;
+    const currentViolations = monitoringData.violations[ip as string] || 0;
+    monitoringData.violations[ip as string] = currentViolations + 1;
     
     logger.logSecurityEvent('Suspicious IP Detected', {
       ip,
       blockedRequestCount: recentBlockedRequests.length,
-      totalViolations: monitoringData.violations[ip],
+      totalViolations: monitoringData.violations[ip as string],
     });
     
     await sendAlert({
@@ -106,7 +107,7 @@ async function detectSuspiciousActivity(ip: string): Promise<void> {
 }
 
 export function isSuspiciousIP(ip: string): boolean {
-  return (monitoringData.violations[ip] || 0) > SUSPICIOUS_THRESHOLD;
+  return (monitoringData.violations[ip as string] || 0) > SUSPICIOUS_THRESHOLD;
 }
 
 export async function getIPStatistics(ip: string): Promise<{
