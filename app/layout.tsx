@@ -35,6 +35,9 @@ export const metadata: Metadata = {
     ...(SOCIAL.x ? { site: SOCIAL.x, creator: "@lawcopilot" } : {}),
   },
   robots: { index: true, follow: true },
+  verification: {
+    google: "W3bd2hzOvfX3suaUmAb3v5bXZczkIRRDhrDO9L2kf8A",
+  },
 };
 
 function JsonLdSchema() {
