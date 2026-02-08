@@ -2,23 +2,28 @@
 
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
+
+type GtagEvent =
+  | ["js", Date]
+  | ["config", string, Record<string, unknown>]
+  | ["event", string, Record<string, unknown>?];
 
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
+    gtag?: (...args: GtagEvent) => void;
+    dataLayer?: unknown[];
   }
 }
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
-export function Analytics() {
+function AnalyticsContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Track SPA page views
   useEffect(() => {
-    if (!window.gtag) return;
+    if (!window.gtag || !GA_MEASUREMENT_ID) return;
 
     const url =
       pathname + (searchParams?.toString() ? `?${searchParams}` : "");
@@ -32,13 +37,13 @@ export function Analytics() {
 
   return (
     <>
-      {/* Load GA script */}
+      {/* Load GA */}
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="afterInteractive"
       />
 
-      {/* Initialize GA */}
+      {/* Init GA */}
       <Script id="ga-init" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
@@ -51,5 +56,13 @@ export function Analytics() {
         `}
       </Script>
     </>
+  );
+}
+
+export function Analytics() {
+  return (
+    <Suspense fallback={null}>
+      <AnalyticsContent />
+    </Suspense>
   );
 }
