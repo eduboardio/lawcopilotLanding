@@ -344,7 +344,7 @@ async function processRequest(
       );
     }
 
-    // Check Google Sheets quota before proceeding
+    // Check Google Sheets quota before proceeding (lazy client for build-time safety)
     const quotaOk = await googleSheetsClient.checkQuota();
     if (!quotaOk) {
       logger.error('Google Sheets quota exceeded', undefined, {

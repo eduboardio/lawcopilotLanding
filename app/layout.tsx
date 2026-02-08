@@ -107,7 +107,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${nohemi.variable}`}>
+    <html lang="en" className={`${inter.variable} ${nohemi.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased">
         <JsonLdSchema />
         <ThemeProvider attribute="class"

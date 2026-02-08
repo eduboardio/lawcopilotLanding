@@ -174,7 +174,7 @@ export const Footer = () => {
                     <p className="text-sm text-muted-foreground dark:text-white/50">
                         © 2025 Law Copilot. All rights reserved.
                     </p>
-                    <div className="flex items-center gap-6 text-xs text-muted-foreground dark:text-white/40">
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground dark:text-white/40">
                         <span>Made in India 🇮🇳</span>
                         <span className="hidden md:inline">•</span>
                         <span>For Indian Legal Professionals</span>

@@ -51,12 +51,19 @@ class GoogleSheetsClient {
   };
   
   constructor() {
+    // Guard for build time: env vars are not available during Next.js build (e.g. in Docker).
+    const rawKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY;
+    const privateKey =
+      typeof rawKey === 'string' ? rawKey.replace(/\\n/g, '\n') : '';
+    const sheetId = process.env.GOOGLE_SHEETS_SHEET_ID ?? '';
+    const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL ?? '';
+
     this.config = {
-      sheetId: process.env.GOOGLE_SHEETS_SHEET_ID!,
-      clientEmail: process.env.GOOGLE_SHEETS_CLIENT_EMAIL!,
-      privateKey: process.env.GOOGLE_SHEETS_PRIVATE_KEY!.replace(/\\n/g, '\n'),
+      sheetId,
+      clientEmail,
+      privateKey,
     };
-    
+
     this.auth = new JWT({
       email: this.config.clientEmail,
       key: this.config.privateKey,
@@ -69,6 +76,14 @@ class GoogleSheetsClient {
     }
   }
   
+  private hasValidConfig(): boolean {
+    return Boolean(
+      this.config.sheetId &&
+        this.config.clientEmail &&
+        this.config.privateKey
+    );
+  }
+
   private async loadQuotaState(): Promise<void> {
     if (!PERSISTENCE_AVAILABLE || !loadQuotaData) return;
     
@@ -105,6 +120,10 @@ class GoogleSheetsClient {
   }
   
   async checkQuota(): Promise<boolean> {
+    if (!this.hasValidConfig()) {
+      logger.warn('Google Sheets not configured (missing env), rejecting quota check');
+      return false;
+    }
     this.resetQuotaCountersIfNeeded();
     
     if (this.quotaData.hourlyRequestCount >= HOURLY_QUOTA_LIMIT) {
@@ -179,6 +198,14 @@ class GoogleSheetsClient {
   }
   
   async addRow(data: Record<string, string>, signal?: AbortSignal): Promise<boolean> {
+    if (!this.hasValidConfig()) {
+      logger.error('Google Sheets not configured (missing env vars)', undefined, {
+        hasSheetId: Boolean(this.config.sheetId),
+        hasClientEmail: Boolean(this.config.clientEmail),
+        hasPrivateKey: Boolean(this.config.privateKey),
+      });
+      return false;
+    }
     try {
       await this.trackAPIUsage();
       
@@ -224,4 +251,21 @@ class GoogleSheetsClient {
   }
 }
 
-export const googleSheetsClient = new GoogleSheetsClient();
+// Lazy singleton: avoid running constructor at build time (env vars not set in Docker build).
+let _instance: GoogleSheetsClient | null = null;
+
+function getGoogleSheetsClient(): GoogleSheetsClient {
+  if (!_instance) {
+    _instance = new GoogleSheetsClient();
+  }
+  return _instance;
+}
+
+export const googleSheetsClient = {
+  get checkQuota() {
+    return getGoogleSheetsClient().checkQuota.bind(getGoogleSheetsClient());
+  },
+  get addRow() {
+    return getGoogleSheetsClient().addRow.bind(getGoogleSheetsClient());
+  },
+};
