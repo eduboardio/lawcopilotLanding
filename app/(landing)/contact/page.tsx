@@ -17,8 +17,8 @@ const contactInfo = [
   {
     icon: <Mail className="h-5 w-5" />,
     label: "Email",
-    value: "hello@lawcopilot.io",
-    href: "mailto:hello@lawcopilot.io"
+    value: "admin@lawcopilot.in",
+    href: "mailto:admin@lawcopilot.in"
   },
   {
     icon: <Phone className="h-5 w-5" />,
@@ -339,10 +339,10 @@ export default function ContactPage() {
                   <p className="mb-4 text-sm text-muted-foreground dark:text-white/70">
                     For general inquiries or quick questions, reach us directly at{" "}
                     <a
-                      href="mailto:hello@lawcopilot.io"
+                      href="mailto:admin@lawcopilot.in"
                       className="font-medium text-foreground hover:underline dark:text-white"
                     >
-                      hello@lawcopilot.io
+                      admin@lawcopilot.in
                     </a>
                   </p>
                 </div>

@@ -61,7 +61,7 @@ export const Footer = () => {
                                 <Linkedin className="h-5 w-5 text-muted-foreground dark:text-white/60 group-hover:text-foreground dark:group-hover:text-white transition-colors" />
                             </Link>
                             <Link 
-                                href="mailto:hello@lawcopilot.io" 
+                                href="mailto:admin@lawcopilot.in" 
                                 className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted dark:bg-white/[0.05] hover:bg-muted/80 dark:hover:bg-white/[0.08] transition-colors group"
                                 aria-label="Email"
                             >

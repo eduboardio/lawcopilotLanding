@@ -5,12 +5,12 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/website.png`;
 
 // Business (aligned with contact page)
 export const BUSINESS = {
-  email: "hello@lawcopilot.io",
+  email: "admin@lawcopilot.in",
   phone: "+91 9603354488",
   phoneTel: "+919603354488",
   address: "Hyderabad, Telangana, India",
   hours: "Mon-Fri, 9:00 AM - 5:00 PM IST",
-  legalName: "Law Co-Pilot LLP",
+  legalName: "LegalInit Private Limited",
 } as const;
 
 // Social (add X/Facebook URLs when created)

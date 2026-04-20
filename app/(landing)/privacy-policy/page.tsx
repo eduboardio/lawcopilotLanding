@@ -9,13 +9,13 @@ export default function PrivacyPolicyPage() {
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">Privacy Policy</h1>
         <div className="text-base md:text-lg text-muted-foreground mx-auto px-2 space-y-3">
           <p>
-            Law Co-Pilot LLP (&quot;Law Co-Pilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) respects your right to privacy, and we are committed to securing and protecting any information we collect from you.
+            LegalInit Private Limited (&quot;LawCopilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) respects your right to privacy, and we are committed to securing and protecting any information we collect from you.
           </p>
           <p>
             This Privacy Policy describes the ways we collect, use, and share information relating to an identifiable individual (&quot;Personal Data&quot;), and outlines how you can exercise your rights under applicable privacy and data protection laws.
           </p>
           <p>
-            Law Co-Pilot provides a secure AI-powered platform available as a software-as-a-service (&quot;SaaS&quot;) offering that assists with legal analysis, research, documentation and automation for professionals in the legal industry. We are headquartered and operate our data centers exclusively in India, ensuring your data remains stored locally.
+            LawCopilot provides a secure AI-powered platform available as a software-as-a-service (&quot;SaaS&quot;) offering that assists with legal analysis, research, documentation and automation for professionals in the legal industry. We are headquartered and operate our data centers exclusively in India, ensuring your data remains stored locally.
           </p>
           <p>
             This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of our Law-Copilot Products.
@@ -47,7 +47,7 @@ export default function PrivacyPolicyPage() {
             <div id="applicability" className="mb-8 text-left">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">1. Applicability of this Privacy Policy</h2>
               <p>
-                This Privacy Policy outlines how Law Co-Pilot LLP (&quot;Law Co-Pilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) collects, processes, and manages Personal Data obtained from or about you through our website (lawcopilot.in), our AI-powered software-as-a-service (&quot;SaaS&quot;) platform, associated applications, and all related services (&quot;Services&quot;), and through any other interactions you may have with us, such as customer support communications or marketing interactions.
+                This Privacy Policy outlines how LegalInit Private Limited (&quot;LawCopilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) collects, processes, and manages Personal Data obtained from or about you through our website (lawcopilot.in), our AI-powered software-as-a-service (&quot;SaaS&quot;) platform, associated applications, and all related services (&quot;Services&quot;), and through any other interactions you may have with us, such as customer support communications or marketing interactions.
               </p>
               <p>
                 Our Services are designed primarily for use by businesses, law firms, legal professionals, and other corporate entities (collectively, &quot;Customers&quot;) for professional purposes. We enter into specific contractual agreements with our Customers, such as our standard terms of service, customer agreements, data processing agreements, or other applicable contracts (&quot;Customer Agreements&quot;). These Customer Agreements govern the use of our platform, applications, and Services provided to our Customers.
@@ -56,10 +56,10 @@ export default function PrivacyPolicyPage() {
                 This Privacy Policy does not apply to data or content (&quot;Customer Data&quot; or &quot;Content&quot;) uploaded by Customers or generated through their use of our platform and applications. Such Customer Data and Content are processed strictly on behalf of our Customers, and our role with respect to such processing is solely that of a Data Processor under applicable data protection laws. The processing and protection of Customer Data and Content are governed exclusively by the relevant Customer Agreements, and any inquiries or concerns regarding such data must be directed to the respective Customers acting as the Data Controllers.
               </p>
               <p>
-                Law Co-Pilot acts as the Data Controller solely with respect to Personal Data collected directly by us or indirectly via your interactions with our website, platform, marketing activities, social media presence, and other communications not governed by separate Customer Agreements. This Privacy Policy governs our responsibilities and practices related to Personal Data only in these scenarios.
+                LawCopilot acts as the Data Controller solely with respect to Personal Data collected directly by us or indirectly via your interactions with our website, platform, marketing activities, social media presence, and other communications not governed by separate Customer Agreements. This Privacy Policy governs our responsibilities and practices related to Personal Data only in these scenarios.
               </p>
               <p>
-                We recommend reviewing this Privacy Policy thoroughly to ensure a complete understanding of how Law Co-Pilot handles your Personal Data.
+                We recommend reviewing this Privacy Policy thoroughly to ensure a complete understanding of how LawCopilot handles your Personal Data.
               </p>
             </div>
 
@@ -67,7 +67,7 @@ export default function PrivacyPolicyPage() {
             <div id="personal-data" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">2. Personal Data We Collect and Process</h2>
               <p>
-                In the course of operating our business, providing our Services, and through interactions with our website or platform, Law Co-Pilot LLP collects and receives Personal Data through various means and from multiple sources. This section outlines the categories of Personal Data we collect:
+                In the course of operating our business, providing our Services, and through interactions with our website or platform, LegalInit Private Limited collects and receives Personal Data through various means and from multiple sources. This section outlines the categories of Personal Data we collect:
               </p>
               <h3 className="text-lg md:text-xl font-medium mt-4 mb-2">Information Provided Directly by You</h3>
               <p>
@@ -141,7 +141,7 @@ export default function PrivacyPolicyPage() {
               <p>(Collectively, &quot;Third-Party Information&quot;).</p>
               <h3 className="text-lg md:text-xl font-medium mt-4 mb-2">Publicly Available Information</h3>
               <p>
-                We may collect data from publicly available sources, such as judgments, statutes, government databases, legal digests, or professional registries. This may be used to improve our Services, conduct AI model training, or support legal research functionalities. You can contact us at privacy@lawcopilot.in for further details about how such data is used and protected.
+                We may collect data from publicly available sources, such as judgments, statutes, government databases, legal digests, or professional registries. This may be used to improve our Services, conduct AI model training, or support legal research functionalities. You can contact us at admin@lawcopilot.in for further details about how such data is used and protected.
               </p>
             </div>
 
@@ -149,7 +149,7 @@ export default function PrivacyPolicyPage() {
             <div id="how-we-use" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">3. How We Use Personal Data</h2>
               <p>
-                Law Co-Pilot LLP uses the Personal Data described in this Privacy Policy exclusively for legitimate business purposes, to enhance your experience with our Services, ensure efficient operations, and meet legal obligations. Specifically, we process your Personal Data for the following purposes:
+                LegalInit Private Limited uses the Personal Data described in this Privacy Policy exclusively for legitimate business purposes, to enhance your experience with our Services, ensure efficient operations, and meet legal obligations. Specifically, we process your Personal Data for the following purposes:
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">To Provide and Maintain Our Services:</h3>
               <p>
@@ -206,11 +206,11 @@ export default function PrivacyPolicyPage() {
             <div id="who-we-share" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">4. Who We Share Your Personal Data With</h2>
               <p>
-                Law Co-Pilot LLP prioritizes the confidentiality and protection of your Personal Data. We do not sell or rent your Personal Data to third parties. However, for the effective provision of our Services and for legitimate business purposes, we may share your Personal Data with certain trusted entities under specific circumstances, as outlined below:
+                LegalInit Private Limited prioritizes the confidentiality and protection of your Personal Data. We do not sell or rent your Personal Data to third parties. However, for the effective provision of our Services and for legitimate business purposes, we may share your Personal Data with certain trusted entities under specific circumstances, as outlined below:
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">a) Affiliates and Group Companies:</h3>
               <p>
-                We may share your Personal Data, such as Account Information and Communication Information, with our corporate affiliates and subsidiaries within the Law Co-Pilot group of companies. This sharing is strictly limited to purposes described within this Privacy Policy, including internal administration, payment processing, customer support, fraud prevention, IT support, operational enhancements, technical assistance, and business development activities.
+                We may share your Personal Data, such as Account Information and Communication Information, with our corporate affiliates and subsidiaries within the LawCopilot group of companies. This sharing is strictly limited to purposes described within this Privacy Policy, including internal administration, payment processing, customer support, fraud prevention, IT support, operational enhancements, technical assistance, and business development activities.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">b) Trusted Service Providers:</h3>
               <p>
@@ -226,11 +226,11 @@ export default function PrivacyPolicyPage() {
               </ul>
               <h3 className="text-lg font-medium mt-4 mb-2">c) Integration with Third-Party Applications and Platforms:</h3>
               <p>
-                If you choose to integrate your Law Copilot account with external third-party applications (for example, Microsoft Office, Google Workspace, or similar platforms), certain Account Information and Usage Data may be shared with the providers of these third-party services. We advise you to carefully review the privacy policies and terms of service of any third-party applications or platforms before enabling such integrations, as their own privacy practices will govern how they manage your data.
+                If you choose to integrate your LawCopilot account with external third-party applications (for example, Microsoft Office, Google Workspace, or similar platforms), certain Account Information and Usage Data may be shared with the providers of these third-party services. We advise you to carefully review the privacy policies and terms of service of any third-party applications or platforms before enabling such integrations, as their own privacy practices will govern how they manage your data.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">d) Business Reorganization or Corporate Transactions:</h3>
               <p>
-                In the event of a business reorganization, merger, acquisition, sale, consolidation, liquidation, or transfer of all or a significant portion of Law Co-Pilot LLP&apos;s assets, we may share or transfer your Personal Data as part of the due diligence or transaction process. Should this occur, we will notify you directly and take all reasonable measures to ensure the continued protection and confidentiality of your Personal Data in accordance with this Privacy Policy.
+                In the event of a business reorganization, merger, acquisition, sale, consolidation, liquidation, or transfer of all or a significant portion of LegalInit Private Limited&apos;s assets, we may share or transfer your Personal Data as part of the due diligence or transaction process. Should this occur, we will notify you directly and take all reasonable measures to ensure the continued protection and confidentiality of your Personal Data in accordance with this Privacy Policy.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">e) Professional Advisors and Regulatory Authorities:</h3>
               <p>
@@ -239,7 +239,7 @@ export default function PrivacyPolicyPage() {
               <ul className="list-disc pl-6 mt-2 mb-4">
                 <li className="mb-1">Comply with applicable laws, regulations, legal obligations, court orders, or enforceable governmental requests.</li>
                 <li className="mb-1">Investigate, prevent, or address fraud, security incidents, violations of our terms of service, illegal activities, or potential threats.</li>
-                <li className="mb-1">Protect the rights, property, privacy, safety, and well-being of Law Co-Pilot LLP, our users, affiliates, employees, or the public.</li>
+                <li className="mb-1">Protect the rights, property, privacy, safety, and well-being of LegalInit Private Limited, our users, affiliates, employees, or the public.</li>
               </ul>
             </div>
 
@@ -247,7 +247,7 @@ export default function PrivacyPolicyPage() {
             <div id="security" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">5. How We Keep Your Personal Data Secure</h2>
               <p>
-                Law Co-Pilot LLP takes the security and confidentiality of your Personal Data very seriously. We have implemented robust technical, administrative, and organizational security measures designed to protect your Personal Data against unauthorized access, alteration, disclosure, loss, misuse, or destruction. These measures are regularly reviewed and updated to ensure they remain effective and appropriate to the evolving nature of the threats and risks involved.
+                LegalInit Private Limited takes the security and confidentiality of your Personal Data very seriously. We have implemented robust technical, administrative, and organizational security measures designed to protect your Personal Data against unauthorized access, alteration, disclosure, loss, misuse, or destruction. These measures are regularly reviewed and updated to ensure they remain effective and appropriate to the evolving nature of the threats and risks involved.
               </p>
               <p>
                 Specifically, our security measures include, but are not limited to:
@@ -281,7 +281,7 @@ export default function PrivacyPolicyPage() {
                 We conduct regular risk assessments, vulnerability scans, and penetration tests to proactively identify and mitigate security risks or vulnerabilities that could potentially compromise your Personal Data.
               </p>
               <p>
-                While we continuously strive to protect your Personal Data with comprehensive security measures, it is important to acknowledge that no security mechanism or transmission method is 100% foolproof. If you have any reason to believe that your interactions with us are no longer secure, please immediately notify us at privacy@lawcopilot.in.
+                While we continuously strive to protect your Personal Data with comprehensive security measures, it is important to acknowledge that no security mechanism or transmission method is 100% foolproof. If you have any reason to believe that your interactions with us are no longer secure, please immediately notify us at admin@lawcopilot.in.
               </p>
             </div>
 
@@ -289,7 +289,7 @@ export default function PrivacyPolicyPage() {
             <div id="transfers" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">6. International Data Transfers</h2>
               <p>
-                Law Co-Pilot LLP is committed to maintaining a robust framework for the protection, processing, and storage of Personal Data in compliance with the Digital Personal Data Protection Act, 2023 and other applicable Indian laws. To ensure strict adherence to data sovereignty principles, we have adopted the following international data transfer policy:
+                LegalInit Private Limited is committed to maintaining a robust framework for the protection, processing, and storage of Personal Data in compliance with the Digital Personal Data Protection Act, 2023 and other applicable Indian laws. To ensure strict adherence to data sovereignty principles, we have adopted the following international data transfer policy:
               </p>
               <p className="font-medium">6.1 Data Residency and Localization</p>
               <p>
@@ -338,14 +338,14 @@ export default function PrivacyPolicyPage() {
               </ul>
               <p className="font-medium">6.6 No Sale or Commercial Disclosure of Data</p>
               <p>
-                Law Co-Pilot LLP does not sell, rent, or commercially transfer your Personal Data to any foreign entity or third party in exchange for monetary or non-monetary consideration.
+                LegalInit Private Limited does not sell, rent, or commercially transfer your Personal Data to any foreign entity or third party in exchange for monetary or non-monetary consideration.
               </p>
               <p className="font-medium">6.7 Questions and Transparency</p>
               <p>
                 We believe in transparency and accountability. If you have any questions or concerns regarding international data transfers, third-party services, or our data localization policies, please contact:
               </p>
               <p>
-                Email: privacy@lawcopilot.in
+                Email: admin@lawcopilot.in
               </p>
             </div>
 
@@ -353,7 +353,7 @@ export default function PrivacyPolicyPage() {
             <div id="retention" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">7. Data Retention</h2>
               <p>
-                Law Co-Pilot LLP retains your Personal Data only for as long as necessary to fulfill the specific purposes for which we collected the data, as described in this Privacy Policy, and in compliance with applicable laws and regulations.
+                LegalInit Private Limited retains your Personal Data only for as long as necessary to fulfill the specific purposes for which we collected the data, as described in this Privacy Policy, and in compliance with applicable laws and regulations.
               </p>
               <p>Our data retention practices take into account several factors, including:</p>
               <h3 className="text-lg font-medium mt-4 mb-2">Terms of Customer Agreements:</h3>
@@ -369,13 +369,13 @@ export default function PrivacyPolicyPage() {
                 In cases involving disputes, potential legal claims, or violations of our terms or policies, we may retain relevant Personal Data as long as necessary to resolve such matters or to protect our legal rights.
               </p>
               <p>
-                When Law Co-Pilot LLP no longer has any ongoing legitimate business purpose or legal justification to process your Personal Data, we will either securely delete your data or anonymize it in such a manner that it can no longer be used to identify you individually.
+                When LegalInit Private Limited no longer has any ongoing legitimate business purpose or legal justification to process your Personal Data, we will either securely delete your data or anonymize it in such a manner that it can no longer be used to identify you individually.
               </p>
               <p>
                 In circumstances where immediate deletion is not feasible (such as when data is stored within secure backup archives), we will isolate your Personal Data securely, ensuring it remains protected from further processing or unauthorized access until deletion or anonymization becomes technically possible.
               </p>
               <p>
-                If you have specific questions regarding our data retention practices or wish to request deletion or correction of your Personal Data, please contact us at privacy@lawcopilot.in.
+                If you have specific questions regarding our data retention practices or wish to request deletion or correction of your Personal Data, please contact us at admin@lawcopilot.in.
               </p>
             </div>
 
@@ -418,7 +418,7 @@ export default function PrivacyPolicyPage() {
             <div id="children" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">9. Children&apos;s Privacy</h2>
               <p>
-                Our website and Services are not intended for use by individuals under the age of 18. Law Co-Pilot LLP does not knowingly collect, solicit, or process Personal Data from individuals under the age of 18. If you are a parent or legal guardian and believe that a minor under the age of 18 has provided us with Personal Data through our Services, please contact us at privacy@lawcopilot.in. Upon verification, we will take appropriate steps to delete such information from our records in accordance with applicable data protection laws.
+                Our website and Services are not intended for use by individuals under the age of 18. LegalInit Private Limited does not knowingly collect, solicit, or process Personal Data from individuals under the age of 18. If you are a parent or legal guardian and believe that a minor under the age of 18 has provided us with Personal Data through our Services, please contact us at admin@lawcopilot.in. Upon verification, we will take appropriate steps to delete such information from our records in accordance with applicable data protection laws.
               </p>
             </div>
 
@@ -443,12 +443,12 @@ export default function PrivacyPolicyPage() {
                 If you have any questions, concerns, or requests regarding this Privacy Policy or our handling of your Personal Data, please feel free to contact our Data Protection Officer at:
               </p>
               <p>
-                📧 Email: privacy@lawcopilot.in
+                📧 Email: admin@lawcopilot.in
               </p>
               <p>
                 📬 Postal Address:<br />
-                Law Co-Pilot LLP<br />
-                3-104/43, Hyderabad, Telengana, 500089<br />
+                LegalInit Private Limited<br />
+                Vizag Deck, Sethamadhara Road, Visakhapatnam, Andhra Pradesh, 530022<br />
                 India
               </p>
               <p>

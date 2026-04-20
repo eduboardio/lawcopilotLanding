@@ -50,11 +50,11 @@ function JsonLdSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Law Copilot",
-    legalName: "Law Co-Pilot LLP",
+    legalName: "LegalInit Private Limited",
     url: SITE_URL,
     logo: `${SITE_URL}/Light-Logo.png`,
     description: defaultDescription,
-    email: "hello@lawcopilot.io",
+    email: "admin@lawcopilot.in",
     telephone: "+91-9603354488",
     address: {
       "@type": "PostalAddress",
@@ -65,7 +65,7 @@ function JsonLdSchema() {
     sameAs: [SOCIAL.instagram, SOCIAL.linkedin].filter(Boolean),
     contactPoint: {
       "@type": "ContactPoint",
-      email: "hello@lawcopilot.io",
+      email: "admin@lawcopilot.in",
       telephone: "+91-9603354488",
       contactType: "customer service",
       areaServed: "IN",
@@ -82,7 +82,7 @@ function JsonLdSchema() {
     image: `${SITE_URL}/website.png`,
     url: SITE_URL,
     telephone: "+91-9603354488",
-    email: "hello@lawcopilot.io",
+    email: "admin@lawcopilot.in",
     address: { "@type": "PostalAddress", addressLocality: "Hyderabad", addressRegion: "Telangana", addressCountry: "IN" },
     openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "17:00" },
   };
