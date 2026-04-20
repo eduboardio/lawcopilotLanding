@@ -46,14 +46,14 @@ export const Hero = () => {
             <span className="block md:hidden">
               <span className="text-foreground dark:text-white">Legal Practice Reimagined</span>
               <br />
-              <span className="text-foreground/80 dark:text-white/90">with AI for India</span>
+              <span className="text-foreground/80 dark:text-white/90">with LawCopilot</span>
             </span>
             {/* Desktop: two blocks with gap */}
             <span className="hidden md:block text-foreground dark:text-white">
               Legal Practice Reimagined
             </span>
             <span className="hidden md:block mt-2 md:mt-3 text-foreground/80 dark:text-white/90">
-              with AI for India
+              with LawCopilot
             </span>
           </motion.h1>
 
