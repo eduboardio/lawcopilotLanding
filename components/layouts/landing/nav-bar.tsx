@@ -490,7 +490,7 @@ export const Navbar = () => {
         >
             <div className="container mx-auto flex justify-between items-center px-3 sm:px-4 md:px-6 relative">
                 {/* Logo - Left */}
-                <Logo />
+                <Logo scrolled={scrolled} />
 
                 {/* Desktop Navigation - Center */}
                 <DesktopNavigation
@@ -528,7 +528,7 @@ export const Navbar = () => {
                                 <div>
                                     <SheetHeader className="mb-4 sm:mb-6">
                                         <SheetTitle className="flex items-center justify-center">
-                                            <Logo type="FULL" />
+                                            <Logo type="FULL" scrolled={scrolled} />
                                         </SheetTitle>
                                     </SheetHeader>
 
