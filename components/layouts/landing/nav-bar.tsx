@@ -193,7 +193,6 @@ const CallToActions = memo(({ classes }: {
     classes?: {
         container?: string;
         buttonSignIn?: string;
-        buttonGetStarted?: string;
     };
 }) => {
     return (
@@ -204,12 +203,6 @@ const CallToActions = memo(({ classes }: {
                 asChild
             >
                 <Link href="https://app.lawcopilot.io/signin">Sign In</Link>
-            </Button>
-            <Button
-                className={cn("font-medium text-xs sm:text-sm", classes?.buttonGetStarted)}
-                asChild
-            >
-                <Link href="https://app.lawcopilot.io/signup">Get Started</Link>
             </Button>
         </div>
     );
@@ -515,7 +508,6 @@ export const Navbar = () => {
                             classes={{
                                 container: "flex gap-2 md:gap-3 lg:gap-4",
                                 buttonSignIn: "bg-secondary/80 hover:bg-secondary text-secondary-foreground h-8 sm:h-9 px-3 sm:px-4",
-                                buttonGetStarted: "bg-primary hover:bg-primary/90 text-primary-foreground h-8 sm:h-9 px-3 sm:px-4"
                             }}
                         />
                     </div>
@@ -607,9 +599,8 @@ export const Navbar = () => {
 
                                     <CallToActions
                                         classes={{
-                                            container: "w-full grid grid-cols-2 gap-2 sm:gap-4",
+                                            container: "w-full",
                                             buttonSignIn: "w-full bg-secondary/80 hover:bg-secondary text-xs sm:text-sm h-9 sm:h-10",
-                                            buttonGetStarted: "w-full bg-primary hover:bg-primary/90 text-xs sm:text-sm h-9 sm:h-10"
                                         }}
                                     />
                                 </SheetFooter>

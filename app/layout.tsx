@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: defaultTitle, template: `%s | ${SITE_NAME}` },
   description: defaultDescription,
+  icons: {
+    icon: [{ url: "/DarkIcon.png", type: "image/png", sizes: "any" }],
+    shortcut: "/DarkIcon.png",
+    apple: "/DarkIcon.png",
+  },
   keywords: ["legal AI", "Indian legal", "legal research", "document drafting", "case analytics", "law firm software", "legal technology"],
   alternates: { canonical: "/" },
   openGraph: {
@@ -36,7 +41,7 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   verification: {
-    google: "W3bd2hzOvfX3suaUmAb3v5bXZczkIRRDhrDO9L2kf8A",
+    google: "7A0Lq4gl49MPMaSgrVSFW3KQULsff6ySqUwYQ_Gi1kk",
   },
 };
 

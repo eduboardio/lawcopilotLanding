@@ -3,9 +3,8 @@
 import { ROUTES_WITHOUT_FOOTER } from "@/constants";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Mail, Linkedin, ArrowRight, Instagram } from "lucide-react";
+import { Mail, Linkedin, Instagram } from "lucide-react";
 import { SOCIAL } from "@/constants";
-import { Button } from "@/components/ui/button";
 import { LogoText }from "@/components/logo_text";
 
 export const Footer = () => {
@@ -20,28 +19,6 @@ export const Footer = () => {
             <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
                 <div className="absolute left-1/4 top-0 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
                 <div className="absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-gradient-to-tl from-foreground/[0.015] to-transparent blur-3xl dark:from-white/[0.015]"></div>
-            </div>
-
-            {/* Top CTA Section */}
-            <div className="container relative z-10 py-16 mx-auto px-6">
-                <div className="text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-4">
-                        Ready to Transform Your Legal Practice?
-                    </h2>
-                    <p className="text-muted-foreground dark:text-white/70 mb-8 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-                        Join hundreds of legal professionals already using Law Copilot to work faster and smarter.
-                    </p>
-                    <Button
-                        size="lg"
-                        className="rounded-lg bg-foreground hover:bg-foreground/90 dark:bg-white dark:hover:bg-white/90 text-primary-foreground font-semibold px-8 shadow-lg hover:shadow-xl transition-all group"
-                        asChild
-                    >
-                        <Link href="https://app.lawcopilot.io/signup">
-                            Get Started Free
-                            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                        </Link>
-                    </Button>
-                </div>
             </div>
 
             {/* Full-width Separator */}

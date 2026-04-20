@@ -2,9 +2,6 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
 import { ProductDemo } from "./ProductDemo";
-import { Button } from "../ui/button";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 const BackgroundElements = memo(() => (
   <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
@@ -74,21 +71,6 @@ export const Hero = () => {
             <p className="text-base md:text-lg lg:text-xl text-muted-foreground dark:text-white/70 font-light leading-relaxed">
               Research case law with context. Draft compliant documents in minutes. Analyse complex materials with structured insights. Designed for Indian courts, statutes, and legal language.
             </p>
-          </motion.div>
-
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="md:pt-2"
-          >
-            <Button
-              className={cn("font-heading font-medium text-sm md:text-base px-4 md:px-6 py-5 md:py-3 h-auto shadow-lg hover:shadow-xl transition-shadow")}
-              asChild
-            >
-              <Link href="https://app.lawcopilot.io/signup">Get Started Free</Link>
-            </Button>
           </motion.div>
         </div>
 
