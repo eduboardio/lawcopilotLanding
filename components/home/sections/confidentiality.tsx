@@ -13,7 +13,7 @@ export function Confidentiality() {
   return (
     <section id="security" className="w-full scroll-mt-20 border-b border-border bg-muted/30 py-20 md:py-28">
       <Container>
-        <SectionHeader layout="stack" eyebrow="Confidentiality" title="As confidential as your own chambers." />
+        <SectionHeader eyebrow="Confidentiality" title="As confidential as your own chambers." />
         <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {ITEMS.map(({ icon: Icon, title, body }) => (
             <li key={title} className="flex flex-col gap-2.5 rounded-2xl border border-border bg-card p-6">

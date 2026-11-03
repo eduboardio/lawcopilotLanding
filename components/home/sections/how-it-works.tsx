@@ -42,7 +42,6 @@ export function HowItWorks() {
     <section id="how" className="w-full scroll-mt-20 border-b border-border bg-muted/30 py-20 md:py-28">
       <Container>
         <SectionHeader
-          layout="stack"
           eyebrow="How it works with you"
           title="You stay the advocate on record."
           lead="LawCopilot does the groundwork the way a careful junior would. The judgment calls, and the signature, stay with you."

@@ -85,36 +85,23 @@ export function SectionTitle({ children, className }: { children: ReactNode; cla
   );
 }
 
-/** Eyebrow and title on the left, a short lead on the right (stacks on phones). */
+/** Eyebrow, title and an optional lead, stacked and left-aligned so the lead reads as part of the title. */
 export function SectionHeader({
   eyebrow,
   title,
   lead,
-  layout = "split",
+  className,
 }: {
   eyebrow: string;
   title: ReactNode;
   lead?: ReactNode;
-  layout?: "split" | "stack";
+  className?: string;
 }) {
-  if (layout === "stack") {
-    return (
-      <div className="flex max-w-2xl flex-col gap-4">
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <SectionTitle>{title}</SectionTitle>
-        {lead ? <p className="text-base leading-relaxed text-muted-foreground md:text-lg">{lead}</p> : null}
-      </div>
-    );
-  }
   return (
-    <div className="flex flex-wrap items-end justify-between gap-6">
-      <div className="flex max-w-[40rem] flex-col gap-4">
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <SectionTitle>{title}</SectionTitle>
-      </div>
-      {lead ? (
-        <p className="max-w-sm text-base leading-relaxed text-muted-foreground md:text-lg">{lead}</p>
-      ) : null}
+    <div className={cn("flex max-w-3xl flex-col gap-4", className)}>
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <SectionTitle>{title}</SectionTitle>
+      {lead ? <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">{lead}</p> : null}
     </div>
   );
 }

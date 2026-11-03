@@ -36,7 +36,7 @@ export function InsideTheMatter() {
         <SectionHeader
           eyebrow="Inside the matter"
           title="It works inside the case, alongside your team."
-          lead="Each case holds its documents, the work done on it, its standing tasks and its dates. Share it with your firm and everyone works from the same file."
+          lead="Each case holds its documents, the work done on it, its standing tasks and its dates. Share it with your team and everyone works from the same file."
         />
 
         <div className="mt-12 overflow-hidden rounded-2xl border border-border bg-card text-card-foreground shadow-[0_24px_48px_-28px_rgba(0,0,0,0.2)]">
@@ -55,7 +55,7 @@ export function InsideTheMatter() {
                   <Initials className="bg-foreground/15 text-foreground">SA</Initials>
                   <Initials className="bg-foreground/5 text-foreground/80">JR</Initials>
                 </span>
-                Shared with your firm
+                Shared with your team
               </p>
               <Link
                 href={SIGNUP_URL}
