@@ -93,8 +93,28 @@ const STEPS = new Map<StepKey, StepCopy>([
 type Stage = {
   label: string;
   chip: { tone: Tone; text: string };
+};
+
+const STAGES: Stage[] = [
+  { label: "Brief", chip: { tone: "neutral", text: "Assigned · just now" } },
+  { label: "It asks", chip: { tone: "waiting", text: "Needs your answer" } },
+  { label: "It works", chip: { tone: "running", text: "Working" } },
+  { label: "You review", chip: { tone: "waiting", text: "Ready for review" } },
+  { label: "You sign", chip: { tone: "done", text: "Signed off" } },
+];
+
+const BRIEF = 0;
+const ASKS = 1;
+const WORKS = 2;
+const REVIEW = 3;
+const SIGN = 4;
+
+type Frame = {
+  stage: number;
   rows: [StepKey, StepState][];
-  /** How long the walkthrough stays on this stage, in ms. */
+  /** Shows the question card under the rows. */
+  ask?: boolean;
+  /** How long the walkthrough stays on this frame, in ms. */
   dwell: number;
 };
 
@@ -107,53 +127,27 @@ const ALL_DONE: [StepKey, StepState][] = [
   ["check", "done"],
 ];
 
-const STAGES: Stage[] = [
-  {
-    label: "Brief",
-    chip: { tone: "neutral", text: "Assigned · just now" },
-    rows: [
-      ["read", "plan"],
-      ["law", "plan"],
-      ["precedent", "plan"],
-      ["draft", "plan"],
-      ["check", "plan"],
-    ],
-    dwell: 3200,
-  },
-  {
-    label: "It asks",
-    chip: { tone: "waiting", text: "Needs your answer" },
-    rows: [["read", "done"]],
-    dwell: 4600,
-  },
-  {
-    label: "It works",
-    chip: { tone: "running", text: "Working" },
-    rows: [
-      ["read", "done"],
-      ["ask", "done"],
-      ["law", "done"],
-      ["precedent", "done"],
-      ["draft", "running"],
-      ["check", "plan"],
-    ],
-    dwell: 5200,
-  },
-  {
-    label: "You review",
-    chip: { tone: "waiting", text: "Ready for review" },
-    rows: ALL_DONE,
-    dwell: 4200,
-  },
-  {
-    label: "You sign",
-    chip: { tone: "done", text: "Signed off" },
-    rows: ALL_DONE,
-    dwell: 3600,
-  },
+/*
+ * The walkthrough as a timeline, so something moves within the first second:
+ * the plan, the file being read, one question before it goes further, each
+ * step running and ticking off, then review and sign-off. About 17 seconds a loop.
+ */
+const FRAMES: Frame[] = [
+  { stage: BRIEF, dwell: 1000, rows: [["read", "plan"], ["law", "plan"], ["precedent", "plan"], ["draft", "plan"], ["check", "plan"]] },
+  { stage: BRIEF, dwell: 1100, rows: [["read", "running"], ["law", "plan"], ["precedent", "plan"], ["draft", "plan"], ["check", "plan"]] },
+  { stage: ASKS, dwell: 3000, ask: true, rows: [["read", "done"]] },
+  { stage: WORKS, dwell: 1100, rows: [["read", "done"], ["ask", "done"], ["law", "running"], ["precedent", "plan"], ["draft", "plan"], ["check", "plan"]] },
+  { stage: WORKS, dwell: 900, rows: [["read", "done"], ["ask", "done"], ["law", "done"], ["precedent", "running"], ["draft", "plan"], ["check", "plan"]] },
+  { stage: WORKS, dwell: 2600, rows: [["read", "done"], ["ask", "done"], ["law", "done"], ["precedent", "done"], ["draft", "running"], ["check", "plan"]] },
+  { stage: WORKS, dwell: 1100, rows: [["read", "done"], ["ask", "done"], ["law", "done"], ["precedent", "done"], ["draft", "done"], ["check", "running"]] },
+  { stage: REVIEW, dwell: 3400, rows: ALL_DONE },
+  { stage: SIGN, dwell: 2800, rows: ALL_DONE },
 ];
 
-const WORKING = 2;
+/** Where each stage button jumps to: that stage's most telling frame. */
+const STAGE_ENTRY = [0, 2, 5, 7, 8];
+const DRAFTING = 5;
+
 const ANSWERS = [
   "During cross-examination, December 2025",
   "Before the written statement was filed",
@@ -162,6 +156,10 @@ const ANSWERS = [
 
 function stageAt(index: number) {
   return STAGES.at(index) ?? STAGES[2];
+}
+
+function frameAt(index: number) {
+  return FRAMES.at(index) ?? FRAMES[5];
 }
 
 function clock(seconds: number) {
@@ -200,11 +198,13 @@ function Action({
  * live one sits on top. `render(i, ghost)` draws stage `i`.
  */
 function SameSize({
+  count,
   active,
   className,
   layerClassName,
   render,
 }: {
+  count: number;
   active: number;
   className?: string;
   layerClassName?: string;
@@ -212,8 +212,8 @@ function SameSize({
 }) {
   return (
     <div className={cn("grid", className)}>
-      {STAGES.map((stage, i) => (
-        <div key={stage.label} aria-hidden className={cn("invisible col-start-1 row-start-1 min-w-0", layerClassName)}>
+      {Array.from({ length: count }, (_, i) => (
+        <div key={i} aria-hidden className={cn("invisible col-start-1 row-start-1 min-w-0", layerClassName)}>
           {render(i, true)}
         </div>
       ))}
@@ -222,16 +222,24 @@ function SameSize({
   );
 }
 
-function Marker({ state }: { state: StepState }) {
+function Marker({ state, still }: { state: StepState; still: boolean }) {
   return (
     <span className="relative z-10 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-card ring-1 ring-border">
-      {state === "done" ? (
-        <Check aria-hidden strokeWidth={3} className="h-3 w-3 text-emerald-600 dark:text-emerald-500" />
-      ) : state === "running" ? (
-        <LoaderCircle aria-hidden className="h-3 w-3 animate-spin text-foreground motion-reduce:animate-none" />
-      ) : (
-        <Minus aria-hidden className="h-2.5 w-2.5 text-muted-foreground" />
-      )}
+      <motion.span
+        key={state}
+        initial={still ? false : { scale: 0.4, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 500, damping: 22 }}
+        className="flex"
+      >
+        {state === "done" ? (
+          <Check aria-hidden strokeWidth={3} className="h-3 w-3 text-emerald-600 dark:text-emerald-500" />
+        ) : state === "running" ? (
+          <LoaderCircle aria-hidden className="h-3 w-3 animate-spin text-foreground motion-reduce:animate-none" />
+        ) : (
+          <Minus aria-hidden className="h-2.5 w-2.5 text-muted-foreground" />
+        )}
+      </motion.span>
     </span>
   );
 }
@@ -307,35 +315,38 @@ export function MatterCard() {
 
   // Plays from the brief by default. Under reduced motion it still steps through the
   // stages, but every change is instant and nothing spins; the pause button stops it.
-  const [stage, setStage] = useState(0);
+  const [frame, setFrame] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
   const [answer, setAnswer] = useState(0);
   const [elapsed, setElapsed] = useState(0);
 
-  const current = stageAt(stage);
+  const current = frameAt(frame);
+  const stage = current.stage;
+  const hasRunning = current.rows.some(([, state]) => state === "running");
 
-  // Walk through the stages while the card is on screen.
+  // Play the timeline while the card is on screen.
   useEffect(() => {
     if (!autoplay || !inView) return;
-    const timer = setTimeout(() => setStage((s) => (s + 1) % STAGES.length), current.dwell);
+    const timer = setTimeout(() => setFrame((f) => (f + 1) % FRAMES.length), current.dwell);
     return () => clearTimeout(timer);
-  }, [stage, autoplay, inView, current.dwell]);
+  }, [frame, autoplay, inView, current.dwell]);
 
   // The running step's clock, like the app's live trail.
   useEffect(() => {
     setElapsed(0);
-    if (stage !== WORKING || reduceMotion) return;
+    if (!hasRunning || reduceMotion) return;
     const tick = setInterval(() => setElapsed((e) => e + 1), 1000);
     return () => clearInterval(tick);
-  }, [stage, reduceMotion]);
+  }, [frame, hasRunning, reduceMotion]);
 
-  const goTo = (next: number) => {
+  const goToFrame = (next: number) => {
     setAutoplay(false);
-    setStage(next);
+    setFrame(next);
   };
+  const goToStage = (next: number) => goToFrame(STAGE_ENTRY.at(next) ?? 0);
 
   const renderTrail = (index: number, ghost: boolean) => {
-    const { rows } = stageAt(index);
+    const { rows, ask } = frameAt(index);
     return (
       <>
         <ol aria-label={ghost ? undefined : "Steps"} className="flex flex-col">
@@ -353,7 +364,7 @@ export function MatterCard() {
                 className="flex gap-3"
               >
                 <span className="flex w-[18px] shrink-0 flex-col items-center">
-                  <Marker state={state} />
+                  <Marker state={state} still={ghost || !!reduceMotion} />
                   {i < rows.length - 1 ? <span className="mt-0.5 w-px flex-1 bg-border" /> : null}
                 </span>
                 <div className="flex min-w-0 flex-1 justify-between gap-3 pb-3">
@@ -374,7 +385,7 @@ export function MatterCard() {
             );
           })}
         </ol>
-        {index === 1 ? (
+        {ask ? (
           <motion.div
             initial={ghost ? false : { opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -387,7 +398,7 @@ export function MatterCard() {
                 setAutoplay(false);
                 setAnswer(i);
               }}
-              onConfirm={() => goTo(WORKING)}
+              onConfirm={() => goToFrame(DRAFTING)}
             />
           </motion.div>
         ) : null}
@@ -396,24 +407,24 @@ export function MatterCard() {
   };
 
   const renderFooter = (index: number, ghost: boolean) => {
-    if (index === 0) {
+    if (index === BRIEF) {
       return (
         <p className="text-sm leading-relaxed text-foreground/80">
           It has the file and a plan. Each step shows here.
         </p>
       );
     }
-    if (index === 1) {
+    if (index === ASKS) {
       return <p className="text-sm leading-relaxed text-foreground/80">Paused for your answer. It asks rather than guesses.</p>;
     }
-    if (index === WORKING) {
+    if (index === WORKS) {
       return (
         <p className="text-sm leading-relaxed text-foreground/80">
           Close the window — the desktop app pings you when it’s done.
         </p>
       );
     }
-    if (index === 3) {
+    if (index === REVIEW) {
       return (
         <div className="flex flex-wrap items-center justify-between gap-3 sm:flex-nowrap">
           <div className="flex min-w-0 flex-1 items-center gap-3">
@@ -429,7 +440,7 @@ export function MatterCard() {
             <Action ghost={ghost} onClick={() => setAutoplay(false)} className={secondaryButton}>
               Open draft
             </Action>
-            <Action ghost={ghost} onClick={() => goTo(4)} className={primaryButton}>
+            <Action ghost={ghost} onClick={() => goToStage(SIGN)} className={primaryButton}>
               Sign off
             </Action>
           </div>
@@ -446,7 +457,7 @@ export function MatterCard() {
             <span className="font-medium">Signed off by you.</span> Ready to file.
           </span>
         </p>
-        <Action ghost={ghost} onClick={() => goTo(0)} className={secondaryButton}>
+        <Action ghost={ghost} onClick={() => goToStage(BRIEF)} className={secondaryButton}>
           Next task
         </Action>
       </div>
@@ -470,6 +481,7 @@ export function MatterCard() {
             </p>
           </div>
           <SameSize
+            count={STAGES.length}
             active={stage}
             className="shrink-0 justify-items-start sm:justify-items-end"
             render={(i) => (
@@ -506,9 +518,10 @@ export function MatterCard() {
           </div>
         </div>
 
-        <SameSize active={stage} className="px-5 pt-4 sm:px-6" render={renderTrail} />
+        <SameSize count={FRAMES.length} active={frame} className="px-5 pt-4 sm:px-6" render={renderTrail} />
 
         <SameSize
+          count={STAGES.length}
           active={stage}
           className="border-t border-border/70 bg-muted/40 px-5 py-3 sm:px-6"
           layerClassName="flex flex-col justify-center"
@@ -525,7 +538,7 @@ export function MatterCard() {
                 key={s.label}
                 type="button"
                 aria-pressed={on}
-                onClick={() => goTo(i)}
+                onClick={() => goToStage(i)}
                 className={cn(
                   "flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-xl border px-1 py-1.5 text-xs font-medium leading-tight transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   on

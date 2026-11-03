@@ -6,6 +6,14 @@ import { ArrowRight } from "lucide-react";
 import { MatterCard } from "./sections/matter-card";
 import { Container, SIGNUP_URL } from "./sections/primitives";
 
+const JOBS = [
+  { label: "Document briefs", href: "/#work" },
+  { label: "Paper books", href: "/#work" },
+  { label: "Tabular reviews", href: "/#work" },
+  { label: "Drafting", href: "/#work" },
+  { label: "Cause lists", href: "/#watch" },
+];
+
 export const Hero = () => {
   const reduceMotion = useReducedMotion();
   // `initial` must be identical on the server and the client, or hydration keeps the
@@ -23,7 +31,7 @@ export const Hero = () => {
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:80px_80px] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)]"
       />
 
-      <Container className="relative z-10 grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14 lg:py-14">
+      <Container className="relative z-10 grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14 lg:pb-14 lg:pt-10">
         <div className="flex min-w-0 flex-col items-start gap-7">
           <motion.h1
             {...rise(0.08)}
@@ -34,8 +42,7 @@ export const Hero = () => {
           </motion.h1>
 
           <motion.p {...rise(0.16)} className="max-w-lg text-lg leading-relaxed text-foreground/80 md:text-xl">
-            LawCopilot reads the record, researches, drafts and keeps watch on your matters — and checks with you
-            before anything leaves.
+            Legal AI that reads the record, researches and drafts — then checks with you before anything leaves.
           </motion.p>
 
           <motion.div {...rise(0.24)} className="flex flex-wrap gap-3">
@@ -52,6 +59,23 @@ export const Hero = () => {
               See the work it does
               <ArrowRight aria-hidden className="h-4 w-4" />
             </Link>
+          </motion.div>
+
+          {/* The range of work at a glance, each a way into the page. */}
+          <motion.div {...rise(0.32)} className="flex flex-col items-start gap-2.5">
+            <span className="text-[13px] text-muted-foreground">It takes on</span>
+            <ul className="flex flex-wrap gap-1.5">
+              {JOBS.map((job) => (
+                <li key={job.label}>
+                  <Link
+                    href={job.href}
+                    className="inline-flex min-h-8 items-center rounded-full border border-border bg-background/60 px-2.5 text-[13px] text-foreground/80 transition-colors hover:border-foreground/30 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {job.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         </div>
 
