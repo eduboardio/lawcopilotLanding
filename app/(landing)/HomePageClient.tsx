@@ -29,14 +29,13 @@ const FitsWorkflow = lazy(() =>
 const Confidentiality = lazy(() =>
   import("@/components/home/sections/confidentiality").then((m) => ({ default: m.Confidentiality }))
 );
-const Faq = lazy(() => import("@/components/home/sections/faq").then((m) => ({ default: m.Faq })));
 const ClosingCta = lazy(() =>
   import("@/components/home/sections/closing-cta").then((m) => ({ default: m.ClosingCta }))
 );
 
 // Hand over the file → where your files live → what comes back → how you stay in
 // charge → what it does on its own → where it lives → the tools it fits →
-// confidentiality in detail → questions → start.
+// confidentiality in detail → start. Questions live on /faq, linked from the footer.
 const sections: SectionConfig[] = [
   { component: Hero, priority: true },
   { component: TrustBand, priority: true },
@@ -46,7 +45,6 @@ const sections: SectionConfig[] = [
   { component: InsideTheMatter },
   { component: FitsWorkflow },
   { component: Confidentiality },
-  { component: Faq },
   { component: ClosingCta },
 ];
 

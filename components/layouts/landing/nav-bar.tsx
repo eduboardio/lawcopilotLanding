@@ -42,11 +42,10 @@ interface RouteProps {
     };
 }
 
-// Four plain links. The logo goes home; the product pages stay linked from the footer.
+// Three plain links. The logo goes home; FAQ and the product pages are linked from the footer.
 const routeList: RouteProps[] = [
     { href: "/#work", label: "Product" },
     { href: "/#security", label: "Security" },
-    { href: "/#faq", label: "FAQ" },
     { href: "/contact", label: "Contact" },
 ];
 
