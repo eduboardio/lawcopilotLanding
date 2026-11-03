@@ -1,5 +1,5 @@
 "use client";
-import { Menu, ChevronDown, Scale, FileText, Search, FileCheck, Brain, Building2, Globe } from "lucide-react";
+import { Menu, ChevronDown, Scale, FileText, FileCheck, Brain, Building2, Globe, CalendarClock, Briefcase, ShieldCheck } from "lucide-react";
 import { useCallback, useEffect, useState, memo, useRef } from "react";
 import {
     Sheet,
@@ -89,34 +89,34 @@ const routeList: RouteProps[] = [
         },
     },
     {
-        href: "/#features",
+        href: "/#work",
         label: "Features",
         subMenu: {
-            title: "Platform Capabilities",
+            title: "What it does",
             items: [
                 {
-                    href: "/#legal-drafting",
-                    label: "Legal Drafting",
-                    description: "AI-powered document generation",
+                    href: "/#work",
+                    label: "The work",
+                    description: "Briefs, reviews, paper books and drafts",
                     icon: FileText
                 },
                 {
-                    href: "/#legal-research",
-                    label: "Legal Research",
-                    description: "Comprehensive case law search",
-                    icon: Search
+                    href: "/#watch",
+                    label: "Standing jobs",
+                    description: "Cause lists, inboxes and follow-ups, on a schedule",
+                    icon: CalendarClock
                 },
                 {
-                    href: "/#document-analysis",
-                    label: "Document Analysis",
-                    description: "Smart contract & agreement review",
+                    href: "/#matter",
+                    label: "Inside the matter",
+                    description: "Every case's work, tasks and dates in one place",
+                    icon: Briefcase
+                },
+                {
+                    href: "/#how",
+                    label: "How it works",
+                    description: "It asks, shows its steps, and waits for your sign-off",
                     icon: FileCheck
-                },
-                {
-                    href: "/#case-intelligence",
-                    label: "Case Intelligence",
-                    description: "Precedent analysis & insights",
-                    icon: Brain
                 },
             ],
             visuals: [
@@ -136,33 +136,33 @@ const routeList: RouteProps[] = [
         },
     },
     {
-        href: "/#benefits",
+        href: "/#how",
         label: "Why Us?",
         subMenu: {
             title: "Law Copilot Advantage",
             items: [
                 {
-                    href: "/#benefits",
-                    label: "India-First Platform",
-                    description: "Built for Indian legal practice",
+                    href: "/#how",
+                    label: "You stay in charge",
+                    description: "Nothing leaves without your sign-off",
                     icon: Scale
                 },
                 {
-                    href: "/#benefits",
-                    label: "Custom AI Engine",
-                    description: "Purpose-built legal intelligence",
+                    href: "/#work",
+                    label: "Built for Indian practice",
+                    description: "Paper books, cause lists, Title / EC reviews",
                     icon: Brain
                 },
                 {
-                    href: "/#benefits",
-                    label: "Jurisdictional Intelligence",
-                    description: "Court-specific legal reasoning",
-                    icon: FileCheck
+                    href: "/#security",
+                    label: "Confidential",
+                    description: "Data in India · SOC 2 · ISO 27001 · DPDP",
+                    icon: ShieldCheck
                 },
                 {
-                    href: "/#benefits",
-                    label: "Multilingual Support",
-                    description: "Legal work across Indian languages",
+                    href: "/#fits",
+                    label: "Fits your tools",
+                    description: "Word, Gmail, Google Drive and a desktop app",
                     icon: Globe
                 },
             ],
@@ -193,6 +193,7 @@ const CallToActions = memo(({ classes }: {
     classes?: {
         container?: string;
         buttonSignIn?: string;
+        buttonPrimary?: string;
     };
 }) => {
     return (
@@ -203,6 +204,9 @@ const CallToActions = memo(({ classes }: {
                 asChild
             >
                 <Link href="https://app.lawcopilot.io/signin">Sign In</Link>
+            </Button>
+            <Button className={cn("font-medium text-xs sm:text-sm", classes?.buttonPrimary)} asChild>
+                <Link href="https://app.lawcopilot.io/signup">Get started</Link>
             </Button>
         </div>
     );
@@ -508,6 +512,7 @@ export const Navbar = () => {
                             classes={{
                                 container: "flex gap-2 md:gap-3 lg:gap-4",
                                 buttonSignIn: "bg-secondary/80 hover:bg-secondary text-secondary-foreground h-8 sm:h-9 px-3 sm:px-4",
+                                buttonPrimary: "h-8 sm:h-9 px-3 sm:px-4",
                             }}
                         />
                     </div>
@@ -516,8 +521,8 @@ export const Navbar = () => {
                     <div className="flex items-center lg:hidden">
                         <Sheet open={isOpen} onOpenChange={setIsOpen}>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9 sm:h-10 sm:w-10">
-                                    <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
+                                <Button variant="ghost" size="icon" aria-label="Open menu" className="lg:hidden h-9 w-9 sm:h-10 sm:w-10">
+                                    <Menu aria-hidden className="h-5 w-5 sm:h-6 sm:w-6" />
                                 </Button>
                             </SheetTrigger>
 
@@ -599,8 +604,9 @@ export const Navbar = () => {
 
                                     <CallToActions
                                         classes={{
-                                            container: "w-full",
+                                            container: "flex w-full flex-col gap-2",
                                             buttonSignIn: "w-full bg-secondary/80 hover:bg-secondary text-xs sm:text-sm h-9 sm:h-10",
+                                            buttonPrimary: "w-full h-9 sm:h-10",
                                         }}
                                     />
                                 </SheetFooter>

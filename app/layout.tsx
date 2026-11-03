@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/providers/theme";
-import { inter, nohemi } from "@/lib/fonts";
+import { inter, nohemi, sourceSerif } from "@/lib/fonts";
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, SOCIAL } from "@/constants";
 import { Analytics } from "@/components/analytics";
 
@@ -112,7 +112,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${nohemi.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${nohemi.variable} ${sourceSerif.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased">
         <JsonLdSchema />
         <ThemeProvider attribute="class"
