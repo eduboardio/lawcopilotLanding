@@ -223,7 +223,7 @@ export default function TermsPage() {
                 <li>You must provide accurate, complete, and up-to-date information, including your name, contact information, and any other details required by the registration process;</li>
                 <li>You are solely responsible for maintaining the confidentiality of your login credentials, including username and password, and for all activities that occur under your account;</li>
                 <li>You agree not to share your credentials with any other person or entity or permit any unauthorized access or use of your account;</li>
-                <li>If you believe that your account has been compromised or accessed without authorization, you must immediately notify us at admin@lawcopilot.in</li>
+                <li>If you believe that your account has been compromised or accessed without authorization, you must immediately notify us at admin@lawcopilot.io</li>
               </ul>
               <p className="mb-2">LawCopilot reserves the right to suspend or terminate any account that it reasonably believes to be in violation of these Terms, contains false or misleading information, or poses a security risk.</p>
             </div>
@@ -581,7 +581,7 @@ export default function TermsPage() {
                 <h3 className="font-medium text-base md:text-lg mb-2">6.2 Reactivation Policy</h3>
                 <p className="mb-2">If your account has been suspended or terminated:</p>
                 <ul className="list-disc pl-8 space-y-1">
-                  <li>You may submit a written request for reactivation to our support team at admin@lawcopilot.in.</li>
+                  <li>You may submit a written request for reactivation to our support team at admin@lawcopilot.io.</li>
                   <li>
                     Lawinit Private Limited may, at its sole discretion, evaluate the request based on the nature of the violation,
                     past conduct, and legal/regulatory circumstances.
@@ -620,7 +620,7 @@ export default function TermsPage() {
                   </li>
                 </ul>
                 <p className="mt-2">
-                  Please contact your designated account representative or email admin@lawcopilot.in for enterprise-specific inquiries.
+                  Please contact your designated account representative or email admin@lawcopilot.io for enterprise-specific inquiries.
                 </p>
               </div>
             </div>
@@ -754,7 +754,7 @@ export default function TermsPage() {
 
               <div>
                 <h3 className="font-semibold text-base md:text-lg mb-2">10.3 Notices</h3>
-                <p>Any notices from Lawinit Private Limited to the User will be issued via email to the User&apos;s registered email address or through general notifications on the platform. Notices from the User to the Company must be sent to admin@lawcopilot.in or by registered post to the Company&apos;s registered address. Notices shall be deemed delivered on the date of successful transmission or receipt.</p>
+                <p>Any notices from Lawinit Private Limited to the User will be issued via email to the User&apos;s registered email address or through general notifications on the platform. Notices from the User to the Company must be sent to admin@lawcopilot.io or by registered post to the Company&apos;s registered address. Notices shall be deemed delivered on the date of successful transmission or receipt.</p>
               </div>
 
               <div>
@@ -822,7 +822,7 @@ export default function TermsPage() {
                 For any questions regarding these Terms, please contact:
               </p>
               <p className="mb-2">
-                <strong>Email:</strong> admin@lawcopilot.in
+                <strong>Email:</strong> admin@lawcopilot.io
               </p>
               <p className="mb-2">
                 <strong>Postal Address:</strong>

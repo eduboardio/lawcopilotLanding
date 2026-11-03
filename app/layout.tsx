@@ -54,7 +54,7 @@ function JsonLdSchema() {
     url: SITE_URL,
     logo: `${SITE_URL}/Light-Logo.png`,
     description: defaultDescription,
-    email: "admin@lawcopilot.in",
+    email: "admin@lawcopilot.io",
     telephone: "+91-9603354488",
     address: {
       "@type": "PostalAddress",
@@ -65,7 +65,7 @@ function JsonLdSchema() {
     sameAs: [SOCIAL.instagram, SOCIAL.linkedin].filter(Boolean),
     contactPoint: {
       "@type": "ContactPoint",
-      email: "admin@lawcopilot.in",
+      email: "admin@lawcopilot.io",
       telephone: "+91-9603354488",
       contactType: "customer service",
       areaServed: "IN",
@@ -82,7 +82,7 @@ function JsonLdSchema() {
     image: `${SITE_URL}/website.png`,
     url: SITE_URL,
     telephone: "+91-9603354488",
-    email: "admin@lawcopilot.in",
+    email: "admin@lawcopilot.io",
     address: { "@type": "PostalAddress", addressLocality: "Hyderabad", addressRegion: "Telangana", addressCountry: "IN" },
     openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "17:00" },
   };

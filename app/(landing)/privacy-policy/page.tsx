@@ -141,7 +141,7 @@ export default function PrivacyPolicyPage() {
               <p>(Collectively, &quot;Third-Party Information&quot;).</p>
               <h3 className="text-lg md:text-xl font-medium mt-4 mb-2">Publicly Available Information</h3>
               <p>
-                We may collect data from publicly available sources, such as judgments, statutes, government databases, legal digests, or professional registries. This may be used to improve our Services, conduct AI model training, or support legal research functionalities. You can contact us at admin@lawcopilot.in for further details about how such data is used and protected.
+                We may collect data from publicly available sources, such as judgments, statutes, government databases, legal digests, or professional registries. This may be used to improve our Services, conduct AI model training, or support legal research functionalities. You can contact us at admin@lawcopilot.io for further details about how such data is used and protected.
               </p>
             </div>
 
@@ -281,7 +281,7 @@ export default function PrivacyPolicyPage() {
                 We conduct regular risk assessments, vulnerability scans, and penetration tests to proactively identify and mitigate security risks or vulnerabilities that could potentially compromise your Personal Data.
               </p>
               <p>
-                While we continuously strive to protect your Personal Data with comprehensive security measures, it is important to acknowledge that no security mechanism or transmission method is 100% foolproof. If you have any reason to believe that your interactions with us are no longer secure, please immediately notify us at admin@lawcopilot.in.
+                While we continuously strive to protect your Personal Data with comprehensive security measures, it is important to acknowledge that no security mechanism or transmission method is 100% foolproof. If you have any reason to believe that your interactions with us are no longer secure, please immediately notify us at admin@lawcopilot.io.
               </p>
             </div>
 
@@ -345,7 +345,7 @@ export default function PrivacyPolicyPage() {
                 We believe in transparency and accountability. If you have any questions or concerns regarding international data transfers, third-party services, or our data localization policies, please contact:
               </p>
               <p>
-                Email: admin@lawcopilot.in
+                Email: admin@lawcopilot.io
               </p>
             </div>
 
@@ -375,7 +375,7 @@ export default function PrivacyPolicyPage() {
                 In circumstances where immediate deletion is not feasible (such as when data is stored within secure backup archives), we will isolate your Personal Data securely, ensuring it remains protected from further processing or unauthorized access until deletion or anonymization becomes technically possible.
               </p>
               <p>
-                If you have specific questions regarding our data retention practices or wish to request deletion or correction of your Personal Data, please contact us at admin@lawcopilot.in.
+                If you have specific questions regarding our data retention practices or wish to request deletion or correction of your Personal Data, please contact us at admin@lawcopilot.io.
               </p>
             </div>
 
@@ -418,7 +418,7 @@ export default function PrivacyPolicyPage() {
             <div id="children" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">9. Children&apos;s Privacy</h2>
               <p>
-                Our website and Services are not intended for use by individuals under the age of 18. Lawinit Private Limited does not knowingly collect, solicit, or process Personal Data from individuals under the age of 18. If you are a parent or legal guardian and believe that a minor under the age of 18 has provided us with Personal Data through our Services, please contact us at admin@lawcopilot.in. Upon verification, we will take appropriate steps to delete such information from our records in accordance with applicable data protection laws.
+                Our website and Services are not intended for use by individuals under the age of 18. Lawinit Private Limited does not knowingly collect, solicit, or process Personal Data from individuals under the age of 18. If you are a parent or legal guardian and believe that a minor under the age of 18 has provided us with Personal Data through our Services, please contact us at admin@lawcopilot.io. Upon verification, we will take appropriate steps to delete such information from our records in accordance with applicable data protection laws.
               </p>
             </div>
 
@@ -443,7 +443,7 @@ export default function PrivacyPolicyPage() {
                 If you have any questions, concerns, or requests regarding this Privacy Policy or our handling of your Personal Data, please feel free to contact our Data Protection Officer at:
               </p>
               <p>
-                📧 Email: admin@lawcopilot.in
+                📧 Email: admin@lawcopilot.io
               </p>
               <p>
                 📬 Postal Address:<br />
