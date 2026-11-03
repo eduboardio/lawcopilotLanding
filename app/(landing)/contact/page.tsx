@@ -1,376 +1,309 @@
 "use client";
 
-import { Mail, Phone, Clock, MapPin, Send, CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { ArrowRight, Check, Clock, LoaderCircle, Mail, MapPin, Phone } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import { ChangeEvent, FormEvent } from "react";
-import { motion } from "framer-motion";
+import { Container, Eyebrow } from "@/components/home/sections/primitives";
+import { BUSINESS } from "@/constants";
+import { cn } from "@/lib/utils";
 
-type FormErrors = {
-  [key: string]: string;
+/*
+ * Contact page. The submission contract with /api/contact is unchanged: the
+ * same fields, the CSRF token from /api/csrf and the honeypot. "I'm with" and
+ * "Team size" now fill the sheet's Organization Type and Legal Team Size
+ * columns, which the old form always sent as "not-provided".
+ */
+
+type FieldName = "firstName" | "lastName" | "email" | "companyName" | "jobTitle" | "message";
+type FormErrors = Partial<Record<FieldName, string>>;
+
+const ORG_TYPES = ["Law firm", "In-house legal team", "Independent advocate", "Other"];
+const TOPICS = ["A walkthrough", "Pricing", "Support", "Something else"];
+const TEAM_SIZES = ["Just me", "2–10", "11–50", "51+"];
+
+const EMPTY_FORM = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  companyName: "",
+  jobTitle: "",
+  orgType: "",
+  topic: "",
+  teamSize: "",
+  message: "",
+  honeypot: "",
 };
 
-const contactInfo = [
-  {
-    icon: <Mail className="h-5 w-5" />,
-    label: "Email",
-    value: "admin@lawcopilot.in",
-    href: "mailto:admin@lawcopilot.in"
-  },
-  {
-    icon: <Phone className="h-5 w-5" />,
-    label: "Phone",
-    value: "+91 9603354488",
-    href: "tel:+919603354488"
-  },
-  {
-    icon: <MapPin className="h-5 w-5" />,
-    label: "Location",
-    value: "Hyderabad, Telangana, India",
-    href: null
-  },
-  {
-    icon: <Clock className="h-5 w-5" />,
-    label: "Business Hours",
-    value: "Mon-Fri, 9:00 AM - 5:00 PM IST",
-    href: null
-  }
+const NEXT_STEPS = [
+  { title: "Tell us about your team", detail: "Who you are and the work you’d like to hand over." },
+  { title: "We reply within 1–2 business days", detail: "A person on our team reads every message." },
+  { title: "See it on work like yours", detail: "If it’s a fit, we walk you through LawCopilot on a matter like yours." },
 ];
 
-export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    companyName: "",
-    country: "",
-    jobTitle: "",
-    orgType: "",
-    teamSize: "",
-    hearAbout: "",
-    message: "",
-    honeypot: "",
-  });
+const fieldClass =
+  "h-11 rounded-lg border-border bg-background px-3.5 text-[15px] shadow-none focus-visible:ring-2 focus-visible:ring-ring";
 
+function Field({
+  id,
+  label,
+  error,
+  optional,
+  children,
+}: {
+  id: string;
+  label: string;
+  error?: string;
+  optional?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex min-w-0 flex-col gap-1.5">
+      <label htmlFor={id} className="text-sm font-medium text-foreground">
+        {label}
+        {optional ? <span className="font-normal text-muted-foreground"> · optional</span> : null}
+      </label>
+      {children}
+      {error ? (
+        <p id={`${id}-error`} className="text-[13px] text-red-700 dark:text-red-400">
+          {error}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function Choice({
+  name,
+  legend,
+  options,
+  value,
+  onChange,
+}: {
+  name: string;
+  legend: string;
+  options: string[];
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <fieldset className="min-w-0">
+      <legend className="text-sm font-medium text-foreground">
+        {legend} <span className="font-normal text-muted-foreground">· optional</span>
+      </legend>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {options.map((option) => {
+          const selected = value === option;
+          return (
+            <label
+              key={option}
+              className={cn(
+                "inline-flex min-h-11 cursor-pointer items-center rounded-full border px-4 text-sm transition-colors focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-card",
+                selected
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-border bg-background text-foreground hover:bg-muted"
+              )}
+            >
+              <input
+                type="radio"
+                name={name}
+                value={option}
+                checked={selected}
+                onChange={() => onChange(option)}
+                onClick={() => {
+                  // Clicking the selected pill again clears it, since these are optional.
+                  if (selected) onChange("");
+                }}
+                className="sr-only"
+              />
+              {option}
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+
+export default function ContactPage() {
+  const [formData, setFormData] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [sentTo, setSentTo] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState("");
   const [csrfToken, setCsrfToken] = useState("");
+  const thanksRef = useRef<HTMLHeadingElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  // Fetch CSRF token on mount
-  useEffect(() => {
-    const fetchCsrfToken = async () => {
-      try {
-        const res = await fetch('/api/csrf');
-        if (!res.ok) {
-          throw new Error('Failed to fetch CSRF token');
-        }
-        const data = await res.json();
-        if (data.csrfToken) {
-          setCsrfToken(data.csrfToken);
-        } else {
-          throw new Error('No CSRF token in response');
-        }
-      } catch (err) {
-        console.error('Failed to fetch CSRF token:', err);
-        // Set a placeholder token so form can still be submitted
-        // Backend will handle CSRF validation
-        setCsrfToken('pending');
-      }
-    };
-
-    fetchCsrfToken();
-  }, []);
-
-  const validateForm = () => {
-    const newErrors: FormErrors = {};
-
-    if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
-    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
-    if (!formData.companyName.trim()) newErrors.companyName = "Company name is required";
-    if (!formData.jobTitle.trim()) newErrors.jobTitle = "Job title is required";
-    if (!formData.message.trim()) newErrors.message = "Message is required";
-    if (formData.message.trim().length < 10) newErrors.message = "Message must be at least 10 characters";
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
+  const loadCsrfToken = async () => {
+    try {
+      const res = await fetch("/api/csrf");
+      if (!res.ok) throw new Error("Failed to fetch CSRF token");
+      const data = await res.json();
+      if (!data.csrfToken) throw new Error("No CSRF token in response");
+      setCsrfToken(data.csrfToken);
+    } catch (err) {
+      console.error("Failed to fetch CSRF token:", err);
+      // Lets the form render; submitting asks the visitor to refresh.
+      setCsrfToken("pending");
     }
-    // Country and orgType validation removed as fields are commented out
-    // if (!formData.country) newErrors.country = "Please select a country";
-    // if (!formData.orgType) newErrors.orgType = "Please select an organization type";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
-  // FIX: Use 'in' operator and type assertion to avoid object injection warning
+  useEffect(() => {
+    loadCsrfToken();
+  }, []);
+
+  useEffect(() => {
+    if (sentTo !== null) thanksRef.current?.focus();
+  }, [sentTo]);
+
+  const validate = (): FormErrors => {
+    const next: FormErrors = {};
+    if (!formData.firstName.trim()) next.firstName = "Enter your first name.";
+    if (!formData.lastName.trim()) next.lastName = "Enter your last name.";
+    if (!formData.email.trim()) next.email = "Enter your email address.";
+    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) next.email = "Enter an email address like name@firm.in.";
+    if (!formData.companyName.trim()) next.companyName = "Enter your firm or company.";
+    if (!formData.jobTitle.trim()) next.jobTitle = "Enter your role.";
+    if (formData.message.trim().length < 10) next.message = "Tell us a little more — at least 10 characters.";
+    return next;
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (name in errors) {
       setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[name as keyof FormErrors];
-        return newErrors;
+        const next = { ...prev };
+        delete next[name as FieldName];
+        return next;
       });
     }
   };
 
+  const setChoice = (name: "orgType" | "topic" | "teamSize") => (value: string) =>
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    
-    console.log('Form submitted'); // Debug log
-    
     setSubmitError("");
-  
-    // Check honeypot
+
     if (formData.honeypot) {
       setSubmitError("Invalid form submission");
       return;
     }
-  
-    // Check if CSRF token is loaded
-    if (!csrfToken || csrfToken === 'pending') {
+    if (!csrfToken || csrfToken === "pending") {
       setSubmitError("Security token not loaded. Please refresh the page and try again.");
       return;
     }
-  
-    if (!validateForm()) {
-      console.log('Validation failed', errors); // Debug log
+
+    const found = validate();
+    setErrors(found);
+    const firstInvalid = Object.keys(found)[0];
+    if (firstInvalid) {
+      formRef.current?.querySelector<HTMLElement>(`[name="${firstInvalid}"]`)?.focus();
       return;
     }
-  
+
     setIsSubmitting(true);
-  
     try {
-      console.log('Sending request...'); // Debug log
-      
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           firstName: formData.firstName,
           lastName: formData.lastName,
           email: formData.email,
           companyName: formData.companyName,
-          country: "not-provided", // Default value since field removed
+          country: "not-provided",
           jobTitle: formData.jobTitle,
-          orgType: "not-provided", // Default value since field removed
-          teamSize: "not-provided", // Default value since field removed
-          hearAbout: formData.hearAbout,
-          message: formData.message,
-          csrfToken: csrfToken,
-        })
+          orgType: formData.orgType || "not-provided",
+          teamSize: formData.teamSize || "not-provided",
+          hearAbout: "",
+          // The sheet has no topic column, so the topic leads the message.
+          message: formData.topic ? `Topic: ${formData.topic}\n\n${formData.message}` : formData.message,
+          csrfToken,
+        }),
       });
-  
-      console.log('Response received:', response.status); // Debug log
-  
       const data = await response.json();
-  
       if (!response.ok) {
-        throw new Error(data.error || data.details?.join(', ') || "Failed to submit form");
+        throw new Error(data.error || data.details?.join(", ") || "Failed to submit form");
       }
-  
-      console.log('Success!'); // Debug log
-      
-      setIsSubmitted(true);
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        companyName: "",
-        country: "",
-        jobTitle: "",
-        orgType: "",
-        teamSize: "",
-        hearAbout: "",
-        message: "",
-        honeypot: "",
-      });
-      
-      // Fetch new CSRF token for next submission
-      fetch('/api/csrf')
-        .then(res => res.json())
-        .then(data => setCsrfToken(data.csrfToken))
-        .catch(err => console.error('Failed to fetch CSRF token:', err));
-        
+      setSentTo(formData.email.trim());
+      setFormData(EMPTY_FORM);
+      loadCsrfToken();
     } catch (error) {
-      console.error('Submit error:', error); // Debug log
-      setSubmitError(
-        error instanceof Error ? error.message : "Failed to submit form. Please try again."
-      );
+      console.error("Submit error:", error);
+      setSubmitError(error instanceof Error ? error.message : "Failed to submit form. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  if (isSubmitted) {
-    return (
-      <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background">
-        <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
-          <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
-          <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="relative z-10 mx-auto max-w-md px-6 text-center"
-        >
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 dark:bg-emerald-400/10">
-            <CheckCircle className="h-8 w-8 text-emerald-500 dark:text-emerald-400" />
-          </div>
-
-          <h2 className="mb-4 text-3xl font-bold text-foreground dark:text-white">
-            Thank You for Reaching Out
-          </h2>
-
-          <p className="mb-8 text-lg text-muted-foreground dark:text-white/70">
-            We&apos;ve received your message and will get back to you within 24 hours.
-          </p>
-
-          <Button
-            onClick={() => setIsSubmitted(false)}
-            variant="outline"
-            size="lg"
-            className="rounded-full"
-          >
-            Send Another Message
-          </Button>
-        </motion.div>
-      </div>
-    );
-  }
+  const hasError = (name: FieldName) => Object.prototype.hasOwnProperty.call(errors, name);
+  const describedBy = (name: FieldName) => (hasError(name) ? `${name}-error` : undefined);
+  const invalidRing = (name: FieldName) => (hasError(name) ? "border-red-600 dark:border-red-400" : "");
 
   return (
-    <div className="relative w-full overflow-hidden bg-background">
-      {/* Background */}
-      <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
-        <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-foreground/[0.03] to-transparent blur-3xl dark:from-white/[0.03]"></div>
-        <div className="absolute bottom-0 right-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
-      </div>
+    <div className="w-full bg-background">
+      <section className="relative w-full overflow-hidden border-b border-border">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:80px_80px] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)]"
+        />
 
-      {/* Hero Section */}
-      <section className="relative z-10 container mx-auto px-6 py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto max-w-3xl text-center"
-        >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]">
-            <Send className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
-            <span className="text-xs font-medium tracking-wide text-foreground/80 dark:text-white/80">
-              We&apos;re Here to Help
-            </span>
+        <Container className="relative z-10 grid gap-y-10 py-16 sm:py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:py-24">
+          {/* On phones the order is intro, form, details; on desktop the form sits on the right. */}
+          <div className="flex min-w-0 flex-col gap-4 lg:col-start-1 lg:row-start-1">
+              <Eyebrow>Contact</Eyebrow>
+              <h1 className="font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.015em] text-balance text-foreground sm:text-5xl lg:text-[3.5rem]">
+                Tell us what you’d hand over.
+              </h1>
+              <p className="max-w-lg text-lg leading-relaxed text-foreground/80">
+                Whether you run chambers, a firm or an in-house legal team, we’ll show you LawCopilot on work like
+                yours.
+              </p>
           </div>
 
-          <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-            <span className="block text-foreground dark:text-white">Get in Touch</span>
-          </h1>
-
-          <p className="text-base leading-relaxed text-muted-foreground md:text-lg lg:text-xl dark:text-white/70">
-            Have questions about Law Copilot? Our team is here to help you discover how AI can
-            transform your legal practice.
-          </p>
-        </motion.div>
-      </section>
-
-      {/* Contact Content */}
-      <section className="relative z-10 container mx-auto px-6 pb-24 md:pb-32">
-        <div className="mx-auto">
-          <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
-            {/* Contact Information Sidebar */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-1"
-            >
-              <div className="sticky top-24 space-y-8">
-                <div>
-                  <h2 className="mb-6 text-2xl font-bold text-foreground md:text-3xl dark:text-white">
-                    Contact Information
+          <div className="min-w-0 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+            <div className="rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-[0_24px_48px_-28px_rgba(0,0,0,0.2)] sm:p-8 lg:sticky lg:top-24">
+              {sentTo !== null ? (
+                <div className="flex flex-col items-start gap-4 py-4" role="status">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-600">
+                    <Check aria-hidden strokeWidth={3} className="h-5 w-5 text-white" />
+                  </span>
+                  <h2 ref={thanksRef} tabIndex={-1} className="font-heading text-3xl font-semibold tracking-[-0.01em] outline-none">
+                    Thanks — your message is with us.
                   </h2>
-
-                  <div className="space-y-6">
-                    {contactInfo.map((info, idx) => (
-                      <div key={idx} className="flex items-start gap-4">
-                        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-muted dark:bg-white/10">
-                          <div className="text-foreground dark:text-white">{info.icon}</div>
-                        </div>
-                        <div>
-                          <p className="mb-1 text-sm font-medium text-foreground dark:text-white">
-                            {info.label}
-                          </p>
-                          {info.href ? (
-                            <a
-                              href={info.href}
-                              className="text-sm text-muted-foreground transition-colors hover:text-foreground dark:text-white/70 dark:hover:text-white"
-                            >
-                              {info.value}
-                            </a>
-                          ) : (
-                            <p className="text-sm text-muted-foreground dark:text-white/70">
-                              {info.value}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-border/50 bg-card/30 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.02]">
-                  <h3 className="mb-3 font-semibold text-foreground dark:text-white">
-                    Prefer Email?
-                  </h3>
-                  <p className="mb-4 text-sm text-muted-foreground dark:text-white/70">
-                    For general inquiries or quick questions, reach us directly at{" "}
-                    <a
-                      href="mailto:admin@lawcopilot.in"
-                      className="font-medium text-foreground hover:underline dark:text-white"
-                    >
-                      admin@lawcopilot.in
+                  <p className="text-[15px] leading-relaxed text-foreground/80">
+                    We reply within 1–2 business days{sentTo ? ` at ${sentTo}` : ""}. If it’s urgent, call{" "}
+                    <a href={`tel:${BUSINESS.phoneTel}`} className="font-medium text-foreground underline underline-offset-4">
+                      {BUSINESS.phone}
                     </a>
+                    .
                   </p>
+                  <button
+                    type="button"
+                    onClick={() => setSentTo(null)}
+                    className="mt-2 inline-flex min-h-11 items-center rounded-lg border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    Send another message
+                  </button>
                 </div>
-              </div>
-            </motion.div>
+              ) : (
+                <form ref={formRef} onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-1">
+                    <h2 className="font-heading text-2xl font-semibold tracking-[-0.01em]">Send us a message</h2>
+                    <p className="text-sm text-muted-foreground">All fields are required unless marked optional.</p>
+                  </div>
 
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-2"
-            >
-              <div className="rounded-2xl border border-border/50 bg-card/30 p-8 backdrop-blur-sm md:p-10 dark:border-white/10 dark:bg-white/[0.02]">
-                <h2 className="mb-6 text-2xl font-bold text-foreground dark:text-white">
-                  Send Us a Message
-                </h2>
-
-                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-                  {/* Honeypot field (hidden from users) */}
-                  <div style={{
-                    position: 'absolute',
-                    left: '-9999px',
-                    width: '1px',
-                    height: '1px',
-                    overflow: 'hidden',
-                  }} aria-hidden="true">
+                  {/* Honeypot (hidden from people, caught by bots) */}
+                  <div
+                    style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }}
+                    aria-hidden="true"
+                  >
                     <label htmlFor="honeypot">Leave this field empty</label>
                     <input
                       type="text"
@@ -383,150 +316,206 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <div className="grid gap-6 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <label htmlFor="firstName" className="text-sm font-medium text-foreground dark:text-white">
-                        First Name <span className="text-red-500">*</span>
-                      </label>
+                  <Choice name="orgType" legend="I’m with" options={ORG_TYPES} value={formData.orgType} onChange={setChoice("orgType")} />
+                  <Choice name="topic" legend="I’d like" options={TOPICS} value={formData.topic} onChange={setChoice("topic")} />
+
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Field id="firstName" label="First name" error={errors.firstName}>
                       <Input
                         id="firstName"
                         name="firstName"
+                        autoComplete="given-name"
                         value={formData.firstName}
                         onChange={handleChange}
-                        placeholder="John"
-                        required
-                        className={errors.firstName ? "border-red-500" : ""}
+                        aria-invalid={!!errors.firstName}
+                        aria-describedby={describedBy("firstName")}
+                        className={cn(fieldClass, invalidRing("firstName"))}
                       />
-                      {errors.firstName && (
-                        <p className="text-sm text-red-500">{errors.firstName}</p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="lastName" className="text-sm font-medium text-foreground dark:text-white">
-                        Last Name <span className="text-red-500">*</span>
-                      </label>
+                    </Field>
+                    <Field id="lastName" label="Last name" error={errors.lastName}>
                       <Input
                         id="lastName"
                         name="lastName"
+                        autoComplete="family-name"
                         value={formData.lastName}
                         onChange={handleChange}
-                        placeholder="Doe"
-                        required
-                        className={errors.lastName ? "border-red-500" : ""}
+                        aria-invalid={!!errors.lastName}
+                        aria-describedby={describedBy("lastName")}
+                        className={cn(fieldClass, invalidRing("lastName"))}
                       />
-                      {errors.lastName && <p className="text-sm text-red-500">{errors.lastName}</p>}
-                    </div>
+                    </Field>
                   </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-foreground dark:text-white">
-                      Email Address <span className="text-red-500">*</span>
-                    </label>
+                  <Field id="email" label="Work email" error={errors.email}>
                     <Input
                       id="email"
                       name="email"
                       type="email"
+                      autoComplete="email"
+                      placeholder="name@firm.in"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="john.doe@example.com"
-                      required
-                      className={errors.email ? "border-red-500" : ""}
+                      aria-invalid={!!errors.email}
+                      aria-describedby={describedBy("email")}
+                      className={cn(fieldClass, invalidRing("email"))}
                     />
-                    {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
-                  </div>
+                  </Field>
 
-                  <div className="grid gap-6 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <label htmlFor="companyName" className="text-sm font-medium text-foreground dark:text-white">
-                        Company Name <span className="text-red-500">*</span>
-                      </label>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Field id="companyName" label="Firm or company" error={errors.companyName}>
                       <Input
                         id="companyName"
                         name="companyName"
+                        autoComplete="organization"
                         value={formData.companyName}
                         onChange={handleChange}
-                        placeholder="ABC Law Firm"
-                        required
-                        className={errors.companyName ? "border-red-500" : ""}
+                        aria-invalid={!!errors.companyName}
+                        aria-describedby={describedBy("companyName")}
+                        className={cn(fieldClass, invalidRing("companyName"))}
                       />
-                      {errors.companyName && (
-                        <p className="text-sm text-red-500">{errors.companyName}</p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="jobTitle" className="text-sm font-medium text-foreground dark:text-white">
-                        Job Title <span className="text-red-500">*</span>
-                      </label>
+                    </Field>
+                    <Field id="jobTitle" label="Role" error={errors.jobTitle}>
                       <Input
                         id="jobTitle"
                         name="jobTitle"
+                        autoComplete="organization-title"
+                        placeholder="Partner, General Counsel…"
                         value={formData.jobTitle}
                         onChange={handleChange}
-                        placeholder="Senior Associate"
-                        required
-                        className={errors.jobTitle ? "border-red-500" : ""}
+                        aria-invalid={!!errors.jobTitle}
+                        aria-describedby={describedBy("jobTitle")}
+                        className={cn(fieldClass, invalidRing("jobTitle"))}
                       />
-                      {errors.jobTitle && <p className="text-sm text-red-500">{errors.jobTitle}</p>}
-                    </div>
+                    </Field>
                   </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-medium text-foreground dark:text-white">
-                      Message <span className="text-red-500">*</span>
-                    </label>
+                  <Choice name="teamSize" legend="Legal team size" options={TEAM_SIZES} value={formData.teamSize} onChange={setChoice("teamSize")} />
+
+                  <Field id="message" label="What would you like to hand over?" error={errors.message}>
                     <Textarea
                       id="message"
                       name="message"
+                      rows={5}
+                      placeholder="e.g. First drafts of replies to legal notices, and a list of dates for every new brief."
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Tell us about your legal needs or how we can help..."
-                      className={`min-h-32 resize-none ${errors.message ? "border-red-500" : ""}`}
-                      required
+                      aria-invalid={!!errors.message}
+                      aria-describedby={describedBy("message")}
+                      className={cn(
+                        "min-h-32 resize-y rounded-lg border-border bg-background px-3.5 py-3 text-[15px] shadow-none focus-visible:ring-2 focus-visible:ring-ring",
+                        invalidRing("message")
+                      )}
                     />
-                    {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
-                  </div>
+                  </Field>
 
-                  {submitError && (
-                    <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-600 dark:border-red-900 dark:bg-red-950/20">
+                  {submitError ? (
+                    <p
+                      role="alert"
+                      className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300"
+                    >
                       {submitError}
-                    </div>
-                  )}
+                    </p>
+                  ) : null}
 
-                  <div className="pt-2">
-                    <p className="mb-6 text-xs text-muted-foreground dark:text-white/60">
-                      By submitting this form, you agree to our{" "}
-                      <Link href="/privacy-policy" className="text-foreground hover:underline dark:text-white">
+                  <div className="flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-xs leading-relaxed text-muted-foreground sm:max-w-xs">
+                      We use your details only to reply. See our{" "}
+                      <Link href="/privacy-policy" className="text-foreground underline underline-offset-4">
                         Privacy Policy
                       </Link>
                       .
                     </p>
-
-                    <Button
+                    <button
                       type="submit"
-                      size="lg"
                       disabled={isSubmitting}
-                      className="w-full rounded-full sm:w-auto"
+                      className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-foreground px-6 text-base font-medium text-background transition-colors hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card disabled:cursor-not-allowed disabled:opacity-70"
                     >
                       {isSubmitting ? (
                         <>
-                          <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
-                          Sending...
+                          <LoaderCircle aria-hidden className="h-4 w-4 animate-spin" />
+                          Sending…
                         </>
                       ) : (
                         <>
-                          <Send className="mr-2 h-4 w-4" />
-                          Send Message
+                          Send message
+                          <ArrowRight aria-hidden className="h-4 w-4" />
                         </>
                       )}
-                    </Button>
+                    </button>
                   </div>
                 </form>
-              </div>
-            </motion.div>
+              )}
+            </div>
           </div>
-        </div>
+          <div className="flex min-w-0 flex-col gap-8 lg:col-start-1 lg:row-start-2">
+            <ol className="flex flex-col gap-4">
+              {NEXT_STEPS.map((step, i) => (
+                <li key={step.title} className="flex gap-3.5">
+                  <span
+                    aria-hidden
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-card text-xs font-medium"
+                  >
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="text-[15px] font-medium text-foreground">{step.title}</p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{step.detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <dl className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
+              <div className="flex items-center gap-4 px-5 py-4">
+                <Mail aria-hidden className="h-5 w-5 shrink-0 text-muted-foreground" />
+                <div className="min-w-0">
+                  <dt className="text-xs text-muted-foreground">Email</dt>
+                  <dd>
+                    <a href={`mailto:${BUSINESS.email}`} className="text-[15px] font-medium text-foreground underline-offset-4 hover:underline">
+                      {BUSINESS.email}
+                    </a>
+                  </dd>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 px-5 py-4">
+                <Phone aria-hidden className="h-5 w-5 shrink-0 text-muted-foreground" />
+                <div className="min-w-0">
+                  <dt className="text-xs text-muted-foreground">Phone</dt>
+                  <dd>
+                    <a href={`tel:${BUSINESS.phoneTel}`} className="text-[15px] font-medium text-foreground underline-offset-4 hover:underline">
+                      {BUSINESS.phone}
+                    </a>
+                  </dd>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 px-5 py-4">
+                <MapPin aria-hidden className="h-5 w-5 shrink-0 text-muted-foreground" />
+                <div className="min-w-0">
+                  <dt className="text-xs text-muted-foreground">Office</dt>
+                  <dd className="text-[15px] text-foreground">{BUSINESS.address}</dd>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 px-5 py-4">
+                <Clock aria-hidden className="h-5 w-5 shrink-0 text-muted-foreground" />
+                <div className="min-w-0">
+                  <dt className="text-xs text-muted-foreground">Hours</dt>
+                  <dd className="text-[15px] text-foreground">{BUSINESS.hours}</dd>
+                </div>
+              </div>
+            </dl>
+
+            <p className="text-sm text-muted-foreground">
+              Already using LawCopilot?{" "}
+              <Link
+                href="https://app.lawcopilot.io/signin"
+                className="inline-flex items-center gap-1 font-medium text-foreground underline-offset-4 hover:underline"
+              >
+                Sign in <ArrowRight aria-hidden className="h-3.5 w-3.5" />
+              </Link>
+            </p>
+          </div>
+
+        </Container>
       </section>
     </div>
   );

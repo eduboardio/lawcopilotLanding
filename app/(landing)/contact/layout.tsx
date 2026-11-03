@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Law Copilot. Reach our team for demos, support, or partnership inquiries. We respond within 1–2 business days.",
+    "Talk to LawCopilot about your firm or in-house legal team. Ask for a walkthrough, pricing or support. We reply within 1–2 business days.",
   alternates: { canonical: "/contact" },
 };
 
