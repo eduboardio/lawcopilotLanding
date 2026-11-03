@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import HomePageClient from "./HomePageClient";
 import { DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "@/constants";
+import { FAQ_ITEMS } from "@/components/home/sections/faq-data";
 
 const description =
   "Legal AI for law firms and in-house legal teams in India. LawCopilot reads the record, researches, drafts and keeps watch on your matters — and checks with you before anything leaves.";
@@ -28,6 +29,22 @@ export const metadata: Metadata = {
   },
 };
 
+// FAQPage structured data, from the same copy the footer questions show on this page.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map(({ question, answer }) => ({
+    "@type": "Question",
+    name: question,
+    acceptedAnswer: { "@type": "Answer", text: answer },
+  })),
+};
+
 export default function HomePage() {
-  return <HomePageClient />;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <HomePageClient />
+    </>
+  );
 }

@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Instagram, Linkedin } from "lucide-react";
+import { ArrowRight, ChevronDown, Instagram, Linkedin } from "lucide-react";
 import { BUSINESS, ROUTES_WITHOUT_FOOTER, SOCIAL } from "@/constants";
 import { LogoText } from "@/components/logo_text";
 import { Container } from "@/components/home/sections/primitives";
+import { FAQ_ITEMS } from "@/components/home/sections/faq-data";
 
 const COLUMNS = [
     {
@@ -33,12 +34,50 @@ const SOCIAL_LINKS = [
     { href: SOCIAL.instagram, label: "LawCopilot on Instagram", icon: Instagram },
 ].filter((link) => link.href);
 
+/** The questions people ask first, on every page except /faq (which lists them all). */
+const FooterQuestions = () => (
+    <section id="faq" aria-labelledby="footer-faq-title" className="scroll-mt-20 border-b border-border">
+        <Container className="grid gap-8 py-14 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,2fr)] lg:gap-16">
+            <div className="flex flex-col items-start gap-3">
+                <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">Questions</p>
+                <h2 id="footer-faq-title" className="font-heading text-[1.75rem] font-semibold leading-tight tracking-[-0.01em] text-balance text-foreground">
+                    What legal teams ask first.
+                </h2>
+                <Link
+                    href="/faq"
+                    className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
+                >
+                    See all questions
+                    <ArrowRight aria-hidden className="h-3.5 w-3.5" />
+                </Link>
+            </div>
+
+            <div className="divide-y divide-border border-y border-border">
+                {FAQ_ITEMS.map(({ question, answer }) => (
+                    <details key={question} className="group">
+                        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-[15px] font-medium text-foreground transition-colors hover:text-foreground/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
+                            {question}
+                            <ChevronDown
+                                aria-hidden
+                                className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                            />
+                        </summary>
+                        <p className="max-w-3xl pb-5 pr-8 text-sm leading-relaxed text-muted-foreground">{answer}</p>
+                    </details>
+                ))}
+            </div>
+        </Container>
+    </section>
+);
+
 export const Footer = () => {
     const pathname = usePathname();
     if (ROUTES_WITHOUT_FOOTER.includes(pathname)) return null;
 
     return (
         <footer id="footer" className="w-full border-t border-border bg-background">
+            {pathname === "/faq" ? null : <FooterQuestions />}
+
             <Container className="grid gap-10 py-14 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16">
                 <div className="flex flex-col items-start gap-4">
                     <LogoText type="LOGO_ONLY" />

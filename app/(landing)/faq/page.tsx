@@ -44,19 +44,12 @@ const FAQ_LIST: FAQProps[] = [
     category: "Getting Started"
   },
 
-  // Working with LawCopilot (moved from the homepage)
+  // Working with LawCopilot (also shown in the site footer)
   {
     question: "How is this different from ChatGPT?",
     answer:
-      "LawCopilot is built for Indian legal work, not general chat. It reads your case files, cites the page or judgment behind each statement, follows your firm’s templates, and works inside the case alongside its dates and tasks. It shows every step it took, asks when something is unclear, and waits for your sign-off before anything leaves.",
+      "LawCopilot is built for Indian legal work, not general chat. It reads your case files, cites the page or judgment behind each statement, follows your templates, and works inside the matter alongside its dates and tasks. It shows every step it took, asks when something is unclear, and waits for your sign-off before anything leaves.",
     value: "different-from-chatgpt",
-    category: "Working with LawCopilot"
-  },
-  {
-    question: "Will it replace my juniors?",
-    answer:
-      "No. It takes on the groundwork — reading the record, the list of dates, first drafts, the morning cause list — so your juniors spend their time on the work that needs judgment. You and your team decide what goes out.",
-    value: "replace-juniors",
     category: "Working with LawCopilot"
   },
   {

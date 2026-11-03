@@ -35,7 +35,7 @@ const ClosingCta = lazy(() =>
 
 // Hand over the file → where your files live → what comes back → how you stay in
 // charge → what it does on its own → where it lives → the tools it fits →
-// confidentiality in detail → start. Questions live on /faq, linked from the footer.
+// confidentiality in detail → start. The top questions sit in the footer.
 const sections: SectionConfig[] = [
   { component: Hero, priority: true },
   { component: TrustBand, priority: true },
