@@ -10,7 +10,7 @@ export const BUSINESS = {
   phoneTel: "+919603354488",
   address: "Hyderabad, Telangana, India",
   hours: "Mon-Fri, 9:00 AM - 5:00 PM IST",
-  legalName: "LegalInit Private Limited",
+  legalName: "Lawinit Private Limited",
 } as const;
 
 // Social (add X/Facebook URLs when created)

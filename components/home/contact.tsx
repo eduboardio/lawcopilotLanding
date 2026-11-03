@@ -68,7 +68,7 @@ const ContactInfo = memo(() => (
           </div>
           <div>
             <h4 className="font-semibold text-lg mb-1">Email</h4>
-            <p className="text-muted-foreground">info@lawcopilot.com</p>
+            <p className="text-muted-foreground">admin@lawcopilot.in</p>
           </div>
         </div>
         
@@ -104,7 +104,7 @@ const ContactForm = memo(() => {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
 
     const { firstName, lastName, email, subject, message } = values;
-    const mailToLink = `mailto:info@lawcopilot.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Hello, I am ${firstName} ${lastName}. My email is ${email}.\n\n${message}`)}`;
+    const mailToLink = `mailto:admin@lawcopilot.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Hello, I am ${firstName} ${lastName}. My email is ${email}.\n\n${message}`)}`;
     window.location.href = mailToLink;
   };
 

@@ -9,7 +9,7 @@ export default function PrivacyPolicyPage() {
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">Privacy Policy</h1>
         <div className="text-base md:text-lg text-muted-foreground mx-auto px-2 space-y-3">
           <p>
-            LegalInit Private Limited (&quot;LawCopilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) respects your right to privacy, and we are committed to securing and protecting any information we collect from you.
+            Lawinit Private Limited (&quot;LawCopilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) respects your right to privacy, and we are committed to securing and protecting any information we collect from you.
           </p>
           <p>
             This Privacy Policy describes the ways we collect, use, and share information relating to an identifiable individual (&quot;Personal Data&quot;), and outlines how you can exercise your rights under applicable privacy and data protection laws.
@@ -47,7 +47,7 @@ export default function PrivacyPolicyPage() {
             <div id="applicability" className="mb-8 text-left">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">1. Applicability of this Privacy Policy</h2>
               <p>
-                This Privacy Policy outlines how LegalInit Private Limited (&quot;LawCopilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) collects, processes, and manages Personal Data obtained from or about you through our website (lawcopilot.in), our AI-powered software-as-a-service (&quot;SaaS&quot;) platform, associated applications, and all related services (&quot;Services&quot;), and through any other interactions you may have with us, such as customer support communications or marketing interactions.
+                This Privacy Policy outlines how Lawinit Private Limited (&quot;LawCopilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) collects, processes, and manages Personal Data obtained from or about you through our website (lawcopilot.in), our AI-powered software-as-a-service (&quot;SaaS&quot;) platform, associated applications, and all related services (&quot;Services&quot;), and through any other interactions you may have with us, such as customer support communications or marketing interactions.
               </p>
               <p>
                 Our Services are designed primarily for use by businesses, law firms, legal professionals, and other corporate entities (collectively, &quot;Customers&quot;) for professional purposes. We enter into specific contractual agreements with our Customers, such as our standard terms of service, customer agreements, data processing agreements, or other applicable contracts (&quot;Customer Agreements&quot;). These Customer Agreements govern the use of our platform, applications, and Services provided to our Customers.
@@ -67,7 +67,7 @@ export default function PrivacyPolicyPage() {
             <div id="personal-data" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">2. Personal Data We Collect and Process</h2>
               <p>
-                In the course of operating our business, providing our Services, and through interactions with our website or platform, LegalInit Private Limited collects and receives Personal Data through various means and from multiple sources. This section outlines the categories of Personal Data we collect:
+                In the course of operating our business, providing our Services, and through interactions with our website or platform, Lawinit Private Limited collects and receives Personal Data through various means and from multiple sources. This section outlines the categories of Personal Data we collect:
               </p>
               <h3 className="text-lg md:text-xl font-medium mt-4 mb-2">Information Provided Directly by You</h3>
               <p>
@@ -149,7 +149,7 @@ export default function PrivacyPolicyPage() {
             <div id="how-we-use" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">3. How We Use Personal Data</h2>
               <p>
-                LegalInit Private Limited uses the Personal Data described in this Privacy Policy exclusively for legitimate business purposes, to enhance your experience with our Services, ensure efficient operations, and meet legal obligations. Specifically, we process your Personal Data for the following purposes:
+                Lawinit Private Limited uses the Personal Data described in this Privacy Policy exclusively for legitimate business purposes, to enhance your experience with our Services, ensure efficient operations, and meet legal obligations. Specifically, we process your Personal Data for the following purposes:
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">To Provide and Maintain Our Services:</h3>
               <p>
@@ -206,7 +206,7 @@ export default function PrivacyPolicyPage() {
             <div id="who-we-share" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">4. Who We Share Your Personal Data With</h2>
               <p>
-                LegalInit Private Limited prioritizes the confidentiality and protection of your Personal Data. We do not sell or rent your Personal Data to third parties. However, for the effective provision of our Services and for legitimate business purposes, we may share your Personal Data with certain trusted entities under specific circumstances, as outlined below:
+                Lawinit Private Limited prioritizes the confidentiality and protection of your Personal Data. We do not sell or rent your Personal Data to third parties. However, for the effective provision of our Services and for legitimate business purposes, we may share your Personal Data with certain trusted entities under specific circumstances, as outlined below:
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">a) Affiliates and Group Companies:</h3>
               <p>
@@ -230,7 +230,7 @@ export default function PrivacyPolicyPage() {
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">d) Business Reorganization or Corporate Transactions:</h3>
               <p>
-                In the event of a business reorganization, merger, acquisition, sale, consolidation, liquidation, or transfer of all or a significant portion of LegalInit Private Limited&apos;s assets, we may share or transfer your Personal Data as part of the due diligence or transaction process. Should this occur, we will notify you directly and take all reasonable measures to ensure the continued protection and confidentiality of your Personal Data in accordance with this Privacy Policy.
+                In the event of a business reorganization, merger, acquisition, sale, consolidation, liquidation, or transfer of all or a significant portion of Lawinit Private Limited&apos;s assets, we may share or transfer your Personal Data as part of the due diligence or transaction process. Should this occur, we will notify you directly and take all reasonable measures to ensure the continued protection and confidentiality of your Personal Data in accordance with this Privacy Policy.
               </p>
               <h3 className="text-lg font-medium mt-4 mb-2">e) Professional Advisors and Regulatory Authorities:</h3>
               <p>
@@ -239,7 +239,7 @@ export default function PrivacyPolicyPage() {
               <ul className="list-disc pl-6 mt-2 mb-4">
                 <li className="mb-1">Comply with applicable laws, regulations, legal obligations, court orders, or enforceable governmental requests.</li>
                 <li className="mb-1">Investigate, prevent, or address fraud, security incidents, violations of our terms of service, illegal activities, or potential threats.</li>
-                <li className="mb-1">Protect the rights, property, privacy, safety, and well-being of LegalInit Private Limited, our users, affiliates, employees, or the public.</li>
+                <li className="mb-1">Protect the rights, property, privacy, safety, and well-being of Lawinit Private Limited, our users, affiliates, employees, or the public.</li>
               </ul>
             </div>
 
@@ -247,7 +247,7 @@ export default function PrivacyPolicyPage() {
             <div id="security" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">5. How We Keep Your Personal Data Secure</h2>
               <p>
-                LegalInit Private Limited takes the security and confidentiality of your Personal Data very seriously. We have implemented robust technical, administrative, and organizational security measures designed to protect your Personal Data against unauthorized access, alteration, disclosure, loss, misuse, or destruction. These measures are regularly reviewed and updated to ensure they remain effective and appropriate to the evolving nature of the threats and risks involved.
+                Lawinit Private Limited takes the security and confidentiality of your Personal Data very seriously. We have implemented robust technical, administrative, and organizational security measures designed to protect your Personal Data against unauthorized access, alteration, disclosure, loss, misuse, or destruction. These measures are regularly reviewed and updated to ensure they remain effective and appropriate to the evolving nature of the threats and risks involved.
               </p>
               <p>
                 Specifically, our security measures include, but are not limited to:
@@ -289,7 +289,7 @@ export default function PrivacyPolicyPage() {
             <div id="transfers" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">6. International Data Transfers</h2>
               <p>
-                LegalInit Private Limited is committed to maintaining a robust framework for the protection, processing, and storage of Personal Data in compliance with the Digital Personal Data Protection Act, 2023 and other applicable Indian laws. To ensure strict adherence to data sovereignty principles, we have adopted the following international data transfer policy:
+                Lawinit Private Limited is committed to maintaining a robust framework for the protection, processing, and storage of Personal Data in compliance with the Digital Personal Data Protection Act, 2023 and other applicable Indian laws. To ensure strict adherence to data sovereignty principles, we have adopted the following international data transfer policy:
               </p>
               <p className="font-medium">6.1 Data Residency and Localization</p>
               <p>
@@ -338,7 +338,7 @@ export default function PrivacyPolicyPage() {
               </ul>
               <p className="font-medium">6.6 No Sale or Commercial Disclosure of Data</p>
               <p>
-                LegalInit Private Limited does not sell, rent, or commercially transfer your Personal Data to any foreign entity or third party in exchange for monetary or non-monetary consideration.
+                Lawinit Private Limited does not sell, rent, or commercially transfer your Personal Data to any foreign entity or third party in exchange for monetary or non-monetary consideration.
               </p>
               <p className="font-medium">6.7 Questions and Transparency</p>
               <p>
@@ -353,7 +353,7 @@ export default function PrivacyPolicyPage() {
             <div id="retention" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">7. Data Retention</h2>
               <p>
-                LegalInit Private Limited retains your Personal Data only for as long as necessary to fulfill the specific purposes for which we collected the data, as described in this Privacy Policy, and in compliance with applicable laws and regulations.
+                Lawinit Private Limited retains your Personal Data only for as long as necessary to fulfill the specific purposes for which we collected the data, as described in this Privacy Policy, and in compliance with applicable laws and regulations.
               </p>
               <p>Our data retention practices take into account several factors, including:</p>
               <h3 className="text-lg font-medium mt-4 mb-2">Terms of Customer Agreements:</h3>
@@ -369,7 +369,7 @@ export default function PrivacyPolicyPage() {
                 In cases involving disputes, potential legal claims, or violations of our terms or policies, we may retain relevant Personal Data as long as necessary to resolve such matters or to protect our legal rights.
               </p>
               <p>
-                When LegalInit Private Limited no longer has any ongoing legitimate business purpose or legal justification to process your Personal Data, we will either securely delete your data or anonymize it in such a manner that it can no longer be used to identify you individually.
+                When Lawinit Private Limited no longer has any ongoing legitimate business purpose or legal justification to process your Personal Data, we will either securely delete your data or anonymize it in such a manner that it can no longer be used to identify you individually.
               </p>
               <p>
                 In circumstances where immediate deletion is not feasible (such as when data is stored within secure backup archives), we will isolate your Personal Data securely, ensuring it remains protected from further processing or unauthorized access until deletion or anonymization becomes technically possible.
@@ -418,7 +418,7 @@ export default function PrivacyPolicyPage() {
             <div id="children" className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">9. Children&apos;s Privacy</h2>
               <p>
-                Our website and Services are not intended for use by individuals under the age of 18. LegalInit Private Limited does not knowingly collect, solicit, or process Personal Data from individuals under the age of 18. If you are a parent or legal guardian and believe that a minor under the age of 18 has provided us with Personal Data through our Services, please contact us at admin@lawcopilot.in. Upon verification, we will take appropriate steps to delete such information from our records in accordance with applicable data protection laws.
+                Our website and Services are not intended for use by individuals under the age of 18. Lawinit Private Limited does not knowingly collect, solicit, or process Personal Data from individuals under the age of 18. If you are a parent or legal guardian and believe that a minor under the age of 18 has provided us with Personal Data through our Services, please contact us at admin@lawcopilot.in. Upon verification, we will take appropriate steps to delete such information from our records in accordance with applicable data protection laws.
               </p>
             </div>
 
@@ -447,7 +447,7 @@ export default function PrivacyPolicyPage() {
               </p>
               <p>
                 📬 Postal Address:<br />
-                LegalInit Private Limited<br />
+                Lawinit Private Limited<br />
                 Vizag Deck, Sethamadhara Road, Visakhapatnam, Andhra Pradesh, 530022<br />
                 India
               </p>

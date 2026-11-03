@@ -50,7 +50,7 @@ function JsonLdSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Law Copilot",
-    legalName: "LegalInit Private Limited",
+    legalName: "Lawinit Private Limited",
     url: SITE_URL,
     logo: `${SITE_URL}/Light-Logo.png`,
     description: defaultDescription,
