@@ -305,17 +305,14 @@ export function MatterCard() {
   const inView = useInView(ref, { amount: 0.35 });
   const reduceMotion = useReducedMotion();
 
-  const [stage, setStage] = useState(WORKING);
+  // Plays from the brief by default. Under reduced motion it still steps through the
+  // stages, but every change is instant and nothing spins; the pause button stops it.
+  const [stage, setStage] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
   const [answer, setAnswer] = useState(0);
   const [elapsed, setElapsed] = useState(0);
 
   const current = stageAt(stage);
-
-  // Respect reduced motion: hold on the working view unless the visitor presses play.
-  useEffect(() => {
-    if (reduceMotion) setAutoplay(false);
-  }, [reduceMotion]);
 
   // Walk through the stages while the card is on screen.
   useEffect(() => {
