@@ -44,12 +44,19 @@ const FAQ_LIST: FAQProps[] = [
     category: "Getting Started"
   },
 
-  // Working with LawCopilot (also shown in the site footer)
+  // Working with LawCopilot
   {
-    question: "How is this different from ChatGPT?",
+    question: "How do we know its answers are right?",
     answer:
-      "LawCopilot is built for Indian legal work, not general chat. It reads your case files, cites the page or judgment behind each statement, follows your templates, and works inside the matter alongside its dates and tasks. It shows every step it took, asks when something is unclear, and waits for your sign-off before anything leaves.",
-    value: "different-from-chatgpt",
+      "Every statement links to its source — the page in your record, the judgment or the provision — so you can check it in a click, and you can see each step it took. Before a brief is handed over, it is checked so that every statement has a page reference and every date appears in the sentence it cites. It can still make mistakes, so review its work before you rely on it.",
+    value: "checking-answers",
+    category: "Working with LawCopilot"
+  },
+  {
+    question: "What files can it work with?",
+    answer:
+      "PDFs, including scanned ones, which it reads with OCR; Word documents (.doc and .docx); and text files — up to 30 at a time. Word files come back as Word, with your formatting kept and its changes tracked.",
+    value: "file-types",
     category: "Working with LawCopilot"
   },
   {
@@ -126,6 +133,20 @@ const FAQ_LIST: FAQProps[] = [
     answer:
       "Yes. Law Copilot complies with Indian data protection regulations and maintains data residency within India. We undergo regular security audits and maintain compliance certifications including ISO 27001 and SOC 2 Type II.",
     value: "compliance",
+    category: "Security & Privacy"
+  },
+  {
+    question: "Who in our team can see our documents?",
+    answer:
+      "Only the people you give access to. You invite colleagues into your organisation, give each a role — owner, admin, member or viewer — and share each case with the people working on it.",
+    value: "who-can-see",
+    category: "Security & Privacy"
+  },
+  {
+    question: "What happens to our data if we stop using LawCopilot?",
+    answer:
+      "You can delete a case, or your whole account, at any time, and private chats are deleted automatically after 7 days without activity. Data we no longer need is deleted or anonymised, as our Privacy Policy sets out.",
+    value: "leaving",
     category: "Security & Privacy"
   },
 

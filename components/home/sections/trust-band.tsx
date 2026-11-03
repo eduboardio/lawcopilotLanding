@@ -8,7 +8,7 @@ import { Container } from "./primitives";
  * files live and who can use them. Claims match the site's FAQ and compliance copy.
  */
 const ITEMS = [
-  { icon: MapPin, text: "Data stays in India" },
+  { icon: MapPin, text: "Data stored in India" },
   { icon: FileCheck, text: "DPDP Act, 2023" },
   { icon: BadgeCheck, text: "SOC 2 · ISO 27001" },
   { icon: Lock, text: "Never used to train AI models" },

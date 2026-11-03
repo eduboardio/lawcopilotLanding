@@ -1,10 +1,13 @@
 /*
  * The questions shown in the site footer, kept as plain data so the footer and
  * the homepage's FAQPage structured data (rendered on the server) read from the
- * same source. The full list lives on /faq; every question here is also there.
+ * same source. The full list lives on /faq, which covers each of these too.
  *
- * Answers only use claims the site already makes (FAQ page, compliance copy) or
- * that the product does today (approvals, tracked changes, private chats).
+ * Chosen from what buyers ask legal AI vendors most (training on their data,
+ * where it lives, who can see it, accuracy, leaving) plus Indian coverage.
+ * Answers only use what the product does today (roles, sharing, citations,
+ * draft checks, deletion, private chats) or claims the site already makes
+ * (FAQ page, compliance copy, Privacy Policy).
  */
 export type FaqItem = {
   question: string;
@@ -13,19 +16,29 @@ export type FaqItem = {
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    question: "Is my clients’ data safe?",
+    question: "Is our data used to train AI models?",
     answer:
-      "Your files are stored and processed in India. We meet SOC 2 requirements, are certified to ISO 27001 and comply with the DPDP Act, 2023. Your data is never used to train AI models, and private chats are deleted after 7 days without activity.",
+      "No. Your documents and conversations are never used to train AI models or shared with other customers. Each organisation’s data is kept separate.",
   },
   {
-    question: "How is this different from ChatGPT?",
+    question: "Where is our data stored, and are you DPDP-compliant?",
     answer:
-      "LawCopilot is built for Indian legal work, not general chat. It reads your case files, cites the page or judgment behind each statement, follows your templates, and works inside the matter alongside its dates and tasks. It shows every step it took, asks when something is unclear, and waits for your sign-off before anything leaves.",
+      "Your data is stored in India, and we comply with the Digital Personal Data Protection Act, 2023. It is encrypted at rest (AES-256) and in transit (TLS 1.3). We are certified to ISO 27001 and meet SOC 2 requirements.",
   },
   {
-    question: "Can it send or file anything on its own?",
+    question: "Who in our team can see our documents?",
     answer:
-      "No. Email replies it drafts wait for your approval, and its edits to a draft arrive as tracked changes for you to accept. Nothing leaves without you.",
+      "Only the people you give access to. You invite colleagues into your organisation, give each a role — owner, admin, member or viewer — and share each case with the people working on it.",
+  },
+  {
+    question: "How do we know its answers are right?",
+    answer:
+      "Every statement links to its source — the page in your record, the judgment or the provision — so you can check it in a click, and you can see each step it took. Before a brief is handed over, it is checked so that every statement has a page reference and every date appears in the sentence it cites. It can still make mistakes, so review its work before you rely on it.",
+  },
+  {
+    question: "What happens to our data if we stop using LawCopilot?",
+    answer:
+      "You can delete a case, or your whole account, at any time, and private chats are deleted automatically after 7 days without activity. Data we no longer need is deleted or anonymised, as our Privacy Policy sets out.",
   },
   {
     question: "Which courts and languages does it cover?",

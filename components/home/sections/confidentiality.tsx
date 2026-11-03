@@ -3,7 +3,7 @@ import { Container, SectionHeader } from "./primitives";
 
 // Claims mirror the wording already used on the site (ComplianceBadges, Benefits).
 const ITEMS = [
-  { icon: MapPin, title: "Data stays in India", body: "Your files are stored and processed with Indian data residency." },
+  { icon: MapPin, title: "Stored in India", body: "Your files are stored in India, with Indian data residency." },
   { icon: ShieldCheck, title: "SOC 2", body: "We meet SOC 2 requirements for secure handling of data across our systems." },
   { icon: Lock, title: "ISO 27001", body: "Certified to the international standard for information security management." },
   { icon: FileCheck, title: "DPDP Act, 2023", body: "Compliant with India’s Digital Personal Data Protection Act." },
