@@ -13,7 +13,7 @@ export function FitsWorkflow() {
   return (
     <section id="fits" className="w-full scroll-mt-20 border-b border-border bg-background py-16 md:py-20">
       <Container className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,2fr)] lg:gap-14">
-        <h2 className="font-heading text-3xl font-bold leading-tight tracking-tight text-balance">
+        <h2 className="font-heading text-[2rem] font-semibold leading-tight tracking-[-0.01em] text-balance">
           Works where you already work.
         </h2>
         <ul className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">

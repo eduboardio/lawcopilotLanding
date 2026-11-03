@@ -17,7 +17,7 @@ function WorkCard({
   return (
     <article className="flex min-w-0 flex-col gap-5 rounded-2xl border border-border bg-card p-6 text-card-foreground sm:p-7">
       <div className="flex items-center justify-between gap-3">
-        <h3 className="text-[15px] font-bold">{title}</h3>
+        <h3 className="text-[15px] font-semibold">{title}</h3>
         {chip}
       </div>
       <p className="font-reading text-xl leading-snug text-foreground sm:text-[1.3rem]">

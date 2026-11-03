@@ -5,7 +5,7 @@ export function ClosingCta() {
   return (
     <section id="start" className="w-full scroll-mt-20 border-b border-white/10 bg-neutral-900 py-20 text-neutral-50 md:py-28">
       <Container className="flex flex-col items-start gap-7">
-        <h2 className="max-w-3xl font-heading text-4xl font-bold leading-[1.04] tracking-tight text-neutral-50 sm:text-5xl lg:text-6xl">
+        <h2 className="max-w-3xl font-heading text-4xl font-semibold leading-[1.04] tracking-[-0.015em] text-neutral-50 sm:text-5xl lg:text-[4rem]">
           Bring LawCopilot onto your next matter.
         </h2>
         <p className="text-lg leading-relaxed text-neutral-300 md:text-xl">Start with one file. See what comes back.</p>

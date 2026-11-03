@@ -35,7 +35,7 @@ export const Hero = () => {
 
           <motion.h1
             {...rise(0.08)}
-            className="font-heading text-[2.5rem] font-bold leading-[1.04] tracking-tight text-foreground sm:text-6xl lg:text-[3.25rem] xl:text-[3.5rem]"
+            className="font-heading text-[2.75rem] font-semibold leading-[1.04] tracking-[-0.015em] text-foreground sm:text-6xl lg:text-[3.5rem] xl:text-[3.75rem]"
           >
             <span className="block">Hand over the file.</span>
             <span className="block text-muted-foreground">Get back the work.</span>
