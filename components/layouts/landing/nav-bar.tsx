@@ -1,5 +1,5 @@
 "use client";
-import { Menu, ChevronDown, Scale, FileText, FileCheck, Brain, Building2, Globe, CalendarClock, Briefcase, ShieldCheck } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { useCallback, useEffect, useState, memo, useRef } from "react";
 import {
     Sheet,
@@ -42,132 +42,12 @@ interface RouteProps {
     };
 }
 
+// Four plain links. The logo goes home; the product pages stay linked from the footer.
 const routeList: RouteProps[] = [
-    {
-        href: "/#hero",
-        label: "Home",
-    },
-    {
-        href: "#",
-        label: "Products",
-        subMenu: {
-            title: "Our Products",
-            items: [
-                {
-                    href: "/products/lawfirms",
-                    label: "For Law Firms",
-                    description: "Complete legal platform for growing firms",
-                    icon: Building2
-                },
-                {
-                    href: "/products/lawyers",
-                    label: "For Lawyers",
-                    description: "Tools for independent practitioners",
-                    icon: Scale
-                },
-                {
-                    href: "/products/everyone",
-                    label: "For Everyone",
-                    description: "Accessible legal AI for all",
-                    icon: Globe
-                },
-            ],
-            visuals: [
-                {
-                    lightImage: "/dropdown_1.webp",
-                    darkImage: "/dropdown_dark_1.webp",
-                    title: "AI-Powered Legal Platform",
-                    description: "Transform your legal practice with intelligent automation"
-                },
-                {
-                    lightImage: "/dropdown_2.webp",
-                    darkImage: "/dropdown_dark_2.webp",
-                    title: "Seamless Collaboration",
-                    description: "Work together efficiently across teams and clients"
-                }
-            ]
-        },
-    },
-    {
-        href: "/#work",
-        label: "Features",
-        subMenu: {
-            title: "What it does",
-            items: [
-                {
-                    href: "/#work",
-                    label: "The work",
-                    description: "Briefs, reviews, paper books and drafts",
-                    icon: FileText
-                },
-                {
-                    href: "/#watch",
-                    label: "Standing jobs",
-                    description: "Cause lists, inboxes and follow-ups, on a schedule",
-                    icon: CalendarClock
-                },
-                {
-                    href: "/#matter",
-                    label: "Inside the matter",
-                    description: "Every case's work, tasks and dates in one place",
-                    icon: Briefcase
-                },
-                {
-                    href: "/#how",
-                    label: "How it works",
-                    description: "It asks, shows its steps, and waits for your sign-off",
-                    icon: FileCheck
-                },
-            ],
-            visuals: [
-                {
-                    lightImage: "/dropdown_1.webp",
-                    darkImage: "/dropdown_dark_1.webp",
-                    title: "Intelligent Research",
-                    description: "Find relevant case law and precedents instantly"
-                },
-                {
-                    lightImage: "/dropdown_2.webp",
-                    darkImage: "/dropdown_dark_2.webp",
-                    title: "Smart Analytics",
-                    description: "Data-driven insights for better legal outcomes"
-                }
-            ]
-        },
-    },
-    {
-        href: "/#how",
-        label: "Why Us?",
-        subMenu: {
-            title: "Law Copilot Advantage",
-            items: [
-                {
-                    href: "/#how",
-                    label: "You stay in charge",
-                    description: "Nothing leaves without your sign-off",
-                    icon: Scale
-                },
-                {
-                    href: "/#work",
-                    label: "Built for Indian practice",
-                    description: "Paper books, cause lists, Title / EC reviews",
-                    icon: Brain
-                },
-                {
-                    href: "/#security",
-                    label: "Confidential",
-                    description: "Data in India · SOC 2 · ISO 27001 · DPDP",
-                    icon: ShieldCheck
-                },
-                {
-                    href: "/#fits",
-                    label: "Fits your tools",
-                    description: "Word, Gmail, Google Drive and a desktop app",
-                    icon: Globe
-                },
-            ],
-        },
-    },
+    { href: "/#work", label: "Product" },
+    { href: "/#security", label: "Security" },
+    { href: "/#faq", label: "FAQ" },
+    { href: "/contact", label: "Contact" },
 ];
 
 /** Only smooth-scroll when already on home; otherwise let Link navigate to absolute path (e.g. /#features). */

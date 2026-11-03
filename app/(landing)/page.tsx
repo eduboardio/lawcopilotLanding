@@ -4,7 +4,7 @@ import { DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "@/constants";
 import { FAQ_ITEMS } from "@/components/home/sections/faq-data";
 
 const description =
-  "Legal AI for advocates and law firms in India. LawCopilot reads the record, researches, drafts and keeps watch on your matters — and checks with you before anything leaves.";
+  "Legal AI for law firms and in-house legal teams in India. LawCopilot reads the record, researches, drafts and keeps watch on your matters — and checks with you before anything leaves.";
 const socialTitle = "LawCopilot — Hand over the file. Get back the work.";
 
 export const metadata: Metadata = {

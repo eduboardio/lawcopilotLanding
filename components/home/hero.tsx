@@ -25,14 +25,6 @@ export const Hero = () => {
 
       <Container className="relative z-10 grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14 lg:py-14">
         <div className="flex min-w-0 flex-col items-start gap-7">
-          <motion.p
-            {...rise(0)}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-[13px] text-foreground/80"
-          >
-            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            For advocates and law firms in India
-          </motion.p>
-
           <motion.h1
             {...rise(0.08)}
             className="font-heading text-[2.75rem] font-semibold leading-[1.04] tracking-[-0.015em] text-foreground sm:text-6xl lg:text-[3.5rem] xl:text-[3.75rem]"
