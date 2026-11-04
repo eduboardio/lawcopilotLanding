@@ -7,7 +7,7 @@ export default function PrivacyPolicyPage() {
     <section className="container mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-16 lg:py-24">
       <div className="text-center mb-8 md:mb-12">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">Privacy Policy</h1>
-        <div className="text-base md:text-lg text-muted-foreground mx-auto px-2 space-y-3">
+        <div className="text-base md:text-lg text-muted-foreground mx-auto px-2 space-y-3 text-justify hyphens-auto">
           <p>
             Lawinit Private Limited (&quot;LawCopilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) respects your right to privacy, and we are committed to securing and protecting any information we collect from you.
           </p>
@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
 
       <Card className="mx-auto max-w-8xl w-full">
         <CardContent className="pt-4 md:pt-6 px-4 md:px-8">
-          <div className="prose prose-slate dark:prose-invert max-w-none text-sm md:text-base prose-headings:text-center prose-p:text-justify">
+          <div className="prose prose-slate dark:prose-invert max-w-none text-sm md:text-base [&_li]:text-justify [&_p]:text-justify hyphens-auto">
             {/* Table of Contents */}
             <div className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">Table of Contents</h2>

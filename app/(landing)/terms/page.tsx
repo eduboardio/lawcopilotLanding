@@ -14,7 +14,7 @@ export default function TermsPage() {
 
       <Card className="mx-auto max-w-8xl w-full shadow-md">
         <CardContent className="pt-4 md:pt-6 px-4 md:px-8">
-          <div className="prose prose-slate dark:prose-invert max-w-none text-sm md:text-base prose-headings:text-center prose-p:text-justify">
+          <div className="prose prose-slate dark:prose-invert max-w-none text-sm md:text-base [&_li]:text-justify [&_p]:text-justify hyphens-auto">
             <div className="text-sm md:text-base mb-6 text-left">
               <p>Please read the TERMS & CONDITIONS carefully before registering, accessing, or using the Services offered through the web application at https://lawcopilot.in or other associated subdomains as may be officially utilized by Us from time to time (&quot;the LawCopilot Platform&quot;).</p>
 
