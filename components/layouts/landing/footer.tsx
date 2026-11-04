@@ -110,7 +110,7 @@ export const Footer = () => {
             <div className="border-t border-border">
                 <Container className="flex flex-col gap-4 py-6 text-[13px] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
                     <p suppressHydrationWarning>
-                        © {new Date().getFullYear()} {BUSINESS.legalName} · Hyderabad
+                        © {new Date().getFullYear()} {BUSINESS.legalName} · Hyderabad · Visakhapatnam
                     </p>
                     <div className="flex items-center gap-5">
                         <Link href="/privacy-policy" className="transition-colors hover:text-foreground">

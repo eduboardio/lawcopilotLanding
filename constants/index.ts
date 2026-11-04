@@ -9,6 +9,8 @@ export const BUSINESS = {
   phone: "+91 9603354488",
   phoneTel: "+919603354488",
   address: "Hyderabad, Telangana, India",
+  /** Every office, for pages that list where the team works. */
+  offices: ["Hyderabad, Telangana", "Visakhapatnam, Andhra Pradesh"],
   hours: "Mon-Fri, 9:00 AM - 5:00 PM IST",
   legalName: "Lawinit Private Limited",
 } as const;

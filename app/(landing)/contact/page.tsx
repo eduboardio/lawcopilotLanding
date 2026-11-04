@@ -491,8 +491,12 @@ export default function ContactPage() {
               <div className="flex items-center gap-4 px-5 py-4">
                 <MapPin aria-hidden className="h-5 w-5 shrink-0 text-muted-foreground" />
                 <div className="min-w-0">
-                  <dt className="text-xs text-muted-foreground">Office</dt>
-                  <dd className="text-[15px] text-foreground">{BUSINESS.address}</dd>
+                  <dt className="text-xs text-muted-foreground">Offices</dt>
+                  {BUSINESS.offices.map((office) => (
+                    <dd key={office} className="text-[15px] text-foreground">
+                      {office}
+                    </dd>
+                  ))}
                 </div>
               </div>
               <div className="flex items-center gap-4 px-5 py-4">

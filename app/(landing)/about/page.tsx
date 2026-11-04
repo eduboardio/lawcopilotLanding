@@ -11,7 +11,7 @@ import { BUSINESS } from "@/constants";
 
 const FACTS = [
   { term: "Company", detail: BUSINESS.legalName },
-  { term: "Based in", detail: "Hyderabad, India" },
+  { term: "Offices", detail: "Hyderabad and Visakhapatnam, India" },
   { term: "Built for", detail: "Law firms and in-house legal teams" },
 ];
 
@@ -113,7 +113,7 @@ export default function AboutPage() {
           <SectionHeader
             eyebrow="Team"
             title={<span id="team-title">The people building it.</span>}
-            lead="Legal and engineering experience in one team, based in Hyderabad."
+            lead="Legal and engineering experience in one team, across Hyderabad and Visakhapatnam."
           />
           <ul className="mt-10 max-w-3xl divide-y divide-border border-y border-border">
             {TEAM.map((member) => (
