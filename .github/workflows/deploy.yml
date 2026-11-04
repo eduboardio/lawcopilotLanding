@@ -6,7 +6,7 @@ name: Deploy Landing
 #
 # Needs these repository secrets (the same ones lawapp-frontend uses):
 #   SSH_HOST, SSH_PORT, SSH_USER, SSH_PRIVATE_KEY
-# And on the server, a service named below in /opt/lawcopilot/docker-compose.yml.
+# On the server, REMOTE_DIR must be owned by SSH_USER, as frontend/ and backend/ are.
 
 on:
   push:
@@ -19,8 +19,9 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SERVICE: landing-app
-  REMOTE_DIR: /opt/lawcopilot/landing/
+  # The service and folder that already serve lawcopilot.io on server A.
+  SERVICE: landing-page
+  REMOTE_DIR: /opt/lawcopilot/landing-page/
 
 jobs:
   deploy:
