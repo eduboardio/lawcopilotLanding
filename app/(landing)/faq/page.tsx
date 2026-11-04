@@ -7,11 +7,9 @@ import {
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { HelpCircle, MessageCircle, BookOpen } from "lucide-react";
+import { HelpCircle } from "lucide-react";
 
 interface FAQProps {
   question: string;
@@ -341,37 +339,6 @@ export default function FAQPage() {
                 </div>
               </div>
             ))}
-          </motion.div>
-
-          {/* Contact Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-16 text-center"
-          >
-            <div className="overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-card/50 to-card/30 p-10 backdrop-blur-sm dark:border-white/10 md:p-12">
-              <MessageCircle className="mx-auto mb-4 h-10 w-10 text-foreground dark:text-white" />
-              <h3 className="mb-2 text-2xl font-bold text-foreground dark:text-white">
-                Still have questions?
-              </h3>
-              <p className="mb-6 text-muted-foreground dark:text-white/70">
-                Our team is here to help. Reach out and we&apos;ll get back to you within 24 hours.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/contact">
-                  <Button size="lg" className="rounded-full">
-                    Contact Support
-                  </Button>
-                </Link>
-                <Link href="/resources">
-                  <Button size="lg" variant="outline" className="rounded-full">
-                    <BookOpen className="mr-2 h-4 w-4" />
-                    Browse Resources
-                  </Button>
-                </Link>
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>

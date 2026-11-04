@@ -107,8 +107,7 @@ const DesktopNavigation = memo(({ pathname, openDropdown, setOpenDropdown }: {
             <ul className="flex items-center gap-1">
                 {routeList.map((route) => {
                     const isActive = pathname === route.href ||
-                        (route.href === "/#hero" && pathname === "/") ||
-                        (route.href === "/blog" && pathname.startsWith("/blog"));
+                        (route.href === "/#hero" && pathname === "/");
                     const hasSubMenu = !!route.subMenu;
                     const isOpen = openDropdown === route.label;
 
