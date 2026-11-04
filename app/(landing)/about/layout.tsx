@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About",
   description:
-    "Learn about Law Copilot—built by legal professionals for Indian legal practice. Our values, team, and commitment to AI-powered legal intelligence.",
+    "LawCopilot is legal AI for law firms and in-house legal teams in India, built by Lawinit Private Limited in Hyderabad. What we hold to, and the team building it.",
   alternates: { canonical: "/about" },
 };
 
