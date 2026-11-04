@@ -42,6 +42,16 @@ const NEXT_STEPS = [
   { title: "See it on work like yours", detail: "If it’s a fit, we walk you through LawCopilot on a matter like yours." },
 ];
 
+// What to tell someone when the server turns a field away.
+const SERVER_FIELD_ERRORS = new Map<string, [FieldName, string]>([
+  ["firstName", ["firstName", "Check your first name. Letters, spaces, dots, apostrophes and hyphens work."]],
+  ["lastName", ["lastName", "Check your last name. Letters, spaces, dots, apostrophes and hyphens work."]],
+  ["email", ["email", "Check your email address."]],
+  ["companyName", ["companyName", "Check your firm or company name."]],
+  ["jobTitle", ["jobTitle", "Check your role."]],
+  ["message", ["message", "Check your message. It needs 10 to 5,000 characters."]],
+]);
+
 const fieldClass =
   "h-11 rounded-lg border-border bg-background px-3.5 text-[15px] shadow-none focus-visible:ring-2 focus-visible:ring-ring";
 
@@ -228,6 +238,20 @@ export default function ContactPage() {
         }),
       });
       const data = await response.json();
+      const rejected: FormErrors = {};
+      if (!response.ok && Array.isArray(data.fields)) {
+        for (const field of data.fields) {
+          const match = SERVER_FIELD_ERRORS.get(String(field));
+          if (match) Object.assign(rejected, { [match[0]]: match[1] });
+        }
+      }
+      const firstRejected = Object.keys(rejected)[0];
+      if (firstRejected) {
+        setErrors(rejected);
+        setSubmitError("Some details need another look. They’re marked above.");
+        formRef.current?.querySelector<HTMLElement>(`[name="${firstRejected}"]`)?.focus();
+        return;
+      }
       if (!response.ok) {
         throw new Error(data.error || data.details?.join(", ") || "Failed to submit form");
       }
