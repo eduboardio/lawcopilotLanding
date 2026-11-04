@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { Container, Label, SectionHeader, StatusChip, Tick } from "./primitives";
+import { FileText } from "lucide-react";
+import { AgentMark, Container, Label, SectionHeader, StatusChip, Tick } from "./primitives";
 
 function WorkCard({
   title,
@@ -10,7 +11,7 @@ function WorkCard({
 }: {
   title: string;
   chip: ReactNode;
-  brief: string;
+  brief: ReactNode;
   foot: string;
   children: ReactNode;
 }) {
@@ -60,24 +61,17 @@ const PAGE_PLAN = [
   ["Annexures P-1 to P-6", "63–118"],
 ];
 
-const JOBS: { group: string; items: string[] }[] = [
-  {
-    group: "Litigation",
-    items: ["Grounds of appeal", "Written submissions", "Cross-examination", "Limitation check", "Hearing prep", "Order sheet digest", "Reply / counter"],
-  },
-  {
-    group: "Transactional",
-    items: ["Review a contract", "Due diligence table", "Title / EC review", "Mark up their draft", "Term sheet → agreement", "Compliance checklist"],
-  },
-  {
-    group: "Notices & correspondence",
-    items: ["Legal notice", "Reply to a notice", "Email from inbox", "Client update", "Translate"],
-  },
-  {
-    group: "Research",
-    items: ["Case law research", "Find the provision", "Is it still good law?", "Compare court views", "Research memo"],
-  },
+// The rest of the team on the case, as they would appear in the product's case sharing.
+const PEOPLE = [
+  { initials: "MI", name: "Meera Iyer", note: "You", role: "Owner" },
+  { initials: "KS", name: "Karthik Subramanian", note: null, role: "Member" },
+  { initials: "RK", name: "Ramesh K.", note: "Clerk", role: "Viewer" },
 ];
+
+/** How a WhatsApp mention reads in the brief. */
+function Mention({ children }: { children: ReactNode }) {
+  return <span className="text-emerald-700 dark:text-emerald-400">{children}</span>;
+}
 
 function Cell({ value }: { value: string[] | null }) {
   if (!value) return <span className="text-muted-foreground">Reading…</span>;
@@ -196,24 +190,81 @@ export function WorkSection() {
               came to their knowledge only during the cross-examination in December 2025.
             </p>
           </WorkCard>
-        </div>
 
-        <div className="mt-5 rounded-2xl border border-border bg-card p-6 sm:p-7">
-          <h3 className="font-heading text-xl font-medium">And the rest of the job</h3>
-          <div className="mt-6 grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
-            {JOBS.map(({ group, items }) => (
-              <div key={group} className="min-w-0">
-                <Label className="mb-2.5">{group}</Label>
-                <ul className="flex flex-wrap gap-1.5">
-                  {items.map((item) => (
-                    <li key={item} className="rounded-lg border border-border px-2.5 py-1 text-[13px] text-foreground">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+          <WorkCard
+            title="Joins the case"
+            chip={<StatusChip tone="done">Up to speed</StatusChip>}
+            brief="Join O.S. 214 with Karthik and me. Get up to speed."
+            foot="It reads everything in the case, and whatever is added later. Anyone on the case can hand it work."
+          >
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <Label>People on this case</Label>
+              <span className="text-[11px] tabular-nums text-muted-foreground">O.S. No. 214 of 2024</span>
+            </div>
+            <ul className="flex flex-col gap-1 text-[13px]">
+              {PEOPLE.map((person) => (
+                <li key={person.name} className="flex items-center gap-3 py-1.5">
+                  <span
+                    aria-hidden
+                    className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-background text-[11px] font-medium text-foreground/80"
+                  >
+                    {person.initials}
+                  </span>
+                  <span className="min-w-0 flex-1 truncate text-foreground">
+                    {person.name}
+                    {person.note ? <span className="text-muted-foreground"> · {person.note}</span> : null}
+                  </span>
+                  <span className="text-muted-foreground">{person.role}</span>
+                </li>
+              ))}
+              <li className="-mx-2 mt-1 flex items-center gap-3 rounded-lg border border-border bg-background px-2 py-2">
+                <AgentMark size={28} />
+                <span className="min-w-0 flex-1">
+                  <span className="block text-foreground">LawCopilot</span>
+                  <span className="block text-[11px] leading-snug text-muted-foreground">
+                    Added just now · read 14 documents, 312 pages
+                  </span>
+                </span>
+                <span className="text-muted-foreground">Member</span>
+              </li>
+            </ul>
+          </WorkCard>
+
+          <WorkCard
+            title="On WhatsApp"
+            chip={<StatusChip tone="done">Replied</StatusChip>}
+            brief={
+              <>
+                <Mention>@LawCopilot</Mention> add this to O.S. 214. Next date?
+              </>
+            }
+            foot="Tag it in your team’s group or message it directly. What you send it goes into the case."
+          >
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <Label>Litigation team</Label>
+              <span className="text-[11px] text-muted-foreground">WhatsApp group</span>
+            </div>
+            <div className="flex flex-col gap-2.5 text-[13px]">
+              <div className="ml-auto flex max-w-[85%] items-center gap-3 rounded-xl rounded-tr-sm border border-emerald-600/20 bg-emerald-500/10 px-3 py-2.5">
+                <FileText aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
+                <span className="min-w-0">
+                  <span className="block truncate text-foreground">Order dated 03.11.2026.pdf</span>
+                  <span className="block text-[11px] text-muted-foreground">2 pages · PDF</span>
+                </span>
               </div>
-            ))}
-          </div>
+              <div className="mr-auto max-w-[94%] rounded-xl rounded-tl-sm border border-border bg-background px-3.5 py-3">
+                <p className="mb-1.5 flex items-center gap-1.5 text-[12px] font-medium text-foreground">
+                  <AgentMark size={16} />
+                  LawCopilot
+                </p>
+                <p className="leading-relaxed text-foreground">
+                  Added to O.S. No. 214 of 2024. The amendment is allowed. Next date{" "}
+                  <span className="tabular-nums">18.11.2026</span>, for evidence of DW2, and the amended
+                  written statement is due before then. <PageRef>p. 2</PageRef>
+                </p>
+              </div>
+            </div>
+          </WorkCard>
         </div>
       </Container>
     </section>
