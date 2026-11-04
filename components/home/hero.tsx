@@ -1,89 +1,93 @@
 "use client";
-import { memo } from "react";
-import { motion } from "framer-motion";
-import { ProductDemo } from "./ProductDemo";
 
-const BackgroundElements = memo(() => (
-  <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
-    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-foreground/[0.02] to-transparent dark:from-white/[0.02] rounded-full blur-3xl"></div>
-    <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-foreground/[0.02] to-transparent dark:from-white/[0.02] rounded-full blur-3xl"></div>
-    <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:80px_80px]"></div>
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-gradient-radial from-background via-background to-transparent opacity-80"></div>
-  </div>
-));
+import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { MatterCard } from "./sections/matter-card";
+import { Container, SIGNUP_URL } from "./sections/primitives";
 
-BackgroundElements.displayName = 'BackgroundElements';
+const JOBS = [
+  { label: "Document briefs", href: "/#work" },
+  { label: "Paper books", href: "/#work" },
+  { label: "Tabular reviews", href: "/#work" },
+  { label: "Drafting", href: "/#work" },
+  { label: "Cause lists", href: "/#watch" },
+];
 
 export const Hero = () => {
-  return (
-    <section
-      id="hero"
-      className="w-full min-h-screen flex flex-col justify-center relative overflow-hidden bg-background py-20 md:py-24 lg:py-28"
-    >
-      <BackgroundElements />
-      
-      <div className="container mx-auto relative z-10 px-6 flex flex-col items-center">
-        {/* Trust badge */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 dark:bg-white/[0.05] border border-border dark:border-white/10 backdrop-blur-sm mb-10 md:mb-12 group hover:bg-muted dark:hover:bg-white/[0.08] transition-all duration-300"
-        >
-          <div className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></div>
-          <span className="text-xs font-medium text-foreground/80 dark:text-white/80 tracking-wide">Trusted by India&apos;s leading law firms</span>
-        </motion.div>
+  const reduceMotion = useReducedMotion();
+  // `initial` must be identical on the server and the client, or hydration keeps the
+  // server's hidden style. Reduced motion only changes the transition, to instant.
+  const rise = (delay: number) => ({
+    initial: { opacity: 0, y: 16 },
+    animate: { opacity: 1, y: 0 },
+    transition: reduceMotion ? { duration: 0 } : { duration: 0.5, delay },
+  });
 
-        <div className="text-center max-w-5xl mx-auto space-y-8 md:space-y-10 mb-16 md:mb-20">
-          {/* Main headline */}
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.15]"
+  return (
+    <section id="hero" className="relative w-full overflow-hidden border-b border-border bg-background">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:80px_80px] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)]"
+      />
+
+      <Container className="relative z-10 grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14 lg:pb-14 lg:pt-10">
+        <div className="flex min-w-0 flex-col items-start gap-7">
+          <motion.h1
+            {...rise(0.08)}
+            className="font-heading text-[2.75rem] font-semibold leading-[1.04] tracking-[-0.015em] text-foreground sm:text-6xl lg:text-[3.5rem] xl:text-[3.75rem]"
           >
-            {/* Mobile: single block with <br /> so two lines have consistent spacing */}
-            <span className="block md:hidden">
-              <span className="text-foreground dark:text-white">Legal Practice Reimagined</span>
-              <br />
-              <span className="text-foreground/80 dark:text-white/90">with LawCopilot</span>
-            </span>
-            {/* Desktop: two blocks with gap */}
-            <span className="hidden md:block text-foreground dark:text-white">
-              Legal Practice Reimagined
-            </span>
-            <span className="hidden md:block mt-2 md:mt-3 text-foreground/80 dark:text-white/90">
-              with LawCopilot
-            </span>
+            <span className="block">Hand over the file.</span>
+            <span className="block text-muted-foreground">Get back the work.</span>
           </motion.h1>
 
-          {/* Subheadlines */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="space-y-4 md:space-y-5 max-w-3xl mx-auto"
-          >
-            <p className="text-base md:text-lg lg:text-xl text-muted-foreground dark:text-white/70 font-light leading-relaxed">
-              AI built for Indian legal professionals — enabling faster research, precision drafting, and reliable analysis with intelligence grounded in Indian law.
-            </p>
+          <motion.p {...rise(0.16)} className="max-w-lg text-lg leading-relaxed text-foreground/80 md:text-xl">
+            Legal AI that reads the record, researches and drafts — then checks with you before anything leaves.
+          </motion.p>
 
-            <p className="text-base md:text-lg lg:text-xl text-muted-foreground dark:text-white/70 font-light leading-relaxed">
-              Research case law with context. Draft compliant documents in minutes. Analyse complex materials with structured insights. Designed for Indian courts, statutes, and legal language.
-            </p>
+          <motion.div {...rise(0.24)} className="flex flex-wrap gap-3">
+            <Link
+              href={SIGNUP_URL}
+              className="inline-flex min-h-12 items-center rounded-xl bg-foreground px-5 text-base font-medium text-background transition-colors hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              Assign your first matter
+            </Link>
+            <Link
+              href="/#work"
+              className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-border bg-card px-5 text-base font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              See the work it does
+              <ArrowRight aria-hidden className="h-4 w-4" />
+            </Link>
+          </motion.div>
+
+          {/* The range of work at a glance, each a way into the page. */}
+          <motion.div {...rise(0.32)} className="flex flex-col items-start gap-2.5">
+            <span className="text-[13px] text-muted-foreground">It takes on</span>
+            <ul className="flex flex-wrap gap-1.5">
+              {JOBS.map((job) => (
+                <li key={job.label}>
+                  <Link
+                    href={job.href}
+                    className="inline-flex min-h-8 items-center rounded-full border border-border bg-background/60 px-2.5 text-[13px] text-foreground/80 transition-colors hover:border-foreground/30 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {job.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         </div>
 
-       {/* Product Demo Animation - Auto-playing */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="w-full mx-auto"
+          transition={reduceMotion ? { duration: 0 } : { duration: 0.6, delay: 0.2 }}
+          className="min-w-0"
         >
-          <ProductDemo />
+          <MatterCard />
         </motion.div>
-      </div>
+      </Container>
     </section>
   );
 };

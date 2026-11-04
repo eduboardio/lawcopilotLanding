@@ -36,6 +36,17 @@ const nextConfig: NextConfig = {
     ];
   },
   
+  // Pages removed in the homepage redesign. Permanent, so search engines move on.
+  async redirects() {
+    return [
+      { source: "/blog/:path*", destination: "/", permanent: true },
+      { source: "/careers", destination: "/about", permanent: true },
+      { source: "/document-analysis", destination: "/#work", permanent: true },
+      { source: "/products/:path*", destination: "/", permanent: true },
+      { source: "/resources/:path*", destination: "/", permanent: true },
+    ];
+  },
+
   poweredByHeader: false,
   compress: true,
   

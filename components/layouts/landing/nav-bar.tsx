@@ -1,5 +1,5 @@
 "use client";
-import { Menu, ChevronDown, Scale, FileText, Search, FileCheck, Brain, Building2, Globe } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { useCallback, useEffect, useState, memo, useRef } from "react";
 import {
     Sheet,
@@ -42,132 +42,13 @@ interface RouteProps {
     };
 }
 
+// Four plain links. The logo goes home; the product pages stay linked from the footer.
+// FAQ opens the full list; the footer shows the top questions on every page.
 const routeList: RouteProps[] = [
-    {
-        href: "/#hero",
-        label: "Home",
-    },
-    {
-        href: "#",
-        label: "Products",
-        subMenu: {
-            title: "Our Products",
-            items: [
-                {
-                    href: "/products/lawfirms",
-                    label: "For Law Firms",
-                    description: "Complete legal platform for growing firms",
-                    icon: Building2
-                },
-                {
-                    href: "/products/lawyers",
-                    label: "For Lawyers",
-                    description: "Tools for independent practitioners",
-                    icon: Scale
-                },
-                {
-                    href: "/products/everyone",
-                    label: "For Everyone",
-                    description: "Accessible legal AI for all",
-                    icon: Globe
-                },
-            ],
-            visuals: [
-                {
-                    lightImage: "/dropdown_1.webp",
-                    darkImage: "/dropdown_dark_1.webp",
-                    title: "AI-Powered Legal Platform",
-                    description: "Transform your legal practice with intelligent automation"
-                },
-                {
-                    lightImage: "/dropdown_2.webp",
-                    darkImage: "/dropdown_dark_2.webp",
-                    title: "Seamless Collaboration",
-                    description: "Work together efficiently across teams and clients"
-                }
-            ]
-        },
-    },
-    {
-        href: "/#features",
-        label: "Features",
-        subMenu: {
-            title: "Platform Capabilities",
-            items: [
-                {
-                    href: "/#legal-drafting",
-                    label: "Legal Drafting",
-                    description: "AI-powered document generation",
-                    icon: FileText
-                },
-                {
-                    href: "/#legal-research",
-                    label: "Legal Research",
-                    description: "Comprehensive case law search",
-                    icon: Search
-                },
-                {
-                    href: "/#document-analysis",
-                    label: "Document Analysis",
-                    description: "Smart contract & agreement review",
-                    icon: FileCheck
-                },
-                {
-                    href: "/#case-intelligence",
-                    label: "Case Intelligence",
-                    description: "Precedent analysis & insights",
-                    icon: Brain
-                },
-            ],
-            visuals: [
-                {
-                    lightImage: "/dropdown_1.webp",
-                    darkImage: "/dropdown_dark_1.webp",
-                    title: "Intelligent Research",
-                    description: "Find relevant case law and precedents instantly"
-                },
-                {
-                    lightImage: "/dropdown_2.webp",
-                    darkImage: "/dropdown_dark_2.webp",
-                    title: "Smart Analytics",
-                    description: "Data-driven insights for better legal outcomes"
-                }
-            ]
-        },
-    },
-    {
-        href: "/#benefits",
-        label: "Why Us?",
-        subMenu: {
-            title: "Law Copilot Advantage",
-            items: [
-                {
-                    href: "/#benefits",
-                    label: "India-First Platform",
-                    description: "Built for Indian legal practice",
-                    icon: Scale
-                },
-                {
-                    href: "/#benefits",
-                    label: "Custom AI Engine",
-                    description: "Purpose-built legal intelligence",
-                    icon: Brain
-                },
-                {
-                    href: "/#benefits",
-                    label: "Jurisdictional Intelligence",
-                    description: "Court-specific legal reasoning",
-                    icon: FileCheck
-                },
-                {
-                    href: "/#benefits",
-                    label: "Multilingual Support",
-                    description: "Legal work across Indian languages",
-                    icon: Globe
-                },
-            ],
-        },
-    },
+    { href: "/#work", label: "Product" },
+    { href: "/#security", label: "Security" },
+    { href: "/faq", label: "FAQ" },
+    { href: "/contact", label: "Contact" },
 ];
 
 /** Only smooth-scroll when already on home; otherwise let Link navigate to absolute path (e.g. /#features). */
@@ -226,8 +107,7 @@ const DesktopNavigation = memo(({ pathname, openDropdown, setOpenDropdown }: {
             <ul className="flex items-center gap-1">
                 {routeList.map((route) => {
                     const isActive = pathname === route.href ||
-                        (route.href === "/#hero" && pathname === "/") ||
-                        (route.href === "/blog" && pathname.startsWith("/blog"));
+                        (route.href === "/#hero" && pathname === "/");
                     const hasSubMenu = !!route.subMenu;
                     const isOpen = openDropdown === route.label;
 
@@ -516,8 +396,8 @@ export const Navbar = () => {
                     <div className="flex items-center lg:hidden">
                         <Sheet open={isOpen} onOpenChange={setIsOpen}>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9 sm:h-10 sm:w-10">
-                                    <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
+                                <Button variant="ghost" size="icon" aria-label="Open menu" className="lg:hidden h-9 w-9 sm:h-10 sm:w-10">
+                                    <Menu aria-hidden className="h-5 w-5 sm:h-6 sm:w-6" />
                                 </Button>
                             </SheetTrigger>
 
@@ -599,7 +479,7 @@ export const Navbar = () => {
 
                                     <CallToActions
                                         classes={{
-                                            container: "w-full",
+                                            container: "flex w-full flex-col gap-2",
                                             buttonSignIn: "w-full bg-secondary/80 hover:bg-secondary text-xs sm:text-sm h-9 sm:h-10",
                                         }}
                                     />

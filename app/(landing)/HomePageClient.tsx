@@ -1,7 +1,9 @@
 "use client";
 
 import { lazy, Suspense, ComponentType } from "react";
-import BlurFade from "@/components/ui/blur-fade";
+import { Hero } from "@/components/home/hero";
+import { TrustBand } from "@/components/home/sections/trust-band";
+import { WorkSection } from "@/components/home/sections/work";
 
 interface SectionConfig {
   component: ComponentType;
@@ -12,50 +14,52 @@ const SectionPlaceholder = () => (
   <div className="w-full h-64 animate-pulse bg-background/50 rounded-lg"></div>
 );
 
-const Hero = lazy(() =>
-  import("@/components/home/hero").then(module => ({ default: module.Hero }))
+const StandingJobs = lazy(() =>
+  import("@/components/home/sections/standing-jobs").then((m) => ({ default: m.StandingJobs }))
+);
+const InsideTheMatter = lazy(() =>
+  import("@/components/home/sections/inside-the-matter").then((m) => ({ default: m.InsideTheMatter }))
+);
+const HowItWorks = lazy(() =>
+  import("@/components/home/sections/how-it-works").then((m) => ({ default: m.HowItWorks }))
+);
+const FitsWorkflow = lazy(() =>
+  import("@/components/home/sections/fits-workflow").then((m) => ({ default: m.FitsWorkflow }))
+);
+const Confidentiality = lazy(() =>
+  import("@/components/home/sections/confidentiality").then((m) => ({ default: m.Confidentiality }))
+);
+const ClosingCta = lazy(() =>
+  import("@/components/home/sections/closing-cta").then((m) => ({ default: m.ClosingCta }))
 );
 
-import Features from "@/components/home/features";
-
-const Benefits = lazy(() =>
-  import("@/components/home/benefits").then(module => ({ default: module.Benefits }))
-);
-
-const ComplianceBadges = lazy(() =>
-  import("@/components/home/ComplianceBadges").then(module => ({ default: module.ComplianceBadges }))
-);
-
+// Hand over the file → where your files live → what comes back → how you stay in
+// charge → what it does on its own → where it lives → the tools it fits →
+// confidentiality in detail → start. The top questions sit in the footer.
 const sections: SectionConfig[] = [
   { component: Hero, priority: true },
-  { component: Features, priority: true },
-  { component: ComplianceBadges },
-  { component: Benefits },
+  { component: TrustBand, priority: true },
+  { component: WorkSection, priority: true },
+  { component: HowItWorks },
+  { component: StandingJobs },
+  { component: InsideTheMatter },
+  { component: FitsWorkflow },
+  { component: Confidentiality },
+  { component: ClosingCta },
 ];
 
 export default function HomePageClient() {
-  const BLUR_FADE_DELAY = 0.15;
-
   return (
     <div className="w-full overflow-hidden">
-      {sections.map(({ component: Component, priority }, index) => (
-        <div key={index}>
-          <BlurFade
-            delay={BLUR_FADE_DELAY * (index + 1)}
-            inView
-          >
-            <div className="w-full">
-              {priority ? (
-                <Component />
-              ) : (
-                <Suspense fallback={<SectionPlaceholder />}>
-                  <Component />
-                </Suspense>
-              )}
-            </div>
-          </BlurFade>
-        </div>
-      ))}
+      {sections.map(({ component: Component, priority }, index) =>
+        priority ? (
+          <Component key={index} />
+        ) : (
+          <Suspense key={index} fallback={<SectionPlaceholder />}>
+            <Component />
+          </Suspense>
+        )
+      )}
     </div>
   );
 }

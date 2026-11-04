@@ -7,11 +7,9 @@ import {
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { HelpCircle, MessageCircle, BookOpen } from "lucide-react";
+import { HelpCircle } from "lucide-react";
 
 interface FAQProps {
   question: string;
@@ -42,6 +40,29 @@ const FAQ_LIST: FAQProps[] = [
       "No technical knowledge is required. Law Copilot is designed for lawyers, not engineers. Our intuitive interface works like familiar tools you already use, and our team provides comprehensive training to ensure your firm gets maximum value from day one.",
     value: "technical-knowledge",
     category: "Getting Started"
+  },
+
+  // Working with LawCopilot
+  {
+    question: "How do we know its answers are right?",
+    answer:
+      "Every statement links to its source — the page in your record, the judgment or the provision — so you can check it in a click, and you can see each step it took. Before a brief is handed over, it is checked so that every statement has a page reference and every date appears in the sentence it cites. It can still make mistakes, so review its work before you rely on it.",
+    value: "checking-answers",
+    category: "Working with LawCopilot"
+  },
+  {
+    question: "What files can it work with?",
+    answer:
+      "PDFs, including scanned ones, which it reads with OCR; Word documents (.doc and .docx); and text files — up to 30 at a time. Word files come back as Word, with your formatting kept and its changes tracked.",
+    value: "file-types",
+    category: "Working with LawCopilot"
+  },
+  {
+    question: "Can it send or file anything on its own?",
+    answer:
+      "No. Email replies it drafts wait for your approval, and its edits to a draft arrive as tracked changes for you to accept. Nothing leaves without you.",
+    value: "acts-on-its-own",
+    category: "Working with LawCopilot"
   },
 
   // Indian Legal Focus
@@ -110,6 +131,20 @@ const FAQ_LIST: FAQProps[] = [
     answer:
       "Yes. Law Copilot complies with Indian data protection regulations and maintains data residency within India. We undergo regular security audits and maintain compliance certifications including ISO 27001 and SOC 2 Type II.",
     value: "compliance",
+    category: "Security & Privacy"
+  },
+  {
+    question: "Who in our team can see our documents?",
+    answer:
+      "Only the people you give access to. You invite colleagues into your organisation, give each a role — owner, admin, member or viewer — and share each case with the people working on it.",
+    value: "who-can-see",
+    category: "Security & Privacy"
+  },
+  {
+    question: "What happens to our data if we stop using LawCopilot?",
+    answer:
+      "You can delete a case, or your whole account, at any time, and private chats are deleted automatically after 7 days without activity. Data we no longer need is deleted or anonymised, as our Privacy Policy sets out.",
+    value: "leaving",
     category: "Security & Privacy"
   },
 
@@ -304,37 +339,6 @@ export default function FAQPage() {
                 </div>
               </div>
             ))}
-          </motion.div>
-
-          {/* Contact Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-16 text-center"
-          >
-            <div className="overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-card/50 to-card/30 p-10 backdrop-blur-sm dark:border-white/10 md:p-12">
-              <MessageCircle className="mx-auto mb-4 h-10 w-10 text-foreground dark:text-white" />
-              <h3 className="mb-2 text-2xl font-bold text-foreground dark:text-white">
-                Still have questions?
-              </h3>
-              <p className="mb-6 text-muted-foreground dark:text-white/70">
-                Our team is here to help. Reach out and we&apos;ll get back to you within 24 hours.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/contact">
-                  <Button size="lg" className="rounded-full">
-                    Contact Support
-                  </Button>
-                </Link>
-                <Link href="/resources">
-                  <Button size="lg" variant="outline" className="rounded-full">
-                    <BookOpen className="mr-2 h-4 w-4" />
-                    Browse Resources
-                  </Button>
-                </Link>
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>

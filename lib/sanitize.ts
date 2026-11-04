@@ -5,48 +5,55 @@ function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, '');
 }
 
-// Whitelist of allowed characters for different field types
-const ALLOWED_NAME_CHARS = /^[a-zA-Z\s'-]+$/;
-const ALLOWED_COMPANY_CHARS = /^[a-zA-Z0-9\s.,'&()-]+$/;
-const ALLOWED_MESSAGE_CHARS = /^[a-zA-Z0-9\s.,!?'"\-()@#$%&*+=\[\]{}<>:;/\\|_~`\n\r]+$/;
+// Allowed characters per field. Letters and marks in any script (Telugu, Hindi,
+// Tamil…), initials ("K. Ramesh"), and the punctuation firm names and job titles
+// use ("Reddy & Rao", "General Counsel (India)"), including curly apostrophes.
+const ALLOWED_NAME_CHARS = /^[\p{L}\p{M}\s.'’-]+$/u;
+const DISALLOWED_NAME_CHARS = /[^\p{L}\p{M}\s.'’-]/gu;
+const ALLOWED_COMPANY_CHARS = /^[\p{L}\p{M}\p{N}\s.,'’&()/+-]+$/u;
+const DISALLOWED_COMPANY_CHARS = /[^\p{L}\p{M}\p{N}\s.,'’&()/+-]/gu;
+// Messages may contain any printable text (₹, dashes, curly quotes, any script);
+// only control characters other than tabs and line breaks are refused.
+const CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/;
+const CONTROL_CHARS_ALL = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g;
 
 // Prompt injection patterns to detect
 const PROMPT_INJECTION_PATTERNS = [
-  /ignore\s+(previous|all|above)\s+(instructions|prompts?|commands?)/gi,
-  /disregard\s+(previous|all|above)\s+(instructions|prompts?|commands?)/gi,
-  /forget\s+(previous|all|above)\s+(instructions|prompts?|commands?)/gi,
-  /system\s*:\s*/gi,
-  /assistant\s*:\s*/gi,
-  /user\s*:\s*/gi,
-  /<\|im_start\|>/gi,
-  /<\|im_end\|>/gi,
-  /\[INST\]/gi,
-  /\[\/INST\]/gi,
-  /__start__/gi,
-  /__end__/gi,
-  /{{.*?}}/g,
-  /{%.*?%}/g,
-  /<script[^>]*>[\s\S]*?<\/script>/gi,
-  /javascript:/gi,
-  /on\w+\s*=/gi,
-  /<iframe/gi,
-  /<object/gi,
-  /<embed/gi,
+  /ignore\s+(previous|all|above)\s+(instructions|prompts?|commands?)/i,
+  /disregard\s+(previous|all|above)\s+(instructions|prompts?|commands?)/i,
+  /forget\s+(previous|all|above)\s+(instructions|prompts?|commands?)/i,
+  /system\s*:\s*/i,
+  /assistant\s*:\s*/i,
+  /user\s*:\s*/i,
+  /<\|im_start\|>/i,
+  /<\|im_end\|>/i,
+  /\[INST\]/i,
+  /\[\/INST\]/i,
+  /__start__/i,
+  /__end__/i,
+  /{{.*?}}/,
+  /{%.*?%}/,
+  /<script[^>]*>[\s\S]*?<\/script>/i,
+  /javascript:/i,
+  /on\w+\s*=/i,
+  /<iframe/i,
+  /<object/i,
+  /<embed/i,
 ];
 
 // SQL injection patterns
 const SQL_INJECTION_PATTERNS = [
-  /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|EXECUTE|UNION|DECLARE)\b)/gi,
-  /(--|;|\/\*|\*\/|@@|@)/g,
-  /(\bOR\b|\bAND\b).*?[=<>]/gi,
-  /['"]?\s*OR\s*['"]?\d+['"]?\s*=\s*['"]?\d+/gi,
+  /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|EXECUTE|UNION|DECLARE)\b)/i,
+  /(--|;|\/\*|\*\/|@@|@)/,
+  /(\bOR\b|\bAND\b).*?[=<>]/i,
+  /['"]?\s*OR\s*['"]?\d+['"]?\s*=\s*['"]?\d+/i,
 ];
 
 // Command injection patterns
 const COMMAND_INJECTION_PATTERNS = [
-  /[;&|`$(){}[\]<>]/g,
-  /\.\.\//g,
-  /~\//g,
+  /[;&|`$(){}[\]<>]/,
+  /\.\.\//,
+  /~\//,
 ];
 
 interface SanitizationResult {
@@ -73,11 +80,13 @@ export function sanitizeName(input: string): SanitizationResult {
   // Check for allowed characters
   if (!ALLOWED_NAME_CHARS.test(sanitized)) {
     errors.push('Name contains invalid characters');
-    sanitized = sanitized.replace(/[^a-zA-Z\s'-]/g, '');
+    sanitized = sanitized.replace(DISALLOWED_NAME_CHARS, '');
   }
   
-  // Check for injection attempts
-  if (detectInjectionAttempt(sanitized)) {
+  // Contact details only go to a Google Sheet through its API, so SQL and shell
+  // patterns can't do harm there and only turned away real names. Prompt-style
+  // and script patterns are still refused.
+  if (detectPromptInjection(sanitized)) {
     errors.push('Suspicious input detected');
     return { sanitized: '', isValid: false, errors };
   }
@@ -139,11 +148,11 @@ export function sanitizeCompanyName(input: string): SanitizationResult {
   // Check for allowed characters
   if (!ALLOWED_COMPANY_CHARS.test(sanitized)) {
     errors.push('Company name contains invalid characters');
-    sanitized = sanitized.replace(/[^a-zA-Z0-9\s.,'&()-]/g, '');
+    sanitized = sanitized.replace(DISALLOWED_COMPANY_CHARS, '');
   }
   
-  // Check for injection attempts
-  if (detectInjectionAttempt(sanitized)) {
+  // See sanitizeName: "&" and brackets are normal in firm names.
+  if (detectPromptInjection(sanitized)) {
     errors.push('Suspicious input detected');
     return { sanitized: '', isValid: false, errors };
   }
@@ -178,10 +187,10 @@ export function sanitizeMessage(input: string): SanitizationResult {
     errors.push('Message contains suspiciously long words');
   }
   
-  // Check for allowed characters
-  if (!ALLOWED_MESSAGE_CHARS.test(sanitized)) {
+  // Refuse control characters only
+  if (CONTROL_CHARS.test(sanitized)) {
     errors.push('Message contains invalid characters');
-    sanitized = sanitized.replace(/[^a-zA-Z0-9\s.,!?'"\-()@#$%&*+=\[\]{}<>:;/\\|_~`\n\r]/g, '');
+    sanitized = sanitized.replace(CONTROL_CHARS_ALL, '');
   }
   
   // Check for prompt injection
@@ -216,7 +225,8 @@ export function sanitizeGenericField(
     sanitized = sanitized.substring(0, maxLength);
   }
   
-  if (detectInjectionAttempt(sanitized)) {
+  // See sanitizeName: job titles use "&", brackets and semicolons.
+  if (detectPromptInjection(sanitized)) {
     errors.push('Suspicious input detected');
     return { sanitized: '', isValid: false, errors };
   }

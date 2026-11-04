@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/providers/theme";
-import { inter, nohemi } from "@/lib/fonts";
+import { inter, sourceSerif } from "@/lib/fonts";
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, SOCIAL } from "@/constants";
 import { Analytics } from "@/components/analytics";
 
@@ -50,11 +50,11 @@ function JsonLdSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Law Copilot",
-    legalName: "LegalInit Private Limited",
+    legalName: "Lawinit Private Limited",
     url: SITE_URL,
     logo: `${SITE_URL}/Light-Logo.png`,
     description: defaultDescription,
-    email: "admin@lawcopilot.in",
+    email: "admin@lawcopilot.io",
     telephone: "+91-9603354488",
     address: {
       "@type": "PostalAddress",
@@ -65,7 +65,7 @@ function JsonLdSchema() {
     sameAs: [SOCIAL.instagram, SOCIAL.linkedin].filter(Boolean),
     contactPoint: {
       "@type": "ContactPoint",
-      email: "admin@lawcopilot.in",
+      email: "admin@lawcopilot.io",
       telephone: "+91-9603354488",
       contactType: "customer service",
       areaServed: "IN",
@@ -82,7 +82,7 @@ function JsonLdSchema() {
     image: `${SITE_URL}/website.png`,
     url: SITE_URL,
     telephone: "+91-9603354488",
-    email: "admin@lawcopilot.in",
+    email: "admin@lawcopilot.io",
     address: { "@type": "PostalAddress", addressLocality: "Hyderabad", addressRegion: "Telangana", addressCountry: "IN" },
     openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "17:00" },
   };
@@ -112,7 +112,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${nohemi.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${sourceSerif.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased">
         <JsonLdSchema />
         <ThemeProvider attribute="class"

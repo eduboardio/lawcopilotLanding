@@ -1,162 +1,138 @@
 "use client";
 
-import { ROUTES_WITHOUT_FOOTER } from "@/constants";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Mail, Linkedin, Instagram } from "lucide-react";
-import { SOCIAL } from "@/constants";
-import { LogoText }from "@/components/logo_text";
+import { usePathname } from "next/navigation";
+import { ArrowRight, ChevronDown, Instagram, Linkedin } from "lucide-react";
+import { BUSINESS, ROUTES_WITHOUT_FOOTER, SOCIAL } from "@/constants";
+import { LogoText } from "@/components/logo_text";
+import { Container } from "@/components/home/sections/primitives";
+import { FAQ_ITEMS } from "@/components/home/sections/faq-data";
+
+const COLUMNS = [
+    {
+        title: "Product",
+        links: [
+            { href: "/research-engine", label: "Research" },
+            { href: "/document-drafting", label: "Drafting" },
+            { href: "/translation", label: "Translation" },
+            { href: "/case-analytics", label: "Case analytics" },
+        ],
+    },
+    {
+        title: "Company",
+        links: [
+            { href: "/about", label: "About" },
+            { href: "/faq", label: "FAQ" },
+            { href: "/contact", label: "Contact" },
+        ],
+    },
+];
+
+const SOCIAL_LINKS = [
+    { href: SOCIAL.linkedin, label: "LawCopilot on LinkedIn", icon: Linkedin },
+    { href: SOCIAL.instagram, label: "LawCopilot on Instagram", icon: Instagram },
+].filter((link) => link.href);
+
+/** The questions people ask first, on every page except /faq (which lists them all). */
+const FooterQuestions = () => (
+    <section id="faq" aria-labelledby="footer-faq-title" className="scroll-mt-20 border-b border-border">
+        <Container className="grid gap-8 py-14 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,2fr)] lg:gap-16">
+            <div className="flex flex-col items-start gap-3">
+                <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">Questions</p>
+                <h2 id="footer-faq-title" className="font-heading text-[1.75rem] font-semibold leading-tight tracking-[-0.01em] text-balance text-foreground">
+                    What legal teams ask first.
+                </h2>
+                <Link
+                    href="/faq"
+                    className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
+                >
+                    See all questions
+                    <ArrowRight aria-hidden className="h-3.5 w-3.5" />
+                </Link>
+            </div>
+
+            <div className="divide-y divide-border border-y border-border">
+                {FAQ_ITEMS.map(({ question, answer }) => (
+                    <details key={question} className="group">
+                        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-[15px] font-medium text-foreground transition-colors hover:text-foreground/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
+                            {question}
+                            <ChevronDown
+                                aria-hidden
+                                className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                            />
+                        </summary>
+                        <p className="max-w-3xl pb-5 pr-8 text-sm leading-relaxed text-muted-foreground">{answer}</p>
+                    </details>
+                ))}
+            </div>
+        </Container>
+    </section>
+);
 
 export const Footer = () => {
     const pathname = usePathname();
-    const shouldHideHeaderFooter = ROUTES_WITHOUT_FOOTER.includes(pathname);
-
-    if (shouldHideHeaderFooter) return null;
+    if (ROUTES_WITHOUT_FOOTER.includes(pathname)) return null;
 
     return (
-        <footer id="footer" className="relative w-full overflow-hidden bg-background border-t border-border dark:border-white/10">
-            {/* Subtle background */}
-            <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
-                <div className="absolute left-1/4 top-0 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-foreground/[0.02] to-transparent blur-3xl dark:from-white/[0.02]"></div>
-                <div className="absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-gradient-to-tl from-foreground/[0.015] to-transparent blur-3xl dark:from-white/[0.015]"></div>
-            </div>
+        <footer id="footer" className="w-full border-t border-border bg-background">
+            {pathname === "/faq" ? null : <FooterQuestions />}
 
-            {/* Full-width Separator */}
-            <div className="w-full h-px bg-border dark:bg-white/10" />
-
-            {/* Main Footer Content */}
-            <div className="container relative z-10 py-12 mx-auto px-6">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
-                    {/* Brand Section */}
-                    <div className="md:col-span-4">
-                        <div className="flex items-center mb-6">
-                            <LogoText type="LOGO_ONLY" />
-                            {/* <span className="ml-3 font-bold text-xl text-foreground dark:text-white">Law Copilot</span> */}
-                        </div>
-
-                        <p className="text-sm text-muted-foreground dark:text-white/60 mb-6 leading-relaxed max-w-sm">
-                            AI-powered legal intelligence built specifically for Indian legal practice. Research faster, draft smarter, and deliver exceptional outcomes.
-                        </p>
-
-                        {/* Social Links */}
-                        <div className="flex items-center gap-3">
-                            {SOCIAL.instagram && (
-                                <Link 
-                                    href={SOCIAL.instagram}
-                                    target="_blank"
-                                    rel="noopener noreferrer" 
-                                    className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted dark:bg-white/[0.05] hover:bg-muted/80 dark:hover:bg-white/[0.08] transition-colors group"
-                                    aria-label="Instagram"
-                                >
-                                    <Instagram className="h-5 w-5 text-muted-foreground dark:text-white/60 group-hover:text-foreground dark:group-hover:text-white transition-colors" />
-                                </Link>
-                            )}
-                            <Link 
-                                href={SOCIAL.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer" 
-                                className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted dark:bg-white/[0.05] hover:bg-muted/80 dark:hover:bg-white/[0.08] transition-colors group"
-                                aria-label="LinkedIn"
-                            >
-                                <Linkedin className="h-5 w-5 text-muted-foreground dark:text-white/60 group-hover:text-foreground dark:group-hover:text-white transition-colors" />
-                            </Link>
-                            <Link 
-                                href="mailto:admin@lawcopilot.in" 
-                                className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted dark:bg-white/[0.05] hover:bg-muted/80 dark:hover:bg-white/[0.08] transition-colors group"
-                                aria-label="Email"
-                            >
-                                <Mail className="h-5 w-5 text-muted-foreground dark:text-white/60 group-hover:text-foreground dark:group-hover:text-white transition-colors" />
-                            </Link>
-                        </div>
-                    </div>
-
-                    {/* Links Grid */}
-                    <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
-                        {/* Products */}
-                        <div className="flex flex-col gap-4">
-                            <h3 className="font-semibold text-base text-foreground dark:text-white mb-2">Products</h3>
-                            <div className="flex flex-col gap-3">
-                                <Link href="/products/lawfirms" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    For Law Firms
-                                </Link>
-                                <Link href="/products/lawyers" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    For Lawyers
-                                </Link>
-                                <Link href="/products/everyone" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    For Everyone
-                                </Link>
-                            </div>
-                        </div>
-
-                        {/* Features */}
-                        <div className="flex flex-col gap-4">
-                            <h3 className="font-semibold text-base text-foreground dark:text-white mb-2">Features</h3>
-                            <div className="flex flex-col gap-3">
-                                <Link href="/research-engine" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    Research Engine
-                                </Link>
-                                <Link href="/case-analytics" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    Case Analytics
-                                </Link>
-                                <Link href="/translation" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    Legal Translation
-                                </Link>
-                                <Link href="/document-drafting" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    Document Drafting
-                                </Link>
-                            </div>
-                        </div>
-
-                        {/* Company */}
-                        <div className="flex flex-col gap-4">
-                            <h3 className="font-semibold text-base text-foreground dark:text-white mb-2">Company</h3>
-                            <div className="flex flex-col gap-3">
-                                <Link href="/about" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    About Us
-                                </Link>
-                                <Link href="/contact" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    Contact Us
-                                </Link>
-                                <Link href="/blog" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    Blog
-                                </Link>
-                                <Link href="/faq" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    FAQ
-                                </Link>
-                            </div>
-                        </div>
-
-                        {/* Legal */}
-                        <div className="flex flex-col gap-4">
-                            <h3 className="font-semibold text-base text-foreground dark:text-white mb-2">Legal</h3>
-                            <div className="flex flex-col gap-3">
-                                <Link href="/privacy-policy" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    Privacy Policy
-                                </Link>
-                                <Link href="/terms" className="text-sm text-muted-foreground dark:text-white/60 hover:text-foreground dark:hover:text-white transition-colors">
-                                    Terms of Service
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Full-width Separator */}
-            <div className="w-full h-px bg-border dark:bg-white/10" />
-
-            {/* Bottom Bar */}
-            <div className="container relative z-10 py-8 mx-auto px-6">
-                <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-sm text-muted-foreground dark:text-white/50">
-                        © 2025 Law Copilot. All rights reserved.
+            <Container className="grid gap-10 py-14 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16">
+                <div className="flex flex-col items-start gap-4">
+                    <LogoText type="LOGO_ONLY" />
+                    <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
+                        Legal AI for law firms and in-house legal teams in India.
                     </p>
-                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground dark:text-white/40">
-                        <span>Made in India 🇮🇳</span>
-                        <span className="hidden md:inline">•</span>
-                        <span>For Indian Legal Professionals</span>
-                    </div>
                 </div>
+
+                <nav aria-label="Footer" className="grid grid-cols-2 gap-x-16 gap-y-8">
+                    {COLUMNS.map((column) => (
+                        <div key={column.title} className="flex flex-col gap-3">
+                            <p className="text-sm font-medium text-foreground">{column.title}</p>
+                            <ul className="flex flex-col gap-2.5">
+                                {column.links.map((link) => (
+                                    <li key={link.href}>
+                                        <Link
+                                            href={link.href}
+                                            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </nav>
+            </Container>
+
+            <div className="border-t border-border">
+                <Container className="flex flex-col gap-4 py-6 text-[13px] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+                    <p suppressHydrationWarning>
+                        © {new Date().getFullYear()} {BUSINESS.legalName} · Hyderabad · Visakhapatnam
+                    </p>
+                    <div className="flex items-center gap-5">
+                        <Link href="/privacy-policy" className="transition-colors hover:text-foreground">
+                            Privacy
+                        </Link>
+                        <Link href="/terms" className="transition-colors hover:text-foreground">
+                            Terms
+                        </Link>
+                        <span aria-hidden className="h-4 w-px bg-border" />
+                        {SOCIAL_LINKS.map(({ href, label, icon: Icon }) => (
+                            <Link
+                                key={label}
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={label}
+                                className="flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-muted hover:text-foreground"
+                            >
+                                <Icon aria-hidden className="h-4 w-4" />
+                            </Link>
+                        ))}
+                    </div>
+                </Container>
             </div>
         </footer>
     );

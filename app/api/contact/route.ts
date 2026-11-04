@@ -36,156 +36,89 @@ interface ValidationResult {
   isValid: boolean;
   sanitized?: Partial<ContactFormData>;
   errors: string[];
+  /** Fields that failed, so the form can mark them. */
+  fields: string[];
 }
+
+type Sanitizer = (input: string) => { sanitized: string; isValid: boolean };
+
+// Required fields and how each is checked, in the order the form shows them.
+const REQUIRED_FIELDS: [keyof ContactFormData, Sanitizer][] = [
+  ['firstName', sanitizeName],
+  ['lastName', sanitizeName],
+  ['email', sanitizeEmail],
+  ['companyName', sanitizeCompanyName],
+  ['jobTitle', (v) => sanitizeGenericField(v, 100)],
+  ['country', (v) => sanitizeGenericField(v, 100)],
+  ['orgType', (v) => sanitizeGenericField(v, 100)],
+  ['message', sanitizeMessage],
+];
+
+const OPTIONAL_FIELDS: [keyof ContactFormData, Sanitizer][] = [
+  ['teamSize', (v) => sanitizeGenericField(v, 50)],
+  ['hearAbout', (v) => sanitizeGenericField(v, 200)],
+];
 
 function validateAndSanitizeBody(body: unknown): ValidationResult {
   const errors: string[] = [];
+  const fields: string[] = [];
 
   if (!body || typeof body !== 'object') {
-    return { isValid: false, errors: ['Invalid request'] };
+    return { isValid: false, errors: ['Invalid request'], fields };
   }
 
-  const data = body as Record<string, unknown>;
+  const data = new Map(Object.entries(body as Record<string, unknown>));
   const sanitized: Partial<ContactFormData> = {};
 
   // Check honeypot field (should be empty)
-  if (data.honeypot && typeof data.honeypot === 'string' && data.honeypot.trim() !== '') {
-    logger.logSecurityEvent('Honeypot field filled', {
-      honeypot: data.honeypot,
-    });
-    return { isValid: false, errors: ['Invalid request'] };
+  const honeypot = data.get('honeypot');
+  if (typeof honeypot === 'string' && honeypot.trim() !== '') {
+    logger.logSecurityEvent('Honeypot field filled', { honeypot });
+    return { isValid: false, errors: ['Invalid request'], fields };
   }
 
-  // Validate and sanitize firstName
-  if (typeof data.firstName === 'string') {
-    const result = sanitizeName(data.firstName);
-    if (!result.isValid) {
-      errors.push('Invalid name format');
+  for (const [field, sanitize] of REQUIRED_FIELDS) {
+    const value = data.get(field);
+    const result = typeof value === 'string' ? sanitize(value) : null;
+    if (!result || !result.isValid) {
+      errors.push(`Invalid ${field}`);
+      fields.push(field);
     } else {
-      sanitized.firstName = result.sanitized;
-    }
-  } else {
-    errors.push('Required field missing');
-  }
-
-  // Validate and sanitize lastName
-  if (typeof data.lastName === 'string') {
-    const result = sanitizeName(data.lastName);
-    if (!result.isValid) {
-      errors.push('Invalid name format');
-    } else {
-      sanitized.lastName = result.sanitized;
-    }
-  } else {
-    errors.push('Required field missing');
-  }
-
-  // Validate and sanitize email
-  if (typeof data.email === 'string') {
-    const result = sanitizeEmail(data.email);
-    if (!result.isValid) {
-      errors.push('Invalid email format');
-    } else {
-      sanitized.email = result.sanitized;
-    }
-  } else {
-    errors.push('Required field missing');
-  }
-
-  // Validate and sanitize companyName
-  if (typeof data.companyName === 'string') {
-    const result = sanitizeCompanyName(data.companyName);
-    if (!result.isValid) {
-      errors.push('Invalid company name');
-    } else {
-      sanitized.companyName = result.sanitized;
-    }
-  } else {
-    errors.push('Required field missing');
-  }
-
-  // Validate and sanitize jobTitle
-  if (typeof data.jobTitle === 'string') {
-    const result = sanitizeGenericField(data.jobTitle, 100);
-    if (!result.isValid) {
-      errors.push('Invalid job title');
-    } else {
-      sanitized.jobTitle = result.sanitized;
-    }
-  } else {
-    errors.push('Required field missing');
-  }
-
-  // Validate and sanitize country
-  if (typeof data.country === 'string') {
-    const result = sanitizeGenericField(data.country, 100);
-    if (!result.isValid) {
-      errors.push('Invalid country');
-    } else {
-      sanitized.country = result.sanitized;
-    }
-  } else {
-    errors.push('Required field missing');
-  }
-
-  // Validate and sanitize orgType
-  if (typeof data.orgType === 'string') {
-    const result = sanitizeGenericField(data.orgType, 100);
-    if (!result.isValid) {
-      errors.push('Invalid organization type');
-    } else {
-      sanitized.orgType = result.sanitized;
-    }
-  } else {
-    errors.push('Required field missing');
-  }
-
-  // Validate and sanitize teamSize (optional)
-  if (data.teamSize && typeof data.teamSize === 'string') {
-    const result = sanitizeGenericField(data.teamSize, 50);
-    if (result.isValid) {
-      sanitized.teamSize = result.sanitized;
+      Object.assign(sanitized, { [field]: result.sanitized });
     }
   }
 
-  // Validate and sanitize hearAbout (optional)
-  if (data.hearAbout && typeof data.hearAbout === 'string') {
-    const result = sanitizeGenericField(data.hearAbout, 200);
-    if (result.isValid) {
-      sanitized.hearAbout = result.sanitized;
+  for (const [field, sanitize] of OPTIONAL_FIELDS) {
+    const value = data.get(field);
+    if (typeof value === 'string' && value) {
+      const result = sanitize(value);
+      if (result.isValid) Object.assign(sanitized, { [field]: result.sanitized });
     }
-  }
-
-  // Validate and sanitize message
-  if (typeof data.message === 'string') {
-    const result = sanitizeMessage(data.message);
-    if (!result.isValid) {
-      errors.push('Invalid message format');
-    } else {
-      sanitized.message = result.sanitized;
-    }
-  } else {
-    errors.push('Required field missing');
   }
 
   // Store CSRF token and signature for validation
-  if (typeof data.csrfToken === 'string') {
-    sanitized.csrfToken = data.csrfToken;
-  }
-
-  if (typeof data.timestamp === 'number') {
-    sanitized.timestamp = data.timestamp;
-  }
-
-  if (typeof data.signature === 'string') {
-    sanitized.signature = data.signature;
-  }
+  const csrfToken = data.get('csrfToken');
+  if (typeof csrfToken === 'string') sanitized.csrfToken = csrfToken;
+  const timestamp = data.get('timestamp');
+  if (typeof timestamp === 'number') sanitized.timestamp = timestamp;
+  const signature = data.get('signature');
+  if (typeof signature === 'string') sanitized.signature = signature;
 
   return {
     isValid: errors.length === 0,
     sanitized: errors.length === 0 ? sanitized : undefined,
     errors,
+    fields,
   };
+}
+
+/**
+ * Rows are written as if typed into the Sheet, so a value starting with "=",
+ * "+", "-" or "@" would run as a formula when someone opens it. A leading
+ * apostrophe keeps it as plain text and isn't shown in the cell.
+ */
+function asText(value: string): string {
+  return /^[=+\-@\t\r]/.test(value) ? `'${value}` : value;
 }
 
 export async function POST(request: NextRequest) {
@@ -299,9 +232,10 @@ async function processRequest(
         requestId,
         ip,
         errorCount: validation.errors.length,
+        fields: validation.fields.join(','),
       });
       return NextResponse.json(
-        { error: 'Invalid form data. Please check your inputs.' },
+        { error: 'Some details need another look.', fields: validation.fields },
         { status: 400 }
       );
     }
@@ -368,16 +302,16 @@ async function processRequest(
         minute: '2-digit',
         second: '2-digit',
       }),
-      'First Name': sanitizedBody.firstName,
-      'Last Name': sanitizedBody.lastName,
-      'Email': sanitizedBody.email,
-      'Company Name': sanitizedBody.companyName,
-      'Country': sanitizedBody.country,
-      'Job Title': sanitizedBody.jobTitle,
-      'Organization Type': sanitizedBody.orgType,
-      'Legal Team Size': sanitizedBody.teamSize || '',
-      'How did you hear about us': sanitizedBody.hearAbout || '',
-      'Message': sanitizedBody.message,
+      'First Name': asText(sanitizedBody.firstName),
+      'Last Name': asText(sanitizedBody.lastName),
+      'Email': asText(sanitizedBody.email),
+      'Company Name': asText(sanitizedBody.companyName),
+      'Country': asText(sanitizedBody.country),
+      'Job Title': asText(sanitizedBody.jobTitle),
+      'Organization Type': asText(sanitizedBody.orgType),
+      'Legal Team Size': asText(sanitizedBody.teamSize || ''),
+      'How did you hear about us': asText(sanitizedBody.hearAbout || ''),
+      'Message': asText(sanitizedBody.message),
     }, signal);
 
     if (!success) {
