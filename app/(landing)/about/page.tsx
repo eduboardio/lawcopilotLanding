@@ -9,8 +9,25 @@ import {
   Lightbulb,
   Shield,
   TrendingUp,
-  Award
+  Award,
+  ArrowUpRight,
+  Linkedin
 } from "lucide-react";
+
+type TeamMember = {
+  name: string;
+  /** Shown under the name when set, e.g. "Co-founder". */
+  role?: string;
+  linkedin: string;
+};
+
+const team: TeamMember[] = [
+  { name: "Manikanta Nath G P", linkedin: "https://www.linkedin.com/in/manikantanath/" },
+  { name: "Chaitra Ravada", linkedin: "https://www.linkedin.com/in/chaitra-ravada-51733997/" },
+  { name: "Kapil Trilok Chand", linkedin: "https://www.linkedin.com/in/kapil-trilok-chand-586872165/" },
+  { name: "Bharath Budda", linkedin: "https://www.linkedin.com/in/bharath-budda-b02283137/" },
+  { name: "Karthikeyan Polavarapu", linkedin: "https://www.linkedin.com/in/karthikeyan-polavarapu-75bb34337/" }
+];
 
 const values = [
   {
@@ -299,11 +316,41 @@ export default function AboutPage() {
             </p>
 
             <p>
-              Our team brings together a lawyer with firsthand experience facing real-world legal
-              challenges, and three engineers with deep expertise in advanced software architecture,
-              data science, artificial intelligence, and scalable system design—focused on building
-              solutions that legal professionals can rely on.
+              Our team brings together firsthand experience of real-world legal challenges and deep
+              expertise in software architecture, data science, artificial intelligence, and scalable
+              system design—focused on building solutions that legal professionals can rely on.
             </p>
+
+            <ul aria-label="The team" className="divide-y divide-border border-y border-border">
+              {team.map((member) => (
+                <li key={member.linkedin}>
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${member.name} on LinkedIn`}
+                    className="group flex items-center justify-between gap-4 py-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <span className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-3">
+                      <span className="font-heading text-lg font-semibold leading-snug text-foreground md:text-xl">
+                        {member.name}
+                      </span>
+                      {member.role ? (
+                        <span className="text-sm text-muted-foreground md:text-base">{member.role}</span>
+                      ) : null}
+                    </span>
+                    <span
+                      aria-hidden
+                      className="inline-flex shrink-0 items-center gap-1.5 text-sm text-muted-foreground transition-colors group-hover:text-foreground"
+                    >
+                      <Linkedin className="h-4 w-4" />
+                      <span className="hidden sm:inline">LinkedIn</span>
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
 
             <p>
               With firsthand experience in litigation, deep expertise in AI, and a commitment to
