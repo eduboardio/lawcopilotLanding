@@ -9,7 +9,9 @@ import {
 } from '@/lib/sanitize';
 import { validateCSRFToken } from '@/lib/csrf';
 import { googleSheetsClient } from '@/lib/googleSheets';
+import { sendEnquiryEmail } from '@/lib/mailer';
 import { logger } from '@/lib/logger';
+import { BUSINESS } from '@/constants';
 import { verifyRequestSignature } from '@/lib/requestSigning';
 
 // Request timeout (30 seconds)
@@ -119,6 +121,37 @@ function validateAndSanitizeBody(body: unknown): ValidationResult {
  */
 function asText(value: string): string {
   return /^[=+\-@\t\r]/.test(value) ? `'${value}` : value;
+}
+
+/** Adds the enquiry to the Google Sheet. False if the Sheet isn't set up, is over quota, or the write fails. */
+async function saveToSheet(
+  enquiry: Required<ContactFormData>,
+  receivedAt: Date,
+  signal: AbortSignal
+): Promise<boolean> {
+  if (!(await googleSheetsClient.checkQuota())) return false;
+
+  return googleSheetsClient.addRow({
+    'Timestamp': receivedAt.toLocaleString('en-US', {
+      timeZone: 'UTC',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    }),
+    'First Name': asText(enquiry.firstName),
+    'Last Name': asText(enquiry.lastName),
+    'Email': asText(enquiry.email),
+    'Company Name': asText(enquiry.companyName),
+    'Country': asText(enquiry.country),
+    'Job Title': asText(enquiry.jobTitle),
+    'Organization Type': asText(enquiry.orgType),
+    'Legal Team Size': asText(enquiry.teamSize || ''),
+    'How did you hear about us': asText(enquiry.hearAbout || ''),
+    'Message': asText(enquiry.message),
+  }, signal);
 }
 
 export async function POST(request: NextRequest) {
@@ -278,47 +311,31 @@ async function processRequest(
       );
     }
 
-    // Check Google Sheets quota before proceeding (lazy client for build-time safety)
-    const quotaOk = await googleSheetsClient.checkQuota();
-    if (!quotaOk) {
-      logger.error('Google Sheets quota exceeded', undefined, {
+    // Every enquiry is emailed to the team and, when the Sheet is set up, added
+    // to it as a record. It counts as received if either one goes through.
+    const receivedAt = new Date();
+    const [emailed, saved] = await Promise.all([
+      sendEnquiryEmail(sanitizedBody, receivedAt),
+      saveToSheet(sanitizedBody, receivedAt, signal),
+    ]);
+
+    if (!emailed && !saved) {
+      logger.error('Contact enquiry was neither emailed nor saved', undefined, {
         requestId,
         ip,
       });
       return NextResponse.json(
-        { error: 'Service temporarily unavailable. Please try again later.' },
+        { error: `We couldn’t send your message just now. Please try again, or write to us at ${BUSINESS.email}.` },
         { status: 503 }
       );
     }
 
-    // Add row to Google Sheets
-    const success = await googleSheetsClient.addRow({
-      'Timestamp': new Date().toLocaleString('en-US', {
-        timeZone: 'UTC',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      }),
-      'First Name': asText(sanitizedBody.firstName),
-      'Last Name': asText(sanitizedBody.lastName),
-      'Email': asText(sanitizedBody.email),
-      'Company Name': asText(sanitizedBody.companyName),
-      'Country': asText(sanitizedBody.country),
-      'Job Title': asText(sanitizedBody.jobTitle),
-      'Organization Type': asText(sanitizedBody.orgType),
-      'Legal Team Size': asText(sanitizedBody.teamSize || ''),
-      'How did you hear about us': asText(sanitizedBody.hearAbout || ''),
-      'Message': asText(sanitizedBody.message),
-    }, signal);
-
-    if (!success) {
-      return NextResponse.json(
-        { error: 'Failed to submit. Please try again later.' },
-        { status: 500 }
-      );
+    if (!emailed || !saved) {
+      logger.warn('Contact enquiry delivered by one channel only', {
+        requestId,
+        emailed,
+        saved,
+      });
     }
 
     logger.logRequest({
