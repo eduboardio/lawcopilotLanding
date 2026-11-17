@@ -1,18 +1,18 @@
 import type { MetadataRoute } from "next";
+import { PRACTICE_AREAS, SOLUTIONS } from "@/components/site/site-links";
 
 const baseUrl = "https://lawcopilot.io";
 
 const staticRoutes = [
   "",
+  ...SOLUTIONS.map((s) => s.href),
+  ...PRACTICE_AREAS.map((p) => p.href),
+  "/whatsapp",
+  "/security",
   "/about",
-  "/case-analytics",
   "/contact",
-  "/document-drafting",
-  "/faq",
   "/privacy-policy",
-  "/research-engine",
   "/terms",
-  "/translation",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

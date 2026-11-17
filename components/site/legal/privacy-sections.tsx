@@ -1,0 +1,489 @@
+import type { LegalSection } from "@/components/site/legal-reader";
+
+/**
+ * Privacy Policy text, split into the reader's sections.
+ * The wording is the site's current legal text (Lawinit Private Limited); do not edit it here
+ * without the owner's sign-off.
+ */
+export const PRIVACY_SECTIONS: LegalSection[] = [
+  {
+    id: "introduction",
+    title: "Introduction",
+    content: (
+      <>
+        <p>
+          Lawinit Private Limited (&quot;LawCopilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) respects your right to privacy, and we are committed to securing and protecting any information we collect from you.
+        </p>
+        <p>
+          This Privacy Policy describes the ways we collect, use, and share information relating to an identifiable individual (&quot;Personal Data&quot;), and outlines how you can exercise your rights under applicable privacy and data protection laws.
+        </p>
+        <p>
+          LawCopilot provides a secure AI-powered platform available as a software-as-a-service (&quot;SaaS&quot;) offering that assists with legal analysis, research, documentation and automation for professionals in the legal industry. We are headquartered and operate our data centers exclusively in India, ensuring your data remains stored locally.
+        </p>
+        <p>
+          This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of our Law-Copilot Products.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "section-1",
+    number: "1",
+    title: "Applicability of this Privacy Policy",
+    content: (
+      <>
+        <p>
+          This Privacy Policy outlines how Lawinit Private Limited (&quot;LawCopilot&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) collects, processes, and manages Personal Data obtained from or about you through our website (lawcopilot.in), our AI-powered software-as-a-service (&quot;SaaS&quot;) platform, associated applications, and all related services (&quot;Services&quot;), and through any other interactions you may have with us, such as customer support communications or marketing interactions.
+        </p>
+        <p>
+          Our Services are designed primarily for use by businesses, law firms, legal professionals, and other corporate entities (collectively, &quot;Customers&quot;) for professional purposes. We enter into specific contractual agreements with our Customers, such as our standard terms of service, customer agreements, data processing agreements, or other applicable contracts (&quot;Customer Agreements&quot;). These Customer Agreements govern the use of our platform, applications, and Services provided to our Customers.
+        </p>
+        <p>
+          This Privacy Policy does not apply to data or content (&quot;Customer Data&quot; or &quot;Content&quot;) uploaded by Customers or generated through their use of our platform and applications. Such Customer Data and Content are processed strictly on behalf of our Customers, and our role with respect to such processing is solely that of a Data Processor under applicable data protection laws. The processing and protection of Customer Data and Content are governed exclusively by the relevant Customer Agreements, and any inquiries or concerns regarding such data must be directed to the respective Customers acting as the Data Controllers.
+        </p>
+        <p>
+          LawCopilot acts as the Data Controller solely with respect to Personal Data collected directly by us or indirectly via your interactions with our website, platform, marketing activities, social media presence, and other communications not governed by separate Customer Agreements. This Privacy Policy governs our responsibilities and practices related to Personal Data only in these scenarios.
+        </p>
+        <p>
+          We recommend reviewing this Privacy Policy thoroughly to ensure a complete understanding of how LawCopilot handles your Personal Data.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "section-2",
+    number: "2",
+    title: "Personal Data We Collect and Process",
+    content: (
+      <>
+        <p>
+          In the course of operating our business, providing our Services, and through interactions with our website or platform, Lawinit Private Limited collects and receives Personal Data through various means and from multiple sources. This section outlines the categories of Personal Data we collect:
+        </p>
+        <h3>Information Provided Directly by You</h3>
+        <p>
+          We collect Personal Data directly from you when you create an account, use our Services, or interact with us:
+        </p>
+        <h4>a) Account Information:</h4>
+        <p>
+          When you or your organization registers an account with us, we collect information necessary for account creation and management. This may include your full name, email address, professional qualifications, occupation, preferred language, secure login credentials (such as usernames and encrypted passwords), billing and payment information, and transaction or usage history (collectively, &quot;Account Information&quot;).
+        </p>
+        <h4>b) Communication Information:</h4>
+        <p>
+          When you interact with us—such as submitting queries to customer support, providing feedback, responding to surveys, or using our help center—we collect your name, contact information, occupation, survey responses, engagement patterns, and the content of your messages (&quot;Communication Information&quot;).
+        </p>
+        <h4>c) Social Media Information:</h4>
+        <p>
+          If you engage with our official company pages on platforms like LinkedIn, X (formerly Twitter), YouTube, etc., we may collect any Personal Data you choose to share, including contact details, comments, or direct messages. We also receive aggregated analytics and engagement metrics from these platforms (&quot;Social Media Information&quot;).
+        </p>
+        <h4>d) Content You Upload or Process through the Interface:</h4>
+        <p>
+          When you upload documents or interact with the platform (e.g., via our AI chat interface), we may collect the data contained within those documents. This may include names, addresses, legal clauses, or other identifying information. These documents are processed via third-party APIs such as Google OCR, Google Gemini, or OpenAI API for translation, summarization, and legal drafting functionalities. You are responsible for ensuring that any data shared through the platform complies with applicable data protection laws and does not contain sensitive or illegal content without appropriate legal basis.
+        </p>
+        <h3>Information Collected Automatically</h3>
+        <p>
+          We also collect certain information through automated technical means from your browser or device when you interact with our website or Services:
+        </p>
+        <h4>a) Log Data:</h4>
+        <p>
+          This includes your IP address, browser type, access time and duration, referral URLs, and details on how you interact with specific features of the site or Services (&quot;Log Data&quot;).
+        </p>
+        <h4>b) Usage Data:</h4>
+        <p>
+          We collect metadata related to your interaction with the Services, including frequency and length of sessions, features accessed, types of queries submitted, and other behavioral analytics (&quot;Usage Data&quot;).
+        </p>
+        <h4>c) Cookies and Similar Technologies:</h4>
+        <p>
+          We use cookies, scripts, tags, and tracking pixels to manage user sessions, customize your experience, enhance site navigation, conduct analytics, and offer relevant advertisements. You can review our [Cookie Policy] for more information about the types of cookies we use and your opt-out choices.
+        </p>
+        <h4>d) Device Information:</h4>
+        <p>
+          We collect device-specific information to optimize the performance and security of our Services. This includes:
+        </p>
+        <ul>
+          <li>Device name and type (mobile, desktop, tablet, etc.)</li>
+          <li>Operating system and version</li>
+          <li>Browser type and version</li>
+          <li>Device identifiers (e.g., IP address, IMEI number, UUID, session tokens)</li>
+          <li>Connection data (e.g., ISP, network type, language settings)</li>
+          <li>Locale and time zone settings</li>
+          <li>Screen resolution and configuration data</li>
+        </ul>
+        <p>
+          This information helps us detect anomalies, diagnose issues, and deliver location-specific features or compliance requirements. The exact data collected may vary based on your device settings, browser configuration, and platform features used.
+        </p>
+        <h4>e) Geo-Location Data:</h4>
+        <p>
+          If you enable location services on your device or browser, we may collect and process geo-location data using services such as IP-based location or GPS data. This helps tailor platform functionality (e.g., jurisdiction-specific content, language, compliance protocols). By using our Services and enabling such features, you consent to this data collection.
+        </p>
+        <p>
+          You may withdraw consent to location-based services through your device or browser settings at any time.
+        </p>
+        <h3>Information We Collect from Third Parties</h3>
+        <p>
+          We may receive additional Personal Data from trusted external partners, including:
+        </p>
+        <ul>
+          <li>Security Providers: for fraud prevention and abuse detection.</li>
+          <li>Marketing Partners: who assist us in identifying and targeting potential customers.</li>
+          <li>Analytics Vendors: providing usage metrics and behavioral segmentation.</li>
+          <li>Event Organizers: who share attendee details from legal conferences, webinars, or professional seminars.</li>
+        </ul>
+        <p>(Collectively, &quot;Third-Party Information&quot;).</p>
+        <h3>Publicly Available Information</h3>
+        <p>
+          We may collect data from publicly available sources, such as judgments, statutes, government databases, legal digests, or professional registries. This may be used to improve our Services, conduct AI model training, or support legal research functionalities. You can contact us at admin@lawcopilot.io for further details about how such data is used and protected.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "section-3",
+    number: "3",
+    title: "How We Use Personal Data",
+    content: (
+      <>
+        <p>
+          Lawinit Private Limited uses the Personal Data described in this Privacy Policy exclusively for legitimate business purposes, to enhance your experience with our Services, ensure efficient operations, and meet legal obligations. Specifically, we process your Personal Data for the following purposes:
+        </p>
+        <h4>To Provide and Maintain Our Services:</h4>
+        <p>
+          We use your Personal Data, including Account Information and Communication Information, to deliver and maintain our Services, authenticate your access, manage your accounts, and provide personalized support.
+        </p>
+        <h4>To Develop, Improve, and Update Our Services:</h4>
+        <p>
+          Your Usage Data, Log Data, and Device Information help us analyze how you interact with our platform, enabling us to enhance existing features, identify areas of improvement, and develop new functionalities.
+        </p>
+        <h4>To Conduct Research:</h4>
+        <p>
+          We aggregate and analyze Personal Data and Publicly Available Information to conduct research aimed at improving the accuracy, efficiency, and reliability of our AI-powered solutions and Services.
+        </p>
+        <h4>To Personalize Your Experience:</h4>
+        <p>
+          Using Cookies, Usage Data, and Account Information, we personalize content and recommendations within our platform to better align with your professional needs, preferences, and interaction patterns.
+        </p>
+        <h4>To Provide Customer Support:</h4>
+        <p>
+          Communication Information and Account Information help us efficiently respond to your inquiries, address technical issues, troubleshoot problems, and deliver high-quality customer service.
+        </p>
+        <h4>To Communicate with You:</h4>
+        <p>
+          We use your contact details, with your consent when required by law, to send you essential notifications, updates, newsletters, promotional messages, and information regarding our Services, events, or webinars that may interest you.
+        </p>
+        <h4>To Evaluate and Promote Our Services:</h4>
+        <p>
+          With appropriate consent (as required by law), we assess your eligibility and interest to provide targeted offers and promotional materials about our Services, leveraging Personal Data in cooperation with marketing and advertising partners.
+        </p>
+        <h4>To Protect Our Services and Users:</h4>
+        <p>
+          We utilize your Personal Data to detect, prevent, and address fraud, unauthorized access, security incidents, illegal activities, and other misuses of our platform, thereby safeguarding the integrity of our systems and the security of our user community.
+        </p>
+        <h4>To Comply with Legal Obligations:</h4>
+        <p>
+          We process your Personal Data to comply with applicable laws, regulations, court orders, legal processes, and other enforceable requests from competent authorities, as well as to protect the rights, privacy, property, and safety of our users, employees, affiliates, and third parties.
+        </p>
+        <h4>Use of Aggregated or De-identified Data:</h4>
+        <p>
+          We may aggregate or anonymize your Personal Data in such a way that you can no longer be individually identified. We use this aggregated or anonymized data for various analytical and developmental purposes, including:
+        </p>
+        <ul>
+          <li>Evaluating and enhancing the effectiveness and quality of our Services.</li>
+          <li>Conducting market research, analytics, and performance benchmarking.</li>
+          <li>Developing insights and strategic plans for our business.</li>
+          <li>Publishing general statistics about platform usage, user trends, and other relevant information on our blog, website, or social media channels (e.g., LinkedIn).</li>
+        </ul>
+        <p>
+          Please note that we adhere strictly to our commitment not to re-identify anonymized data unless required explicitly by applicable laws or regulations.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "section-4",
+    number: "4",
+    title: "Who We Share Your Personal Data With",
+    content: (
+      <>
+        <p>
+          Lawinit Private Limited prioritizes the confidentiality and protection of your Personal Data. We do not sell or rent your Personal Data to third parties. However, for the effective provision of our Services and for legitimate business purposes, we may share your Personal Data with certain trusted entities under specific circumstances, as outlined below:
+        </p>
+        <h4>a) Affiliates and Group Companies:</h4>
+        <p>
+          We may share your Personal Data, such as Account Information and Communication Information, with our corporate affiliates and subsidiaries within the LawCopilot group of companies. This sharing is strictly limited to purposes described within this Privacy Policy, including internal administration, payment processing, customer support, fraud prevention, IT support, operational enhancements, technical assistance, and business development activities.
+        </p>
+        <h4>b) Trusted Service Providers:</h4>
+        <p>
+          We engage third-party vendors and service providers to help us operate, maintain, and enhance our Services. These third parties have restricted access to your Personal Data solely to perform tasks on our behalf and are bound by strict confidentiality agreements prohibiting them from disclosing or using your Personal Data for unauthorized purposes. Categories of such providers include:
+        </p>
+        <ul>
+          <li><strong>Hosting Providers:</strong> Entities that securely host our website, platform, and related data on servers located exclusively within India.</li>
+          <li><strong>Email and Communication Providers:</strong> Vendors assisting with email communication services and customer relationship management platforms.</li>
+          <li><strong>Payment Processing Providers:</strong> Trusted partners that securely process payments and handle billing transactions.</li>
+          <li><strong>Customer Support Providers:</strong> Partners who provide customer support services, such as helpdesk management and issue resolution.</li>
+          <li><strong>Marketing and Analytics Providers:</strong> Service providers who assist with targeted marketing campaigns, market research, performance analytics, and promotional activities.</li>
+          <li><strong>Authentication and Security Providers:</strong> Third-party companies offering cybersecurity, identity verification, authentication, and fraud detection services.</li>
+        </ul>
+        <h4>c) Integration with Third-Party Applications and Platforms:</h4>
+        <p>
+          If you choose to integrate your LawCopilot account with external third-party applications (for example, Microsoft Office, Google Workspace, or similar platforms), certain Account Information and Usage Data may be shared with the providers of these third-party services. We advise you to carefully review the privacy policies and terms of service of any third-party applications or platforms before enabling such integrations, as their own privacy practices will govern how they manage your data.
+        </p>
+        <h4>d) Business Reorganization or Corporate Transactions:</h4>
+        <p>
+          In the event of a business reorganization, merger, acquisition, sale, consolidation, liquidation, or transfer of all or a significant portion of Lawinit Private Limited&apos;s assets, we may share or transfer your Personal Data as part of the due diligence or transaction process. Should this occur, we will notify you directly and take all reasonable measures to ensure the continued protection and confidentiality of your Personal Data in accordance with this Privacy Policy.
+        </p>
+        <h4>e) Professional Advisors and Regulatory Authorities:</h4>
+        <p>
+          We may share your Personal Data with our professional advisors, including legal counsel, auditors, accountants, consultants, and tax advisors, as necessary for legitimate business and compliance purposes. Additionally, we may disclose your Personal Data to law enforcement agencies, governmental or regulatory authorities, judicial bodies, civil litigants, or other relevant entities when we reasonably believe such disclosure is necessary to:
+        </p>
+        <ul>
+          <li>Comply with applicable laws, regulations, legal obligations, court orders, or enforceable governmental requests.</li>
+          <li>Investigate, prevent, or address fraud, security incidents, violations of our terms of service, illegal activities, or potential threats.</li>
+          <li>Protect the rights, property, privacy, safety, and well-being of Lawinit Private Limited, our users, affiliates, employees, or the public.</li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: "section-5",
+    number: "5",
+    title: "How We Keep Your Personal Data Secure",
+    content: (
+      <>
+        <p>
+          Lawinit Private Limited takes the security and confidentiality of your Personal Data very seriously. We have implemented robust technical, administrative, and organizational security measures designed to protect your Personal Data against unauthorized access, alteration, disclosure, loss, misuse, or destruction. These measures are regularly reviewed and updated to ensure they remain effective and appropriate to the evolving nature of the threats and risks involved.
+        </p>
+        <p>
+          Specifically, our security measures include, but are not limited to:
+        </p>
+        <h4>Data Encryption:</h4>
+        <p>
+          All Personal Data is encrypted both in transit and at rest using industry-standard encryption protocols (e.g., TLS/SSL for data transmission and AES-256 encryption for stored data).
+        </p>
+        <h4>Secure Data Hosting:</h4>
+        <p>
+          We host all Personal Data exclusively within secure, state-of-the-art data centers located in India, complying fully with local data residency and protection regulations.
+        </p>
+        <h4>Access Control and Authentication:</h4>
+        <p>
+          Strict access controls are implemented to ensure that only authorized personnel, bound by confidentiality agreements and trained in data protection practices, can access Personal Data. Access is granted on a role-based, least-privilege basis, and is regularly reviewed.
+        </p>
+        <h4>Continuous Monitoring and Auditing:</h4>
+        <p>
+          We employ advanced monitoring systems, intrusion detection systems (IDS), and regular security audits to promptly detect, investigate, and respond to any potential security incidents or vulnerabilities.
+        </p>
+        <h4>Incident Response and Management:</h4>
+        <p>
+          Our incident response protocols are designed to promptly identify, contain, mitigate, and remediate security incidents. We also have established procedures for timely notification to affected users and regulatory authorities, as mandated by applicable laws.
+        </p>
+        <h4>Security Awareness and Training:</h4>
+        <p>
+          All employees and contractors handling Personal Data receive regular data protection training to maintain awareness of privacy and security obligations and best practices.
+        </p>
+        <h4>Regular Risk Assessments:</h4>
+        <p>
+          We conduct regular risk assessments, vulnerability scans, and penetration tests to proactively identify and mitigate security risks or vulnerabilities that could potentially compromise your Personal Data.
+        </p>
+        <p>
+          While we continuously strive to protect your Personal Data with comprehensive security measures, it is important to acknowledge that no security mechanism or transmission method is 100% foolproof. If you have any reason to believe that your interactions with us are no longer secure, please immediately notify us at admin@lawcopilot.io.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "section-6",
+    number: "6",
+    title: "International Data Transfers",
+    content: (
+      <>
+        <p>
+          Lawinit Private Limited is committed to maintaining a robust framework for the protection, processing, and storage of Personal Data in compliance with the Digital Personal Data Protection Act, 2023 and other applicable Indian laws. To ensure strict adherence to data sovereignty principles, we have adopted the following international data transfer policy:
+        </p>
+        <h3>6.1 Data Residency and Localization</h3>
+        <p>
+          All Personal Data collected from users located in India is stored, processed, and managed exclusively within Indian territory. Our servers, cloud infrastructure, and data hosting environments are located in data centers within India, ensuring compliance with Indian data residency laws.
+        </p>
+        <h3>6.2 No International Transfers for Indian Users</h3>
+        <p>
+          For users accessing our website or using our Services from within India, no Personal Data is transferred, mirrored, backed up, or stored outside the geographical boundaries of India under ordinary circumstances. Your data stays within India unless explicitly required under law.
+        </p>
+        <h3>6.3 Use of Third-party Providers</h3>
+        <p>
+          Where we engage third-party service providers for specific features or operations—such as payment gateways, customer support tools, analytics platforms, or cloud infrastructure providers—we take the following precautions:
+        </p>
+        <ul>
+          <li>We contractually bind such third parties to store and process data within India wherever technically feasible.</li>
+          <li>Where data must be processed outside India (e.g., global email or cloud service providers), such processing is limited to non-Personal Data or conducted under strict contractual obligations, including the use of Data Processing Agreements (DPAs), standard contractual clauses, and robust technical and organizational security measures.</li>
+        </ul>
+        <p>
+          Examples of such providers include Razorpay (for payments), Azure India (for cloud hosting), and SendGrid or similar email providers (for transactional notifications).
+        </p>
+        <h3>6.4 Use of AI APIs and Data Protection</h3>
+        <p>
+          OpenAI API: While we use third-party APIs such as OpenAI for natural language generation and document summarization, we do not transmit or share Personal Data to OpenAI&apos;s servers. All interactions are proxied through internal gateways that scrub or anonymize any sensitive or identifiable information prior to API calls.
+        </p>
+        <p>
+          Azure Cognitive Services / OCR APIs: Where document processing involves extraction using OCR (Optical Character Recognition), we use APIs offered by providers with Indian data centers (e.g., Microsoft Azure India) and ensure encryption and non-retention of input/output data.
+        </p>
+        <p>
+          All AI-related integrations are architected with data minimization, data segregation, and non-persistencesafeguards to prevent any unauthorized data export or profiling.
+        </p>
+        <h3>6.5 Exceptional Scenarios</h3>
+        <p>
+          In rare and narrowly defined cases, international transfers of Personal Data may be necessitated:
+        </p>
+        <ul>
+          <li>To comply with binding orders of Indian courts, tribunals, or law enforcement agencies;</li>
+          <li>For legal defense in cross-border regulatory or judicial proceedings;</li>
+          <li>Where explicitly permitted under applicable Indian data protection laws.</li>
+        </ul>
+        <p>
+          In such instances, we will ensure:
+        </p>
+        <ul>
+          <li>Your Personal Data is transferred only with appropriate legal basis and safeguards (e.g., encryption, purpose limitation);</li>
+          <li>You are notified, wherever feasible and legally permitted, about the nature and purpose of the transfer.</li>
+        </ul>
+        <h3>6.6 No Sale or Commercial Disclosure of Data</h3>
+        <p>
+          Lawinit Private Limited does not sell, rent, or commercially transfer your Personal Data to any foreign entity or third party in exchange for monetary or non-monetary consideration.
+        </p>
+        <h3>6.7 Questions and Transparency</h3>
+        <p>
+          We believe in transparency and accountability. If you have any questions or concerns regarding international data transfers, third-party services, or our data localization policies, please contact:
+        </p>
+        <p>
+          Email: admin@lawcopilot.io
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "section-7",
+    number: "7",
+    title: "Data Retention",
+    content: (
+      <>
+        <p>
+          Lawinit Private Limited retains your Personal Data only for as long as necessary to fulfill the specific purposes for which we collected the data, as described in this Privacy Policy, and in compliance with applicable laws and regulations.
+        </p>
+        <p>Our data retention practices take into account several factors, including:</p>
+        <h4>Terms of Customer Agreements:</h4>
+        <p>
+          If your use of our Services is governed by a specific Customer Agreement, we retain your Personal Data strictly in accordance with the terms stipulated therein. Upon termination or expiry of such agreements, your Personal Data will be deleted or anonymized as per the agreed-upon timelines.
+        </p>
+        <h4>Compliance with Legal and Regulatory Obligations:</h4>
+        <p>
+          We retain certain categories of Personal Data (e.g., transaction history, account information) for legally mandated periods required by Indian tax, accounting, auditing standards, regulatory obligations, or other compliance requirements.
+        </p>
+        <h4>Dispute Resolution and Enforcement:</h4>
+        <p>
+          In cases involving disputes, potential legal claims, or violations of our terms or policies, we may retain relevant Personal Data as long as necessary to resolve such matters or to protect our legal rights.
+        </p>
+        <p>
+          When Lawinit Private Limited no longer has any ongoing legitimate business purpose or legal justification to process your Personal Data, we will either securely delete your data or anonymize it in such a manner that it can no longer be used to identify you individually.
+        </p>
+        <p>
+          In circumstances where immediate deletion is not feasible (such as when data is stored within secure backup archives), we will isolate your Personal Data securely, ensuring it remains protected from further processing or unauthorized access until deletion or anonymization becomes technically possible.
+        </p>
+        <p>
+          If you have specific questions regarding our data retention practices or wish to request deletion or correction of your Personal Data, please contact us at admin@lawcopilot.io.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "section-8",
+    number: "8",
+    title: "Your Data Protection Rights",
+    content: (
+      <>
+        <p>
+          Individuals across jurisdictions—including the European Union, United Kingdom, United States, and India—have certain statutory rights regarding their Personal Data. Subject to applicable data protection laws and certain legal exceptions, you may exercise the following rights:
+        </p>
+        <h4>Right to Access, Rectify, or Delete:</h4>
+        <p>
+          You have the right to request access to your Personal Data, request correction of inaccurate or incomplete data, or request deletion of data where it is no longer necessary for the purposes for which it was collected.
+        </p>
+        <h4>Right to Object or Restrict Processing:</h4>
+        <p>
+          You may object to the processing of your Personal Data under certain conditions or request that we restrict the processing of your data where legally permissible.
+        </p>
+        <h4>Right to Data Portability:</h4>
+        <p>
+          You can request a copy of your Personal Data in a structured, commonly used, and machine-readable format, and you may request that this data be transmitted to another data controller.
+        </p>
+        <h4>Right to Opt-Out of Marketing Communications:</h4>
+        <p>
+          You may opt-out of receiving marketing communications at any time by clicking the &quot;unsubscribe&quot; or &quot;opt-out&quot; link in our marketing emails. To opt out of other forms of marketing (e.g., postal or phone), please contact us using the details under Section 12. Note: even if you opt out of marketing, you will continue to receive service-related communications.
+        </p>
+        <h4>Right to Withdraw Consent:</h4>
+        <p>
+          Where processing is based on your consent, you may withdraw that consent at any time. This withdrawal does not affect the lawfulness of prior processing nor processing carried out on other lawful bases.
+        </p>
+        <h4>Right to Complain to a Supervisory Authority:</h4>
+        <p>
+          If you believe we have infringed your privacy rights, you may have the right to lodge a complaint with your local data protection authority. Contact details for EU data protection authorities are available here, and for the UK Information Commissioner&apos;s Office here.
+        </p>
+        <p>
+          To exercise any of these rights, please contact us using the details provided under Section 12 – How to Contact Us. We respond to all such requests in accordance with applicable data protection laws and within any statutory timeframes.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "section-9",
+    number: "9",
+    title: "Children's Privacy",
+    content: (
+      <>
+        <p>
+          Our website and Services are not intended for use by individuals under the age of 18. Lawinit Private Limited does not knowingly collect, solicit, or process Personal Data from individuals under the age of 18. If you are a parent or legal guardian and believe that a minor under the age of 18 has provided us with Personal Data through our Services, please contact us at admin@lawcopilot.io. Upon verification, we will take appropriate steps to delete such information from our records in accordance with applicable data protection laws.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "section-10",
+    number: "10",
+    title: "Updates to this Privacy Policy",
+    content: (
+      <>
+        <p>
+          We may update this Privacy Policy from time to time to reflect changes in legal, regulatory, technical, or business developments. When we make material updates to this Privacy Policy, we will take appropriate measures to notify you in a manner that is consistent with the significance of the changes and as required by applicable data protection laws.
+        </p>
+        <p>
+          We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your Personal Data.
+        </p>
+        <p>
+          You can determine when this Privacy Policy was last updated by referring to the &quot;Last Updated&quot; date at the top of this document.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "section-11",
+    number: "11",
+    title: "Contact Information",
+    content: (
+      <>
+        <p>
+          If you have any questions, concerns, or requests regarding this Privacy Policy or our handling of your Personal Data, please feel free to contact our Data Protection Officer at:
+        </p>
+        <p>
+          📧 Email: admin@lawcopilot.io
+        </p>
+        <p>
+          📬 Postal Address:<br />
+          Lawinit Private Limited<br />
+          Vizag Deck, Sethamadhara Road, Visakhapatnam, Andhra Pradesh, 530022<br />
+          India
+        </p>
+        <p>
+          If you are located in the European Economic Area (EEA) or the United Kingdom and would like to contact our representative for data protection matters under the GDPR or UK GDPR, please write to us at the above email address and we will facilitate contact with our designated representative.
+        </p>
+        <p>
+          We are committed to addressing your concerns in a timely and effective manner in accordance with applicable privacy and data protection laws.
+        </p>
+      </>
+    ),
+  },
+];

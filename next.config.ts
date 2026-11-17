@@ -41,9 +41,15 @@ const nextConfig: NextConfig = {
     return [
       { source: "/blog/:path*", destination: "/", permanent: true },
       { source: "/careers", destination: "/about", permanent: true },
-      { source: "/document-analysis", destination: "/#work", permanent: true },
+      { source: "/document-analysis", destination: "/#tabular", permanent: true },
       { source: "/products/:path*", destination: "/", permanent: true },
       { source: "/resources/:path*", destination: "/", permanent: true },
+      // Pages folded into the home page in the 2026 redesign.
+      { source: "/faq", destination: "/#faq", permanent: true },
+      { source: "/research-engine", destination: "/#research", permanent: true },
+      { source: "/document-drafting", destination: "/#drafting", permanent: true },
+      { source: "/case-analytics", destination: "/#cases", permanent: true },
+      { source: "/translation", destination: "/#briefs", permanent: true },
     ];
   },
 
