@@ -31,7 +31,13 @@ const eslintConfig = [
       'react-hooks/exhaustive-deps': 'error',
       '@next/next/no-img-element': 'error',
     }
-  }
+  },
+  {
+    // The redesigned pages place pre-sized WebP screenshots and painted grounds with
+    // exact inline positioning from the design, so they use <img> on purpose.
+    files: ['components/site/**', 'app/(landing)/**'],
+    rules: { '@next/next/no-img-element': 'off' },
+  },
 ];
 
 export default eslintConfig;

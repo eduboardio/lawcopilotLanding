@@ -1,12 +1,11 @@
-import type { Metadata } from "next";
-import ClientLandingLayout from "./ClientLandingLayout";
-
-export const metadata: Metadata = {
-  // title: "AI Legal Intelligence for India",
-  description:
-    "AI-powered legal intelligence built for Indian legal practice. Research faster, draft smarter, and deliver exceptional outcomes with Law Copilot.",
-};
+import { SiteNav } from "@/components/site/site-nav";
+import { ZoomablePage } from "@/components/site/zoomable-page";
 
 export default function LandingLayout({ children }: { children: React.ReactNode }) {
-  return <ClientLandingLayout>{children}</ClientLandingLayout>;
+  return (
+    <ZoomablePage>
+      <SiteNav />
+      <main>{children}</main>
+    </ZoomablePage>
+  );
 }

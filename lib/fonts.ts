@@ -1,26 +1,29 @@
-import { Inter, Source_Serif_4 } from "next/font/google";
+import { Host_Grotesk, Newsreader, Open_Sans } from "next/font/google";
 
-/**
- * Interface and body text - paragraphs, labels, nav links, buttons, bold text.
- * The app uses Inter too.
- */
-export const inter = Inter({
+/** Interface and body text: paragraphs, labels, nav links, buttons. */
+export const hostGrotesk = Host_Grotesk({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-inter",
+  weight: "variable",
+  variable: "--font-host-grotesk",
   display: "swap",
 });
 
 /**
- * Headlines and reading text - h1/h2, `.font-heading`, briefs and document excerpts.
- * Matches the serif wordmark and the app, which sets answers and drafts in Source Serif 4.
- * Variable weight with the optical-size axis, so large headlines get the display cut.
+ * Headlines and display figures. Set at optical size 20 everywhere (see `.serif`
+ * in globals.css), so large headlines keep the text cut's warmth.
  */
-export const sourceSerif = Source_Serif_4({
+export const newsreader = Newsreader({
   subsets: ["latin"],
   weight: "variable",
   axes: ["opsz"],
-  style: ["normal", "italic"],
-  variable: "--font-source-serif",
+  variable: "--font-newsreader",
+  display: "swap",
+});
+
+/** Only inside product mock-ups, where it stands in for the app's interface font. */
+export const openSans = Open_Sans({
+  subsets: ["latin"],
+  weight: "variable",
+  variable: "--font-open-sans",
   display: "swap",
 });

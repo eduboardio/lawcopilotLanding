@@ -1,8 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { ThemeProvider } from "@/providers/theme";
-import { inter, sourceSerif } from "@/lib/fonts";
+import { hostGrotesk, newsreader, openSans } from "@/lib/fonts";
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, SOCIAL } from "@/constants";
 import { Analytics } from "@/components/analytics";
 
@@ -94,7 +92,6 @@ function JsonLdSchema() {
     url: SITE_URL,
     description: defaultDescription,
     publisher: { "@id": `${SITE_URL}/#organization` },
-    potentialAction: { "@type": "SearchAction", target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/research-engine?q={search_term_string}` }, "query-input": "required name=search_term_string" },
   };
 
   return (
@@ -112,18 +109,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${sourceSerif.variable}`} suppressHydrationWarning>
-      <body className="font-sans antialiased">
+    <html lang="en" className={`${hostGrotesk.variable} ${newsreader.variable} ${openSans.variable}`}>
+      <body>
         <JsonLdSchema />
-        <ThemeProvider attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TooltipProvider delayDuration={0}>
-            {children}
-          </TooltipProvider>
-        </ThemeProvider>
+        {children}
         <Analytics />
       </body>
     </html>

@@ -8,14 +8,26 @@ LawCopilot takes on document briefs, paper books, tabular reviews, drafting and 
 
 - [Home](https://lawcopilot.io)
 - [Contact](https://lawcopilot.io/contact)
-- [Research Engine](https://lawcopilot.io/research-engine)
-- [Case Analytics](https://lawcopilot.io/case-analytics)
-- [Document Drafting](https://lawcopilot.io/document-drafting)
-- [Legal Translation](https://lawcopilot.io/translation)
+- [Security](https://lawcopilot.io/security)
+- [WhatsApp updates](https://lawcopilot.io/whatsapp)
+
+## Solutions
+
+- [Law firms](https://lawcopilot.io/law-firms)
+- [In-house teams](https://lawcopilot.io/in-house-teams)
+- [Litigation](https://lawcopilot.io/litigation)
+
+## Practice areas
+
+- [Litigation and appeals](https://lawcopilot.io/practice-areas/litigation-and-appeals)
+- [Insolvency and banking](https://lawcopilot.io/practice-areas/insolvency-and-banking)
+- [Real estate](https://lawcopilot.io/practice-areas/real-estate)
+- [M&A](https://lawcopilot.io/practice-areas/m-and-a)
+- [In-house](https://lawcopilot.io/practice-areas/in-house)
 
 ## Company
 
 - [About](https://lawcopilot.io/about)
-- [FAQ](https://lawcopilot.io/faq)
+- [FAQ](https://lawcopilot.io/#faq)
 - [Privacy Policy](https://lawcopilot.io/privacy-policy)
 - [Terms of Service](https://lawcopilot.io/terms)
